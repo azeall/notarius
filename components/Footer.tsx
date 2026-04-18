@@ -3,23 +3,23 @@ import { notary } from '@/lib/data'
 
 const officialOrgs = [
   {
-    logo: '/notarius1.png',
-    label: 'Федеральная нотариальная палата',
+    logo: '/notarius1.jpg',
+    label: 'Р¤РµРґРµСЂР°Р»СЊРЅР°СЏ РЅРѕС‚Р°СЂРёР°Р»СЊРЅР°СЏ РїР°Р»Р°С‚Р°',
     href: 'https://notariat.ru/ru-ru/',
   },
   {
-    logo: '/notarius2.png',
-    label: 'Московская городская нотариальная палата',
+    logo: '/notarius2.jpg',
+    label: 'РњРѕСЃРєРѕРІСЃРєР°СЏ РіРѕСЂРѕРґСЃРєР°СЏ РЅРѕС‚Р°СЂРёР°Р»СЊРЅР°СЏ РїР°Р»Р°С‚Р°',
     href: 'https://77.notariat.ru/ru-ru/',
   },
   {
-    logo: '/notarius3.png',
-    label: 'Министерство юстиции РФ',
+    logo: '/notarius3.jpg',
+    label: 'РњРёРЅРёСЃС‚РµСЂСЃС‚РІРѕ СЋСЃС‚РёС†РёРё Р Р¤',
     href: 'https://minjust.gov.ru/',
   },
   {
-    logo: '/notarius3.png',
-    label: 'Главное управление Минюста по Москве',
+    logo: '/notarius3.jpg',
+    label: 'Р“Р»Р°РІРЅРѕРµ СѓРїСЂР°РІР»РµРЅРёРµ РњРёРЅСЋСЃС‚Р° РїРѕ РњРѕСЃРєРІРµ',
     href: 'https://to77.minjust.gov.ru/ru/',
   },
 ]
@@ -30,19 +30,19 @@ export default function Footer() {
       {/* Official organisations */}
       <div className="border-b border-white/10">
         <div className="max-w-6xl mx-auto px-4 py-8">
-          <p className="text-xs uppercase tracking-widest text-gray-500 mb-5">
-            Официальные организации
+          <p className="text-xs uppercase tracking-widest text-gray-500 mb-5 text-center">
+            РћС„РёС†РёР°Р»СЊРЅС‹Рµ РѕСЂРіР°РЅРёР·Р°С†РёРё
           </p>
-          <div className="flex flex-wrap gap-8">
+          <div className="flex flex-wrap justify-center gap-4">
             {officialOrgs.map(org => (
               <a
                 key={org.href + org.label}
                 href={org.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 group"
+                className="flex flex-col items-center gap-2 p-3 rounded border border-white/5 hover:border-gold/40 hover:bg-white/5 transition-all group w-36"
               >
-                <div className="relative w-12 h-12 flex-shrink-0">
+                <div className="relative w-14 h-14 flex-shrink-0">
                   <Image
                     src={org.logo}
                     alt={org.label}
@@ -50,7 +50,7 @@ export default function Footer() {
                     className="object-contain"
                   />
                 </div>
-                <span className="text-xs text-center text-gray-400 group-hover:text-gold transition-colors leading-tight max-w-[130px]">
+                <span className="text-xs text-center text-gray-400 group-hover:text-gold transition-colors leading-tight">
                   {org.label}
                 </span>
               </a>
@@ -68,7 +68,7 @@ export default function Footer() {
             {notary.phone}
           </a>
         </div>
-        <p>© {new Date().getFullYear()} Все права защищены</p>
+        <p>В© {new Date().getFullYear()} Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹</p>
       </div>
     </footer>
   )
