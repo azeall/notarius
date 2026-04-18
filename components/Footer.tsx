@@ -29,20 +29,20 @@ export default function Footer() {
     <footer className="bg-navy-dark text-gray-400 mt-auto">
       {/* Official organisations */}
       <div className="border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-4 py-8">
-          <p className="text-xs uppercase tracking-widest text-gray-500 mb-5 text-center">
+        <div className="max-w-6xl mx-auto px-4 py-10">
+          <p className="text-xs uppercase tracking-widest text-gray-500 mb-8 text-center">
             РћС„РёС†РёР°Р»СЊРЅС‹Рµ РѕСЂРіР°РЅРёР·Р°С†РёРё
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-12">
             {officialOrgs.map(org => (
               <a
                 key={org.href + org.label}
                 href={org.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 p-3 rounded border border-white/5 hover:border-gold/40 hover:bg-white/5 transition-all group w-36"
+                className="flex flex-col items-center gap-3 p-4 rounded border border-white/5 hover:border-gold/40 hover:bg-white/5 transition-all group w-40"
               >
-                <div className="relative w-14 h-14 flex-shrink-0">
+                <div className="relative w-16 h-16 flex-shrink-0">
                   <Image
                     src={org.logo}
                     alt={org.label}
