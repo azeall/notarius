@@ -3,23 +3,23 @@ import { notary } from '@/lib/data'
 
 const officialOrgs = [
   {
-    logo: '/notarius1.jpg',
-    label: 'Р¤РµРґРµСЂР°Р»СЊРЅР°СЏ РЅРѕС‚Р°СЂРёР°Р»СЊРЅР°СЏ РїР°Р»Р°С‚Р°',
+    logo: '/notarius1.png',
+    label: 'Федеральная нотариальная палата',
     href: 'https://notariat.ru/ru-ru/',
   },
   {
-    logo: '/notarius2.jpg',
-    label: 'РњРѕСЃРєРѕРІСЃРєР°СЏ РіРѕСЂРѕРґСЃРєР°СЏ РЅРѕС‚Р°СЂРёР°Р»СЊРЅР°СЏ РїР°Р»Р°С‚Р°',
+    logo: '/notarius2.png',
+    label: 'Московская городская нотариальная палата',
     href: 'https://77.notariat.ru/ru-ru/',
   },
   {
-    logo: '/notarius3.jpg',
-    label: 'РњРёРЅРёСЃС‚РµСЂСЃС‚РІРѕ СЋСЃС‚РёС†РёРё Р Р¤',
+    logo: '/notarius3.png',
+    label: 'Министерство юстиции РФ',
     href: 'https://minjust.gov.ru/',
   },
   {
-    logo: '/notarius3.jpg',
-    label: 'Р“Р»Р°РІРЅРѕРµ СѓРїСЂР°РІР»РµРЅРёРµ РњРёРЅСЋСЃС‚Р° РїРѕ РњРѕСЃРєРІРµ',
+    logo: '/notarius3.png',
+    label: 'Главное управление Минюста по Москве',
     href: 'https://to77.minjust.gov.ru/ru/',
   },
 ]
@@ -31,7 +31,7 @@ export default function Footer() {
       <div className="border-b border-white/10">
         <div className="max-w-6xl mx-auto px-4 py-8">
           <p className="text-xs uppercase tracking-widest text-gray-500 mb-5">
-            РћС„РёС†РёР°Р»СЊРЅС‹Рµ РѕСЂРіР°РЅРёР·Р°С†РёРё
+            Официальные организации
           </p>
           <div className="flex flex-wrap gap-8">
             {officialOrgs.map(org => (
@@ -68,7 +68,7 @@ export default function Footer() {
             {notary.phone}
           </a>
         </div>
-        <p>В© {new Date().getFullYear()} Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹</p>
+        <p>© {new Date().getFullYear()} Все права защищены</p>
       </div>
     </footer>
   )
