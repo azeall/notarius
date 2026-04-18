@@ -42,12 +42,13 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-3 group w-40"
               >
-                <div className="relative w-16 h-16 flex-shrink-0">
+                <div className="w-20 h-20 flex-shrink-0 flex items-center justify-center">
                   <Image
                     src={org.logo}
                     alt={org.label}
-                    fill
-                    className="object-contain mix-blend-luminosity group-hover:mix-blend-normal transition-all"
+                    width={80}
+                    height={80}
+                    className="object-contain w-20 h-20"
                   />
                 </div>
                 <span className="text-xs text-center text-gray-400 group-hover:text-gold transition-colors leading-tight">
