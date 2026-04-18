@@ -3,22 +3,22 @@ import { notary } from '@/lib/data'
 
 const officialOrgs = [
   {
-    logo: '/notarius1.jpg',
+    logo: '/notarius1.png',
     label: 'Федеральная нотариальная палата',
     href: 'https://notariat.ru/ru-ru/',
   },
   {
-    logo: '/notarius2.jpg',
+    logo: '/notarius2.png',
     label: 'Московская городская нотариальная палата',
     href: 'https://77.notariat.ru/ru-ru/',
   },
   {
-    logo: '/notarius3.jpg',
+    logo: '/notarius3.png',
     label: 'Министерство юстиции РФ',
     href: 'https://minjust.gov.ru/',
   },
   {
-    logo: '/notarius3.jpg',
+    logo: '/notarius3.png',
     label: 'Главное управление Минюста по Москве',
     href: 'https://to77.minjust.gov.ru/ru/',
   },
