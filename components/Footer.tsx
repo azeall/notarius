@@ -1,19 +1,24 @@
+import Image from 'next/image'
 import { notary } from '@/lib/data'
 
-const officialLinks = [
+const officialOrgs = [
   {
+    logo: '/notarius1.jpg',
     label: 'Федеральная нотариальная палата',
     href: 'https://notariat.ru/ru-ru/',
   },
   {
+    logo: '/notarius2.jpg',
     label: 'Московская городская нотариальная палата',
     href: 'https://77.notariat.ru/ru-ru/',
   },
   {
+    logo: '/notarius3.jpg',
     label: 'Министерство юстиции РФ',
     href: 'https://minjust.gov.ru/',
   },
   {
+    logo: '/notarius3.jpg',
     label: 'Главное управление Минюста по Москве',
     href: 'https://to77.minjust.gov.ru/ru/',
   },
@@ -22,20 +27,32 @@ const officialLinks = [
 export default function Footer() {
   return (
     <footer className="bg-navy-dark text-gray-400 mt-auto">
-      {/* Official links */}
+      {/* Official organisations */}
       <div className="border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-4 py-6">
-          <p className="text-xs uppercase tracking-widest text-gray-500 mb-3">Полезные ссылки</p>
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
-            {officialLinks.map(link => (
+        <div className="max-w-6xl mx-auto px-4 py-8">
+          <p className="text-xs uppercase tracking-widest text-gray-500 mb-5">
+            Официальные организации
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {officialOrgs.map(org => (
               <a
-                key={link.href}
-                href={link.href}
+                key={org.href + org.label}
+                href={org.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-gray-400 hover:text-gold transition-colors"
+                className="flex flex-col items-center gap-2 p-3 rounded border border-white/5 hover:border-gold/40 hover:bg-white/5 transition-all group"
               >
-                {link.label}
+                <div className="relative w-14 h-14 flex-shrink-0">
+                  <Image
+                    src={org.logo}
+                    alt={org.label}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <span className="text-xs text-center text-gray-400 group-hover:text-gold transition-colors leading-tight">
+                  {org.label}
+                </span>
               </a>
             ))}
           </div>
