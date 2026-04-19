@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { notary } from '@/lib/data'
 
@@ -17,8 +18,19 @@ export default function Header() {
   return (
     <header className="bg-navy text-white shadow-md">
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="font-serif text-lg font-bold tracking-wide hover:text-gold transition-colors">
-          {notary.name}
+        <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
+          <div className="w-9 h-9 flex-shrink-0">
+            <Image
+              src="/notarius4.png"
+              alt="Логотип нотариуса"
+              width={36}
+              height={36}
+              className="object-contain w-9 h-9"
+            />
+          </div>
+          <span className="font-serif text-lg font-bold tracking-wide hover:text-gold transition-colors">
+            {notary.name}
+          </span>
         </Link>
 
         <nav className="hidden md:flex gap-6">
