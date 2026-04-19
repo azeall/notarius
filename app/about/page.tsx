@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 
@@ -28,24 +27,10 @@ const VALUES = [
 export default function AboutPage() {
   return (
     <>
-      {/* Page header with background photo */}
+      {/* Page header */}
       <section className="relative bg-navy text-white overflow-hidden">
-        {/* Background photo — subtle, 20% opacity */}
-        <div className="absolute inset-0">
-          <Image
-            src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=60"
-            alt=""
-            fill
-            className="object-cover opacity-20"
-            priority
-          />
-        </div>
-
-        {/* Gold top accent */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent opacity-60" />
-
-        {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-[0.03]" aria-hidden>
+        <div className="absolute inset-0 opacity-[0.04]" aria-hidden>
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
@@ -55,7 +40,6 @@ export default function AboutPage() {
             <rect width="100%" height="100%" fill="url(#grid)" />
           </svg>
         </div>
-
         <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
           <p className="text-gold uppercase tracking-[0.18em] text-xs font-semibold mb-3">О нас</p>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Нотариальная контора</h1>
@@ -111,24 +95,11 @@ export default function AboutPage() {
                 Нотариальная контора располагается в удобном месте в центре Москвы, вблизи станций метро.
                 Мы ценим ваше время и стремимся к тому, чтобы каждое посещение проходило быстро и комфортно.
               </p>
-
-              {/* Office photo */}
-              <div className="relative rounded-2xl overflow-hidden h-56 mt-6">
-                <Image
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=75"
-                  alt="Нотариальный офис"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 66vw"
-                />
-                <div className="absolute inset-0 bg-navy/10 rounded-2xl" />
-              </div>
             </div>
 
             {/* Sidebar */}
             <div className="space-y-5">
               <div className="bg-navy text-white rounded-xl p-6">
-                {/* Portrait placeholder — initials style */}
                 <div className="w-20 h-20 rounded-full bg-white/10 border-2 border-gold/40 flex items-center justify-center mx-auto mb-4">
                   <span className="font-serif text-2xl font-bold text-gold">Б</span>
                 </div>
