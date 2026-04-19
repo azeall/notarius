@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { notary } from '@/lib/data'
+import BookingButton from '@/components/BookingButton'
 
 export default function Hero() {
   return (
@@ -12,12 +12,7 @@ export default function Hero() {
           {notary.name}
         </h1>
         <p className="text-gray-300 text-lg mb-10">{notary.title}</p>
-        <Link
-          href="/contacts"
-          className="inline-block bg-gold text-white px-10 py-3 font-semibold uppercase tracking-wider hover:bg-amber-600 transition-colors rounded-sm"
-        >
-          Записаться на приём
-        </Link>
+        <BookingButton className="inline-block bg-gold text-white px-10 py-3 font-semibold uppercase tracking-wider hover:bg-amber-600 transition-colors rounded-sm" />
       </div>
     </section>
   )
