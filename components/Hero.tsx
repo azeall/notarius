@@ -12,7 +12,7 @@ export default function Hero() {
           {notary.name}
         </h1>
         <p className="text-gray-300 text-lg mb-10">{notary.title}</p>
-        <BookingButton className="inline-block bg-gold text-white px-10 py-3 font-semibold uppercase tracking-wider hover:bg-amber-600 transition-colors rounded-sm" />
+        <BookingButton className="inline-block bg-gold text-navy font-semibold px-10 py-3 rounded-lg hover:brightness-110 transition-all uppercase tracking-wider" />
       </div>
     </section>
   )
