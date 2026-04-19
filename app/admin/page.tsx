@@ -15,35 +15,53 @@ export default async function AdminPage() {
     byDate[a.date].push(a)
   }
 
+  const dateKeys = Object.keys(byDate).sort()
+
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="font-serif text-3xl font-bold text-navy mb-8">Записи на приём</h1>
+    <div className="max-w-5xl mx-auto px-4 py-12">
+      <h1 className="font-serif text-4xl font-bold text-navy mb-10">Записи на приём</h1>
 
       <AdminAddForm />
 
-      {Object.keys(byDate).length === 0 ? (
-        <p className="text-gray-500">Нет активных записей.</p>
+      {dateKeys.length === 0 ? (
+        <p className="text-gray-400 text-center py-16 text-lg">Нет активных записей</p>
       ) : (
-        Object.entries(byDate).map(([date, items]) => {
-          const [y, m, d] = date.split('-')
-          const label = `${d}.${m}.${y}`
-          return (
-            <div key={date} className="mb-8">
-              <h2 className="font-semibold text-navy text-lg mb-3 border-b border-gray-200 pb-2">{label}</h2>
-              <div className="space-y-2">
-                {items.map(a => (
-                  <div key={a.id} className="flex items-center justify-between bg-white rounded-lg px-4 py-3 shadow-sm border border-gray-100">
-                    <div>
-                      <p className="font-medium text-gray-800">{a.name}</p>
-                      <p className="text-sm text-gray-500">{a.phone} · {a.service}</p>
+        <div className="space-y-10">
+          {dateKeys.map(date => {
+            const [y, m, d] = date.split('-')
+            const label = `${d}.${m}.${y}`
+            const items = byDate[date]
+            return (
+              <div key={date}>
+                <h2 className="font-serif text-2xl font-bold text-navy mb-4">{label}</h2>
+                <div className="grid gap-3">
+                  {items.map(a => (
+                    <div
+                      key={a.id}
+                      className="flex items-center justify-between bg-white rounded-2xl px-6 py-5 shadow-sm border border-gray-100 hover:border-gold/30 transition-colors"
+                    >
+                      <div className="flex items-center gap-5">
+                        <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
+                          <span className="text-gold font-bold text-lg">{a.name.charAt(0)}</span>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900 text-lg leading-tight">{a.name}</p>
+                          <p className="text-gray-500 text-sm mt-0.5">{a.phone}</p>
+                          <p className="text-navy/70 text-sm mt-1 font-medium">{a.service}</p>
+                        </div>
+                      </div>
+                      <div className="text-right flex-shrink-0 ml-4">
+                        <span className="inline-block bg-gold text-navy font-bold text-xl px-5 py-2 rounded-xl">
+                          {a.time}
+                        </span>
+                      </div>
                     </div>
-                    <span className="text-sm font-semibold bg-gold/10 text-navy px-3 py-1 rounded-full">{a.time}</span>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          )
-        })
+            )
+          })}
+        </div>
       )}
     </div>
   )
