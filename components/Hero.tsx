@@ -1,156 +1,332 @@
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
+import ParticleCanvas from '@/components/ParticleCanvas'
 
 export default function Hero() {
+  const nameParts = notary.name.trim().split(/\s+/)
+  const patronymic = nameParts.length >= 3 ? nameParts[nameParts.length - 1] : ''
+  const nameMain = nameParts.length >= 3
+    ? nameParts.slice(0, -1).join(' ')
+    : notary.name
+
   return (
-    <section className="relative bg-navy text-white overflow-hidden">
-      {/* Geometric grid */}
-      <div className="absolute inset-0 opacity-[0.035]" aria-hidden>
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="1"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
-      </div>
+    <section
+      className="relative overflow-hidden flex flex-col"
+      style={{
+        minHeight: '100dvh',
+        background:
+          'radial-gradient(ellipse 80% 60% at 80% 20%, rgba(200,160,60,0.07) 0%, transparent 60%),' +
+          'radial-gradient(ellipse 70% 80% at 15% 90%, rgba(200,160,60,0.04) 0%, transparent 60%),' +
+          'linear-gradient(180deg, #0d1b3e 0%, #0a1632 60%, #070f24 100%)',
+      }}
+    >
+      {/* Particle canvas */}
+      <ParticleCanvas className="absolute inset-0 w-full h-full pointer-events-none z-[1]" />
 
-      {/* Gold top accent */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent opacity-60" />
+      {/* Vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[2]"
+        style={{ background: 'radial-gradient(ellipse 100% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.30) 100%)' }}
+        aria-hidden
+      />
 
-      <div className="relative max-w-6xl mx-auto px-4 py-20 md:py-28">
-        {/* Asymmetric 3/5 + 2/5 split */}
-        <div className="grid md:grid-cols-5 gap-12 items-center">
+      {/* Gold hairline top */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px z-[3]"
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(184,154,90,0.6), transparent)' }}
+        aria-hidden
+      />
 
-          {/* Content — 3 columns */}
-          <div className="md:col-span-3">
-            <p
-              className="text-gold uppercase tracking-[0.2em] text-xs mb-6 font-semibold animate-fade-in-up"
+      {/* Main grid */}
+      <div
+        className="relative z-[5] flex-1 mx-auto w-full flex items-center"
+        style={{ maxWidth: '1480px', padding: '72px 64px 96px' }}
+      >
+        <div
+          className="w-full grid items-center gap-16 md:gap-20"
+          style={{ gridTemplateColumns: 'minmax(0, 1.25fr) minmax(0, 0.95fr)' }}
+        >
+          {/* ── LEFT COLUMN ── */}
+          <div>
+            {/* Eyebrow */}
+            <div
+              className="inline-flex items-center gap-3 mb-8 animate-fade-in-up"
               style={{ animationDelay: '0ms' }}
             >
-              Нотариальная контора · Москва
-            </p>
+              <span className="block w-11 h-px bg-gold flex-shrink-0" />
+              <span className="text-gold font-semibold text-[11px] tracking-[0.32em] uppercase">
+                Нотариальная контора · с 2008 года
+              </span>
+            </div>
 
+            {/* H1 */}
             <h1
-              className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] font-bold mb-5 leading-[1.1] tracking-tight animate-fade-in-up"
-              style={{ animationDelay: '80ms' }}
+              className="font-serif font-medium leading-[1.04] tracking-tight mb-7 animate-fade-in-up text-cream"
+              style={{
+                fontSize: 'clamp(44px, 5.4vw, 78px)',
+                letterSpacing: '-0.01em',
+                animationDelay: '80ms',
+              }}
             >
-              {notary.name}
+              {nameMain}
+              {patronymic && (
+                <>
+                  <br />
+                  <em className="italic font-normal" style={{ color: '#e0bd5f' }}>{patronymic}</em>
+                </>
+              )}
             </h1>
 
+            {/* Role */}
             <p
-              className="text-gray-300 text-lg mb-2 leading-relaxed font-light animate-fade-in-up"
-              style={{ animationDelay: '160ms' }}
+              className="font-serif italic text-slate mb-7 animate-fade-in-up"
+              style={{ fontSize: '20px', animationDelay: '140ms' }}
             >
-              Защита ваших прав и юридическая безопасность каждой сделки
-            </p>
-            <p
-              className="text-gray-500 text-sm mb-10 animate-fade-in-up"
-              style={{ animationDelay: '200ms' }}
-            >
-              {notary.title}
+              — нотариус города Москвы
             </p>
 
+            {/* Subtitle */}
+            <p
+              className="text-slate leading-relaxed mb-12 max-w-[540px] animate-fade-in-up"
+              style={{ fontSize: '17px', lineHeight: '1.65', animationDelay: '200ms' }}
+            >
+              Защита ваших прав и юридическая безопасность каждой сделки.
+              Полный спектр нотариальных действий с соблюдением конфиденциальности.
+            </p>
+
+            {/* Actions */}
             <div
-              className="flex flex-wrap gap-3 mb-8 animate-fade-in-up"
+              className="flex flex-wrap items-center gap-8 mb-14 animate-fade-in-up"
               style={{ animationDelay: '280ms' }}
             >
-              <BookingButton className="bg-gold text-navy font-semibold px-8 py-3 rounded-lg hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer" />
+              <BookingButton
+                className="relative inline-flex items-center gap-4 font-sans font-bold text-[12px] tracking-[0.22em] uppercase px-9 py-5 cursor-pointer overflow-hidden transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
+                style={{
+                  background: 'linear-gradient(180deg, #c8a03c 0%, #a07828 100%)',
+                  color: '#1a1307',
+                  boxShadow: '0 12px 40px -12px rgba(200,160,60,0.55)',
+                }}
+              />
+
               <a
                 href={notary.phoneHref}
-                className="flex items-center gap-2 border border-white/20 text-white font-semibold px-7 py-3 rounded-lg hover:border-gold/60 hover:text-gold transition-all active:scale-[0.98]"
+                className="flex items-center gap-4 group text-cream no-underline"
               >
-                <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                </svg>
-                {notary.phone}
+                <span
+                  className="w-11 h-11 rounded-full grid place-items-center flex-shrink-0 transition-colors"
+                  style={{ border: '1px solid rgba(200,160,60,0.22)', color: '#b89a5a' }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                </span>
+                <span className="flex flex-col gap-0.5">
+                  <span className="text-[11px] tracking-[0.22em] uppercase" style={{ color: '#6b7895' }}>
+                    Приём по записи
+                  </span>
+                  <span className="font-serif text-[22px] text-cream">
+                    {notary.phone}
+                  </span>
+                </span>
               </a>
             </div>
 
+            {/* Trust row */}
             <div
-              className="flex items-center gap-5 animate-fade-in-up"
-              style={{ animationDelay: '360ms' }}
+              className="flex items-center gap-7 pt-9 animate-fade-in-up"
+              style={{
+                borderTop: '1px solid rgba(255,255,255,0.07)',
+                maxWidth: '620px',
+                animationDelay: '360ms',
+              }}
             >
-              <span className="text-gray-600 text-xs uppercase tracking-wider">Написать:</span>
-              <a
-                href={`https://wa.me/${notary.phone.replace(/\D/g, '')}`}
-                target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-gray-400 hover:text-green-400 transition-colors text-sm"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-                WhatsApp
-              </a>
-              <a
-                href={`https://t.me/+${notary.phone.replace(/\D/g, '')}`}
-                target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-gray-400 hover:text-blue-400 transition-colors text-sm"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-                </svg>
-                Telegram
-              </a>
+              {[
+                { num: '18', lbl: 'лет практики' },
+                { num: '12K+', lbl: 'удостоверений' },
+                { num: '24/7', lbl: 'срочный выезд' },
+              ].map((stat, i) => (
+                <div key={stat.lbl} className="flex items-center gap-7">
+                  <div className="flex flex-col">
+                    <span className="font-serif text-[32px] leading-none text-gold mb-2">{stat.num}</span>
+                    <span className="text-[11px] tracking-[0.18em] uppercase" style={{ color: '#6b7895' }}>
+                      {stat.lbl}
+                    </span>
+                  </div>
+                  {i < 2 && (
+                    <div className="w-px h-9 flex-shrink-0" style={{ background: 'rgba(255,255,255,0.12)' }} />
+                  )}
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Credentials panel — 2 columns */}
+          {/* ── RIGHT COLUMN ── */}
           <div
-            className="hidden md:flex md:col-span-2 flex-col gap-4 animate-fade-in"
-            style={{ animationDelay: '400ms' }}
+            className="hidden md:flex flex-col gap-5 animate-fade-in"
+            style={{ animationDelay: '200ms' }}
           >
-            {/* Trust card */}
-            <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-6 space-y-5">
-              <div className="flex items-start gap-3 pb-5 border-b border-white/10">
-                <div className="w-9 h-9 rounded-xl bg-gold/15 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-white text-sm font-semibold leading-tight">Лицензия Минюст РФ</p>
-                  <p className="text-gray-500 text-xs mt-1 leading-snug">Официальная лицензия Министерства юстиции России</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-xl bg-gold/15 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-white text-sm font-semibold leading-tight">Член МГНП</p>
-                  <p className="text-gray-500 text-xs mt-1 leading-snug">Московская городская нотариальная палата</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Stats row */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-white/[0.04] border border-white/10 rounded-xl p-4 text-center">
-                <p className="font-serif text-2xl font-bold text-gold tabular-nums">15+</p>
-                <p className="text-gray-500 text-xs mt-1 tracking-wide">лет опыта</p>
-              </div>
-              <div className="bg-white/[0.04] border border-white/10 rounded-xl p-4 text-center">
-                <p className="font-serif text-2xl font-bold text-gold tabular-nums">5 000+</p>
-                <p className="text-gray-500 text-xs mt-1 tracking-wide">клиентов</p>
+            {/* Portrait placeholder */}
+            <div
+              className="relative overflow-hidden"
+              style={{
+                aspectRatio: '4/5',
+                maxWidth: '420px',
+                border: '1px solid rgba(200,160,60,0.22)',
+                background:
+                  'repeating-linear-gradient(45deg, rgba(200,160,60,0.06) 0px, rgba(200,160,60,0.06) 2px, transparent 2px, transparent 12px),' +
+                  'linear-gradient(160deg, rgba(200,160,60,0.10), rgba(10,22,40,0.40))',
+              }}
+            >
+              {/* Inner frame */}
+              <div
+                className="absolute pointer-events-none"
+                style={{ inset: '14px', border: '1px solid rgba(200,160,60,0.22)' }}
+                aria-hidden
+              />
+              {/* Corner brackets */}
+              {[
+                { style: { top: 0, left: 0, borderTop: '1px solid #b89a5a', borderLeft: '1px solid #b89a5a' } },
+                { style: { top: 0, right: 0, borderTop: '1px solid #b89a5a', borderRight: '1px solid #b89a5a' } },
+                { style: { bottom: 0, left: 0, borderBottom: '1px solid #b89a5a', borderLeft: '1px solid #b89a5a' } },
+                { style: { bottom: 0, right: 0, borderBottom: '1px solid #b89a5a', borderRight: '1px solid #b89a5a' } },
+              ].map((c, i) => (
+                <div key={i} className="absolute" style={{ width: 18, height: 18, ...c.style }} aria-hidden />
+              ))}
+              {/* Label */}
+              <div
+                className="absolute bottom-6 left-6 font-mono text-[11px] tracking-[0.15em] uppercase"
+                style={{ color: '#6b7895' }}
+              >
+                [ портрет / {notary.address.split(',')[0]} ]
               </div>
             </div>
 
-            {/* Address */}
-            <div className="bg-white/[0.03] border border-white/[0.07] rounded-xl px-5 py-4 flex items-start gap-3">
-              <svg className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
-              <p className="text-gray-400 text-xs leading-relaxed">{notary.address}</p>
+            {/* Credential cards */}
+            <div className="grid grid-cols-2 gap-3.5" style={{ maxWidth: '420px' }}>
+              {[
+                {
+                  icon: (
+                    <svg width="22" height="24" viewBox="0 0 22 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+                      <path d="M11 1.5 2 4.5v7c0 5.5 3.8 9.8 9 11.5 5.2-1.7 9-6 9-11.5v-7L11 1.5Z" />
+                      <path d="m7 11.5 3 3 5-5.5" strokeWidth="1.6" />
+                    </svg>
+                  ),
+                  code: 'Реестр · № 77/1842',
+                  title: 'Лицензия\nМинюст РФ',
+                  meta: 'Выдана 14.03.2008',
+                  verify: 'Действующая',
+                },
+                {
+                  icon: (
+                    <svg width="22" height="24" viewBox="0 0 22 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+                      <path d="M11 1.5 2 4.5v7c0 5.5 3.8 9.8 9 11.5 5.2-1.7 9-6 9-11.5v-7L11 1.5Z" />
+                      <path d="M11 7v9M7 11h8M6 14h4M12 14h4" strokeWidth="1.3" />
+                    </svg>
+                  ),
+                  code: 'Членство с 2009',
+                  title: 'Член МГНП',
+                  meta: 'Моск. гор. нотариальная палата',
+                  verify: 'Активное',
+                },
+              ].map((cred) => (
+                <div
+                  key={cred.code}
+                  className="relative group cursor-default transition-all duration-300"
+                  style={{
+                    padding: '22px 20px',
+                    background: 'linear-gradient(170deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01))',
+                    border: '1px solid rgba(200,160,60,0.18)',
+                    backdropFilter: 'blur(6px)',
+                  }}
+                >
+                  {/* Gold corner decorations */}
+                  <div
+                    className="absolute top-0 left-0 w-3.5 h-px bg-gold"
+                    aria-hidden
+                  />
+                  <div
+                    className="absolute top-0 left-0 w-px h-3.5 bg-gold"
+                    aria-hidden
+                  />
+                  {/* Shield icon */}
+                  <div
+                    className="w-9 h-9 mb-4 grid place-items-center text-gold"
+                    style={{ background: 'radial-gradient(circle at 50% 40%, rgba(200,160,60,0.22), transparent 70%)' }}
+                  >
+                    {cred.icon}
+                  </div>
+                  <div className="font-mono text-[10px] tracking-[0.22em] uppercase mb-1.5" style={{ color: '#6b7895' }}>
+                    {cred.code}
+                  </div>
+                  <div className="font-serif text-[17px] leading-snug text-cream mb-2.5" style={{ whiteSpace: 'pre-line' }}>
+                    {cred.title}
+                  </div>
+                  <div className="text-[12px] text-slate">{cred.meta}</div>
+                  <div
+                    className="absolute bottom-3.5 right-3.5 text-[10px] tracking-[0.16em] uppercase"
+                    style={{ color: '#b89a5a', opacity: 0.7 }}
+                  >
+                    ✓ {cred.verify}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Hours pill */}
+            <div
+              className="flex items-center gap-3"
+              style={{
+                padding: '14px 20px',
+                border: '1px solid rgba(255,255,255,0.08)',
+                background: 'rgba(255,255,255,0.02)',
+                maxWidth: '420px',
+              }}
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full flex-shrink-0 animate-pulse-dot"
+                style={{ background: '#4ade80', boxShadow: '0 0 10px #4ade80' }}
+              />
+              <span className="text-[12px] text-slate tracking-[0.04em]">
+                <strong className="text-cream font-medium">Открыто сейчас</strong>
+                {' · '}Пн–Пт 9:00–20:00, Сб 10:00–16:00
+              </span>
             </div>
           </div>
-
         </div>
+      </div>
+
+      {/* Vertical address note */}
+      <div
+        className="absolute right-6 top-1/2 -translate-y-1/2 hidden xl:block z-[6]"
+        style={{
+          writingMode: 'vertical-rl',
+          transform: 'rotate(180deg) translateY(50%)',
+          fontSize: '10px',
+          letterSpacing: '0.4em',
+          textTransform: 'uppercase',
+          color: 'rgba(184,154,90,0.20)',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {notary.address}
+      </div>
+
+      {/* Scroll cue */}
+      <div
+        className="absolute left-16 bottom-9 z-[6] hidden md:flex items-center gap-3.5"
+        style={{ fontSize: '10px', letterSpacing: '0.32em', textTransform: 'uppercase', color: '#6b7895' }}
+      >
+        <span>Листайте ниже</span>
+        <span
+          className="relative overflow-hidden"
+          style={{ width: '60px', height: '1px', background: 'linear-gradient(90deg, #b89a5a, transparent)' }}
+        >
+          <span
+            className="absolute inset-0 bg-gold animate-scroll-line"
+            style={{ transformOrigin: 'left' }}
+            aria-hidden
+          />
+        </span>
       </div>
     </section>
   )
