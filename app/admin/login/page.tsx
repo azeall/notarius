@@ -17,19 +17,19 @@ export default function AdminLogin() {
     if (res.ok) {
       router.push('/admin')
     } else {
-      setError('РќРµРІРµСЂРЅС‹Р№ РїР°СЂРѕР»СЊ')
+      setError('Неверный пароль')
     }
   }
 
   return (
     <div className="min-h-screen bg-navy flex items-center justify-center px-4">
       <form onSubmit={handleSubmit} className="bg-white rounded-xl p-8 w-80 shadow-lg">
-        <h1 className="font-serif text-navy text-xl font-bold mb-6 text-center">Р’С…РѕРґ</h1>
+        <h1 className="font-serif text-navy text-xl font-bold mb-6 text-center">Вход</h1>
         <input
           type="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
-          placeholder="РџР°СЂРѕР»СЊ"
+          placeholder="Пароль"
           autoFocus
           className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-4 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
         />
@@ -38,7 +38,7 @@ export default function AdminLogin() {
           type="submit"
           className="w-full bg-gold text-navy font-semibold py-2.5 rounded-lg hover:brightness-110 transition-all"
         >
-          Р’РѕР№С‚Рё
+          Войти
         </button>
       </form>
     </div>
