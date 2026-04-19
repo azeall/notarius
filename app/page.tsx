@@ -2,7 +2,6 @@ import Hero from '@/components/Hero'
 import StatsCounter from '@/components/StatsCounter'
 import ServicesGrid from '@/components/ServicesGrid'
 import HowItWorks from '@/components/HowItWorks'
-import LegalPhotos from '@/components/LegalPhotos'
 import FAQ from '@/components/FAQ'
 import WorkingHours from '@/components/WorkingHours'
 import ContactCard from '@/components/ContactCard'
@@ -16,7 +15,6 @@ export default function HomePage() {
       <StatsCounter />
       <ServicesGrid />
       <HowItWorks />
-      <LegalPhotos />
 
       {/* Info sidebar + map row */}
       <section className="bg-gray-50 border-y border-gray-100">
