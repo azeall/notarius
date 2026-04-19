@@ -42,14 +42,14 @@ export async function POST(req: Request) {
     )
   }
 
-  // 2. Лимит по телефону: 1 активная запись на номер
+  // 2. Лимит по телефону: не более 2 активных записей на номер
   const phoneNorm = phone.replace(/\D/g, '')
-  const existingPhone = await prisma.appointment.findFirst({
+  const phoneCount = await prisma.appointment.count({
     where: { phone: { contains: phoneNorm.slice(-7) }, status: 'active' },
   })
-  if (existingPhone) {
+  if (phoneCount >= 2) {
     return NextResponse.json(
-      { error: 'На этот номер уже есть активная запись.' },
+      { error: 'На этот номер уже есть 2 активные записи.' },
       { status: 409 }
     )
   }
