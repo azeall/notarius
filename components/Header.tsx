@@ -2,7 +2,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
-import { usePathname } from 'next/navigation'
 import { notary } from '@/lib/data'
 
 const navLinks = [
@@ -15,18 +14,11 @@ const navLinks = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const pathname = usePathname()
-
-  const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname.startsWith(href)
 
   return (
-    <header className="bg-navy text-white shadow-md sticky top-0 z-40">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link
-          href="/"
-          className="flex items-center gap-3 hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-md"
-        >
+    <header className="bg-navy text-white shadow-md">
+      <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
           <div className="w-9 h-9 flex-shrink-0">
             <Image
               src="/notarius4.png"
@@ -41,20 +33,12 @@ export default function Header() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex gap-1" aria-label="Основная навигация">
+        <nav className="hidden md:flex gap-6">
           {navLinks.map(link => (
             <Link
               key={link.href}
               href={link.href}
-              className={`
-                text-sm uppercase tracking-wider px-3 py-2 rounded-md transition-colors
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold
-                ${isActive(link.href)
-                  ? 'text-gold font-semibold'
-                  : 'hover:text-gold hover:bg-white/5'
-                }
-              `}
-              aria-current={isActive(link.href) ? 'page' : undefined}
+              className="text-sm uppercase tracking-wider hover:text-gold transition-colors"
             >
               {link.label}
             </Link>
@@ -62,35 +46,23 @@ export default function Header() {
         </nav>
 
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2 rounded-md hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer min-h-[44px] min-w-[44px] items-center justify-center"
+          className="md:hidden flex flex-col gap-1 p-1"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
-          aria-expanded={menuOpen}
+          aria-label="Открыть меню"
         >
-          <span className={`block w-5 h-0.5 bg-white transition-transform duration-200 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-          <span className={`block w-5 h-0.5 bg-white transition-opacity duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
-          <span className={`block w-5 h-0.5 bg-white transition-transform duration-200 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          <span className="block w-6 h-0.5 bg-white" />
+          <span className="block w-6 h-0.5 bg-white" />
+          <span className="block w-6 h-0.5 bg-white" />
         </button>
       </div>
 
       {menuOpen && (
-        <nav
-          className="md:hidden bg-navy-dark px-4 pb-4 flex flex-col gap-1"
-          aria-label="Мобильная навигация"
-        >
+        <nav className="md:hidden bg-navy-dark px-4 pb-4 flex flex-col gap-3">
           {navLinks.map(link => (
             <Link
               key={link.href}
               href={link.href}
-              className={`
-                text-sm uppercase tracking-wider px-3 py-3 rounded-md transition-colors
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold
-                ${isActive(link.href)
-                  ? 'text-gold font-semibold bg-white/5'
-                  : 'hover:text-gold hover:bg-white/5'
-                }
-              `}
-              aria-current={isActive(link.href) ? 'page' : undefined}
+              className="text-sm uppercase tracking-wider hover:text-gold transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
