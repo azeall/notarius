@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, EB_Garamond } from 'next/font/google'
+import { Inter, Playfair_Display } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -7,14 +7,11 @@ import Footer from '@/components/Footer'
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
   variable: '--font-inter',
-  display: 'swap',
 })
 
-const garamond = EB_Garamond({
+const playfair = Playfair_Display({
   subsets: ['latin', 'cyrillic'],
-  variable: '--font-garamond',
-  display: 'swap',
-  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-playfair',
 })
 
 export const metadata: Metadata = {
@@ -27,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru">
       <body
-        className={`${inter.variable} ${garamond.variable} font-sans bg-white text-gray-900 flex flex-col min-h-screen`}
+        className={`${inter.variable} ${playfair.variable} font-sans bg-white text-gray-900 flex flex-col min-h-screen`}
       >
         <Header />
         <main className="flex-1">{children}</main>
