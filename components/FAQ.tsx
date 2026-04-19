@@ -16,7 +16,7 @@ const FAQS = [
   },
   {
     q: 'Какова стоимость нотариальных услуг?',
-    a: 'Стоимость складывается из государственной пошлины (тарифа), установленной законодательством, и платы за услуги правового и технического характера (УПТХ). Точную стоимость можно узнать на странице «Услуги и тарифы» или по телефону.',
+    a: 'Стоимость складывается из государственной пошлины (тарифа), установленной законодательством, и платы за услуги правового и технического характера (УПТХ). Точную стоимость можно узнать на странице «Тарифы» или по телефону.',
   },
   {
     q: 'Можно ли оформить доверенность без присутствия доверенного лица?',
@@ -34,37 +34,49 @@ export default function FAQ() {
   return (
     <section className="bg-white">
       <div className="max-w-3xl mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <p className="text-gold uppercase tracking-widest text-xs font-semibold mb-3">Вопросы и ответы</p>
+
+        {/* Left-aligned header */}
+        <div className="mb-10">
+          <p className="text-gold uppercase tracking-[0.18em] text-xs font-semibold mb-2">Вопросы и ответы</p>
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-navy">Часто задаваемые вопросы</h2>
         </div>
 
-        <div className="space-y-2">
+        {/* Divider-style list — no card boxes */}
+        <div className="divide-y divide-gray-100">
           {FAQS.map((faq, i) => (
-            <div
-              key={i}
-              className="border border-gray-100 rounded-xl overflow-hidden"
-            >
+            <div key={i}>
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-between py-5 text-left group"
+                aria-expanded={open === i}
               >
-                <span className="font-semibold text-navy text-sm pr-4">{faq.q}</span>
-                <svg
-                  className={`w-5 h-5 text-gold flex-shrink-0 transition-transform duration-200 ${open === i ? 'rotate-180' : ''}`}
-                  fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                <span className="font-semibold text-navy text-sm pr-6 group-hover:text-gold transition-colors duration-200">
+                  {faq.q}
+                </span>
+                <span
+                  className={`flex-shrink-0 w-7 h-7 rounded-full border border-gray-200 group-hover:border-gold/50 flex items-center justify-center transition-all duration-200 ${open === i ? 'bg-gold border-gold' : ''}`}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
+                  <svg
+                    className={`w-3.5 h-3.5 transition-transform duration-300 ${open === i ? 'rotate-180 text-navy' : 'text-gray-400 group-hover:text-gold'}`}
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
               </button>
-              {open === i && (
-                <div className="px-6 pb-5 text-gray-500 text-sm leading-relaxed border-t border-gray-50">
-                  <p className="pt-4">{faq.a}</p>
-                </div>
-              )}
+
+              {/* Smooth max-height transition — no Framer Motion needed */}
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${open === i ? 'max-h-64' : 'max-h-0'}`}
+              >
+                <p className="text-gray-500 text-sm leading-relaxed pb-5 pr-10">
+                  {faq.a}
+                </p>
+              </div>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   )
