@@ -62,7 +62,18 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-3 text-sm">
-        <p className="font-serif text-white font-semibold">{notary.name}</p>
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 flex-shrink-0">
+            <Image
+              src="/notarius4.png"
+              alt="Нотариус"
+              width={32}
+              height={32}
+              className="object-contain w-8 h-8"
+            />
+          </div>
+          <p className="font-serif text-white font-semibold">Быконя Р.Е.</p>
+        </div>
         <div className="flex flex-col md:flex-row gap-2 md:gap-6 text-center items-center">
           <span>{notary.address}</span>
           <a href={notary.phoneHref} className="hover:text-gold transition-colors">
