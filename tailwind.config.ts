@@ -9,13 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        navy: '#1E3A8A',
-        'navy-dark': '#162C6D',
-        gold: '#B45309',
-        offwhite: '#F8FAFC',
+        navy: '#1a2a4a',
+        'navy-dark': '#111d33',
+        gold: '#b89a5a',
+        offwhite: '#f5f5f5',
       },
       fontFamily: {
-        serif: ['var(--font-garamond)', 'Georgia', 'serif'],
+        serif: ['var(--font-playfair)', 'Georgia', 'serif'],
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
       },
     },
