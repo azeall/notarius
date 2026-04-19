@@ -4,27 +4,27 @@ import { useState } from 'react'
 const FAQS = [
   {
     q: 'Нужно ли записываться заранее?',
-    a: 'Рекомендуем записываться заранее через форму на сайте или по телефону — это гарантирует удобное время без ожидания. Приём без записи возможен при наличии свободных мест.',
+    a: 'Рекомендуем записываться заранее через сайт или по телефону — это гарантирует удобное время для посещения. При записи мы сможем сообщить, какие документы необходимо взять с собой.',
   },
   {
     q: 'Какие документы нужно взять с собой?',
-    a: 'Обязательно — паспорт гражданина РФ. Для конкретных действий могут потребоваться дополнительные документы: свидетельства о праве собственности, ИНН, СНИЛС и др. Уточните полный список при записи.',
+    a: 'Обязательно — паспорт гражданина РФ. Для конкретного действия может потребоваться дополнительный перечень документов: свидетельства о праве собственности, ИНН, СНИЛС и пр. Точный список при записи.',
   },
   {
     q: 'Как долго оформляются документы?',
-    a: 'Большинство нотариальных действий — доверенности, согласия, заверение копий — занимают 15–30 минут. Сделки с недвижимостью и оформление наследства требуют предварительной подготовки и могут занять несколько визитов.',
+    a: 'Большинство нотариальных действий — доверенности, согласия, заявления — занимают 15–30 минут. Сделки с недвижимостью и оформление наследства требуют предварительной подготовки и займут несколько посещений.',
   },
   {
-    q: 'Какова стоимость нотариальных услуг?',
-    a: 'Стоимость складывается из государственной пошлины (тарифа), установленной законодательством, и платы за услуги правового и технического характера (УПТХ). Точную стоимость можно узнать на странице «Тарифы» или по телефону.',
+    q: 'Сколько стоят нотариальные услуги?',
+    a: 'Стоимость складывается из государственной пошлины (тарифа), установленной Правительством, и услуг правового и технического характера (УПТХ). Полную стоимость можно узнать на странице «Цены» или по телефону.',
   },
   {
-    q: 'Можно ли оформить доверенность без присутствия доверенного лица?',
-    a: 'Да. Для выдачи доверенности достаточно присутствия только доверителя (того, кто выдаёт доверенность). Данные доверенного лица указываются по копии его паспорта.',
+    q: 'Можно ли оформить доверенность без присутствия второй стороны?',
+    a: 'Да. Для выдачи доверенности присутствует только доверитель (тот, кто её выдаёт). Лицо, указанное в доверенности, не требует явки.',
   },
   {
     q: 'Работаете ли вы с юридическими лицами?',
-    a: 'Да, мы оказываем полный спектр нотариальных услуг для организаций: удостоверение уставов, протоколов, доверенностей от юрлиц, свидетельствование подписей и другие корпоративные нотариальные действия.',
+    a: 'Да, мы оказываем полный спектр нотариальных услуг для организаций: удостоверение уставов, протоколов, доверенностей от ЮЛ, свидетельствование верности копий и другие корпоративные нотариальные действия.',
   },
 ]
 
@@ -32,51 +32,77 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null)
 
   return (
-    <section className="bg-white">
-      <div className="max-w-3xl mx-auto px-4 py-16">
+    <section className="bg-navy-dark" style={{ padding: '120px 0' }}>
+      <div className="mx-auto px-10" style={{ maxWidth: '1340px' }}>
 
-        {/* Left-aligned header */}
-        <div className="mb-10">
-          <p className="text-gold uppercase tracking-[0.18em] text-xs font-semibold mb-2">Вопросы и ответы</p>
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-navy">Часто задаваемые вопросы</h2>
+        <div className="mb-16 reveal">
+          <div className="inline-flex items-center gap-3.5 mb-5">
+            <span className="block w-6 h-px bg-gold flex-shrink-0" />
+            <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(184,154,90,0.70)' }}>
+              Вопросы и ответы
+            </span>
+          </div>
+          <h2
+            className="font-serif font-medium text-cream"
+            style={{ fontSize: 'clamp(36px, 4vw, 54px)', lineHeight: '1.08', letterSpacing: '-0.01em', margin: 0 }}
+          >
+            Часто задаваемые <em className="italic font-normal text-gold">вопросы</em>
+          </h2>
         </div>
 
-        {/* Divider-style list — no card boxes */}
-        <div className="divide-y divide-gray-100">
+        <div className="max-w-[860px]">
           {FAQS.map((faq, i) => (
-            <div key={i}>
+            <div
+              key={i}
+              className="reveal"
+              style={{
+                borderTop: '1px solid rgba(184,154,90,0.10)',
+                ...(i === FAQS.length - 1 ? { borderBottom: '1px solid rgba(184,154,90,0.10)' } : {}),
+                animationDelay: `${i * 60}ms`,
+              }}
+            >
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex items-center justify-between py-5 text-left group"
+                className="w-full flex items-center justify-between gap-6 text-left transition-colors duration-200"
+                style={{ padding: '28px 0', background: 'none', border: 'none', cursor: 'pointer' }}
                 aria-expanded={open === i}
               >
-                <span className="font-semibold text-navy text-sm pr-6 group-hover:text-gold transition-colors duration-200">
+                <span
+                  className="font-serif text-cream text-[20px] leading-snug"
+                  style={{ color: open === i ? '#d4b978' : '#f0ece4', transition: 'color .2s' }}
+                >
                   {faq.q}
                 </span>
                 <span
-                  className={`flex-shrink-0 w-7 h-7 rounded-full border border-gray-200 group-hover:border-gold/50 flex items-center justify-center transition-all duration-200 ${open === i ? 'bg-gold border-gold' : ''}`}
+                  className="w-9 h-9 grid place-items-center flex-shrink-0 rounded-full transition-all duration-300"
+                  style={{
+                    border: '1px solid rgba(184,154,90,0.30)',
+                    color: '#b89a5a',
+                    transform: open === i ? 'rotate(180deg)' : 'rotate(0deg)',
+                    background: open === i ? 'rgba(184,154,90,0.10)' : 'transparent',
+                    borderColor: open === i ? '#b89a5a' : 'rgba(184,154,90,0.30)',
+                  }}
                 >
-                  <svg
-                    className={`w-3.5 h-3.5 transition-transform duration-300 ${open === i ? 'rotate-180 text-navy' : 'text-gray-400 group-hover:text-gold'}`}
-                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                   </svg>
                 </span>
               </button>
 
-              {/* Smooth max-height transition — no Framer Motion needed */}
               <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${open === i ? 'max-h-64' : 'max-h-0'}`}
+                className="overflow-hidden transition-all duration-300 ease-in-out"
+                style={{ maxHeight: open === i ? '320px' : '0' }}
               >
-                <p className="text-gray-500 text-sm leading-relaxed pb-5 pr-10">
+                <p
+                  className="text-slate leading-relaxed"
+                  style={{ paddingBottom: '28px', fontSize: '15px', lineHeight: '1.75', maxWidth: '820px' }}
+                >
                   {faq.a}
                 </p>
               </div>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   )
