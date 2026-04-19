@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 
@@ -27,10 +28,24 @@ const VALUES = [
 export default function AboutPage() {
   return (
     <>
-      {/* Page header */}
+      {/* Page header with background photo */}
       <section className="relative bg-navy text-white overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
-        <div className="absolute inset-0 opacity-[0.04]" aria-hidden>
+        {/* Background photo — subtle, 20% opacity */}
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=60"
+            alt=""
+            fill
+            className="object-cover opacity-20"
+            priority
+          />
+        </div>
+
+        {/* Gold top accent */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent opacity-60" />
+
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-[0.03]" aria-hidden>
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
@@ -40,10 +55,11 @@ export default function AboutPage() {
             <rect width="100%" height="100%" fill="url(#grid)" />
           </svg>
         </div>
+
         <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
-          <p className="text-gold uppercase tracking-widest text-xs font-semibold mb-3">О нас</p>
+          <p className="text-gold uppercase tracking-[0.18em] text-xs font-semibold mb-3">О нас</p>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Нотариальная контора</h1>
-          <p className="text-gray-300 max-w-xl">
+          <p className="text-gray-300 max-w-xl leading-relaxed">
             {notary.name} — нотариус города Москвы с многолетним опытом защиты прав граждан и организаций
           </p>
         </div>
@@ -95,15 +111,26 @@ export default function AboutPage() {
                 Нотариальная контора располагается в удобном месте в центре Москвы, вблизи станций метро.
                 Мы ценим ваше время и стремимся к тому, чтобы каждое посещение проходило быстро и комфортно.
               </p>
+
+              {/* Office photo */}
+              <div className="relative rounded-2xl overflow-hidden h-56 mt-6">
+                <Image
+                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=75"
+                  alt="Нотариальный офис"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 66vw"
+                />
+                <div className="absolute inset-0 bg-navy/10 rounded-2xl" />
+              </div>
             </div>
 
             {/* Sidebar */}
             <div className="space-y-5">
               <div className="bg-navy text-white rounded-xl p-6">
-                <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mb-4 mx-auto">
-                  <svg className="w-8 h-8 text-gold" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-                  </svg>
+                {/* Portrait placeholder — initials style */}
+                <div className="w-20 h-20 rounded-full bg-white/10 border-2 border-gold/40 flex items-center justify-center mx-auto mb-4">
+                  <span className="font-serif text-2xl font-bold text-gold">Б</span>
                 </div>
                 <div className="text-center mb-5">
                   <p className="font-serif font-bold text-lg">{notary.name}</p>
@@ -138,7 +165,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <BookingButton className="w-full bg-gold text-navy font-semibold py-3 rounded-lg hover:brightness-110 transition-all text-center" />
+              <BookingButton className="w-full bg-gold text-navy font-semibold py-3 rounded-lg hover:brightness-110 transition-all text-center cursor-pointer" />
             </div>
 
           </div>
@@ -148,8 +175,8 @@ export default function AboutPage() {
       {/* Values */}
       <section className="bg-gray-50 border-t border-gray-100">
         <div className="max-w-6xl mx-auto px-4 py-16">
-          <div className="text-center mb-12">
-            <p className="text-gold uppercase tracking-widest text-xs font-semibold mb-3">Наши принципы</p>
+          <div className="mb-10">
+            <p className="text-gold uppercase tracking-[0.18em] text-xs font-semibold mb-2">Наши принципы</p>
             <h2 className="font-serif text-3xl font-bold text-navy">На чём строится наша работа</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -160,7 +187,7 @@ export default function AboutPage() {
                     {v.icon}
                   </svg>
                 </div>
-                <h3 className="font-serif font-bold text-navy mb-2">{v.title}</h3>
+                <h3 className="font-semibold text-navy mb-2">{v.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{v.text}</p>
               </div>
             ))}
