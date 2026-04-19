@@ -8,7 +8,10 @@ export default function BookingButton({ className }: { className?: string }) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className={className ?? 'inline-block bg-gold text-navy font-semibold px-8 py-3 rounded-lg hover:brightness-110 transition-all'}
+        className={
+          className ??
+          'inline-flex items-center justify-center gap-2 bg-gold text-white font-semibold px-8 py-3 rounded-lg hover:brightness-110 active:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-navy min-h-[44px]'
+        }
       >
         Записаться на приём
       </button>
