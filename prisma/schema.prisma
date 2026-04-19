@@ -15,5 +15,6 @@ model Appointment {
   date      String
   time      String
   status    String   @default("active")
+  ip        String   @default("")
   createdAt DateTime @default(now())
 }
