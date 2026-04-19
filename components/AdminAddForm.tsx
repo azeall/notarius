@@ -76,7 +76,7 @@ export default function AdminAddForm() {
     e.preventDefault()
     if (!selectedDate || !selectedTime) { setError('Выберите дату и время'); return }
     setLoading(true); setError('')
-    const res = await fetch('/api/appointments', {
+    const res = await fetch('/api/admin/appointments', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, phone, service, date: selectedDate, time: selectedTime }),
