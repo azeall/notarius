@@ -234,7 +234,7 @@ export default function Hero() {
                   key={cred.code}
                   className="relative cursor-default"
                   style={{
-                    padding: '22px 20px',
+                    padding: '22px 20px 44px',
                     background: 'linear-gradient(170deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01))',
                     border: '1px solid rgba(200,160,60,0.18)',
                     backdropFilter: 'blur(6px)',
