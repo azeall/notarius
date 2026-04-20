@@ -20,10 +20,10 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <section className="bg-navy relative" style={{ padding: '120px 0' }}>
-      <div className="mx-auto px-10" style={{ maxWidth: '1340px' }}>
+    <section className="bg-navy relative py-20 sm:py-24 md:py-[120px]">
+      <div className="mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1340px' }}>
 
-        <div className="mb-16 reveal">
+        <div className="mb-10 sm:mb-16 reveal">
           <div className="inline-flex items-center gap-3.5 mb-5">
             <span className="block w-6 h-px bg-gold flex-shrink-0" />
             <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(184,154,90,0.70)' }}>
@@ -38,7 +38,7 @@ export default function HowItWorks() {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-10 mb-16">
+        <div className="grid md:grid-cols-3 gap-8 sm:gap-10 mb-10 sm:mb-16">
           {STEPS.map((step, i) => (
             <div
               key={step.n}

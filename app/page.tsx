@@ -18,11 +18,11 @@ export default function HomePage() {
 
       {/* Address + hours row */}
       <section
-        className="relative"
-        style={{ background: '#0f1e35', borderTop: '1px solid rgba(184,154,90,0.10)', padding: '80px 0' }}
+        className="relative py-14 sm:py-20"
+        style={{ background: '#0f1e35', borderTop: '1px solid rgba(184,154,90,0.10)' }}
       >
-        <div className="mx-auto px-10" style={{ maxWidth: '1340px' }}>
-          <div className="grid md:grid-cols-3 gap-10">
+        <div className="mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1340px' }}>
+          <div className="grid md:grid-cols-3 gap-8 md:gap-10">
             <div className="md:col-span-2 space-y-5 reveal">
               <div>
                 <div className="inline-flex items-center gap-3.5 mb-4">
@@ -66,11 +66,10 @@ export default function HomePage() {
 
       {/* Bottom CTA */}
       <section
-        className="relative"
+        className="relative py-20 sm:py-24 md:py-[120px]"
         style={{
           background: '#06101f',
           borderTop: '1px solid rgba(184,154,90,0.10)',
-          padding: '120px 0',
         }}
       >
         {/* Gold grid */}
@@ -87,7 +86,7 @@ export default function HomePage() {
           aria-hidden
         />
 
-        <div className="relative mx-auto px-10 text-center" style={{ maxWidth: '780px' }}>
+        <div className="relative mx-auto px-5 sm:px-8 md:px-10 text-center" style={{ maxWidth: '780px' }}>
           <div className="inline-flex items-center gap-3.5 mb-6 reveal">
             <span className="block w-6 h-px bg-gold" />
             <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(184,154,90,0.70)' }}>
@@ -108,9 +107,9 @@ export default function HomePage() {
             Профессиональная помощь и оформление документов в удобное для вас время.
           </p>
 
-          <div className="flex flex-wrap gap-4 justify-center reveal">
+          <div className="flex flex-wrap gap-3 sm:gap-4 justify-center reveal">
             <BookingButton
-              className="relative inline-flex items-center gap-4 font-sans font-bold text-[12px] tracking-[0.22em] uppercase px-9 py-5 cursor-pointer overflow-hidden transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
+              className="relative inline-flex items-center justify-center gap-4 font-sans font-bold text-[11px] sm:text-[12px] tracking-[0.22em] uppercase px-6 sm:px-9 py-4 sm:py-5 cursor-pointer overflow-hidden transition-transform hover:-translate-y-0.5 active:scale-[0.98] whitespace-nowrap"
               style={{
                 background: 'linear-gradient(180deg, #c8a03c 0%, #a07828 100%)',
                 color: '#1a1307',
@@ -119,7 +118,7 @@ export default function HomePage() {
             />
             <a
               href={notary.phoneHref}
-              className="inline-flex items-center gap-2.5 font-sans font-semibold text-[12px] tracking-[0.22em] uppercase px-8 py-5 text-cream no-underline transition-colors border hover:text-gold-light hover:border-gold"
+              className="inline-flex items-center gap-2.5 font-sans font-semibold text-[11px] sm:text-[12px] tracking-[0.22em] uppercase px-5 sm:px-8 py-4 sm:py-5 text-cream no-underline transition-colors border hover:text-gold-light hover:border-gold whitespace-nowrap"
               style={{ borderColor: 'rgba(184,154,90,0.35)' }}
             >
               {notary.phone}

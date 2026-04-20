@@ -40,11 +40,11 @@ export default function Header() {
       />
 
       <div
-        className="mx-auto flex items-center justify-between gap-6"
-        style={{ maxWidth: '1340px', padding: '18px 40px' }}
+        className="mx-auto flex items-center justify-between gap-3 sm:gap-6 px-5 sm:px-8 md:px-10 py-4 md:py-[18px]"
+        style={{ maxWidth: '1340px' }}
       >
         {/* Brand */}
-        <Link href="/" className="flex items-center gap-3.5 no-underline group">
+        <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 no-underline group min-w-0">
           <div
             className="relative w-10 h-10 grid place-items-center flex-shrink-0 text-gold font-serif text-xl"
             style={{ border: '1px solid #b89a5a' }}
@@ -62,12 +62,12 @@ export default function Header() {
             />
             Б
           </div>
-          <div className="flex flex-col">
-            <span className="font-serif text-base text-cream group-hover:text-gold transition-colors">
+          <div className="flex flex-col min-w-0">
+            <span className="font-serif text-sm sm:text-base text-cream group-hover:text-gold transition-colors truncate">
               {notary.name}
             </span>
             <span
-              className="font-sans text-[9px] tracking-[0.28em] uppercase mt-0.5"
+              className="font-sans text-[9px] tracking-[0.22em] sm:tracking-[0.28em] uppercase mt-0.5 truncate"
               style={{ color: 'rgba(184,154,90,0.70)' }}
             >
               Нотариус · Москва

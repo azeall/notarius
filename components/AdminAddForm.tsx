@@ -94,10 +94,10 @@ export default function AdminAddForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
-      <h2 className="font-serif text-navy text-xl font-bold mb-6">Добавить запись вручную</h2>
+    <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6 mb-8 sm:mb-10">
+      <h2 className="font-serif text-navy text-lg sm:text-xl font-bold mb-5 sm:mb-6">Добавить запись вручную</h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         {/* Left: fields */}
         <div className="space-y-4">
           <div>
@@ -191,7 +191,7 @@ export default function AdminAddForm() {
           {selectedDate && (
             <div>
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Утро</p>
-              <div className="grid grid-cols-6 gap-1.5 mb-3">
+              <div className="grid grid-cols-4 sm:grid-cols-6 gap-1.5 mb-3">
                 {MORNING.map(t => {
                   const booked = bookedTimes.includes(t)
                   const sel = t === selectedTime
@@ -201,14 +201,14 @@ export default function AdminAddForm() {
                       type="button"
                       disabled={booked}
                       onClick={() => setSelectedTime(t)}
-                      className={`py-1.5 rounded-lg text-xs font-medium transition-colors
+                      className={`py-2 sm:py-1.5 rounded-lg text-xs font-medium transition-colors
                         ${booked ? 'bg-gray-100 text-gray-300 line-through cursor-not-allowed' : sel ? 'bg-gold text-navy' : 'bg-gray-50 text-gray-700 hover:bg-gold/10 border border-gray-200'}`}
                     >{t}</button>
                   )
                 })}
               </div>
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">День</p>
-              <div className="grid grid-cols-6 gap-1.5">
+              <div className="grid grid-cols-4 sm:grid-cols-6 gap-1.5">
                 {AFTERNOON.map(t => {
                   const booked = bookedTimes.includes(t)
                   const sel = t === selectedTime
@@ -218,7 +218,7 @@ export default function AdminAddForm() {
                       type="button"
                       disabled={booked}
                       onClick={() => setSelectedTime(t)}
-                      className={`py-1.5 rounded-lg text-xs font-medium transition-colors
+                      className={`py-2 sm:py-1.5 rounded-lg text-xs font-medium transition-colors
                         ${booked ? 'bg-gray-100 text-gray-300 line-through cursor-not-allowed' : sel ? 'bg-gold text-navy' : 'bg-gray-50 text-gray-700 hover:bg-gold/10 border border-gray-200'}`}
                     >{t}</button>
                   )

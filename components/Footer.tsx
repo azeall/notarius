@@ -54,23 +54,22 @@ const ORGS = [
 export default function Footer() {
   return (
     <footer
+      className="py-16 sm:py-20 pb-8"
       style={{
         background: '#040d18',
         borderTop: '1px solid rgba(184,154,90,0.12)',
-        padding: '80px 0 32px',
       }}
     >
-      <div className="mx-auto px-10" style={{ maxWidth: '1340px' }}>
+      <div className="mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1340px' }}>
         {/* Top grid */}
         <div
-          className="grid gap-12 pb-12"
+          className="grid gap-8 sm:gap-10 md:gap-12 pb-10 sm:pb-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr]"
           style={{
-            gridTemplateColumns: '1.4fr 1fr 1fr 1fr',
             borderBottom: '1px solid rgba(184,154,90,0.08)',
           }}
         >
           {/* Brand column */}
-          <div>
+          <div className="sm:col-span-2 md:col-span-1">
             <div className="flex items-center gap-3.5 mb-5">
               <div
                 className="relative w-10 h-10 grid place-items-center text-gold font-serif text-xl flex-shrink-0"
@@ -105,14 +104,14 @@ export default function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h5 className="font-sans font-semibold text-[11px] tracking-[0.22em] uppercase text-gold mb-5">
+              <h5 className="font-sans font-semibold text-[11px] tracking-[0.22em] uppercase text-gold mb-4 sm:mb-5">
                 {title}
               </h5>
               {links.map(link => (
                 <a
                   key={link.label}
                   href={link.href}
-                  className="block text-[13px] text-slate hover:text-gold-light transition-colors leading-loose no-underline"
+                  className="block text-[13px] text-slate hover:text-gold-light transition-colors leading-relaxed py-1 no-underline"
                 >
                   {link.label}
                 </a>
@@ -123,7 +122,7 @@ export default function Footer() {
 
         {/* Official orgs strip */}
         <div
-          className="flex flex-wrap gap-x-10 gap-y-5 items-center py-8"
+          className="flex flex-wrap gap-x-6 sm:gap-x-10 gap-y-5 items-center py-6 sm:py-8"
           style={{ borderBottom: '1px solid rgba(184,154,90,0.08)' }}
         >
           {ORGS.map(org => (
@@ -153,7 +152,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div
-          className="flex flex-col md:flex-row justify-between items-center gap-3 pt-6 text-[12px]"
+          className="flex flex-col md:flex-row justify-between items-center gap-3 pt-6 text-[12px] text-center md:text-left"
           style={{ color: '#4a5568' }}
         >
           <p className="m-0">© {new Date().getFullYear()} {notary.name}. Все права защищены.</p>

@@ -122,10 +122,10 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
       >
         {/* Header */}
         <div
-          className="flex items-center justify-between px-6 pt-5 pb-4"
+          className="flex items-center justify-between px-5 sm:px-6 pt-5 pb-4"
           style={{ borderBottom: '1px solid rgba(184,154,90,0.12)' }}
         >
-          <h2 className="font-serif text-xl text-cream font-medium">Запись на приём</h2>
+          <h2 className="font-serif text-lg sm:text-xl text-cream font-medium">Запись на приём</h2>
           <button
             onClick={onClose}
             className="text-slate hover:text-cream text-2xl leading-none transition-colors w-8 h-8 flex items-center justify-center"
@@ -134,7 +134,7 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="p-5 sm:p-6">
           {/* Step 1 */}
           {step === 1 && (
             <div className="space-y-5">
@@ -196,11 +196,11 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
                   <label className="text-[10px] uppercase tracking-[0.24em] text-slate mb-3 block">Время</label>
                   <div className="space-y-3">
                     <p className="text-[11px] text-slate">Утро · 10:00 – 13:00</p>
-                    <div className="grid grid-cols-6 gap-1.5">
+                    <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
                       {MORNING.map(t => <SlotBtn key={t} t={t} />)}
                     </div>
                     <p className="text-[11px] text-slate">День · 14:00 – 19:00</p>
-                    <div className="grid grid-cols-6 gap-1.5">
+                    <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
                       {AFTERNOON.map(t => <SlotBtn key={t} t={t} />)}
                     </div>
                   </div>

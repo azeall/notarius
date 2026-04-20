@@ -40,15 +40,14 @@ export default function Hero() {
 
       {/* Main grid */}
       <div
-        className="relative z-[5] flex-1 mx-auto w-full flex items-center"
-        style={{ maxWidth: '1480px', padding: '72px 64px 96px' }}
+        className="relative z-[5] flex-1 mx-auto w-full flex items-center px-5 sm:px-8 md:px-16 py-16 md:py-20"
+        style={{ maxWidth: '1480px' }}
       >
         <div
-          className="w-full grid items-center gap-16 md:gap-20"
-          style={{ gridTemplateColumns: 'minmax(0, 1.25fr) minmax(0, 0.95fr)' }}
+          className="w-full grid items-center gap-10 md:gap-20 grid-cols-1 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.95fr)]"
         >
           {/* ── LEFT COLUMN ── */}
-          <div>
+          <div className="min-w-0">
             {/* Eyebrow */}
             <div
               className="inline-flex items-center gap-3 mb-8 animate-fade-in-up"
@@ -62,9 +61,9 @@ export default function Hero() {
 
             {/* H1 */}
             <h1
-              className="font-serif font-medium leading-[1.04] tracking-tight mb-7 animate-fade-in-up text-cream"
+              className="font-serif font-medium leading-[1.04] tracking-tight mb-7 animate-fade-in-up text-cream break-words"
               style={{
-                fontSize: 'clamp(44px, 5.4vw, 78px)',
+                fontSize: 'clamp(34px, 5.4vw, 78px)',
                 letterSpacing: '-0.01em',
                 animationDelay: '80ms',
               }}
@@ -97,11 +96,11 @@ export default function Hero() {
 
             {/* Actions */}
             <div
-              className="flex flex-wrap items-center gap-8 mb-14 animate-fade-in-up"
+              className="flex flex-wrap items-center gap-5 sm:gap-8 mb-12 sm:mb-14 animate-fade-in-up"
               style={{ animationDelay: '280ms' }}
             >
               <BookingButton
-                className="relative inline-flex items-center gap-4 font-sans font-bold text-[12px] tracking-[0.22em] uppercase px-9 py-5 cursor-pointer overflow-hidden transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
+                className="relative inline-flex items-center justify-center gap-4 font-sans font-bold text-[11px] sm:text-[12px] tracking-[0.22em] uppercase px-6 sm:px-9 py-4 sm:py-5 cursor-pointer overflow-hidden transition-transform hover:-translate-y-0.5 active:scale-[0.98] whitespace-nowrap"
                 style={{
                   background: 'linear-gradient(180deg, #c8a03c 0%, #a07828 100%)',
                   color: '#1a1307',
@@ -111,7 +110,7 @@ export default function Hero() {
 
               <a
                 href={notary.phoneHref}
-                className="flex items-center gap-4 group text-cream no-underline"
+                className="flex items-center gap-3 sm:gap-4 group text-cream no-underline min-w-0"
               >
                 <span
                   className="w-11 h-11 rounded-full grid place-items-center flex-shrink-0 transition-colors"
@@ -121,11 +120,11 @@ export default function Hero() {
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                   </svg>
                 </span>
-                <span className="flex flex-col gap-0.5">
-                  <span className="text-[11px] tracking-[0.22em] uppercase" style={{ color: '#6b7895' }}>
+                <span className="flex flex-col gap-0.5 min-w-0">
+                  <span className="text-[10px] sm:text-[11px] tracking-[0.22em] uppercase whitespace-nowrap" style={{ color: '#6b7895' }}>
                     Приём по записи
                   </span>
-                  <span className="font-serif text-[22px] text-cream">
+                  <span className="font-serif text-[18px] sm:text-[22px] text-cream whitespace-nowrap">
                     {notary.phone}
                   </span>
                 </span>
@@ -134,7 +133,7 @@ export default function Hero() {
 
             {/* Trust row */}
             <div
-              className="flex items-center gap-7 pt-9 animate-fade-in-up"
+              className="flex items-center gap-4 sm:gap-7 pt-9 animate-fade-in-up"
               style={{
                 borderTop: '1px solid rgba(255,255,255,0.07)',
                 maxWidth: '620px',
@@ -146,10 +145,10 @@ export default function Hero() {
                 { num: '12K+', lbl: 'удостоверений' },
                 { num: '24/7', lbl: 'срочный выезд' },
               ].map((stat, i) => (
-                <div key={stat.lbl} className="flex items-center gap-7">
-                  <div className="flex flex-col">
-                    <span className="font-serif text-[32px] leading-none text-gold mb-2">{stat.num}</span>
-                    <span className="text-[11px] tracking-[0.18em] uppercase" style={{ color: '#6b7895' }}>
+                <div key={stat.lbl} className="flex items-center gap-4 sm:gap-7 min-w-0">
+                  <div className="flex flex-col min-w-0">
+                    <span className="font-serif text-[24px] sm:text-[32px] leading-none text-gold mb-2">{stat.num}</span>
+                    <span className="text-[10px] sm:text-[11px] tracking-[0.18em] uppercase" style={{ color: '#6b7895' }}>
                       {stat.lbl}
                     </span>
                   </div>

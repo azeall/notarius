@@ -46,7 +46,7 @@ const SERVICES = [
 
 export default function ServicesGrid() {
   return (
-    <section className="bg-navy-dark relative" style={{ padding: '120px 0' }}>
+    <section className="bg-navy-dark relative py-20 sm:py-24 md:py-[120px]">
       {/* Gold grid background */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -61,9 +61,9 @@ export default function ServicesGrid() {
         aria-hidden
       />
 
-      <div className="relative mx-auto px-10" style={{ maxWidth: '1340px' }}>
+      <div className="relative mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1340px' }}>
         {/* Section header */}
-        <div className="flex items-end justify-between mb-16 gap-10 flex-wrap reveal">
+        <div className="flex items-end justify-between mb-10 sm:mb-16 gap-6 sm:gap-10 flex-wrap reveal">
           <div>
             <div className="inline-flex items-center gap-3.5 mb-5">
               <span className="block w-6 h-px bg-gold flex-shrink-0" />
@@ -95,9 +95,8 @@ export default function ServicesGrid() {
           {SERVICES.map((s, i) => (
             <div
               key={s.title}
-              className="group flex items-start gap-5 cursor-pointer transition-all duration-250 reveal"
+              className="group flex items-start gap-4 sm:gap-5 cursor-pointer transition-all duration-250 reveal p-5 sm:p-7"
               style={{
-                padding: '28px',
                 border: '1px solid rgba(184,154,90,0.15)',
                 borderLeft: '2px solid transparent',
                 borderRadius: '16px',

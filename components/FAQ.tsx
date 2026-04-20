@@ -32,10 +32,10 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null)
 
   return (
-    <section className="bg-navy-dark" style={{ padding: '120px 0' }}>
-      <div className="mx-auto px-10" style={{ maxWidth: '1340px' }}>
+    <section className="bg-navy-dark py-20 sm:py-24 md:py-[120px]">
+      <div className="mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1340px' }}>
 
-        <div className="mb-16 reveal">
+        <div className="mb-10 sm:mb-16 reveal">
           <div className="inline-flex items-center gap-3.5 mb-5">
             <span className="block w-6 h-px bg-gold flex-shrink-0" />
             <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(184,154,90,0.70)' }}>
@@ -63,12 +63,12 @@ export default function FAQ() {
             >
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex items-center justify-between gap-6 text-left transition-colors duration-200"
-                style={{ padding: '28px 0', background: 'none', border: 'none', cursor: 'pointer' }}
+                className="w-full flex items-center justify-between gap-4 sm:gap-6 text-left transition-colors duration-200 py-6 sm:py-7"
+                style={{ background: 'none', border: 'none', cursor: 'pointer' }}
                 aria-expanded={open === i}
               >
                 <span
-                  className="font-serif text-cream text-[20px] leading-snug"
+                  className="font-serif text-cream text-[17px] sm:text-[20px] leading-snug"
                   style={{ color: open === i ? '#d4b978' : '#f0ece4', transition: 'color .2s' }}
                 >
                   {faq.q}
@@ -91,11 +91,11 @@ export default function FAQ() {
 
               <div
                 className="overflow-hidden transition-all duration-300 ease-in-out"
-                style={{ maxHeight: open === i ? '320px' : '0' }}
+                style={{ maxHeight: open === i ? '500px' : '0' }}
               >
                 <p
-                  className="text-slate leading-relaxed"
-                  style={{ paddingBottom: '28px', fontSize: '15px', lineHeight: '1.75', maxWidth: '820px' }}
+                  className="text-slate leading-relaxed pb-6 sm:pb-7 text-[14px] sm:text-[15px]"
+                  style={{ lineHeight: '1.75', maxWidth: '820px' }}
                 >
                   {faq.a}
                 </p>

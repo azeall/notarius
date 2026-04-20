@@ -42,23 +42,25 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 export default function StatsCounter() {
   return (
     <section
-      className="relative"
+      className="relative py-12 sm:py-16"
       style={{
         background: '#0f1e35',
         borderTop: '1px solid rgba(184,154,90,0.12)',
         borderBottom: '1px solid rgba(184,154,90,0.12)',
-        padding: '64px 0',
       }}
     >
-      <div className="mx-auto px-10" style={{ maxWidth: '1340px' }}>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+      <div className="mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1340px' }}>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-10 text-center">
           {STATS.map(stat => (
-            <div key={stat.label} className="reveal">
-              <div className="font-serif text-5xl font-medium text-gold mb-3 leading-none">
+            <div key={stat.label} className="reveal min-w-0">
+              <div
+                className="font-serif font-medium text-gold mb-2 sm:mb-3 leading-none break-words"
+                style={{ fontSize: 'clamp(28px, 6vw, 48px)' }}
+              >
                 <Counter value={stat.value} suffix={stat.suffix} />
               </div>
               <div
-                className="text-[11px] tracking-[0.22em] uppercase"
+                className="text-[10px] sm:text-[11px] tracking-[0.18em] sm:tracking-[0.22em] uppercase"
                 style={{ color: '#6b7895' }}
               >
                 {stat.label}
