@@ -1,4 +1,5 @@
 'use client'
+import { createPortal } from 'react-dom'
 import { useState, useEffect } from 'react'
 
 const SERVICES = [
@@ -39,6 +40,12 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
   const [phone, setPhone] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  // Lock body scroll while modal is open
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = '' }
+  }, [])
 
   const selDate = day ? fmtDate(year, month, day) : null
 
@@ -98,50 +105,63 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
     )
   }
 
-  return (
+  const modal = (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
+      className="fixed inset-0 flex items-center justify-center p-4"
+      style={{ zIndex: 9999, background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)' }}
       onClick={onClose}
     >
       <div
-        className="bg-[#1a2a4a] rounded-2xl shadow-2xl w-full max-w-lg max-h-[92vh] overflow-y-auto"
+        className="w-full max-w-lg max-h-[92vh] overflow-y-auto rounded-2xl shadow-2xl"
+        style={{
+          background: '#0d1b33',
+          border: '1px solid rgba(184,154,90,0.30)',
+          boxShadow: '0 24px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(184,154,90,0.10)',
+        }}
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-white/10">
-          <h2 className="font-serif text-xl text-white font-bold">Запись на приём</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-white text-2xl leading-none transition-colors">&times;</button>
+        <div
+          className="flex items-center justify-between px-6 pt-5 pb-4"
+          style={{ borderBottom: '1px solid rgba(184,154,90,0.12)' }}
+        >
+          <h2 className="font-serif text-xl text-cream font-medium">Запись на приём</h2>
+          <button
+            onClick={onClose}
+            className="text-slate hover:text-cream text-2xl leading-none transition-colors w-8 h-8 flex items-center justify-center"
+          >
+            &times;
+          </button>
         </div>
 
         <div className="p-6">
           {/* Step 1 */}
           {step === 1 && (
             <div className="space-y-5">
-              {/* Service */}
               <div>
-                <label className="text-xs uppercase tracking-widest text-gray-400 mb-2 block">Услуга</label>
+                <label className="text-[10px] uppercase tracking-[0.24em] text-slate mb-2 block">Услуга</label>
                 <select
                   value={service}
                   onChange={e => setService(e.target.value)}
-                  className="w-full bg-[#111d33] border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-gold/50"
+                  className="w-full rounded-lg px-3 py-2.5 text-cream text-sm focus:outline-none"
+                  style={{ background: '#060f1e', border: '1px solid rgba(184,154,90,0.20)' }}
                 >
                   <option value="">— Выберите услугу —</option>
                   {SERVICES.map(s => <option key={s} value={s}>{s}</option>)}
                 </select>
               </div>
 
-              {/* Calendar */}
               <div>
-                <label className="text-xs uppercase tracking-widest text-gray-400 mb-2 block">Дата</label>
-                <div className="bg-[#111d33] rounded-xl p-4">
+                <label className="text-[10px] uppercase tracking-[0.24em] text-slate mb-2 block">Дата</label>
+                <div className="rounded-xl p-4" style={{ background: '#060f1e', border: '1px solid rgba(184,154,90,0.12)' }}>
                   <div className="flex items-center justify-between mb-3">
-                    <button onClick={prevMonth} className="text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors">‹</button>
-                    <span className="text-white text-sm font-medium">{MONTHS[month]} {year}</span>
-                    <button onClick={nextMonth} className="text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors">›</button>
+                    <button onClick={prevMonth} className="text-slate hover:text-cream w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5 transition-colors">‹</button>
+                    <span className="text-cream text-sm font-medium">{MONTHS[month]} {year}</span>
+                    <button onClick={nextMonth} className="text-slate hover:text-cream w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5 transition-colors">›</button>
                   </div>
                   <div className="grid grid-cols-7 mb-1">
                     {['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map(d => (
-                      <div key={d} className="text-center text-xs text-gray-500 py-1">{d}</div>
+                      <div key={d} className="text-center text-[10px] text-slate py-1">{d}</div>
                     ))}
                   </div>
                   <div className="grid grid-cols-7 gap-0.5">
@@ -157,10 +177,11 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
                           disabled={!wd || past}
                           onClick={() => { setDay(d); setTime('') }}
                           className={`text-xs py-1.5 rounded-lg transition-all
-                            ${sel ? 'bg-gold text-navy font-bold' : ''}
-                            ${wd && !past && !sel ? 'text-white hover:bg-white/10' : ''}
-                            ${(!wd || past) ? 'text-gray-600 cursor-not-allowed' : ''}
+                            ${sel ? 'text-navy font-bold' : ''}
+                            ${wd && !past && !sel ? 'text-cream hover:bg-white/10' : ''}
+                            ${(!wd || past) ? 'text-slate/30 cursor-not-allowed' : ''}
                           `}
+                          style={sel ? { background: '#b89a5a' } : {}}
                         >
                           {d}
                         </button>
@@ -170,23 +191,17 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
                 </div>
               </div>
 
-              {/* Time slots */}
               {day && (
                 <div>
-                  <label className="text-xs uppercase tracking-widest text-gray-400 mb-3 block">Время</label>
+                  <label className="text-[10px] uppercase tracking-[0.24em] text-slate mb-3 block">Время</label>
                   <div className="space-y-3">
-                    <p className="text-xs text-gray-500">Утро · 10:00 – 13:15</p>
+                    <p className="text-[11px] text-slate">Утро · 10:00 – 13:00</p>
                     <div className="grid grid-cols-6 gap-1.5">
                       {MORNING.map(t => <SlotBtn key={t} t={t} />)}
                     </div>
-                    <p className="text-xs text-gray-500">День · 14:00 – 19:00</p>
+                    <p className="text-[11px] text-slate">День · 14:00 – 19:00</p>
                     <div className="grid grid-cols-6 gap-1.5">
                       {AFTERNOON.map(t => <SlotBtn key={t} t={t} />)}
-                    </div>
-                    <div className="flex gap-4 pt-1">
-                      <span className="flex items-center gap-1.5 text-xs text-gray-500"><span className="w-3 h-3 rounded border border-white/10 bg-transparent inline-block"/>Свободно</span>
-                      <span className="flex items-center gap-1.5 text-xs text-gray-500"><span className="w-3 h-3 rounded border border-gold bg-gold inline-block"/>Выбрано</span>
-                      <span className="flex items-center gap-1.5 text-xs text-gray-500"><span className="w-3 h-3 rounded border border-white/5 bg-white/5 inline-block"/>Занято</span>
                     </div>
                   </div>
                 </div>
@@ -195,7 +210,8 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
               <button
                 disabled={!service || !day || !time}
                 onClick={() => setStep(2)}
-                className="w-full py-3 rounded-xl bg-gold text-navy font-semibold text-sm disabled:opacity-30 hover:brightness-110 transition-all mt-2"
+                className="w-full py-3 rounded-xl font-semibold text-sm disabled:opacity-30 hover:brightness-110 transition-all mt-2 text-navy"
+                style={{ background: '#b89a5a' }}
               >
                 Далее →
               </button>
@@ -205,37 +221,47 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
           {/* Step 2 */}
           {step === 2 && (
             <div className="space-y-4">
-              <div className="bg-[#111d33] rounded-xl p-4 text-sm space-y-1.5">
-                <p className="text-gray-400">Услуга: <span className="text-white">{service}</span></p>
-                <p className="text-gray-400">Дата и время: <span className="text-gold font-medium">{selDate} в {time}</span></p>
+              <div
+                className="rounded-xl p-4 text-sm space-y-1.5"
+                style={{ background: '#060f1e', border: '1px solid rgba(184,154,90,0.12)' }}
+              >
+                <p className="text-slate">Услуга: <span className="text-cream">{service}</span></p>
+                <p className="text-slate">Дата и время: <span className="text-gold font-medium">{selDate} в {time}</span></p>
               </div>
               <div>
-                <label className="text-xs uppercase tracking-widest text-gray-400 mb-2 block">ФИО</label>
+                <label className="text-[10px] uppercase tracking-[0.24em] text-slate mb-2 block">ФИО</label>
                 <input
                   value={name}
                   onChange={e => setName(e.target.value)}
                   placeholder="Иванов Иван Иванович"
-                  className="w-full bg-[#111d33] border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-gold/50 placeholder-gray-600"
+                  className="w-full rounded-lg px-3 py-2.5 text-cream text-sm focus:outline-none placeholder-slate/40"
+                  style={{ background: '#060f1e', border: '1px solid rgba(184,154,90,0.20)' }}
                 />
               </div>
               <div>
-                <label className="text-xs uppercase tracking-widest text-gray-400 mb-2 block">Телефон</label>
+                <label className="text-[10px] uppercase tracking-[0.24em] text-slate mb-2 block">Телефон</label>
                 <input
                   value={phone}
                   onChange={e => setPhone(e.target.value)}
                   placeholder="+7 (999) 000-00-00"
-                  className="w-full bg-[#111d33] border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-gold/50 placeholder-gray-600"
+                  className="w-full rounded-lg px-3 py-2.5 text-cream text-sm focus:outline-none placeholder-slate/40"
+                  style={{ background: '#060f1e', border: '1px solid rgba(184,154,90,0.20)' }}
                 />
               </div>
               {error && <p className="text-red-400 text-sm">{error}</p>}
               <div className="flex gap-3 pt-1">
-                <button onClick={() => setStep(1)} className="flex-1 py-3 rounded-xl border border-white/10 text-gray-400 text-sm hover:border-white/30 transition-colors">
+                <button
+                  onClick={() => setStep(1)}
+                  className="flex-1 py-3 rounded-xl text-slate text-sm hover:text-cream transition-colors"
+                  style={{ border: '1px solid rgba(184,154,90,0.20)' }}
+                >
                   ← Назад
                 </button>
                 <button
                   disabled={loading}
                   onClick={submit}
-                  className="flex-1 py-3 rounded-xl bg-gold text-navy font-semibold text-sm disabled:opacity-50 hover:brightness-110 transition-all"
+                  className="flex-1 py-3 rounded-xl font-semibold text-sm disabled:opacity-50 hover:brightness-110 transition-all text-navy"
+                  style={{ background: '#b89a5a' }}
                 >
                   {loading ? 'Отправка…' : 'Записаться'}
                 </button>
@@ -246,15 +272,22 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
           {/* Step 3 */}
           {step === 3 && (
             <div className="text-center py-8 space-y-4">
-              <div className="w-16 h-16 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center mx-auto">
+              <div
+                className="w-16 h-16 rounded-full flex items-center justify-center mx-auto"
+                style={{ background: 'rgba(184,154,90,0.10)', border: '1px solid rgba(184,154,90,0.30)' }}
+              >
                 <span className="text-gold text-2xl">✓</span>
               </div>
-              <h3 className="text-white font-serif text-xl">Запись подтверждена!</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Ждём вас <span className="text-white">{selDate}</span> в <span className="text-gold font-medium">{time}</span>.<br />
+              <h3 className="text-cream font-serif text-xl">Запись подтверждена!</h3>
+              <p className="text-slate text-sm leading-relaxed">
+                Ждём вас <span className="text-cream">{selDate}</span> в <span className="text-gold font-medium">{time}</span>.<br />
                 При необходимости мы свяжемся с вами для подтверждения.
               </p>
-              <button onClick={onClose} className="mt-2 px-8 py-3 rounded-xl bg-gold text-navy font-semibold text-sm hover:brightness-110 transition-all">
+              <button
+                onClick={onClose}
+                className="mt-2 px-8 py-3 rounded-xl font-semibold text-sm hover:brightness-110 transition-all text-navy"
+                style={{ background: '#b89a5a' }}
+              >
                 Закрыть
               </button>
             </div>
@@ -263,4 +296,6 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
       </div>
     </div>
   )
+
+  return createPortal(modal, document.body)
 }
