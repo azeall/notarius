@@ -6,7 +6,8 @@ const PREMIUM_CLASS =
   'booking-cta relative inline-flex items-center justify-center gap-4 ' +
   'font-sans font-bold tracking-[0.22em] uppercase ' +
   'text-[11px] sm:text-[12px] ' +
-  'px-6 sm:px-9 py-4 sm:py-5 ' +
+  'px-7 sm:px-10 py-4 sm:py-[18px] ' +
+  'rounded-full ' +
   'cursor-pointer overflow-hidden whitespace-nowrap ' +
   'transition-[transform,filter,box-shadow] duration-200 ' +
   'hover:-translate-y-0.5 active:scale-[0.98]'
