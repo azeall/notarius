@@ -119,12 +119,8 @@ export default function HomePage() {
             />
             <a
               href={notary.phoneHref}
-              className="inline-flex items-center gap-2.5 font-sans font-semibold text-[12px] tracking-[0.22em] uppercase px-8 py-5 text-cream no-underline transition-colors"
-              style={{
-                border: '1px solid rgba(184,154,90,0.35)',
-              }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#b89a5a'; (e.currentTarget as HTMLElement).style.color = '#d4b978' }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(184,154,90,0.35)'; (e.currentTarget as HTMLElement).style.color = '#f0ece4' }}
+              className="inline-flex items-center gap-2.5 font-sans font-semibold text-[12px] tracking-[0.22em] uppercase px-8 py-5 text-cream no-underline transition-colors border hover:text-gold-light hover:border-gold"
+              style={{ borderColor: 'rgba(184,154,90,0.35)' }}
             >
               {notary.phone}
             </a>
