@@ -1,6 +1,7 @@
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 import ParticleCanvas from '@/components/ParticleCanvas'
+import OpenStatus from '@/components/OpenStatus'
 
 export default function Hero() {
   const nameParts = notary.name.trim().split(/\s+/)
@@ -231,7 +232,7 @@ export default function Hero() {
               ].map((cred) => (
                 <div
                   key={cred.code}
-                  className="relative group cursor-default transition-all duration-300"
+                  className="relative cursor-default"
                   style={{
                     padding: '22px 20px',
                     background: 'linear-gradient(170deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01))',
@@ -239,16 +240,8 @@ export default function Hero() {
                     backdropFilter: 'blur(6px)',
                   }}
                 >
-                  {/* Gold corner decorations */}
-                  <div
-                    className="absolute top-0 left-0 w-3.5 h-px bg-gold"
-                    aria-hidden
-                  />
-                  <div
-                    className="absolute top-0 left-0 w-px h-3.5 bg-gold"
-                    aria-hidden
-                  />
-                  {/* Shield icon */}
+                  <div className="absolute top-0 left-0 w-3.5 h-px bg-gold" aria-hidden />
+                  <div className="absolute top-0 left-0 w-px h-3.5 bg-gold" aria-hidden />
                   <div
                     className="w-9 h-9 mb-4 grid place-items-center text-gold"
                     style={{ background: 'radial-gradient(circle at 50% 40%, rgba(200,160,60,0.22), transparent 70%)' }}
@@ -272,7 +265,7 @@ export default function Hero() {
               ))}
             </div>
 
-            {/* Hours pill */}
+            {/* Hours pill — real-time status */}
             <div
               className="flex items-center gap-3"
               style={{
@@ -282,14 +275,7 @@ export default function Hero() {
                 maxWidth: '420px',
               }}
             >
-              <span
-                className="w-1.5 h-1.5 rounded-full flex-shrink-0 animate-pulse-dot"
-                style={{ background: '#4ade80', boxShadow: '0 0 10px #4ade80' }}
-              />
-              <span className="text-[12px] text-slate tracking-[0.04em]">
-                <strong className="text-cream font-medium">Открыто сейчас</strong>
-                {' · '}Пн–Пт 9:00–20:00, Сб 10:00–16:00
-              </span>
+              <OpenStatus />
             </div>
           </div>
         </div>
