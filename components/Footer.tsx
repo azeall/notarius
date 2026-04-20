@@ -15,12 +15,41 @@ const footerLinks = {
     { href: '/contacts', label: 'Режим работы' },
   ],
   'Контакты': [
-    { href: `tel:${notary.phone}`, label: notary.phone },
+    { href: notary.phoneHref, label: notary.phone },
     { href: '/contacts', label: notary.address },
-    { href: 'https://notariat.ru', label: 'notariat.ru' },
-    { href: 'https://77.notariat.ru', label: '77.notariat.ru' },
   ],
 }
+
+const ORGS = [
+  {
+    name: 'Федеральная нотариальная палата',
+    href: 'https://notariat.ru',
+    icon: (
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" className="w-4 h-4">
+        <path d="M10 2v16M2 6h16M5 6 2 12h6L5 6zM15 6l-3 6h6l-3-6zM2 17h16" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Московская городская нотариальная палата',
+    href: 'https://77.notariat.ru',
+    icon: (
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" className="w-4 h-4">
+        <path d="M10 1.5 2 5v5c0 4.5 3.4 8.2 8 9.5 4.6-1.3 8-5 8-9.5V5L10 1.5z" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M7 10l2 2 4-4" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Министерство юстиции Российской Федерации',
+    href: 'https://minjust.gov.ru',
+    icon: (
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" className="w-4 h-4">
+        <path d="M2 17h16M4 17V9M8 17V9M12 17V9M16 17V9M10 2l8 6H2l8-6z" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+  },
+]
 
 export default function Footer() {
   return (
@@ -76,9 +105,7 @@ export default function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h5
-                className="font-sans font-semibold text-[11px] tracking-[0.22em] uppercase text-gold mb-5"
-              >
+              <h5 className="font-sans font-semibold text-[11px] tracking-[0.22em] uppercase text-gold mb-5">
                 {title}
               </h5>
               {links.map(link => (
@@ -96,23 +123,31 @@ export default function Footer() {
 
         {/* Official orgs strip */}
         <div
-          className="flex flex-wrap gap-x-12 gap-y-4 items-center py-8"
+          className="flex flex-wrap gap-x-10 gap-y-5 items-center py-8"
           style={{ borderBottom: '1px solid rgba(184,154,90,0.08)' }}
         >
-          {[
-            'Федеральная нотариальная палата',
-            'Московская городская нотариальная палата',
-            'Министерство юстиции РФ',
-          ].map(org => (
-            <div key={org} className="flex items-center gap-2.5">
+          {ORGS.map(org => (
+            <a
+              key={org.name}
+              href={org.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 no-underline transition-opacity hover:opacity-100"
+              style={{ opacity: 0.55 }}
+            >
               <span
-                className="w-6 h-6 rounded-full flex-shrink-0"
-                style={{ border: '1px solid rgba(184,154,90,0.25)' }}
-              />
-              <span className="font-serif text-[13px] tracking-[0.04em]" style={{ color: '#4a5568' }}>
-                {org}
+                className="w-9 h-9 rounded-full flex-shrink-0 grid place-items-center text-gold flex-shrink-0"
+                style={{
+                  border: '1px solid rgba(184,154,90,0.35)',
+                  background: 'rgba(184,154,90,0.06)',
+                }}
+              >
+                {org.icon}
               </span>
-            </div>
+              <span className="font-serif text-[13px] tracking-[0.02em]" style={{ color: '#6b7895' }}>
+                {org.name}
+              </span>
+            </a>
           ))}
         </div>
 
