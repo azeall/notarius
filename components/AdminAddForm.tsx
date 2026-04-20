@@ -105,9 +105,9 @@ export default function AdminAddForm() {
             <select
               value={service}
               onChange={e => setService(e.target.value)}
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
             >
-              {SERVICES.map(s => <option key={s}>{s}</option>)}
+              {SERVICES.map(s => <option key={s} className="text-gray-900">{s}</option>)}
             </select>
           </div>
           <div>
@@ -117,7 +117,7 @@ export default function AdminAddForm() {
               value={name}
               onChange={e => setName(e.target.value)}
               placeholder="Иванов Иван Иванович"
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
             />
           </div>
           <div>
@@ -127,7 +127,7 @@ export default function AdminAddForm() {
               value={phone}
               onChange={e => setPhone(e.target.value)}
               placeholder="+7 (999) 000-00-00"
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
             />
           </div>
 
@@ -145,9 +145,15 @@ export default function AdminAddForm() {
           <button
             type="submit"
             disabled={loading || !selectedDate || !selectedTime}
-            className="w-full bg-gold text-navy font-semibold py-3 rounded-xl hover:brightness-110 transition-all disabled:opacity-40 text-sm"
+            className="w-full bg-gold text-navy font-bold py-3 rounded-xl hover:brightness-110 transition-all disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed text-sm"
           >
-            {loading ? 'Сохранение...' : 'Добавить запись'}
+            {loading
+              ? 'Сохранение...'
+              : !selectedDate
+                ? 'Выберите дату ниже'
+                : !selectedTime
+                  ? 'Выберите время ниже'
+                  : 'Добавить запись'}
           </button>
         </div>
 

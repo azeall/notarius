@@ -82,19 +82,25 @@ export default function PricesPage() {
         <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
           <p className="text-gold uppercase tracking-widest text-xs font-semibold mb-3">Нотариальная контора</p>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Тарифы и цены</h1>
-          <p className="text-gray-300 max-w-xl text-sm leading-relaxed">
+          <p className="text-cream/90 max-w-xl text-[15px] leading-relaxed">
             Стоимость нотариальных действий складывается из государственной пошлины (нотариального тарифа) и платы за услуги правового и технического характера (УПТХ). Указанные цены ориентировочные — точную стоимость уточняйте при записи.
           </p>
         </div>
       </section>
 
       {/* Disclaimer */}
-      <div className="bg-gold/10 border-b border-gold/20">
+      <div
+        className="border-y"
+        style={{
+          background: 'linear-gradient(180deg, rgba(184,154,90,0.12), rgba(184,154,90,0.06))',
+          borderColor: 'rgba(184,154,90,0.30)',
+        }}
+      >
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-start gap-3">
           <svg className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <p className="text-sm text-navy/80">
+          <p className="text-sm text-cream/90 leading-relaxed">
             Тарифы установлены Налоговым кодексом РФ и едины для всех нотариусов. Размер УПТХ утверждается ежегодно Московской городской нотариальной палатой.
           </p>
         </div>
@@ -140,11 +146,11 @@ export default function PricesPage() {
       <section className="bg-navy text-white">
         <div className="max-w-3xl mx-auto px-4 py-14 text-center">
           <h2 className="font-serif text-2xl md:text-3xl font-bold mb-3">Узнайте точную стоимость</h2>
-          <p className="text-gray-300 mb-6 text-sm">
+          <p className="text-cream/90 mb-6 text-[15px] leading-relaxed">
             Позвоните нам или запишитесь на консультацию — мы рассчитаем стоимость конкретно для вашей ситуации
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <BookingButton className="bg-gold text-navy font-semibold px-8 py-3 rounded-lg hover:brightness-110 transition-all" />
+            <BookingButton />
             <a
               href={notary.phoneHref}
               className="flex items-center gap-2 border border-white/20 text-white font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"

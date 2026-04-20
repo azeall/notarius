@@ -161,7 +161,7 @@ export default function ServicesPage() {
           <h2 className="font-serif text-2xl font-bold text-navy mb-3">Не нашли нужную услугу?</h2>
           <p className="text-gray-500 mb-6 text-sm">Свяжитесь с нами — мы проконсультируем и поможем с любым нотариальным вопросом</p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <BookingButton className="bg-gold text-navy font-semibold px-8 py-3 rounded-lg hover:brightness-110 transition-all" />
+            <BookingButton />
             <Link href="/prices" className="border border-navy/20 text-navy font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
               Тарифы и цены →
             </Link>

@@ -113,7 +113,7 @@ export default function ContactsPage() {
             <div className="space-y-4">
               <WorkingHours />
               <ContactCard />
-              <BookingButton className="w-full bg-gold text-navy font-semibold py-3 rounded-lg hover:brightness-110 transition-all" />
+              <BookingButton className="w-full" />
             </div>
 
           </div>

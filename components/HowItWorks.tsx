@@ -75,14 +75,7 @@ export default function HowItWorks() {
         </div>
 
         <div className="reveal">
-          <BookingButton
-            className="relative inline-flex items-center gap-4 font-sans font-bold text-[12px] tracking-[0.22em] uppercase px-9 py-5 cursor-pointer overflow-hidden transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
-            style={{
-              background: 'linear-gradient(180deg, #c8a03c 0%, #a07828 100%)',
-              color: '#1a1307',
-              boxShadow: '0 12px 40px -12px rgba(200,160,60,0.50)',
-            }}
-          />
+          <BookingButton />
         </div>
       </div>
     </section>

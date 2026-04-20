@@ -5,10 +5,8 @@ import OpenStatus from '@/components/OpenStatus'
 
 export default function Hero() {
   const nameParts = notary.name.trim().split(/\s+/)
-  const patronymic = nameParts.length >= 3 ? nameParts[nameParts.length - 1] : ''
-  const nameMain = nameParts.length >= 3
-    ? nameParts.slice(0, -1).join(' ')
-    : notary.name
+  const surname = nameParts[0] ?? notary.name
+  const rest = nameParts.slice(1).join(' ')
 
   return (
     <section
@@ -68,11 +66,11 @@ export default function Hero() {
                 animationDelay: '80ms',
               }}
             >
-              {nameMain}
-              {patronymic && (
+              <em className="italic font-normal" style={{ color: '#e0bd5f' }}>{surname}</em>
+              {rest && (
                 <>
                   <br />
-                  <em className="italic font-normal" style={{ color: '#e0bd5f' }}>{patronymic}</em>
+                  {rest}
                 </>
               )}
             </h1>
@@ -96,17 +94,10 @@ export default function Hero() {
 
             {/* Actions */}
             <div
-              className="flex flex-wrap items-center gap-5 sm:gap-8 mb-12 sm:mb-14 animate-fade-in-up"
+              className="flex flex-col md:flex-row md:flex-wrap items-center md:items-center gap-5 md:gap-8 mb-12 sm:mb-14 animate-fade-in-up"
               style={{ animationDelay: '280ms' }}
             >
-              <BookingButton
-                className="relative inline-flex items-center justify-center gap-4 font-sans font-bold text-[11px] sm:text-[12px] tracking-[0.22em] uppercase px-6 sm:px-9 py-4 sm:py-5 cursor-pointer overflow-hidden transition-transform hover:-translate-y-0.5 active:scale-[0.98] whitespace-nowrap"
-                style={{
-                  background: 'linear-gradient(180deg, #c8a03c 0%, #a07828 100%)',
-                  color: '#1a1307',
-                  boxShadow: '0 12px 40px -12px rgba(200,160,60,0.55)',
-                }}
-              />
+              <BookingButton />
 
               <a
                 href={notary.phoneHref}

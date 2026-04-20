@@ -46,6 +46,17 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  .booking-cta {
+    position: relative;
+  }
+  .booking-cta:hover {
+    box-shadow: 0 18px 50px -10px rgba(200,160,60,0.75) !important;
+    filter: brightness(1.08) saturate(1.05);
+  }
+  .booking-cta:active {
+    filter: brightness(0.96);
+  }
 }
 
 @layer base {

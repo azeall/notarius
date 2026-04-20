@@ -136,7 +136,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <BookingButton className="w-full bg-gold text-navy font-semibold py-3 rounded-lg hover:brightness-110 transition-all text-center cursor-pointer" />
+              <BookingButton className="w-full" />
             </div>
 
           </div>

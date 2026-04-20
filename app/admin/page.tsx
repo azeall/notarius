@@ -86,24 +86,24 @@ export default async function AdminPage({
                     </span>
                   )}
                 </h2>
-                <div className="grid gap-3">
+                <div className="grid gap-3 w-full min-w-0">
                   {items.map(a => (
                     <div
                       key={a.id}
-                      className="flex items-center justify-between gap-3 bg-white rounded-2xl px-4 sm:px-6 py-4 sm:py-5 shadow-sm border border-gray-100 hover:border-gold/30 transition-colors"
+                      className="w-full min-w-0 flex items-center justify-between gap-3 bg-white rounded-2xl px-3 sm:px-6 py-3 sm:py-5 shadow-sm border border-gray-100 hover:border-gold/30 transition-colors"
                     >
                       <div className="flex items-center gap-3 sm:gap-5 min-w-0 flex-1">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
-                          <span className="text-gold font-bold text-base sm:text-lg">{a.name.charAt(0)}</span>
+                        <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
+                          <span className="text-gold font-bold text-sm sm:text-lg">{a.name.charAt(0)}</span>
                         </div>
                         <div className="min-w-0 flex-1">
-                          <p className="font-semibold text-gray-900 text-base sm:text-lg leading-tight truncate">{a.name}</p>
+                          <p className="font-semibold text-gray-900 text-sm sm:text-lg leading-tight truncate">{a.name}</p>
                           <p className="text-gray-500 text-xs sm:text-sm mt-0.5 truncate">{a.phone}</p>
                           <p className="text-navy/70 text-xs sm:text-sm mt-1 font-medium truncate">{a.service}</p>
                         </div>
                       </div>
-                      <div className="text-right flex-shrink-0">
-                        <span className="inline-block bg-gold text-navy font-bold text-base sm:text-xl px-3 sm:px-5 py-1.5 sm:py-2 rounded-xl">
+                      <div className="flex-shrink-0">
+                        <span className="inline-block bg-gold text-navy font-bold text-sm sm:text-xl px-2.5 sm:px-5 py-1 sm:py-2 rounded-lg sm:rounded-xl whitespace-nowrap">
                           {a.time}
                         </span>
                       </div>

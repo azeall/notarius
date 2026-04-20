@@ -95,9 +95,7 @@ export default function Header() {
 
         {/* CTA + hamburger */}
         <div className="flex items-center gap-3">
-          <BookingButton
-            className="hidden md:inline-flex items-center gap-2.5 font-sans font-bold text-[11px] tracking-[0.20em] uppercase px-5 py-3 bg-gold text-navy hover:bg-gold-light transition-colors active:scale-[0.98] cursor-pointer"
-          />
+          <BookingButton size="sm" className="hidden md:inline-flex" />
           <button
             className="md:hidden flex flex-col gap-1.5 p-1.5 text-gold"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -128,7 +126,7 @@ export default function Header() {
             </Link>
           ))}
           <div className="pt-4">
-            <BookingButton className="w-full text-center font-bold text-[11px] tracking-[0.20em] uppercase py-3 bg-gold text-navy hover:bg-gold-light transition-colors cursor-pointer" />
+            <BookingButton className="w-full" />
           </div>
         </nav>
       )}
