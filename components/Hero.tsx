@@ -45,21 +45,23 @@ export default function Hero() {
           className="w-full grid items-center gap-10 md:gap-20 grid-cols-1 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.95fr)]"
         >
           {/* ── LEFT COLUMN ── */}
-          <div className="min-w-0">
+          <div className="min-w-0 text-center md:text-left">
             {/* Eyebrow */}
             <div
-              className="inline-flex items-center gap-3 mb-8 animate-fade-in-up"
+              className="flex items-center justify-center md:justify-start gap-3 mb-6 sm:mb-8 animate-fade-in-up"
               style={{ animationDelay: '0ms' }}
             >
-              <span className="block w-11 h-px bg-gold flex-shrink-0" />
-              <span className="text-gold font-semibold text-[11px] tracking-[0.32em] uppercase">
-                Нотариальная контора · с 2008 года
+              <span className="block w-8 sm:w-11 h-px bg-gold flex-shrink-0" />
+              <span className="text-gold font-semibold text-[10px] sm:text-[11px] tracking-[0.28em] sm:tracking-[0.32em] uppercase whitespace-nowrap">
+                <span className="md:hidden">с 2008 года</span>
+                <span className="hidden md:inline">Нотариальная контора · с 2008 года</span>
               </span>
+              <span className="block w-8 sm:hidden h-px bg-gold flex-shrink-0" />
             </div>
 
             {/* H1 */}
             <h1
-              className="font-serif font-medium leading-[1.04] tracking-tight mb-7 animate-fade-in-up text-cream break-words"
+              className="font-serif font-medium leading-[1.04] tracking-tight mb-5 sm:mb-7 animate-fade-in-up text-cream break-words"
               style={{
                 fontSize: 'clamp(34px, 5.4vw, 78px)',
                 letterSpacing: '-0.01em',
@@ -75,18 +77,32 @@ export default function Hero() {
               )}
             </h1>
 
+            {/* Gold ornament */}
+            <div
+              className="flex items-center justify-center md:justify-start gap-3 mb-5 sm:mb-6 animate-fade-in-up"
+              style={{ animationDelay: '120ms' }}
+              aria-hidden
+            >
+              <span className="block w-10 h-px bg-gold/70 flex-shrink-0" />
+              <span
+                className="block w-1.5 h-1.5 rotate-45 flex-shrink-0"
+                style={{ border: '1px solid #b89a5a' }}
+              />
+              <span className="block w-10 h-px bg-gold/70 flex-shrink-0 md:hidden" />
+            </div>
+
             {/* Role */}
             <p
-              className="font-serif italic text-slate mb-7 animate-fade-in-up"
-              style={{ fontSize: '20px', animationDelay: '140ms' }}
+              className="font-serif italic text-slate mb-6 sm:mb-7 animate-fade-in-up"
+              style={{ fontSize: '18px', animationDelay: '140ms' }}
             >
               — нотариус города Москвы
             </p>
 
             {/* Subtitle */}
             <p
-              className="text-slate leading-relaxed mb-12 max-w-[540px] animate-fade-in-up"
-              style={{ fontSize: '17px', lineHeight: '1.65', animationDelay: '200ms' }}
+              className="text-slate leading-relaxed mb-10 sm:mb-12 max-w-[540px] mx-auto md:mx-0 animate-fade-in-up"
+              style={{ fontSize: '16px', lineHeight: '1.7', animationDelay: '200ms' }}
             >
               Защита ваших прав и юридическая безопасность каждой сделки.
               Полный спектр нотариальных действий с соблюдением конфиденциальности.
@@ -94,18 +110,18 @@ export default function Hero() {
 
             {/* Actions */}
             <div
-              className="flex flex-col md:flex-row md:flex-wrap items-center md:items-center gap-5 md:gap-8 mb-12 sm:mb-14 animate-fade-in-up"
+              className="flex flex-col md:flex-row md:flex-wrap items-center md:items-center justify-center md:justify-start gap-6 md:gap-8 mb-12 sm:mb-14 animate-fade-in-up"
               style={{ animationDelay: '280ms' }}
             >
               <BookingButton />
 
               <a
                 href={notary.phoneHref}
-                className="flex items-center gap-3 sm:gap-4 group text-cream no-underline min-w-0"
+                className="flex items-center gap-3 sm:gap-4 group text-cream no-underline min-w-0 text-left"
               >
                 <span
-                  className="w-11 h-11 rounded-full grid place-items-center flex-shrink-0 transition-colors"
-                  style={{ border: '1px solid rgba(200,160,60,0.22)', color: '#b89a5a' }}
+                  className="w-12 h-12 rounded-full grid place-items-center flex-shrink-0 transition-all group-hover:bg-gold/10 group-hover:border-gold/50"
+                  style={{ border: '1px solid rgba(200,160,60,0.30)', color: '#b89a5a' }}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
@@ -115,7 +131,7 @@ export default function Hero() {
                   <span className="text-[10px] sm:text-[11px] tracking-[0.22em] uppercase whitespace-nowrap" style={{ color: '#6b7895' }}>
                     Приём по записи
                   </span>
-                  <span className="font-serif text-[18px] sm:text-[22px] text-cream whitespace-nowrap">
+                  <span className="font-serif text-[19px] sm:text-[22px] text-cream group-hover:text-gold-light transition-colors whitespace-nowrap">
                     {notary.phone}
                   </span>
                 </span>
@@ -124,9 +140,9 @@ export default function Hero() {
 
             {/* Trust row */}
             <div
-              className="flex items-center gap-4 sm:gap-7 pt-9 animate-fade-in-up"
+              className="flex items-center justify-center md:justify-start gap-3 sm:gap-7 pt-8 sm:pt-9 animate-fade-in-up mx-auto md:mx-0"
               style={{
-                borderTop: '1px solid rgba(255,255,255,0.07)',
+                borderTop: '1px solid rgba(184,154,90,0.18)',
                 maxWidth: '620px',
                 animationDelay: '360ms',
               }}
@@ -136,15 +152,15 @@ export default function Hero() {
                 { num: '12K+', lbl: 'удостоверений' },
                 { num: '24/7', lbl: 'срочный выезд' },
               ].map((stat, i) => (
-                <div key={stat.lbl} className="flex items-center gap-4 sm:gap-7 min-w-0">
-                  <div className="flex flex-col min-w-0">
-                    <span className="font-serif text-[24px] sm:text-[32px] leading-none text-gold mb-2">{stat.num}</span>
-                    <span className="text-[10px] sm:text-[11px] tracking-[0.18em] uppercase" style={{ color: '#6b7895' }}>
+                <div key={stat.lbl} className="flex items-center gap-3 sm:gap-7 min-w-0">
+                  <div className="flex flex-col items-center md:items-start min-w-0 text-center md:text-left">
+                    <span className="font-serif text-[26px] sm:text-[32px] leading-none text-gold mb-1.5 sm:mb-2">{stat.num}</span>
+                    <span className="text-[9px] sm:text-[11px] tracking-[0.18em] uppercase whitespace-nowrap" style={{ color: '#6b7895' }}>
                       {stat.lbl}
                     </span>
                   </div>
                   {i < 2 && (
-                    <div className="w-px h-9 flex-shrink-0" style={{ background: 'rgba(255,255,255,0.12)' }} />
+                    <div className="w-px h-9 flex-shrink-0" style={{ background: 'rgba(184,154,90,0.20)' }} />
                   )}
                 </div>
               ))}
