@@ -47,21 +47,15 @@ export const metadata: Metadata = {
     url: site.url,
     siteName: site.name,
     title: `Нотариус ${notary.name} · Москва`,
-    description: site.description,
-    images: [
-      {
-        url: '/og.png',
-        width: 1200,
-        height: 630,
-        alt: `Нотариус ${notary.name}, Москва`,
-      },
-    ],
+    description:
+      'Нотариус в Москве с 2008 года. Онлайн-запись: сделки с недвижимостью, наследство, доверенности, копии. Приём пн–пт, ' +
+      notary.phone + '.',
   },
   twitter: {
     card: 'summary_large_image',
     title: `Нотариус ${notary.name}`,
-    description: site.description,
-    images: ['/og.png'],
+    description:
+      'Нотариус в Москве. Онлайн-запись: сделки, наследство, доверенности, копии. ' + notary.phone,
   },
   robots: {
     index: true,
@@ -73,13 +67,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-video-preview': -1,
     },
-  },
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
-    ],
-    apple: '/apple-touch-icon.png',
   },
   manifest: '/manifest.webmanifest',
   verification: {
@@ -122,7 +109,7 @@ const legalServiceLd = {
   telephone: notary.phoneE164,
   email: notary.email,
   priceRange: '₽₽',
-  image: `${site.url}/og.png`,
+  image: `${site.url}/opengraph-image`,
   logo: `${site.url}/icon.svg`,
   foundingDate: notary.foundingDate,
   address: {
