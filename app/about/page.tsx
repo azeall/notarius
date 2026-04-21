@@ -1,5 +1,13 @@
+import type { Metadata } from 'next'
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
+
+export const metadata: Metadata = {
+  title: 'О нотариусе · Быконя Руслан Евгеньевич',
+  description:
+    'Нотариус города Москвы Быконя Руслан Евгеньевич. Практика с 2008 года, член Московской городской нотариальной палаты. Принципы работы, квалификация, членство.',
+  alternates: { canonical: '/about' },
+}
 
 const VALUES = [
   {

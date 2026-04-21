@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Hero from '@/components/Hero'
 import StatsCounter from '@/components/StatsCounter'
 import ServicesGrid from '@/components/ServicesGrid'
@@ -6,7 +7,20 @@ import FAQ from '@/components/FAQ'
 import WorkingHours from '@/components/WorkingHours'
 import ContactCard from '@/components/ContactCard'
 import BookingButton from '@/components/BookingButton'
-import { notary } from '@/lib/data'
+import { notary, site } from '@/lib/data'
+
+export const metadata: Metadata = {
+  title: 'Нотариус в Москве · Запись на приём онлайн',
+  description:
+    'Нотариальная контора Быконя Руслана Евгеньевича в Москве. Удостоверение сделок, наследство, доверенности, брачные договоры, заверение копий. Запись онлайн, гибкие часы.',
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    url: site.url,
+    title: `Нотариус ${notary.name} · Москва`,
+    description: site.description,
+  },
+}
 
 export default function HomePage() {
   return (

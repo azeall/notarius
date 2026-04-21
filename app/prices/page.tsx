@@ -1,5 +1,20 @@
+import type { Metadata } from 'next'
 import BookingButton from '@/components/BookingButton'
 import { notary } from '@/lib/data'
+
+export const metadata: Metadata = {
+  title: 'Тарифы и цены на нотариальные услуги',
+  description:
+    'Стоимость нотариальных услуг в Москве: тарифы по Налоговому кодексу РФ и УПТХ по ставкам Московской городской нотариальной палаты. Наследство, недвижимость, доверенности, копии, переводы.',
+  keywords: [
+    'цены нотариуса Москва',
+    'тарифы нотариуса',
+    'стоимость нотариальных услуг',
+    'УПТХ',
+    'нотариальный тариф',
+  ],
+  alternates: { canonical: '/prices' },
+}
 
 const PRICE_SECTIONS = [
   {

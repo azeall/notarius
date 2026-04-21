@@ -1,0 +1,16 @@
+{
+  "name": "Нотариус Быконя Руслан Евгеньевич · Москва",
+  "short_name": "Нотариус Быконя",
+  "description": "Нотариальная контора в Москве. Запись на приём онлайн, тарифы, услуги.",
+  "lang": "ru",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#040d18",
+  "theme_color": "#0a1628",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ],
+  "categories": ["business", "legal", "productivity"]
+}

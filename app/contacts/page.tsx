@@ -1,7 +1,14 @@
+import type { Metadata } from 'next'
 import ContactCard from '@/components/ContactCard'
 import WorkingHours from '@/components/WorkingHours'
 import BookingButton from '@/components/BookingButton'
 import { notary } from '@/lib/data'
+
+export const metadata: Metadata = {
+  title: 'Контакты нотариуса · Адрес и телефон',
+  description: `Адрес: ${notary.address}. Телефон: ${notary.phone}. Часы работы, карта проезда, связь через Telegram и WhatsApp. Запись на приём онлайн.`,
+  alternates: { canonical: '/contacts' },
+}
 
 export default function ContactsPage() {
   return (
