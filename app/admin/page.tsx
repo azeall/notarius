@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma'
 import AdminAddForm from '@/components/AdminAddForm'
 import AdminHistoryPicker from '@/components/AdminHistoryPicker'
 import AdminAppointmentCard from '@/components/AdminAppointmentCard'
+import AdminLogoutButton from '@/components/AdminLogoutButton'
 import { WORKING_HOURS_LABEL } from '@/lib/slots'
 
 function formatDate(date: string) {
@@ -45,11 +46,14 @@ export default async function AdminPage({
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 sm:mb-10">
-        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-cream">Записи на приём</h1>
-        <p className="text-xs sm:text-sm text-cream/60">
-          Рабочее время: <span className="text-gold">{WORKING_HOURS_LABEL}</span>
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6 sm:mb-10">
+        <div>
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-cream">Записи на приём</h1>
+          <p className="text-xs sm:text-sm text-cream/60 mt-1.5">
+            Рабочее время: <span className="text-gold">{WORKING_HOURS_LABEL}</span>
+          </p>
+        </div>
+        <AdminLogoutButton />
       </div>
 
       <AdminAddForm />
