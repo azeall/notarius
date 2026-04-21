@@ -1,6 +1,14 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
+import {
+  AFTERNOON_SLOTS,
+  DURATION_OPTIONS,
+  MORNING_SLOTS,
+  WORKING_HOURS_LABEL,
+  endTime,
+  expandSlots,
+} from '@/lib/slots'
 
 const SERVICES = [
   'Наследство и завещания',
@@ -12,10 +20,6 @@ const SERVICES = [
   'Нотариальный перевод',
   'Другое',
 ]
-
-const MORNING = ['10:00','10:30','11:00','11:30','12:00','12:30']
-const AFTERNOON = ['14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30']
-const ALL_TIMES = [...MORNING, ...AFTERNOON]
 
 const MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
 const DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс']
@@ -31,6 +35,7 @@ export default function AdminAddForm() {
   const [calMonth, setCalMonth] = useState(today.getMonth())
   const [selectedDate, setSelectedDate] = useState('')
   const [selectedTime, setSelectedTime] = useState('')
+  const [duration, setDuration] = useState<number>(30)
   const [bookedTimes, setBookedTimes] = useState<string[]>([])
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
@@ -40,17 +45,28 @@ export default function AdminAddForm() {
   const [success, setSuccess] = useState(false)
 
   useEffect(() => {
-    if (!selectedDate) return
+    if (!selectedDate) { setBookedTimes([]); return }
     fetch(`/api/appointments?date=${selectedDate}`)
       .then(r => r.json())
-      .then(data => setBookedTimes(data.booked ?? []))
+      .then(data => setBookedTimes(Array.isArray(data.booked) ? data.booked : []))
       .catch(() => {})
   }, [selectedDate])
+
+  const bookedSet = useMemo(() => new Set(bookedTimes), [bookedTimes])
+
+  const selectionSlots = useMemo(() => {
+    if (!selectedTime) return new Set<string>()
+    return new Set(expandSlots(selectedTime, duration))
+  }, [selectedTime, duration])
+
+  const selectionFits = selectedTime ? expandSlots(selectedTime, duration).length > 0 : false
+  const selectionConflicts = selectedTime
+    ? expandSlots(selectedTime, duration).some(s => bookedSet.has(s))
+    : false
 
   // Build calendar grid
   const firstDay = new Date(calYear, calMonth, 1)
   const lastDay = new Date(calYear, calMonth + 1, 0)
-  // Monday-based week offset
   const startOffset = (firstDay.getDay() + 6) % 7
   const cells: (number | null)[] = Array(startOffset).fill(null)
   for (let d = 1; d <= lastDay.getDate(); d++) cells.push(d)
@@ -75,17 +91,21 @@ export default function AdminAddForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!selectedDate || !selectedTime) { setError('Выберите дату и время'); return }
+    if (!selectionFits || selectionConflicts) {
+      setError(!selectionFits ? 'Запись не помещается в рабочее время' : 'Диапазон пересекается с занятым')
+      return
+    }
     setLoading(true); setError('')
     const res = await fetch('/api/admin/appointments', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, phone, service, date: selectedDate, time: selectedTime }),
+      body: JSON.stringify({ name, phone, service, date: selectedDate, time: selectedTime, duration }),
     })
     setLoading(false)
     if (res.ok) {
       setSuccess(true)
       setName(''); setPhone(''); setService(SERVICES[0])
-      setSelectedDate(''); setSelectedTime(''); setBookedTimes([])
+      setSelectedDate(''); setSelectedTime(''); setDuration(30); setBookedTimes([])
       setTimeout(() => { setSuccess(false); router.refresh() }, 1500)
     } else {
       const data = await res.json().catch(() => ({}))
@@ -93,9 +113,35 @@ export default function AdminAddForm() {
     }
   }
 
+  const renderSlot = (t: string) => {
+    const isBooked = bookedSet.has(t)
+    const isStart = t === selectedTime
+    const isInSelection = selectionSlots.has(t)
+    const conflict = isInSelection && isBooked && !isStart
+    let cls = 'bg-gray-50 text-gray-700 hover:bg-gold/10 border border-gray-200'
+    if (isBooked && !isStart) cls = 'bg-gray-100 text-gray-300 line-through cursor-not-allowed border border-gray-100'
+    if (isStart) cls = 'bg-gold text-navy font-bold border border-gold'
+    else if (isInSelection && !conflict) cls = 'bg-gold/30 text-navy border border-gold/60'
+    else if (isInSelection && conflict) cls = 'bg-red-100 text-red-600 border border-red-300'
+    return (
+      <button
+        key={t}
+        type="button"
+        disabled={isBooked}
+        onClick={() => setSelectedTime(t)}
+        className={`py-2 sm:py-1.5 rounded-lg text-xs font-medium transition-colors ${cls}`}
+      >
+        {t}
+      </button>
+    )
+  }
+
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6 mb-8 sm:mb-10">
-      <h2 className="font-serif text-navy text-lg sm:text-xl font-bold mb-5 sm:mb-6">Добавить запись вручную</h2>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-5 sm:mb-6">
+        <h2 className="font-serif text-navy text-lg sm:text-xl font-bold">Добавить запись вручную</h2>
+        <span className="text-xs text-gray-500">Приём: {WORKING_HOURS_LABEL}</span>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         {/* Left: fields */}
@@ -131,11 +177,40 @@ export default function AdminAddForm() {
             />
           </div>
 
+          <div>
+            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Длительность</label>
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
+              {DURATION_OPTIONS.map(d => (
+                <button
+                  key={d}
+                  type="button"
+                  onClick={() => setDuration(d)}
+                  className={`py-2 rounded-lg text-xs font-medium transition-colors
+                    ${duration === d
+                      ? 'bg-gold text-navy border border-gold'
+                      : 'bg-gray-50 text-gray-700 hover:bg-gold/10 border border-gray-200'}`}
+                >
+                  {d < 60 ? `${d} мин` : d % 60 === 0 ? `${d/60} ч` : `${Math.floor(d/60)}ч ${d%60}м`}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {selectedDate && selectedTime && (
-            <div className="rounded-xl bg-navy/5 border border-navy/10 px-4 py-3 text-sm text-navy">
+            <div
+              className={`rounded-xl px-4 py-3 text-sm ${
+                !selectionFits || selectionConflicts
+                  ? 'bg-red-50 border border-red-200 text-red-700'
+                  : 'bg-navy/5 border border-navy/10 text-navy'
+              }`}
+            >
               <p className="font-semibold mb-0.5">Итог записи:</p>
               <p>{service}</p>
-              <p>{selectedDate.split('-').reverse().join('.')} в {selectedTime}</p>
+              {!selectionFits
+                ? <p>Не помещается в рабочее время</p>
+                : selectionConflicts
+                  ? <p>Диапазон пересекается с уже занятым</p>
+                  : <p>{selectedDate.split('-').reverse().join('.')} с {selectedTime} до {endTime(selectedTime, duration)}</p>}
             </div>
           )}
 
@@ -144,7 +219,7 @@ export default function AdminAddForm() {
 
           <button
             type="submit"
-            disabled={loading || !selectedDate || !selectedTime}
+            disabled={loading || !selectedDate || !selectedTime || !selectionFits || selectionConflicts}
             className="w-full bg-gold text-navy font-bold py-3 rounded-xl hover:brightness-110 transition-all disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed text-sm"
           >
             {loading
@@ -153,7 +228,11 @@ export default function AdminAddForm() {
                 ? 'Выберите дату ниже'
                 : !selectedTime
                   ? 'Выберите время ниже'
-                  : 'Добавить запись'}
+                  : !selectionFits
+                    ? 'Не помещается в рабочее время'
+                    : selectionConflicts
+                      ? 'Время пересекается с занятым'
+                      : 'Добавить запись'}
           </button>
         </div>
 
@@ -196,39 +275,13 @@ export default function AdminAddForm() {
           {/* Time slots */}
           {selectedDate && (
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Утро</p>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Утро · 10:00–13:00</p>
               <div className="grid grid-cols-4 sm:grid-cols-6 gap-1.5 mb-3">
-                {MORNING.map(t => {
-                  const booked = bookedTimes.includes(t)
-                  const sel = t === selectedTime
-                  return (
-                    <button
-                      key={t}
-                      type="button"
-                      disabled={booked}
-                      onClick={() => setSelectedTime(t)}
-                      className={`py-2 sm:py-1.5 rounded-lg text-xs font-medium transition-colors
-                        ${booked ? 'bg-gray-100 text-gray-300 line-through cursor-not-allowed' : sel ? 'bg-gold text-navy' : 'bg-gray-50 text-gray-700 hover:bg-gold/10 border border-gray-200'}`}
-                    >{t}</button>
-                  )
-                })}
+                {MORNING_SLOTS.map(renderSlot)}
               </div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">День</p>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">День · 14:00–19:00</p>
               <div className="grid grid-cols-4 sm:grid-cols-6 gap-1.5">
-                {AFTERNOON.map(t => {
-                  const booked = bookedTimes.includes(t)
-                  const sel = t === selectedTime
-                  return (
-                    <button
-                      key={t}
-                      type="button"
-                      disabled={booked}
-                      onClick={() => setSelectedTime(t)}
-                      className={`py-2 sm:py-1.5 rounded-lg text-xs font-medium transition-colors
-                        ${booked ? 'bg-gray-100 text-gray-300 line-through cursor-not-allowed' : sel ? 'bg-gold text-navy' : 'bg-gray-50 text-gray-700 hover:bg-gold/10 border border-gray-200'}`}
-                    >{t}</button>
-                  )
-                })}
+                {AFTERNOON_SLOTS.map(renderSlot)}
               </div>
             </div>
           )}

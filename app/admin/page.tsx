@@ -3,6 +3,8 @@ export const dynamic = 'force-dynamic'
 import { prisma } from '@/lib/prisma'
 import AdminAddForm from '@/components/AdminAddForm'
 import AdminHistoryPicker from '@/components/AdminHistoryPicker'
+import AdminAppointmentCard from '@/components/AdminAppointmentCard'
+import { WORKING_HOURS_LABEL } from '@/lib/slots'
 
 function formatDate(date: string) {
   const [y, m, d] = date.split('-')
@@ -19,13 +21,11 @@ export default async function AdminPage({
 
   let appointments
   if (lookupDate) {
-    // History: show all appointments for the selected date (any status)
     appointments = await prisma.appointment.findMany({
       where: { date: lookupDate },
       orderBy: [{ time: 'asc' }],
     })
   } else {
-    // Default: only today + future active appointments
     appointments = await prisma.appointment.findMany({
       where: {
         status: 'active',
@@ -45,11 +45,15 @@ export default async function AdminPage({
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-      <h1 className="font-serif text-3xl sm:text-4xl font-bold text-cream mb-6 sm:mb-10">Записи на приём</h1>
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 sm:mb-10">
+        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-cream">Записи на приём</h1>
+        <p className="text-xs sm:text-sm text-cream/60">
+          Рабочее время: <span className="text-gold">{WORKING_HOURS_LABEL}</span>
+        </p>
+      </div>
 
       <AdminAddForm />
 
-      {/* History lookup */}
       <AdminHistoryPicker currentDate={lookupDate} today={today} />
 
       {lookupDate && (
@@ -88,26 +92,7 @@ export default async function AdminPage({
                 </h2>
                 <div className="grid gap-3 w-full min-w-0">
                   {items.map(a => (
-                    <div
-                      key={a.id}
-                      className="w-full min-w-0 flex items-center justify-between gap-3 bg-white rounded-2xl px-3 sm:px-6 py-3 sm:py-5 shadow-sm border border-gray-100 hover:border-gold/30 transition-colors"
-                    >
-                      <div className="flex items-center gap-3 sm:gap-5 min-w-0 flex-1">
-                        <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
-                          <span className="text-gold font-bold text-sm sm:text-lg">{a.name.charAt(0)}</span>
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="font-semibold text-gray-900 text-sm sm:text-lg leading-tight truncate">{a.name}</p>
-                          <p className="text-gray-500 text-xs sm:text-sm mt-0.5 truncate">{a.phone}</p>
-                          <p className="text-navy/70 text-xs sm:text-sm mt-1 font-medium truncate">{a.service}</p>
-                        </div>
-                      </div>
-                      <div className="flex-shrink-0">
-                        <span className="inline-block bg-gold text-navy font-bold text-sm sm:text-xl px-2.5 sm:px-5 py-1 sm:py-2 rounded-lg sm:rounded-xl whitespace-nowrap">
-                          {a.time}
-                        </span>
-                      </div>
-                    </div>
+                    <AdminAppointmentCard key={a.id} a={a} />
                   ))}
                 </div>
               </div>

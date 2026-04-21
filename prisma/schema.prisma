@@ -14,6 +14,7 @@ model Appointment {
   service   String
   date      String
   time      String
+  duration  Int      @default(30)
   status    String   @default("active")
   ip        String   @default("")
   createdAt DateTime @default(now())

@@ -1,6 +1,14 @@
 'use client'
 import { createPortal } from 'react-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
+import {
+  AFTERNOON_SLOTS,
+  DURATION_OPTIONS,
+  MORNING_SLOTS,
+  WORKING_HOURS_LABEL,
+  endTime,
+  expandSlots,
+} from '@/lib/slots'
 
 const SERVICES = [
   'Удостоверение сделок с недвижимостью',
@@ -12,9 +20,6 @@ const SERVICES = [
   'Корпоративные документы',
   'Прочее',
 ]
-
-const MORNING = ['10:00','10:30','11:00','11:30','12:00','12:30']
-const AFTERNOON = ['14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30']
 
 const MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь',
                 'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
@@ -35,13 +40,13 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
   const [month, setMonth] = useState(today.getMonth())
   const [day, setDay] = useState<number|null>(null)
   const [time, setTime] = useState('')
+  const [duration, setDuration] = useState<number>(30)
   const [booked, setBooked] = useState<string[]>([])
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  // Lock body scroll while modal is open
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
@@ -50,12 +55,25 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
   const selDate = day ? fmtDate(year, month, day) : null
 
   useEffect(() => {
-    if (!selDate) return
+    if (!selDate) { setBooked([]); return }
     fetch(`/api/appointments?date=${selDate}`)
       .then(r => r.json())
-      .then(d => setBooked(d.bookedTimes ?? []))
+      .then(d => setBooked(Array.isArray(d.booked) ? d.booked : []))
       .catch(() => {})
   }, [selDate])
+
+  const bookedSet = useMemo(() => new Set(booked), [booked])
+
+  // Слоты, которые займёт текущая (start, duration) — для подсветки
+  const selectionSlots = useMemo(() => {
+    if (!time) return new Set<string>()
+    return new Set(expandSlots(time, duration))
+  }, [time, duration])
+
+  const selectionFits = time ? expandSlots(time, duration).length > 0 : false
+  const selectionConflicts = time
+    ? expandSlots(time, duration).some(s => bookedSet.has(s))
+    : false
 
   const daysInMonth = new Date(year, month + 1, 0).getDate()
   const firstDow = new Date(year, month, 1).getDay()
@@ -79,25 +97,31 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
       const res = await fetch('/api/appointments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, service, date: selDate, time }),
+        body: JSON.stringify({ name, phone, service, date: selDate, time, duration }),
       })
       if (res.ok) { setStep(3) }
-      else { const d = await res.json(); setError(d.error ?? 'Ошибка') }
+      else { const d = await res.json().catch(() => ({})); setError(d.error ?? 'Ошибка') }
     } catch { setError('Ошибка соединения') }
     setLoading(false)
   }
 
-  const SlotBtn = ({ t }: { t: string }) => {
-    const isBooked = booked.includes(t)
-    const isSel = time === t
+  const renderSlot = (t: string) => {
+    const isBooked = bookedSet.has(t)
+    const isStart = time === t
+    const isInSelection = selectionSlots.has(t)
+    const conflict = isInSelection && bookedSet.has(t) && !isStart
     return (
       <button
+        key={t}
+        type="button"
         disabled={isBooked}
         onClick={() => setTime(t)}
         className={`text-xs py-2 rounded-lg border transition-all
-          ${isSel ? 'bg-gold border-gold text-navy font-bold' : ''}
           ${isBooked ? 'border-white/5 bg-white/3 text-gray-600 cursor-not-allowed line-through' : ''}
-          ${!isSel && !isBooked ? 'border-white/10 text-gray-300 hover:border-gold/50 hover:text-white' : ''}
+          ${!isBooked && isStart ? 'bg-gold border-gold text-navy font-bold' : ''}
+          ${!isBooked && !isStart && isInSelection && !conflict ? 'bg-gold/30 border-gold/60 text-gold' : ''}
+          ${!isBooked && !isStart && isInSelection && conflict ? 'bg-red-500/20 border-red-500/40 text-red-300' : ''}
+          ${!isBooked && !isInSelection ? 'border-white/10 text-gray-300 hover:border-gold/50 hover:text-white' : ''}
         `}
       >
         {t}
@@ -193,22 +217,60 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
 
               {day && (
                 <div>
-                  <label className="text-[10px] uppercase tracking-[0.24em] text-slate mb-3 block">Время</label>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="text-[10px] uppercase tracking-[0.24em] text-slate">Длительность</label>
+                    <span className="text-[10px] text-slate/70">Рабочее время: {WORKING_HOURS_LABEL}</span>
+                  </div>
+                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5 mb-4">
+                    {DURATION_OPTIONS.map(d => (
+                      <button
+                        key={d}
+                        type="button"
+                        onClick={() => setDuration(d)}
+                        className={`text-xs py-2 rounded-lg border transition-all
+                          ${duration === d
+                            ? 'bg-gold border-gold text-navy font-bold'
+                            : 'border-white/10 text-gray-300 hover:border-gold/50 hover:text-white'}`}
+                      >
+                        {d < 60 ? `${d} мин` : d % 60 === 0 ? `${d/60} ч` : `${Math.floor(d/60)}ч ${d%60}м`}
+                      </button>
+                    ))}
+                  </div>
+
+                  <label className="text-[10px] uppercase tracking-[0.24em] text-slate mb-3 block">Начало</label>
                   <div className="space-y-3">
                     <p className="text-[11px] text-slate">Утро · 10:00 – 13:00</p>
                     <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
-                      {MORNING.map(t => <SlotBtn key={t} t={t} />)}
+                      {MORNING_SLOTS.map(renderSlot)}
                     </div>
                     <p className="text-[11px] text-slate">День · 14:00 – 19:00</p>
                     <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
-                      {AFTERNOON.map(t => <SlotBtn key={t} t={t} />)}
+                      {AFTERNOON_SLOTS.map(renderSlot)}
                     </div>
                   </div>
+
+                  {time && (
+                    <div
+                      className={`mt-4 rounded-lg px-3 py-2 text-sm ${
+                        !selectionFits
+                          ? 'bg-red-500/10 border border-red-500/30 text-red-300'
+                          : selectionConflicts
+                            ? 'bg-red-500/10 border border-red-500/30 text-red-300'
+                            : 'bg-gold/10 border border-gold/30 text-gold'
+                      }`}
+                    >
+                      {!selectionFits
+                        ? 'Запись не помещается в рабочее время — выберите другое начало или меньшую длительность.'
+                        : selectionConflicts
+                          ? 'Выбранный диапазон пересекается с уже занятым временем.'
+                          : `Запись с ${time} до ${endTime(time, duration)}`}
+                    </div>
+                  )}
                 </div>
               )}
 
               <button
-                disabled={!service || !day || !time}
+                disabled={!service || !day || !time || !selectionFits || selectionConflicts}
                 onClick={() => setStep(2)}
                 className="w-full py-3 rounded-xl font-semibold text-sm disabled:opacity-30 hover:brightness-110 transition-all mt-2 text-navy"
                 style={{ background: '#b89a5a' }}
@@ -226,7 +288,12 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
                 style={{ background: '#060f1e', border: '1px solid rgba(184,154,90,0.12)' }}
               >
                 <p className="text-slate">Услуга: <span className="text-cream">{service}</span></p>
-                <p className="text-slate">Дата и время: <span className="text-gold font-medium">{selDate} в {time}</span></p>
+                <p className="text-slate">
+                  Дата и время:{' '}
+                  <span className="text-gold font-medium">
+                    {selDate} с {time} до {endTime(time, duration)}
+                  </span>
+                </p>
               </div>
               <div>
                 <label className="text-[10px] uppercase tracking-[0.24em] text-slate mb-2 block">ФИО</label>
@@ -280,7 +347,9 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
               </div>
               <h3 className="text-cream font-serif text-xl">Запись подтверждена!</h3>
               <p className="text-slate text-sm leading-relaxed">
-                Ждём вас <span className="text-cream">{selDate}</span> в <span className="text-gold font-medium">{time}</span>.<br />
+                Ждём вас <span className="text-cream">{selDate}</span> c{' '}
+                <span className="text-gold font-medium">{time}</span> до{' '}
+                <span className="text-gold font-medium">{time && endTime(time, duration)}</span>.<br />
                 При необходимости мы свяжемся с вами для подтверждения.
               </p>
               <button
