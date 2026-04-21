@@ -32,12 +32,25 @@ export const notary = {
   ],
 } as const
 
+function resolveSiteUrl(): string {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL
+  if (explicit) return explicit.replace(/\/$/, '')
+  // На Vercel используем собственный домен проекта (стабильный в проде,
+  // либо текущий deployment URL на preview-деплое).
+  const vercelProd = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  if (vercelProd) return `https://${vercelProd}`.replace(/\/$/, '')
+  const vercelUrl = process.env.VERCEL_URL
+  if (vercelUrl) return `https://${vercelUrl}`.replace(/\/$/, '')
+  return 'https://notarius-bykonya.ru'
+}
+
 export const site = {
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://notarius-bykonya.ru').replace(/\/$/, ''),
+  url: resolveSiteUrl(),
   name: `Нотариус ${notary.name} · Москва`,
   shortName: 'Нотариус Быконя',
+  // Короткий description для превью (~150 символов, помещается в Telegram/Google).
   description:
-    'Нотариальная контора Быконя Руслана Евгеньевича в Москве. Удостоверение сделок с недвижимостью, оформление наследства и завещаний, доверенности, заверение копий документов, брачные договоры, нотариальный перевод. Запись онлайн.',
+    'Нотариус Быконя Руслан Евгеньевич в Москве. Онлайн-запись: сделки с недвижимостью, наследство, доверенности, копии. Приём пн–пт, +7 (499) 647-88-77.',
   keywords: [
     'нотариус Москва',
     'нотариус Быконя',

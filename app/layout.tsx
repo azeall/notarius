@@ -27,7 +27,7 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `Нотариус Быконя Р. Е. · Нотариальная контора в Москве`,
+    default: `Нотариус Быконя Руслан Евгеньевич в Москве · Онлайн-запись`,
     template: `%s · Нотариус Быконя Р. Е.`,
   },
   description: site.description,
@@ -46,16 +46,16 @@ export const metadata: Metadata = {
     locale: 'ru_RU',
     url: site.url,
     siteName: site.name,
-    title: `Нотариус ${notary.name} · Москва`,
+    title: `Нотариус ${notary.name} в Москве · Онлайн-запись`,
     description:
-      'Нотариус в Москве с 2008 года. Онлайн-запись: сделки с недвижимостью, наследство, доверенности, копии. Приём пн–пт, ' +
-      notary.phone + '.',
+      'Нотариус в Москве с 2008 года. Онлайн-запись: сделки, наследство, доверенности, копии. ' +
+      notary.phone,
   },
   twitter: {
     card: 'summary_large_image',
-    title: `Нотариус ${notary.name}`,
+    title: `Нотариус ${notary.name} в Москве`,
     description:
-      'Нотариус в Москве. Онлайн-запись: сделки, наследство, доверенности, копии. ' + notary.phone,
+      'Нотариус в Москве с 2008 года. Онлайн-запись: сделки, наследство, доверенности, копии.',
   },
   robots: {
     index: true,
