@@ -109,7 +109,6 @@ const legalServiceLd = {
   telephone: notary.phoneE164,
   email: notary.email,
   priceRange: '₽₽',
-  image: `${site.url}/opengraph-image`,
   logo: `${site.url}/icon.svg`,
   foundingDate: notary.foundingDate,
   address: {
