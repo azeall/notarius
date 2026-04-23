@@ -1,9 +1,10 @@
 export const dynamic = 'force-dynamic'
 
 import { prisma } from '@/lib/prisma'
-import { STAFF_LIST, findStaffById } from '@/lib/staff'
+import { findStaffById } from '@/lib/staff'
 import AdminAddForm from '@/components/AdminAddForm'
 import AdminHistoryPicker from '@/components/AdminHistoryPicker'
+import AdminLogoutButton from '@/components/AdminLogoutButton'
 import StaffTabs from '@/components/StaffTabs'
 
 function formatDate(date: string) {
@@ -19,13 +20,11 @@ export default async function AdminPage({
   const today = new Date().toISOString().split('T')[0]
   const lookupDate = searchParams?.date ?? null
 
-  // Which staff tab is active: 'notary' (default) | 'staff_1'…'staff_5' | 'all'
   const activeTab = searchParams?.staff ?? 'notary'
 
-  // Build prisma staffId filter
-  let staffFilter: { staffId?: string | null } = { staffId: null } // notary default
+  let staffFilter: { staffId?: string | null } = { staffId: null }
   if (activeTab === 'all') {
-    staffFilter = {} // no filter — see all
+    staffFilter = {}
   } else if (activeTab.startsWith('staff_')) {
     staffFilter = { staffId: activeTab }
   }
@@ -62,13 +61,22 @@ export default async function AdminPage({
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
-      <h1 className="font-serif text-4xl font-bold text-cream mb-3">Записи на приём</h1>
-      <p className="text-cream/40 text-sm mb-8">
-        Просмотр: <span className="text-gold">{currentTabLabel}</span>
-      </p>
+
+      {/* Header with logout */}
+      <div className="flex items-start justify-between mb-3">
+        <div>
+          <h1 className="font-serif text-4xl font-bold text-cream">Записи на приём</h1>
+          <p className="text-cream/40 text-sm mt-2">
+            Просмотр: <span className="text-gold">{currentTabLabel}</span>
+          </p>
+        </div>
+        <AdminLogoutButton />
+      </div>
 
       {/* Staff filter tabs */}
-      <StaffTabs active={activeTab} />
+      <div className="mt-8">
+        <StaffTabs active={activeTab} />
+      </div>
 
       {/* Add form — only when viewing notary calendar */}
       {activeTab === 'notary' && <AdminAddForm />}
