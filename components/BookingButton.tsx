@@ -10,9 +10,9 @@ const BASE_CLASS =
   'hover:-translate-y-0.5 active:scale-[0.98]'
 
 const SIZE: Record<'sm' | 'md', string> = {
-  // compact — for header nav
-  sm: 'text-[10px] tracking-[0.18em] px-4 py-2',
-  // full — for hero / section CTAs
+  // header — just a touch smaller than the full CTA
+  sm: 'text-[11px] tracking-[0.20em] px-6 py-3',
+  // hero / section CTAs
   md: 'text-[11px] sm:text-[12px] tracking-[0.22em] px-7 sm:px-10 py-4 sm:py-[18px]',
 }
 
