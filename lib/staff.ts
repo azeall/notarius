@@ -1,12 +1,13 @@
 /**
  * Staff accounts for the notary office.
- * Credentials are read from environment variables so they can be changed
- * in Vercel dashboard without redeploying code.
  *
- * Vercel env vars to set:
- *   STAFF_1_NAME, STAFF_1_USER, STAFF_1_PASS
- *   STAFF_2_NAME, STAFF_2_USER, STAFF_2_PASS
- *   ...up to STAFF_5
+ * To change names, logins or passwords — set these env vars in
+ * Vercel Dashboard → Settings → Environment Variables, then redeploy:
+ *
+ *   STAFF_1_NAME   default: "Помощник 1"
+ *   STAFF_1_USER   default: "helper1"
+ *   STAFF_1_PASS   default: "pass1"
+ *   ...same pattern up to STAFF_5
  */
 
 export type StaffMember = {
@@ -19,33 +20,33 @@ export type StaffMember = {
 export const STAFF_LIST: StaffMember[] = [
   {
     id: 'staff_1',
-    name:     process.env.STAFF_1_NAME ?? 'Елена Соколова',
-    username: process.env.STAFF_1_USER ?? 'sokolova',
-    password: process.env.STAFF_1_PASS ?? 'staff1pass',
+    name:     process.env.STAFF_1_NAME ?? 'Помощник 1',
+    username: process.env.STAFF_1_USER ?? 'helper1',
+    password: process.env.STAFF_1_PASS ?? 'pass1',
   },
   {
     id: 'staff_2',
-    name:     process.env.STAFF_2_NAME ?? 'Дмитрий Власов',
-    username: process.env.STAFF_2_USER ?? 'vlasov',
-    password: process.env.STAFF_2_PASS ?? 'staff2pass',
+    name:     process.env.STAFF_2_NAME ?? 'Помощник 2',
+    username: process.env.STAFF_2_USER ?? 'helper2',
+    password: process.env.STAFF_2_PASS ?? 'pass2',
   },
   {
     id: 'staff_3',
-    name:     process.env.STAFF_3_NAME ?? 'Наталья Морозова',
-    username: process.env.STAFF_3_USER ?? 'morozova',
-    password: process.env.STAFF_3_PASS ?? 'staff3pass',
+    name:     process.env.STAFF_3_NAME ?? 'Помощник 3',
+    username: process.env.STAFF_3_USER ?? 'helper3',
+    password: process.env.STAFF_3_PASS ?? 'pass3',
   },
   {
     id: 'staff_4',
-    name:     process.env.STAFF_4_NAME ?? 'Алексей Громов',
-    username: process.env.STAFF_4_USER ?? 'gromov',
-    password: process.env.STAFF_4_PASS ?? 'staff4pass',
+    name:     process.env.STAFF_4_NAME ?? 'Помощник 4',
+    username: process.env.STAFF_4_USER ?? 'helper4',
+    password: process.env.STAFF_4_PASS ?? 'pass4',
   },
   {
     id: 'staff_5',
-    name:     process.env.STAFF_5_NAME ?? 'Ольга Павлова',
-    username: process.env.STAFF_5_USER ?? 'pavlova',
-    password: process.env.STAFF_5_PASS ?? 'staff5pass',
+    name:     process.env.STAFF_5_NAME ?? 'Помощник 5',
+    username: process.env.STAFF_5_USER ?? 'helper5',
+    password: process.env.STAFF_5_PASS ?? 'pass5',
   },
 ]
 
