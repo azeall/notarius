@@ -6,8 +6,37 @@ import { MAX_DURATION, SLOT_MINUTES, buildBookedSet, expandSlots, isRangeFree } 
 
 export const dynamic = 'force-dynamic'
 
+function getStaffId(): string | null {
+  return cookies().get('staff_auth')?.value ?? null
+}
+
+/** GET /api/staff/appointments?date=YYYY-MM-DD → { booked: string[] } only for this staff member */
+export async function GET(req: Request) {
+  const staffId = getStaffId()
+  if (!staffId || !findStaffById(staffId)) {
+    return NextResponse.json({ booked: [] })
+  }
+
+  const { searchParams } = new URL(req.url)
+  const date = searchParams.get('date')
+  if (!date) return NextResponse.json({ booked: [] })
+
+  const rows = await prisma.appointment.findMany({
+    where: { date, status: 'active', staffId },
+    select: { time: true, duration: true },
+  })
+
+  const booked = new Set<string>()
+  for (const r of rows) {
+    for (const s of expandSlots(r.time, r.duration)) booked.add(s)
+  }
+
+  return NextResponse.json({ booked: Array.from(booked).sort() })
+}
+
+/** POST /api/staff/appointments — create appointment for the logged-in staff member */
 export async function POST(req: Request) {
-  const staffId = cookies().get('staff_auth')?.value
+  const staffId = getStaffId()
   if (!staffId || !findStaffById(staffId)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
@@ -37,7 +66,6 @@ export async function POST(req: Request) {
     )
   }
 
-  // Check conflicts only within this staff member's calendar
   const dayRows = await prisma.appointment.findMany({
     where: { date, status: 'active', staffId },
     select: { id: true, time: true, duration: true },
