@@ -1,11 +1,10 @@
 export const dynamic = 'force-dynamic'
 
 import { prisma } from '@/lib/prisma'
+import { STAFF_LIST, findStaffById } from '@/lib/staff'
 import AdminAddForm from '@/components/AdminAddForm'
 import AdminHistoryPicker from '@/components/AdminHistoryPicker'
-import AdminAppointmentCard from '@/components/AdminAppointmentCard'
-import AdminLogoutButton from '@/components/AdminLogoutButton'
-import { WORKING_HOURS_LABEL } from '@/lib/slots'
+import StaffTabs from '@/components/StaffTabs'
 
 function formatDate(date: string) {
   const [y, m, d] = date.split('-')
@@ -15,23 +14,31 @@ function formatDate(date: string) {
 export default async function AdminPage({
   searchParams,
 }: {
-  searchParams: { date?: string }
+  searchParams: { date?: string; staff?: string }
 }) {
   const today = new Date().toISOString().split('T')[0]
   const lookupDate = searchParams?.date ?? null
 
+  // Which staff tab is active: 'notary' (default) | 'staff_1'…'staff_5' | 'all'
+  const activeTab = searchParams?.staff ?? 'notary'
+
+  // Build prisma staffId filter
+  let staffFilter: { staffId?: string | null } = { staffId: null } // notary default
+  if (activeTab === 'all') {
+    staffFilter = {} // no filter — see all
+  } else if (activeTab.startsWith('staff_')) {
+    staffFilter = { staffId: activeTab }
+  }
+
   let appointments
   if (lookupDate) {
     appointments = await prisma.appointment.findMany({
-      where: { date: lookupDate },
+      where: { date: lookupDate, ...staffFilter },
       orderBy: [{ time: 'asc' }],
     })
   } else {
     appointments = await prisma.appointment.findMany({
-      where: {
-        status: 'active',
-        date: { gte: today },
-      },
+      where: { status: 'active', date: { gte: today }, ...staffFilter },
       orderBy: [{ date: 'asc' }, { time: 'asc' }],
     })
   }
@@ -41,24 +48,49 @@ export default async function AdminPage({
     if (!byDate[a.date]) byDate[a.date] = []
     byDate[a.date].push(a)
   }
-
   const dateKeys = Object.keys(byDate).sort()
 
+  function staffLabel(staffId: string | null): string {
+    if (!staffId) return 'Нотариус'
+    return findStaffById(staffId)?.name ?? staffId
+  }
+
+  const currentTabLabel =
+    activeTab === 'notary' ? 'Нотариус'
+    : activeTab === 'all' ? 'Все сотрудники'
+    : findStaffById(activeTab)?.name ?? activeTab
+
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6 sm:mb-10">
-        <div>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-cream">Записи на приём</h1>
-          <p className="text-xs sm:text-sm text-cream/60 mt-1.5">
-            Рабочее время: <span className="text-gold">{WORKING_HOURS_LABEL}</span>
-          </p>
+    <div className="max-w-5xl mx-auto px-4 py-12">
+      <h1 className="font-serif text-4xl font-bold text-cream mb-3">Записи на приём</h1>
+      <p className="text-cream/40 text-sm mb-8">
+        Просмотр: <span className="text-gold">{currentTabLabel}</span>
+      </p>
+
+      {/* Staff filter tabs */}
+      <StaffTabs active={activeTab} />
+
+      {/* Add form — only when viewing notary calendar */}
+      {activeTab === 'notary' && <AdminAddForm />}
+
+      {/* Info hint for staff tabs */}
+      {activeTab !== 'notary' && activeTab !== 'all' && (
+        <div className="bg-white/5 border border-white/10 rounded-2xl px-5 py-3 mb-8 text-sm text-cream/60">
+          Просмотр записей сотрудника{' '}
+          <span className="text-gold font-medium">{currentTabLabel}</span>.{' '}
+          Для добавления сотрудник должен войти в свой кабинет:{' '}
+          <a href="/staff/login" className="text-gold underline underline-offset-2">
+            /staff/login
+          </a>
         </div>
-        <AdminLogoutButton />
-      </div>
+      )}
 
-      <AdminAddForm />
-
-      <AdminHistoryPicker currentDate={lookupDate} today={today} />
+      {/* History lookup */}
+      <AdminHistoryPicker
+        currentDate={lookupDate}
+        today={today}
+        basePath={`/admin?staff=${activeTab}`}
+      />
 
       {lookupDate && (
         <p className="text-cream/60 text-sm mb-6">
@@ -66,12 +98,11 @@ export default async function AdminPage({
         </p>
       )}
 
+      {/* Appointments list */}
       {dateKeys.length === 0 ? (
         <div className="text-center py-16">
           <p className="text-gray-400 text-lg">
-            {lookupDate
-              ? `Нет записей за ${formatDate(lookupDate)}`
-              : 'Нет предстоящих записей'}
+            {lookupDate ? `Нет записей за ${formatDate(lookupDate)}` : 'Нет предстоящих записей'}
           </p>
           {!lookupDate && (
             <p className="text-gray-500 text-sm mt-2">
@@ -86,17 +117,41 @@ export default async function AdminPage({
             const isToday = date === today
             return (
               <div key={date}>
-                <h2 className="font-serif text-xl sm:text-2xl font-bold text-cream mb-4 flex flex-wrap items-center gap-3">
+                <h2 className="font-serif text-2xl font-bold text-cream mb-4 flex items-center gap-3">
                   {formatDate(date)}
                   {isToday && (
-                    <span className="text-[10px] sm:text-[11px] font-sans font-semibold tracking-widest uppercase bg-gold/20 text-gold px-3 py-1 rounded-full">
+                    <span className="text-[11px] font-sans font-semibold tracking-widest uppercase bg-gold/20 text-gold px-3 py-1 rounded-full">
                       Сегодня
                     </span>
                   )}
                 </h2>
-                <div className="grid gap-3 w-full min-w-0">
+                <div className="grid gap-3">
                   {items.map(a => (
-                    <AdminAppointmentCard key={a.id} a={a} />
+                    <div
+                      key={a.id}
+                      className="flex items-center justify-between bg-white rounded-2xl px-6 py-5 shadow-sm border border-gray-100 hover:border-gold/30 transition-colors"
+                    >
+                      <div className="flex items-center gap-5">
+                        <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
+                          <span className="text-gold font-bold text-lg">{a.name.charAt(0)}</span>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900 text-lg leading-tight">{a.name}</p>
+                          <p className="text-gray-500 text-sm mt-0.5">{a.phone}</p>
+                          <p className="text-navy/70 text-sm mt-1 font-medium">{a.service}</p>
+                          {activeTab === 'all' && (
+                            <p className="text-xs mt-1 font-semibold" style={{ color: '#b89a5a' }}>
+                              {staffLabel(a.staffId ?? null)}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="text-right flex-shrink-0 ml-4">
+                        <span className="inline-block bg-gold text-navy font-bold text-xl px-5 py-2 rounded-xl">
+                          {a.time}
+                        </span>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
