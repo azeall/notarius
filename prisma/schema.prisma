@@ -17,5 +17,9 @@ model Appointment {
   duration  Int      @default(30)
   status    String   @default("active")
   ip        String   @default("")
+  staffId   String?
   createdAt DateTime @default(now())
+
+  @@index([date])
+  @@index([staffId])
 }
