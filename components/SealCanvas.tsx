@@ -11,10 +11,14 @@ export default function SealCanvas({
   const ref = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const ctx = el.getContext('2d')
-    if (!ctx) return
+    const elRaw = ref.current
+    if (!elRaw) return
+    const ctxRaw = elRaw.getContext('2d')
+    if (!ctxRaw) return
+
+    // Rebind to typed consts so TypeScript knows these are non-null inside closures
+    const canvas: HTMLCanvasElement = elRaw
+    const ctx: CanvasRenderingContext2D = ctxRaw
 
     const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1))
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -35,16 +39,16 @@ export default function SealCanvas({
     }
 
     function resize() {
-      const r = el.getBoundingClientRect()
+      const r = canvas.getBoundingClientRect()
       W = r.width; H = r.height
-      el.width = Math.round(W * DPR)
-      el.height = Math.round(H * DPR)
+      canvas.width = Math.round(W * DPR)
+      canvas.height = Math.round(H * DPR)
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0)
       CX = W / 2; CY = H / 2
     }
     resize()
     const ro = new ResizeObserver(resize)
-    ro.observe(el)
+    ro.observe(canvas)
 
     function drawStar(r: number) {
       ctx.beginPath()
