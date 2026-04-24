@@ -1,7 +1,7 @@
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
-import ParticleCanvas from '@/components/ParticleCanvas'
-import OpenStatus from '@/components/OpenStatus'
+import SealCanvas from '@/components/SealCanvas'
+import HeroDocumentsCanvas from '@/components/HeroDocumentsCanvas'
 
 export default function Hero() {
   const nameParts = notary.name.trim().split(/\s+/)
@@ -14,22 +14,22 @@ export default function Hero() {
       style={{
         minHeight: '100dvh',
         background:
-          'radial-gradient(ellipse 80% 60% at 80% 20%, rgba(200,160,60,0.07) 0%, transparent 60%),' +
-          'radial-gradient(ellipse 70% 80% at 15% 90%, rgba(200,160,60,0.04) 0%, transparent 60%),' +
-          'linear-gradient(180deg, #0d1b3e 0%, #0a1632 60%, #070f24 100%)',
+          'radial-gradient(ellipse 80% 60% at 85% 15%, rgba(184,154,90,0.09), transparent 60%),' +
+          'radial-gradient(ellipse 70% 80% at 10% 90%, rgba(184,154,90,0.05), transparent 60%),' +
+          'linear-gradient(180deg, #0a1628 0%, #081329 60%, #06101f 100%)',
       }}
     >
-      {/* Particle canvas */}
-      <ParticleCanvas className="absolute inset-0 w-full h-full pointer-events-none z-[1]" />
+      {/* Document conveyor canvas */}
+      <HeroDocumentsCanvas className="absolute inset-0 w-full h-full pointer-events-none z-[1]" />
 
       {/* Vignette */}
       <div
         className="absolute inset-0 pointer-events-none z-[2]"
-        style={{ background: 'radial-gradient(ellipse 100% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.30) 100%)' }}
+        style={{ background: 'radial-gradient(ellipse 100% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.35) 100%)' }}
         aria-hidden
       />
 
-      {/* Gold hairline top */}
+      {/* Gold hairline */}
       <div
         className="absolute top-0 left-0 right-0 h-px z-[3]"
         style={{ background: 'linear-gradient(90deg, transparent, rgba(184,154,90,0.6), transparent)' }}
@@ -41,9 +41,8 @@ export default function Hero() {
         className="relative z-[5] flex-1 mx-auto w-full flex items-center px-5 sm:px-8 md:px-16 py-16 md:py-20"
         style={{ maxWidth: '1480px' }}
       >
-        <div
-          className="w-full grid items-center gap-10 md:gap-20 grid-cols-1 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.95fr)]"
-        >
+        <div className="w-full grid items-center gap-10 md:gap-20 grid-cols-1 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.95fr)]">
+
           {/* ── LEFT COLUMN ── */}
           <div className="min-w-0 text-center md:text-left">
             {/* Eyebrow */}
@@ -53,8 +52,8 @@ export default function Hero() {
             >
               <span className="block w-8 sm:w-11 h-px bg-gold flex-shrink-0" />
               <span className="text-gold font-semibold text-[10px] sm:text-[11px] tracking-[0.28em] sm:tracking-[0.32em] uppercase whitespace-nowrap">
-                <span className="md:hidden">с 2008 года</span>
-                <span className="hidden md:inline">Нотариальная контора · с 2008 года</span>
+                <span className="md:hidden">\u0441 2008 \u0433\u043E\u0434\u0430</span>
+                <span className="hidden md:inline">\u041D\u043E\u0442\u0430\u0440\u0438\u0430\u043B\u044C\u043D\u0430\u044F \u043A\u043E\u043D\u0442\u043E\u0440\u0430 \u00B7 \u0441 2008 \u0433\u043E\u0434\u0430</span>
               </span>
               <span className="block w-8 sm:hidden h-px bg-gold flex-shrink-0" />
             </div>
@@ -62,11 +61,7 @@ export default function Hero() {
             {/* H1 */}
             <h1
               className="font-serif font-medium leading-[1.04] tracking-tight mb-5 sm:mb-7 animate-fade-in-up text-cream break-words"
-              style={{
-                fontSize: 'clamp(34px, 5.4vw, 78px)',
-                letterSpacing: '-0.01em',
-                animationDelay: '80ms',
-              }}
+              style={{ fontSize: 'clamp(34px, 5.4vw, 78px)', letterSpacing: '-0.01em', animationDelay: '80ms' }}
             >
               <em className="italic font-normal" style={{ color: '#e0bd5f' }}>{surname}</em>
               {rest && (
@@ -84,10 +79,7 @@ export default function Hero() {
               aria-hidden
             >
               <span className="block w-10 h-px bg-gold/70 flex-shrink-0" />
-              <span
-                className="block w-1.5 h-1.5 rotate-45 flex-shrink-0"
-                style={{ border: '1px solid #b89a5a' }}
-              />
+              <span className="block w-1.5 h-1.5 rotate-45 flex-shrink-0" style={{ border: '1px solid #b89a5a' }} />
               <span className="block w-10 h-px bg-gold/70 flex-shrink-0 md:hidden" />
             </div>
 
@@ -96,16 +88,15 @@ export default function Hero() {
               className="font-serif italic text-slate mb-6 sm:mb-7 animate-fade-in-up"
               style={{ fontSize: '18px', animationDelay: '140ms' }}
             >
-              — нотариус города Москвы
+              \u2014 \u043D\u043E\u0442\u0430\u0440\u0438\u0443\u0441 \u0433\u043E\u0440\u043E\u0434\u0430 \u041C\u043E\u0441\u043A\u0432\u044B
             </p>
 
             {/* Subtitle */}
             <p
-              className="text-slate leading-relaxed mb-10 sm:mb-12 max-w-[540px] mx-auto md:mx-0 animate-fade-in-up"
-              style={{ fontSize: '16px', lineHeight: '1.7', animationDelay: '200ms' }}
+              className="text-slate leading-relaxed mb-10 sm:mb-12 max-w-[560px] mx-auto md:mx-0 animate-fade-in-up"
+              style={{ fontSize: '17px', lineHeight: '1.65', animationDelay: '200ms' }}
             >
-              Защита ваших прав и юридическая безопасность каждой сделки.
-              Полный спектр нотариальных действий с соблюдением конфиденциальности.
+              \u0417\u0430\u0449\u0438\u0442\u0430 \u0432\u0430\u0448\u0438\u0445 \u043F\u0440\u0430\u0432 \u0438 \u044E\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0431\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u043E\u0441\u0442\u044C \u043A\u0430\u0436\u0434\u043E\u0439 \u0441\u0434\u0435\u043B\u043A\u0438. \u041F\u043E\u043B\u043D\u044B\u0439 \u0441\u043F\u0435\u043A\u0442\u0440 \u043D\u043E\u0442\u0430\u0440\u0438\u0430\u043B\u044C\u043D\u044B\u0445 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0439 \u0441 \u0441\u043E\u0431\u043B\u044E\u0434\u0435\u043D\u0438\u0435\u043C \u043A\u043E\u043D\u0444\u0438\u0434\u0435\u043D\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438 \u0438 \u043F\u0440\u043E\u0444\u0435\u0441\u0441\u0438\u043E\u043D\u0430\u043B\u044C\u043D\u043E\u0439 \u044D\u0442\u0438\u043A\u0438.
             </p>
 
             {/* Actions */}
@@ -128,8 +119,11 @@ export default function Hero() {
                   </svg>
                 </span>
                 <span className="flex flex-col gap-0.5 min-w-0">
-                  <span className="text-[10px] sm:text-[11px] tracking-[0.22em] uppercase whitespace-nowrap" style={{ color: '#6b7895' }}>
-                    Приём по записи
+                  <span
+                    className="text-[10px] sm:text-[11px] tracking-[0.22em] uppercase whitespace-nowrap"
+                    style={{ color: '#6b7895' }}
+                  >
+                    \u041F\u0440\u0438\u0451\u043C \u043F\u043E \u0437\u0430\u043F\u0438\u0441\u0438
                   </span>
                   <span className="font-serif text-[19px] sm:text-[22px] text-cream group-hover:text-gold-light transition-colors whitespace-nowrap">
                     {notary.phone}
@@ -148,14 +142,17 @@ export default function Hero() {
               }}
             >
               {[
-                { num: '18', lbl: 'лет практики' },
-                { num: '12K+', lbl: 'удостоверений' },
-                { num: '24/7', lbl: 'срочный выезд' },
+                { num: '18', lbl: '\u043B\u0435\u0442 \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0438' },
+                { num: '12K+', lbl: '\u0443\u0434\u043E\u0441\u0442\u043E\u0432\u0435\u0440\u0435\u043D\u0438\u0439' },
+                { num: '24/7', lbl: '\u0441\u0440\u043E\u0447\u043D\u044B\u0439 \u0432\u044B\u0435\u0437\u0434' },
               ].map((stat, i) => (
                 <div key={stat.lbl} className="flex items-center gap-3 sm:gap-7 min-w-0">
                   <div className="flex flex-col items-center md:items-start min-w-0 text-center md:text-left">
                     <span className="font-serif text-[26px] sm:text-[32px] leading-none text-gold mb-1.5 sm:mb-2">{stat.num}</span>
-                    <span className="text-[9px] sm:text-[11px] tracking-[0.18em] uppercase whitespace-nowrap" style={{ color: '#6b7895' }}>
+                    <span
+                      className="text-[9px] sm:text-[11px] tracking-[0.18em] uppercase whitespace-nowrap"
+                      style={{ color: '#6b7895' }}
+                    >
                       {stat.lbl}
                     </span>
                   </div>
@@ -167,122 +164,29 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* ── RIGHT COLUMN ── */}
+          {/* ── RIGHT COLUMN — Notarial Seal Canvas ── */}
           <div
-            className="hidden md:flex flex-col gap-5 animate-fade-in"
-            style={{ animationDelay: '200ms' }}
+            className="hidden md:flex items-center justify-center animate-fade-in"
+            style={{
+              position: 'relative',
+              width: '100%',
+              minHeight: '720px',
+              height: '100%',
+              overflow: 'visible',
+              animationDelay: '200ms',
+            }}
           >
-            {/* Portrait placeholder */}
-            <div
-              className="relative overflow-hidden"
+            <SealCanvas
               style={{
-                aspectRatio: '4/5',
-                maxWidth: '420px',
-                border: '1px solid rgba(200,160,60,0.22)',
-                background:
-                  'repeating-linear-gradient(45deg, rgba(200,160,60,0.06) 0px, rgba(200,160,60,0.06) 2px, transparent 2px, transparent 12px),' +
-                  'linear-gradient(160deg, rgba(200,160,60,0.10), rgba(10,22,40,0.40))',
+                width: '160%',
+                height: '160%',
+                maxWidth: '880px',
+                maxHeight: '880px',
+                display: 'block',
+                position: 'relative',
+                zIndex: 3,
               }}
-            >
-              {/* Inner frame */}
-              <div
-                className="absolute pointer-events-none"
-                style={{ inset: '14px', border: '1px solid rgba(200,160,60,0.22)' }}
-                aria-hidden
-              />
-              {/* Corner brackets */}
-              {[
-                { style: { top: 0, left: 0, borderTop: '1px solid #b89a5a', borderLeft: '1px solid #b89a5a' } },
-                { style: { top: 0, right: 0, borderTop: '1px solid #b89a5a', borderRight: '1px solid #b89a5a' } },
-                { style: { bottom: 0, left: 0, borderBottom: '1px solid #b89a5a', borderLeft: '1px solid #b89a5a' } },
-                { style: { bottom: 0, right: 0, borderBottom: '1px solid #b89a5a', borderRight: '1px solid #b89a5a' } },
-              ].map((c, i) => (
-                <div key={i} className="absolute" style={{ width: 18, height: 18, ...c.style }} aria-hidden />
-              ))}
-              {/* Label */}
-              <div
-                className="absolute bottom-6 left-6 font-mono text-[11px] tracking-[0.15em] uppercase"
-                style={{ color: '#6b7895' }}
-              >
-                [ портрет / {notary.address.split(',')[0]} ]
-              </div>
-            </div>
-
-            {/* Credential cards */}
-            <div className="grid grid-cols-2 gap-3.5" style={{ maxWidth: '420px' }}>
-              {[
-                {
-                  icon: (
-                    <svg width="22" height="24" viewBox="0 0 22 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-                      <path d="M11 1.5 2 4.5v7c0 5.5 3.8 9.8 9 11.5 5.2-1.7 9-6 9-11.5v-7L11 1.5Z" />
-                      <path d="m7 11.5 3 3 5-5.5" strokeWidth="1.6" />
-                    </svg>
-                  ),
-                  code: 'Реестр · № 77/1842',
-                  title: 'Лицензия\nМинюст РФ',
-                  meta: 'Выдана 14.03.2008',
-                  verify: 'Действующая',
-                },
-                {
-                  icon: (
-                    <svg width="22" height="24" viewBox="0 0 22 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-                      <path d="M11 1.5 2 4.5v7c0 5.5 3.8 9.8 9 11.5 5.2-1.7 9-6 9-11.5v-7L11 1.5Z" />
-                      <path d="M11 7v9M7 11h8M6 14h4M12 14h4" strokeWidth="1.3" />
-                    </svg>
-                  ),
-                  code: 'Членство с 2009',
-                  title: 'Член МГНП',
-                  meta: 'Моск. гор. нотариальная палата',
-                  verify: 'Активное',
-                },
-              ].map((cred) => (
-                <div
-                  key={cred.code}
-                  className="relative cursor-default"
-                  style={{
-                    padding: '22px 20px 44px',
-                    background: 'linear-gradient(170deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01))',
-                    border: '1px solid rgba(200,160,60,0.18)',
-                    backdropFilter: 'blur(6px)',
-                  }}
-                >
-                  <div className="absolute top-0 left-0 w-3.5 h-px bg-gold" aria-hidden />
-                  <div className="absolute top-0 left-0 w-px h-3.5 bg-gold" aria-hidden />
-                  <div
-                    className="w-9 h-9 mb-4 grid place-items-center text-gold"
-                    style={{ background: 'radial-gradient(circle at 50% 40%, rgba(200,160,60,0.22), transparent 70%)' }}
-                  >
-                    {cred.icon}
-                  </div>
-                  <div className="font-mono text-[10px] tracking-[0.22em] uppercase mb-1.5" style={{ color: '#6b7895' }}>
-                    {cred.code}
-                  </div>
-                  <div className="font-serif text-[17px] leading-snug text-cream mb-2.5" style={{ whiteSpace: 'pre-line' }}>
-                    {cred.title}
-                  </div>
-                  <div className="text-[12px] text-slate">{cred.meta}</div>
-                  <div
-                    className="absolute bottom-3.5 right-3.5 text-[10px] tracking-[0.16em] uppercase"
-                    style={{ color: '#b89a5a', opacity: 0.7 }}
-                  >
-                    ✓ {cred.verify}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Hours pill — real-time status */}
-            <div
-              className="flex items-center gap-3"
-              style={{
-                padding: '14px 20px',
-                border: '1px solid rgba(255,255,255,0.08)',
-                background: 'rgba(255,255,255,0.02)',
-                maxWidth: '420px',
-              }}
-            >
-              <OpenStatus />
-            </div>
+            />
           </div>
         </div>
       </div>
@@ -308,7 +212,7 @@ export default function Hero() {
         className="absolute left-16 bottom-9 z-[6] hidden md:flex items-center gap-3.5"
         style={{ fontSize: '10px', letterSpacing: '0.32em', textTransform: 'uppercase', color: '#6b7895' }}
       >
-        <span>Листайте ниже</span>
+        <span>\u041B\u0438\u0441\u0442\u0430\u0439\u0442\u0435 \u043D\u0438\u0436\u0435</span>
         <span
           className="relative overflow-hidden"
           style={{ width: '60px', height: '1px', background: 'linear-gradient(90deg, #b89a5a, transparent)' }}
