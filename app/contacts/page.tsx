@@ -118,6 +118,56 @@ export default function ContactsPage() {
 
             {/* Sidebar */}
             <div className="space-y-4">
+              {/* Portrait placeholder */}
+              <div
+                className="relative flex flex-col items-center justify-center text-center rounded-xl overflow-hidden"
+                style={{ padding: '32px 24px', background: '#0f1e35', minHeight: '200px' }}
+              >
+                {/* Corner brackets */}
+                {[
+                  { top: 8, left: 8, borderTop: '1px solid #b89a5a', borderLeft: '1px solid #b89a5a' },
+                  { top: 8, right: 8, borderTop: '1px solid #b89a5a', borderRight: '1px solid #b89a5a' },
+                  { bottom: 8, left: 8, borderBottom: '1px solid #b89a5a', borderLeft: '1px solid #b89a5a' },
+                  { bottom: 8, right: 8, borderBottom: '1px solid #b89a5a', borderRight: '1px solid #b89a5a' },
+                ].map((s, i) => (
+                  <div
+                    key={i}
+                    className="absolute"
+                    style={{ width: 16, height: 16, position: 'absolute', ...s }}
+                    aria-hidden
+                  />
+                ))}
+
+                {/* Silhouette icon */}
+                <div className="mb-3" style={{ color: 'rgba(184,154,90,0.20)' }}>
+                  <svg width="56" height="56" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden>
+                    <circle cx="32" cy="22" r="10" />
+                    <path d="M12 54c2.5-10 10-16 20-16s17.5 6 20 16" />
+                  </svg>
+                </div>
+
+                <p
+                  className="font-serif font-medium m-0 mb-1"
+                  style={{ fontSize: '17px', lineHeight: '1.2', color: '#c9a84c' }}
+                >
+                  {notary.name.split(' ')[0]}<br />
+                  {notary.name.split(' ').slice(1).join(' ')}
+                </p>
+                <p
+                  className="font-mono text-[10px] tracking-[0.20em] uppercase mb-0"
+                  style={{ color: '#6b7895' }}
+                >
+                  Нотариус · Москва · с 2008
+                </p>
+
+                <div
+                  className="absolute bottom-3 left-0 right-0 text-center font-mono text-[10px] tracking-[0.12em]"
+                  style={{ color: 'rgba(184,154,90,0.25)' }}
+                >
+                  [ фото нотариуса ]
+                </div>
+              </div>
+
               <WorkingHours />
               <ContactCard />
               <BookingButton className="w-full" />
