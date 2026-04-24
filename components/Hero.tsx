@@ -52,8 +52,8 @@ export default function Hero() {
             >
               <span className="block w-8 sm:w-11 h-px bg-gold flex-shrink-0" />
               <span className="text-gold font-semibold text-[10px] sm:text-[11px] tracking-[0.28em] sm:tracking-[0.32em] uppercase whitespace-nowrap">
-                <span className="md:hidden">\u0441 2008 \u0433\u043E\u0434\u0430</span>
-                <span className="hidden md:inline">\u041D\u043E\u0442\u0430\u0440\u0438\u0430\u043B\u044C\u043D\u0430\u044F \u043A\u043E\u043D\u0442\u043E\u0440\u0430 \u00B7 \u0441 2008 \u0433\u043E\u0434\u0430</span>
+                <span className="md:hidden">с 2008 года</span>
+                <span className="hidden md:inline">Нотариальная контора · с 2008 года</span>
               </span>
               <span className="block w-8 sm:hidden h-px bg-gold flex-shrink-0" />
             </div>
@@ -88,7 +88,7 @@ export default function Hero() {
               className="font-serif italic text-slate mb-6 sm:mb-7 animate-fade-in-up"
               style={{ fontSize: '18px', animationDelay: '140ms' }}
             >
-              \u2014 \u043D\u043E\u0442\u0430\u0440\u0438\u0443\u0441 \u0433\u043E\u0440\u043E\u0434\u0430 \u041C\u043E\u0441\u043A\u0432\u044B
+              — нотариус города Москвы
             </p>
 
             {/* Subtitle */}
@@ -96,7 +96,7 @@ export default function Hero() {
               className="text-slate leading-relaxed mb-10 sm:mb-12 max-w-[560px] mx-auto md:mx-0 animate-fade-in-up"
               style={{ fontSize: '17px', lineHeight: '1.65', animationDelay: '200ms' }}
             >
-              \u0417\u0430\u0449\u0438\u0442\u0430 \u0432\u0430\u0448\u0438\u0445 \u043F\u0440\u0430\u0432 \u0438 \u044E\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0431\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u043E\u0441\u0442\u044C \u043A\u0430\u0436\u0434\u043E\u0439 \u0441\u0434\u0435\u043B\u043A\u0438. \u041F\u043E\u043B\u043D\u044B\u0439 \u0441\u043F\u0435\u043A\u0442\u0440 \u043D\u043E\u0442\u0430\u0440\u0438\u0430\u043B\u044C\u043D\u044B\u0445 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0439 \u0441 \u0441\u043E\u0431\u043B\u044E\u0434\u0435\u043D\u0438\u0435\u043C \u043A\u043E\u043D\u0444\u0438\u0434\u0435\u043D\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438 \u0438 \u043F\u0440\u043E\u0444\u0435\u0441\u0441\u0438\u043E\u043D\u0430\u043B\u044C\u043D\u043E\u0439 \u044D\u0442\u0438\u043A\u0438.
+              Защита ваших прав и юридическая безопасность каждой сделки. Полный спектр нотариальных действий с соблюдением конфиденциальности и профессиональной этики.
             </p>
 
             {/* Actions */}
@@ -123,7 +123,7 @@ export default function Hero() {
                     className="text-[10px] sm:text-[11px] tracking-[0.22em] uppercase whitespace-nowrap"
                     style={{ color: '#6b7895' }}
                   >
-                    \u041F\u0440\u0438\u0451\u043C \u043F\u043E \u0437\u0430\u043F\u0438\u0441\u0438
+                    Приём по записи
                   </span>
                   <span className="font-serif text-[19px] sm:text-[22px] text-cream group-hover:text-gold-light transition-colors whitespace-nowrap">
                     {notary.phone}
@@ -142,9 +142,9 @@ export default function Hero() {
               }}
             >
               {[
-                { num: '18', lbl: '\u043B\u0435\u0442 \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0438' },
-                { num: '12K+', lbl: '\u0443\u0434\u043E\u0441\u0442\u043E\u0432\u0435\u0440\u0435\u043D\u0438\u0439' },
-                { num: '24/7', lbl: '\u0441\u0440\u043E\u0447\u043D\u044B\u0439 \u0432\u044B\u0435\u0437\u0434' },
+                { num: '18', lbl: 'лет практики' },
+                { num: '12K+', lbl: 'удостоверений' },
+                { num: '24/7', lbl: 'срочный выезд' },
               ].map((stat, i) => (
                 <div key={stat.lbl} className="flex items-center gap-3 sm:gap-7 min-w-0">
                   <div className="flex flex-col items-center md:items-start min-w-0 text-center md:text-left">
@@ -212,7 +212,7 @@ export default function Hero() {
         className="absolute left-16 bottom-9 z-[6] hidden md:flex items-center gap-3.5"
         style={{ fontSize: '10px', letterSpacing: '0.32em', textTransform: 'uppercase', color: '#6b7895' }}
       >
-        <span>\u041B\u0438\u0441\u0442\u0430\u0439\u0442\u0435 \u043D\u0438\u0436\u0435</span>
+        <span>Листайте ниже</span>
         <span
           className="relative overflow-hidden"
           style={{ width: '60px', height: '1px', background: 'linear-gradient(90deg, #b89a5a, transparent)' }}
