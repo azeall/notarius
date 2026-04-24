@@ -69,7 +69,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* 2-column card: info | decorative map */}
+          {/* 2-column card: info | map */}
           <div
             className="reveal grid grid-cols-1 md:grid-cols-[0.85fr_1.15fr] overflow-hidden rounded-2xl"
             style={{ border: '1px solid rgba(184,154,90,0.15)', background: 'rgba(184,154,90,0.12)' }}
@@ -126,121 +126,18 @@ export default function HomePage() {
               ))}
             </div>
 
-            {/* Decorative map column — pulsing dot marker */}
-            <div
-              className="relative flex items-center justify-center"
-              style={{ minHeight: '380px', background: '#07111f' }}
-            >
-              {/* Grid texture */}
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  backgroundImage:
-                    'linear-gradient(rgba(184,154,90,0.04) 1px, transparent 1px),' +
-                    'linear-gradient(90deg, rgba(184,154,90,0.04) 1px, transparent 1px)',
-                  backgroundSize: '44px 44px',
-                }}
-                aria-hidden
+            {/* Map column */}
+            <div className="relative" style={{ minHeight: '380px', background: '#0a1628' }}>
+              <iframe
+                src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(notary.address)}&z=16`}
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+                style={{ filter: 'invert(0.85) hue-rotate(180deg)', border: 'none', display: 'block' }}
+                title="Карта"
               />
-
-              {/* Horizontal boulevard */}
-              <div
-                className="absolute pointer-events-none"
-                style={{
-                  top: '50%', left: 0, right: 0,
-                  height: '14px',
-                  marginTop: '-7px',
-                  background: 'rgba(184,154,90,0.04)',
-                  borderTop: '1px solid rgba(184,154,90,0.08)',
-                  borderBottom: '1px solid rgba(184,154,90,0.08)',
-                }}
-                aria-hidden
-              />
-              {/* Vertical street */}
-              <div
-                className="absolute pointer-events-none"
-                style={{
-                  left: '40%', top: 0, bottom: 0,
-                  width: '10px',
-                  background: 'rgba(184,154,90,0.03)',
-                  borderLeft: '1px solid rgba(184,154,90,0.07)',
-                  borderRight: '1px solid rgba(184,154,90,0.07)',
-                }}
-                aria-hidden
-              />
-
-              {/* Outer slow pulse ring */}
-              <div
-                className="absolute pointer-events-none"
-                style={{ width: 84, height: 84 }}
-                aria-hidden
-              >
-                <span
-                  className="block w-full h-full rounded-full animate-ping"
-                  style={{
-                    background: 'rgba(184,154,90,0.06)',
-                    animationDuration: '2.4s',
-                    animationTimingFunction: 'cubic-bezier(0,0,0.2,1)',
-                  }}
-                />
-              </div>
-              {/* Inner faster pulse ring */}
-              <div
-                className="absolute pointer-events-none"
-                style={{ width: 52, height: 52 }}
-                aria-hidden
-              >
-                <span
-                  className="block w-full h-full rounded-full animate-ping"
-                  style={{
-                    background: 'rgba(184,154,90,0.09)',
-                    animationDuration: '2.4s',
-                    animationDelay: '0.6s',
-                    animationTimingFunction: 'cubic-bezier(0,0,0.2,1)',
-                  }}
-                />
-              </div>
-
-              {/* Static ring */}
-              <div
-                className="absolute rounded-full pointer-events-none"
-                style={{ width: 38, height: 38, border: '1px solid rgba(184,154,90,0.28)' }}
-                aria-hidden
-              />
-
-              {/* Center dot */}
-              <div
-                className="absolute rounded-full z-10"
-                style={{
-                  width: 10, height: 10,
-                  background: '#b89a5a',
-                  boxShadow: '0 0 0 3px rgba(184,154,90,0.15), 0 0 18px rgba(184,154,90,0.55)',
-                }}
-              />
-
-              {/* Connector line + street label */}
-              <div
-                className="absolute flex items-center gap-3 pointer-events-none"
-                style={{ left: 'calc(50% + 14px)' }}
-                aria-hidden
-              >
-                <div className="w-5 h-px flex-shrink-0" style={{ background: 'rgba(184,154,90,0.28)' }} />
-                <span
-                  className="font-mono text-[10px] tracking-[0.26em] uppercase whitespace-nowrap"
-                  style={{ color: 'rgba(184,154,90,0.62)' }}
-                >
-                  {notary.addressParts.streetAddress}
-                </span>
-              </div>
-
-              {/* Link to full contacts map */}
-              <Link
-                href="/contacts"
-                className="absolute bottom-4 right-5 font-mono text-[10px] tracking-[0.18em] uppercase no-underline transition-colors hover:text-gold"
-                style={{ color: 'rgba(184,154,90,0.28)' }}
-              >
-                открыть карту →
-              </Link>
             </div>
           </div>
         </div>
