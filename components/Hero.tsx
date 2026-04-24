@@ -1,7 +1,6 @@
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 import SealCanvas from '@/components/SealCanvas'
-import HeroDocumentsCanvas from '@/components/HeroDocumentsCanvas'
 
 export default function Hero() {
   const nameParts = notary.name.trim().split(/\s+/)
@@ -19,9 +18,6 @@ export default function Hero() {
           'linear-gradient(180deg, #0a1628 0%, #081329 60%, #06101f 100%)',
       }}
     >
-      {/* Document conveyor canvas */}
-      <HeroDocumentsCanvas className="absolute inset-0 w-full h-full pointer-events-none z-[1]" />
-
       {/* Vignette */}
       <div
         className="absolute inset-0 pointer-events-none z-[2]"
