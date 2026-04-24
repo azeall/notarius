@@ -16,7 +16,6 @@ export default function SealCanvas({
     const ctxRaw = elRaw.getContext('2d')
     if (!ctxRaw) return
 
-    // Rebind to typed consts so TypeScript knows these are non-null inside closures
     const canvas: HTMLCanvasElement = elRaw
     const ctx: CanvasRenderingContext2D = ctxRaw
 
@@ -47,7 +46,10 @@ export default function SealCanvas({
       CX = W / 2; CY = H / 2
     }
     resize()
-    const ro = new ResizeObserver(resize)
+    // Call render() from ResizeObserver so the seal appears on first load
+    // without requiring a scroll event. Function declarations are hoisted
+    // so render() is always in scope here.
+    const ro = new ResizeObserver(() => { resize(); render() })
     ro.observe(canvas)
 
     function drawStar(r: number) {
@@ -117,8 +119,8 @@ export default function SealCanvas({
       ctx.restore()
     }
 
-    const OUTER_TEXT = '\u041D\u041E\u0422\u0410\u0420\u0418\u0423\u0421 \u0413\u041E\u0420\u041E\u0414\u0410 \u041C\u041E\u0421\u041A\u0412\u042B \u00B7 \u0411\u042B\u041A\u041E\u041D\u042F \u0420.\u0415. \u00B7 \u0420\u0415\u0413. \u2116 77/1842 \u00B7 '
-    const INNER_TEXT = '\u00B7 \u0423\u0414\u041E\u0421\u0422\u041E\u0412\u0415\u0420\u0415\u041D\u041E \u00B7 \u041F\u041E\u0414\u041F\u0418\u0421\u042C \u00B7 \u041F\u0415\u0427\u0410\u0422\u042C \u00B7 \u0417\u0410\u041A\u041E\u041D\u041D\u041E '
+    const OUTER_TEXT = 'НОТАРИУС ГОРОДА МОСКВЫ · БЫКОНЯ Р.Е. · РЕГ. № 77/1842 · '
+    const INNER_TEXT = '· УДОСТОВЕРЕНО · ПОДПИСЬ · ПЕЧАТЬ · ЗАКОННО '
 
     function render() {
       ctx.clearRect(0, 0, W, H)
@@ -255,10 +257,10 @@ export default function SealCanvas({
       ctx.fillStyle = 'rgba(224,189,95,0.75)'
       ctx.font = 'bold 46px "Playfair Display", Georgia, serif'
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
-      ctx.fillText('\u0411\u0420', 0, -4)
+      ctx.fillText('БР', 0, -4)
       ctx.fillStyle = 'rgba(184,154,90,0.45)'
       ctx.font = '600 9px "Manrope", sans-serif'
-      ctx.fillText('EST \u00B7 2008', 0, 28)
+      ctx.fillText('EST · 2008', 0, 28)
 
       ctx.restore()
     }
@@ -299,7 +301,7 @@ export default function SealCanvas({
       ref={ref}
       className={className}
       style={style}
-      aria-label="\u0413\u0435\u0440\u0431\u043E\u0432\u0430\u044F \u043F\u0435\u0447\u0430\u0442\u044C \u043D\u043E\u0442\u0430\u0440\u0438\u0443\u0441\u0430"
+      aria-label="Гербовая печать нотариуса"
     />
   )
 }
