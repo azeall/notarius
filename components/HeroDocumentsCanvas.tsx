@@ -23,16 +23,19 @@ export default function HeroDocumentsCanvas({ className }: { className?: string 
 
     let W = 0, H = 0, lastT = performance.now(), rafId = 0
 
+    // Capture el as a non-null reference for use inside closures
+    const canvas = el
+
     function resize() {
-      const r = el.getBoundingClientRect()
+      const r = canvas.getBoundingClientRect()
       W = r.width; H = r.height
-      el.width = Math.round(W * DPR)
-      el.height = Math.round(H * DPR)
+      canvas.width = Math.round(W * DPR)
+      canvas.height = Math.round(H * DPR)
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0)
     }
     resize()
     const ro = new ResizeObserver(resize)
-    ro.observe(el)
+    ro.observe(canvas)
 
     const rand = (a: number, b: number) => a + Math.random() * (b - a)
     const deg = (d: number) => d * Math.PI / 180
