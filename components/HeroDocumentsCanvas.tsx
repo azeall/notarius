@@ -5,13 +5,17 @@ export default function HeroDocumentsCanvas({ className }: { className?: string 
   const ref = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
+    const elRaw = ref.current
+    if (!elRaw) return
     if (window.matchMedia('(max-width: 640px)').matches) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const ctx = el.getContext('2d')
-    if (!ctx) return
+    const ctxRaw = elRaw.getContext('2d')
+    if (!ctxRaw) return
+
+    // Rebind to typed consts so TypeScript knows these are non-null inside closures
+    const canvas: HTMLCanvasElement = elRaw
+    const ctx: CanvasRenderingContext2D = ctxRaw
 
     const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1))
     const DRIFT = 12
@@ -22,9 +26,6 @@ export default function HeroDocumentsCanvas({ className }: { className?: string 
     const SYM_COUNT = 8
 
     let W = 0, H = 0, lastT = performance.now(), rafId = 0
-
-    // Capture el as a non-null reference for use inside closures
-    const canvas = el
 
     function resize() {
       const r = canvas.getBoundingClientRect()
