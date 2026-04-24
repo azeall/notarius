@@ -43,7 +43,7 @@ export default function HowItWorks() {
             <div
               key={step.n}
               className="relative reveal"
-              style={{ animationDelay: `${i * 120}ms` }}
+              data-reveal-delay={i * 150}
             >
               {/* Connector line */}
               {i < STEPS.length - 1 && (

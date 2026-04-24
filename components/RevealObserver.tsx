@@ -13,20 +13,19 @@ export default function RevealObserver() {
 
     const reveal = (el: Element) => {
       const htmlEl = el as HTMLElement
-      // Repurpose React's animationDelay inline style as transitionDelay
-      // so stagger values set in component JSX actually work with the
-      // CSS transition-based reveal system.
-      const animDelay = htmlEl.style.animationDelay
-      if (animDelay) {
-        htmlEl.style.transitionDelay = animDelay
-        const delayMs = parseFloat(animDelay) || 0
-        // Remove transitionDelay after the element has finished animating in,
-        // so that subsequent hover/focus transitions aren't delayed.
-        const t = setTimeout(
-          () => { htmlEl.style.transitionDelay = '' },
-          delayMs + 850
-        )
-        cleanupTimers.push(t)
+      // data-reveal-delay="120" (number in ms) drives stagger.
+      // Falls back to animationDelay inline style for legacy components.
+      const rawDelay = htmlEl.dataset.revealDelay ?? htmlEl.style.animationDelay
+      if (rawDelay) {
+        const delayMs = parseFloat(rawDelay) || 0
+        if (delayMs > 0) {
+          htmlEl.style.transitionDelay = `${delayMs}ms`
+          const t = setTimeout(
+            () => { htmlEl.style.transitionDelay = '' },
+            delayMs + 750
+          )
+          cleanupTimers.push(t)
+        }
       }
       el.classList.add('in')
     }

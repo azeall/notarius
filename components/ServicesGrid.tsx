@@ -100,8 +100,8 @@ export default function ServicesGrid() {
                 border: '1px solid rgba(184,154,90,0.15)',
                 borderLeft: '2px solid transparent',
                 borderRadius: '16px',
-                animationDelay: `${i * 40}ms`,
               }}
+              data-reveal-delay={i * 60}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLElement
                 el.style.borderLeftColor = '#b89a5a'
@@ -135,7 +135,7 @@ export default function ServicesGrid() {
 
         <div className="mt-6 md:hidden text-center">
           <Link href="/services" className="text-gold text-sm tracking-[0.12em] uppercase no-underline hover:text-gold-light">
-            Все услуги →
+            Все услуги &rarr;
           </Link>
         </div>
       </div>

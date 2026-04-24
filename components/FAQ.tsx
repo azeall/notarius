@@ -72,8 +72,8 @@ export default function FAQ() {
               style={{
                 borderTop: '1px solid rgba(184,154,90,0.10)',
                 ...(i === FAQS.length - 1 ? { borderBottom: '1px solid rgba(184,154,90,0.10)' } : {}),
-                animationDelay: `${i * 60}ms`,
               }}
+              data-reveal-delay={i * 80}
             >
               <button
                 onClick={() => setOpen(open === i ? null : i)}

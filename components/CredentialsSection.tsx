@@ -116,8 +116,8 @@ export default function CredentialsSection() {
               style={{
                 padding: '22px',
                 background: '#0f1e35',
-                animationDelay: `${i * 80}ms`,
               }}
+              data-reveal-delay={i * 100}
             >
               <div
                 className="w-10 h-10 grid place-items-center text-gold mb-3.5"
