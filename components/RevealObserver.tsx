@@ -6,27 +6,37 @@ export default function RevealObserver() {
   const pathname = usePathname()
 
   useEffect(() => {
+    // Store all cleanup-needed refs in closure so the return fn can reach them
+    let io: IntersectionObserver | null = null
+    let safetyTimer: ReturnType<typeof setTimeout> | null = null
+    let visibilityHandler: (() => void) | null = null
+
     const reveal = (el: Element) => el.classList.add('in')
 
-    // Small delay so new page DOM settles after navigation
-    const setup = setTimeout(() => {
-      const io = new IntersectionObserver(
-        (entries) => entries.forEach((e) => { if (e.isIntersecting) reveal(e.target) }),
-        { threshold: 0.06 }
+    const setupTimer = setTimeout(() => {
+      io = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              reveal(e.target)
+              io?.unobserve(e.target)
+            }
+          }),
+        { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
       )
 
       document.querySelectorAll('.reveal').forEach((el) => {
-        // Already in viewport → reveal immediately
         const r = el.getBoundingClientRect()
-        if (r.top < window.innerHeight * 1.1) {
+        // Reveal immediately if already in or just below the viewport
+        if (r.top < window.innerHeight * 1.05) {
           reveal(el)
         } else {
-          io.observe(el)
+          io!.observe(el)
         }
       })
 
-      // When user returns to this tab → show visible elements
-      const onVisibility = () => {
+      // Re-check on tab focus
+      visibilityHandler = () => {
         if (!document.hidden) {
           document.querySelectorAll('.reveal:not(.in)').forEach((el) => {
             const r = el.getBoundingClientRect()
@@ -34,29 +44,26 @@ export default function RevealObserver() {
           })
         }
       }
-      document.addEventListener('visibilitychange', onVisibility)
+      document.addEventListener('visibilitychange', visibilityHandler)
 
-      // Safety net: after 2s reveal everything still hidden
-      const timer = setTimeout(() => {
+      // Safety net: reveal anything still hidden after 2.5s
+      safetyTimer = setTimeout(() => {
         document.querySelectorAll('.reveal:not(.in)').forEach(reveal)
-      }, 2000)
-
-      // Store cleanup on the setup timeout so outer cleanup can call it
-      ;(setup as unknown as { _cleanup?: () => void })._cleanup = () => {
-        io.disconnect()
-        document.removeEventListener('visibilitychange', onVisibility)
-        clearTimeout(timer)
-      }
-    }, 80)
+      }, 2500)
+    }, 100)
 
     return () => {
-      clearTimeout(setup)
-      const cleanup = (setup as unknown as { _cleanup?: () => void })._cleanup
-      if (cleanup) cleanup()
-      // Reset all reveal elements so they animate in fresh on next visit
-      document.querySelectorAll('.reveal.in').forEach((el) => el.classList.remove('in'))
+      clearTimeout(setupTimer)
+      if (safetyTimer) clearTimeout(safetyTimer)
+      if (io) io.disconnect()
+      if (visibilityHandler)
+        document.removeEventListener('visibilitychange', visibilityHandler)
+      // Reset so elements animate fresh on next route visit
+      document.querySelectorAll('.reveal.in').forEach((el) =>
+        el.classList.remove('in')
+      )
     }
-  }, [pathname]) // Re-run on every route change
+  }, [pathname])
 
   return null
 }
