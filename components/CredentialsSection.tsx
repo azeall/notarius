@@ -9,10 +9,10 @@ const CREDS = [
         <path d="m7 11.5 3 3 5-5.5" strokeWidth="1.6" />
       </svg>
     ),
-    code: '\u041F\u0440\u0438\u043A\u0430\u0437 \u2116 77-\u0447',
-    title: '\u041D\u0430\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u043D\u043E\u0442\u0430\u0440\u0438\u0443\u0441\u043E\u043C',
-    meta: '14.03.2008 \u00B7 \u041C\u0438\u043D\u044E\u0441\u0442 \u0420\u0424',
-    badge: '\u0414\u0435\u0439\u0441\u0442\u0432\u0443\u044E\u0449\u0435\u0435',
+    code: 'Приказ № 77-ч',
+    title: 'Назначение нотариусом',
+    meta: '14.03.2008 · Минюст РФ',
+    badge: 'Действующее',
   },
   {
     icon: (
@@ -21,10 +21,10 @@ const CREDS = [
         <path d="M11 7v9M7 11h8M6 14h4M12 14h4" strokeWidth="1.3" />
       </svg>
     ),
-    code: '\u041C\u0413\u041D\u041F \u00B7 \u0420\u0435\u0433. 1842',
-    title: '\u0427\u043B\u0435\u043D \u041C\u043E\u0441\u043A\u043E\u0432\u0441\u043A\u043E\u0439 \u043F\u0430\u043B\u0430\u0442\u044B',
-    meta: '\u0441 21.04.2009',
-    badge: '\u0410\u043A\u0442\u0438\u0432\u043D\u043E\u0435',
+    code: 'МГНП · Рег. 1842',
+    title: 'Член Московской палаты',
+    meta: 'с 21.04.2009',
+    badge: 'Активное',
   },
   {
     icon: (
@@ -33,10 +33,10 @@ const CREDS = [
         <path d="M3.5 22c1.5-4 4.3-6 7.5-6s6 2 7.5 6" />
       </svg>
     ),
-    code: '\u041C\u0413\u0423 \u0438\u043C. \u041B\u043E\u043C\u043E\u043D\u043E\u0441\u043E\u0432\u0430',
-    title: '\u0414\u0438\u043F\u043B\u043E\u043C \u044E\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043A\u043E\u0433\u043E \u0444\u0430\u043A\u0443\u043B\u044C\u0442\u0435\u0442\u0430',
-    meta: '\u0441 \u043E\u0442\u043B\u0438\u0447\u0438\u0435\u043C \u00B7 2002',
-    badge: '\u0412\u0435\u0440\u0438\u0444\u0438\u0446\u0438\u0440\u043E\u0432\u0430\u043D\u043E',
+    code: 'МГУ им. Ломоносова',
+    title: 'Диплом юридического факультета',
+    meta: 'с отличием · 2002',
+    badge: 'Верифицировано',
   },
   {
     icon: (
@@ -45,10 +45,10 @@ const CREDS = [
         <path d="M7 4v16M15 4v16M3 12h16" strokeWidth="1.2" />
       </svg>
     ),
-    code: '\u0421\u0442\u0440\u0430\u0445\u043E\u0432\u0430\u044F \u0441\u0443\u043C\u043C\u0430',
-    title: '\u041F\u0440\u043E\u0444. \u043E\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0441\u0442\u044C',
-    meta: '5\u00A0000\u00A0000 \u20BD \u00B7 \u0412\u0421\u041A',
-    badge: '\u041F\u043E\u043B\u0438\u0441 2026',
+    code: 'Страховая сумма',
+    title: 'Проф. ответственность',
+    meta: '5\u00A0000\u00A0000 ₽ · ВСК',
+    badge: 'Полис 2026',
   },
 ]
 
@@ -82,16 +82,16 @@ export default function CredentialsSection() {
                 className="text-[11px] tracking-[0.32em] uppercase"
                 style={{ color: 'rgba(184,154,90,0.70)' }}
               >
-                \u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B \u0438 \u0447\u043B\u0435\u043D\u0441\u0442\u0432\u043E
+                Документы и членство
               </span>
             </div>
             <h2
               className="font-serif font-medium text-cream m-0"
               style={{ fontSize: 'clamp(36px, 4vw, 54px)', lineHeight: '1.08', letterSpacing: '-0.01em' }}
             >
-              \u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D\u043D\u044B\u0435{' '}
+              Подтверждённые{' '}
               <em className="italic font-normal text-gold">
-                \u043F\u043E\u043B\u043D\u043E\u043C\u043E\u0447\u0438\u044F
+                полномочия
               </em>
             </h2>
           </div>
@@ -100,7 +100,7 @@ export default function CredentialsSection() {
             className="inline-flex items-center gap-2.5 text-[12px] tracking-[0.22em] uppercase text-gold no-underline pb-1 transition-colors hover:text-gold-light flex-shrink-0"
             style={{ borderBottom: '1px solid rgba(184,154,90,0.30)' }}
           >
-            \u041E \u043D\u043E\u0442\u0430\u0440\u0438\u0443\u0441\u0435
+            О нотариусе
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
