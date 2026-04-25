@@ -49,7 +49,7 @@ function stepWeekday(ymd: string, dir: 1 | -1): string {
   return next
 }
 
-export default function AdminAppointmentCard({ a }: { a: Appointment }) {
+export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; isAdmin?: boolean }) {
   const router = useRouter()
   const [editing, setEditing] = useState(false)
   const [date, setDate] = useState(a.date)
@@ -207,7 +207,37 @@ export default function AdminAppointmentCard({ a }: { a: Appointment }) {
               >
                 Удалить
               </button>
+              {isAdmin && (
+                <button
+                  onClick={() => { setReassigning(r => !r); setNewAssignee(a.staffId ?? '') }}
+                  className="text-[11px] sm:text-xs text-blue-600 hover:text-blue-800 border border-blue-200 hover:border-blue-400 rounded-md px-2 py-1 transition-colors"
+                >
+                  Передать
+                </button>
+              )}
             </div>
+            {isAdmin && reassigning && (
+              <div className="flex items-center gap-1.5 mt-2 flex-wrap">
+                <select
+                  value={newAssignee}
+                  onChange={e => setNewAssignee(e.target.value)}
+                  className="text-xs border border-gray-200 rounded-md px-2 py-1.5 text-gray-700 bg-gray-50 focus:outline-none focus:border-gold"
+                >
+                  <option value="">Нотариус</option>
+                  {STAFF_LIST.map(s => (
+                    <option key={s.id} value={s.id}>{s.name}</option>
+                  ))}
+                </select>
+                <button
+                  onClick={reassign}
+                  disabled={busy}
+                  className="text-xs bg-gold text-navy font-semibold px-3 py-1.5 rounded-md hover:brightness-110 disabled:opacity-50 whitespace-nowrap"
+                >
+                  {busy ? '…' : 'ОК'}
+                </button>
+                <button onClick={() => setReassigning(false)} className="text-sm text-gray-400 hover:text-gray-600 px-1">×</button>
+              </div>
+            )}
           </div>
         </div>
       </div>

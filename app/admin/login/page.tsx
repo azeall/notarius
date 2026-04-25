@@ -6,6 +6,7 @@ export default function AdminLogin() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   async function handleSubmit(e: React.FormEvent) {
@@ -16,7 +17,7 @@ export default function AdminLogin() {
       body: JSON.stringify({ password }),
     })
     if (res.ok) {
-      router.push('/admin')
+      window.location.href = '/admin'
     } else {
       setError('Неверный пароль')
     }
@@ -80,7 +81,8 @@ export default function AdminLogin() {
 
         <button
           type="submit"
-          className="w-full bg-gold text-navy font-semibold py-2.5 rounded-xl hover:brightness-110 transition-all text-sm"
+          disabled={loading}
+          className="w-full bg-gold text-navy font-semibold py-2.5 rounded-xl hover:brightness-110 transition-all text-sm disabled:opacity-60"
         >
           Войти
         </button>

@@ -136,7 +136,7 @@ export default async function AdminPage({
                           {staffLabel(a.staffId ?? null)}
                         </p>
                       )}
-                      <AdminAppointmentCard a={a} />
+                      <AdminAppointmentCard a={a} isAdmin />
                     </div>
                   ))}
                 </div>
