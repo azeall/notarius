@@ -8,7 +8,8 @@ import {
   WORKING_HOURS_LABEL,
   endTime,
   expandSlots,
-} from '@/lib/slots'
+}  from '@/lib/slots'
+import { SERVICES, maxDurationForService, defaultDurationForService } from '@/lib/services'
 
 const SERVICES = [
   'Удостоверение сделок с недвижимостью',
@@ -42,6 +43,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
   const today = new Date()
   const [step, setStep] = useState<1|2|3>(1)
   const [service, setService] = useState('')
+  const [duration, setDuration] = useState<number>(30)
   const [year, setYear] = useState(initialDate?.year ?? today.getFullYear())
   const [month, setMonth] = useState(initialDate?.month ?? today.getMonth())
   const [day, setDay] = useState<number|null>(initialDate?.day ?? null)
@@ -75,6 +77,8 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
     if (!time) return new Set<string>()
     return new Set(expandSlots(time, duration))
   }, [time, duration])
+
+  const filteredDurations = DURATION_OPTIONS.filter(d => d <= maxDurationForService(service || 'Другое'))
 
   const selectionFits = time ? expandSlots(time, duration).length > 0 : false
   const selectionConflicts = time
@@ -172,7 +176,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                 <label className="text-[10px] uppercase tracking-[0.24em] text-slate mb-2 block">Услуга</label>
                 <select
                   value={service}
-                  onChange={e => setService(e.target.value)}
+                  onChange={e => const svc = e.target.value; setService(svc); const def = defaultDurationForService(svc); setDuration(def)}
                   className="w-full rounded-lg px-3 py-2.5 text-cream text-sm focus:outline-none"
                   style={{ background: '#060f1e', border: '1px solid rgba(184,154,90,0.20)' }}
                 >
@@ -228,7 +232,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                     <span className="text-[10px] text-slate/70">Рабочее время: {WORKING_HOURS_LABEL}</span>
                   </div>
                   <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5 mb-4">
-                    {DURATION_OPTIONS.map(d => (
+                    {filteredDurations.map(d => (
                       <button
                         key={d}
                         type="button"

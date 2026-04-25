@@ -10,17 +10,9 @@ import {
   endTime,
   expandSlots,
 } from '@/lib/slots'
+import { SERVICES, maxDurationForService, defaultDurationForService } from '@/lib/services'
 
-const SERVICES = [
-  'Наследство и завещания',
-  'Сделки с недвижимостью',
-  'Доверенности',
-  'Заверение копий и справок',
-  'Брачный договор',
-  'Согласие супруга',
-  'Нотариальный перевод',
-  'Другое',
-]
+
 
 const MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
 const DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс']
@@ -60,6 +52,8 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
     if (!selectedTime) return new Set<string>()
     return new Set(expandSlots(selectedTime, duration))
   }, [selectedTime, duration])
+
+  const filteredDurations = DURATION_OPTIONS.filter(d => d <= maxDurationForService(service))
 
   const selectionFits = selectedTime ? expandSlots(selectedTime, duration).length > 0 : false
   const selectionConflicts = selectedTime
@@ -107,7 +101,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
     if (res.ok) {
       setSuccess(true)
       setName(''); setPhone(''); setService(SERVICES[0])
-      setSelectedDate(''); setSelectedTime(''); setDuration(30); setBookedTimes([])
+      setSelectedDate(''); setSelectedTime(''); setDuration(defaultDurationForService(SERVICES[0])); setBookedTimes([])
       setTimeout(() => { setSuccess(false); router.refresh() }, 1500)
     } else {
       const data = await res.json().catch(() => ({}))
@@ -152,7 +146,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
             <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Услуга</label>
             <select
               value={service}
-              onChange={e => setService(e.target.value)}
+              onChange={e => const svc = e.target.value; setService(svc); setDuration(defaultDurationForService(svc))}
               className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
             >
               {SERVICES.map(s => <option key={s} className="text-gray-900">{s}</option>)}
@@ -182,7 +176,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
           <div>
             <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Длительность</label>
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
-              {DURATION_OPTIONS.map(d => (
+              {filteredDurations.map(d => (
                 <button
                   key={d}
                   type="button"
