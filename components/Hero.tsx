@@ -35,7 +35,7 @@ export default function Hero() {
 
       {/* Main grid */}
       <div
-        className="relative z-[5] flex-1 mx-auto w-full flex items-center px-5 sm:px-8 md:px-16 py-16 md:py-20"
+        className="relative z-[5] flex-1 mx-auto w-full flex items-center px-5 sm:px-8 md:px-16 py-8 md:py-12"
         style={{ maxWidth: '1480px' }}
       >
         <div className="w-full grid items-center gap-10 md:gap-20 grid-cols-1 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.95fr)]">

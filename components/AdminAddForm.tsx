@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
+import { STAFF_LIST } from '@/lib/staff'
 import {
   AFTERNOON_SLOTS,
   DURATION_OPTIONS,
@@ -28,7 +29,7 @@ function toYMD(d: Date) {
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
 }
 
-export default function AdminAddForm() {
+export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: string | null }) {
   const router = useRouter()
   const today = new Date()
   const [calYear, setCalYear] = useState(today.getFullYear())
@@ -43,6 +44,7 @@ export default function AdminAddForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
+  const [assigneeId, setAssigneeId] = useState<string | null>(defaultStaffId ?? null)
 
   useEffect(() => {
     if (!selectedDate) { setBookedTimes([]); return }
@@ -99,7 +101,7 @@ export default function AdminAddForm() {
     const res = await fetch('/api/admin/appointments', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, phone, service, date: selectedDate, time: selectedTime, duration }),
+      body: JSON.stringify({ name, phone, service, date: selectedDate, time: selectedTime, duration, staffId: assigneeId }),
     })
     setLoading(false)
     if (res.ok) {

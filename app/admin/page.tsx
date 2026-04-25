@@ -1,10 +1,11 @@
-export const dynamic = 'force-dynamic'
+﻿export const dynamic = 'force-dynamic'
 
 import { prisma } from '@/lib/prisma'
-import { findStaffById } from '@/lib/staff'
+import { STAFF_LIST, findStaffById } from '@/lib/staff'
 import AdminAddForm from '@/components/AdminAddForm'
 import AdminHistoryPicker from '@/components/AdminHistoryPicker'
 import AdminLogoutButton from '@/components/AdminLogoutButton'
+import AdminAppointmentCard from '@/components/AdminAppointmentCard'
 import StaffTabs from '@/components/StaffTabs'
 
 function formatDate(date: string) {
@@ -19,9 +20,9 @@ export default async function AdminPage({
 }) {
   const today = new Date().toISOString().split('T')[0]
   const lookupDate = searchParams?.date ?? null
-
   const activeTab = searchParams?.staff ?? 'notary'
 
+  // Build DB filter
   let staffFilter: { staffId?: string | null } = { staffId: null }
   if (activeTab === 'all') {
     staffFilter = {}
@@ -59,10 +60,15 @@ export default async function AdminPage({
     : activeTab === 'all' ? 'Все сотрудники'
     : findStaffById(activeTab)?.name ?? activeTab
 
+  // defaultStaffId for the add form: null for notary tab, staffId for staff tabs
+  const addFormDefaultStaff = activeTab === 'notary' || activeTab === 'all'
+    ? null
+    : activeTab
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
 
-      {/* Header with logout */}
+      {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div>
           <h1 className="font-serif text-4xl font-bold text-cream">Записи на приём</h1>
@@ -78,20 +84,8 @@ export default async function AdminPage({
         <StaffTabs active={activeTab} />
       </div>
 
-      {/* Add form — only when viewing notary calendar */}
-      {activeTab === 'notary' && <AdminAddForm />}
-
-      {/* Info hint for staff tabs */}
-      {activeTab !== 'notary' && activeTab !== 'all' && (
-        <div className="bg-white/5 border border-white/10 rounded-2xl px-5 py-3 mb-8 text-sm text-cream/60">
-          Просмотр записей сотрудника{' '}
-          <span className="text-gold font-medium">{currentTabLabel}</span>.{' '}
-          Для добавления сотрудник должен войти в свой кабинет:{' '}
-          <a href="/staff/login" className="text-gold underline underline-offset-2">
-            /staff/login
-          </a>
-        </div>
-      )}
+      {/* Add form — available on all tabs, pre-assigns to current tab's person */}
+      <AdminAddForm defaultStaffId={addFormDefaultStaff} />
 
       {/* History lookup */}
       <AdminHistoryPicker
@@ -135,30 +129,14 @@ export default async function AdminPage({
                 </h2>
                 <div className="grid gap-3">
                   {items.map(a => (
-                    <div
-                      key={a.id}
-                      className="flex items-center justify-between bg-white rounded-2xl px-6 py-5 shadow-sm border border-gray-100 hover:border-gold/30 transition-colors"
-                    >
-                      <div className="flex items-center gap-5">
-                        <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
-                          <span className="text-gold font-bold text-lg">{a.name.charAt(0)}</span>
-                        </div>
-                        <div>
-                          <p className="font-semibold text-gray-900 text-lg leading-tight">{a.name}</p>
-                          <p className="text-gray-500 text-sm mt-0.5">{a.phone}</p>
-                          <p className="text-navy/70 text-sm mt-1 font-medium">{a.service}</p>
-                          {activeTab === 'all' && (
-                            <p className="text-xs mt-1 font-semibold" style={{ color: '#b89a5a' }}>
-                              {staffLabel(a.staffId ?? null)}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                      <div className="text-right flex-shrink-0 ml-4">
-                        <span className="inline-block bg-gold text-navy font-bold text-xl px-5 py-2 rounded-xl">
-                          {a.time}
-                        </span>
-                      </div>
+                    <div key={a.id}>
+                      {/* Show assignee badge when viewing all */}
+                      {activeTab === 'all' && (
+                        <p className="text-xs font-semibold mb-1 ml-1" style={{ color: '#b89a5a' }}>
+                          {staffLabel(a.staffId ?? null)}
+                        </p>
+                      )}
+                      <AdminAppointmentCard a={a} />
                     </div>
                   ))}
                 </div>

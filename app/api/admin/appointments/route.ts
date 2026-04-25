@@ -16,7 +16,7 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json().catch(() => ({}))
-  const { name, phone, service, date, time } = body ?? {}
+  const { name, phone, service, date, time, staffId } = body ?? {}
   const rawDuration = Number(body?.duration ?? SLOT_MINUTES)
 
   if (!name || !phone || !service || !date || !time) {
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
   }
 
   const appointment = await prisma.appointment.create({
-    data: { name, phone, service, date, time, duration, ip: 'admin' },
+    data: { name, phone, service, date, time, duration, ip: 'admin', staffId: staffId || null },
   })
 
   return NextResponse.json({ ok: true, id: appointment.id })

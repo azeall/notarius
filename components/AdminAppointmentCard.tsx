@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { STAFF_LIST } from '@/lib/staff'
 import {
   AFTERNOON_SLOTS,
   DURATION_OPTIONS,
@@ -57,6 +58,8 @@ export default function AdminAppointmentCard({ a }: { a: Appointment }) {
   const [dayBooked, setDayBooked] = useState<string[]>([])
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
+  const [reassigning, setReassigning] = useState(false)
+  const [newAssignee, setNewAssignee] = useState<string>('')
 
   // При открытии / смене даты подгружаем занятость
   useEffect(() => {
@@ -90,6 +93,19 @@ export default function AdminAppointmentCard({ a }: { a: Appointment }) {
   const selectionConflicts = [...selectionSlots].some(s => blockedSet.has(s))
 
   const changed = date !== a.date || time !== a.time || duration !== a.duration
+
+  async function reassign() {
+    const staffId = newAssignee === '' ? null : newAssignee
+    setBusy(true); setErr('')
+    const res = await fetch(`/api/admin/appointments/${a.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ staffId }),
+    })
+    setBusy(false)
+    if (res.ok) { setReassigning(false); router.refresh() }
+    else { const d = await res.json().catch(() => ({})); setErr(d.error ?? 'Ошибка') }
+  }
 
   function startEdit() {
     setEditing(true)

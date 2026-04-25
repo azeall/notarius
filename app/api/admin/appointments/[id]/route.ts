@@ -35,6 +35,21 @@ export async function PATCH(req: Request, { params }: Params) {
     return NextResponse.json({ error: 'Запись не найдена' }, { status: 404 })
   }
 
+  // staffId reassign: explicitly passed (null = notary, string = staff_id)
+  const hasStaffId = 'staffId' in body
+  const newStaffId = hasStaffId
+    ? (body.staffId === null || body.staffId === '' ? null : String(body.staffId))
+    : current.staffId
+
+  // If only reassigning (no date/time change needed), handle early
+  if (hasStaffId && !body.date && !body.time && body.duration == null) {
+    const updated = await prisma.appointment.update({
+      where: { id: current.id },
+      data: { staffId: newStaffId },
+    })
+    return NextResponse.json({ ok: true, appointment: updated })
+  }
+
   const newDate: string = typeof body.date === 'string' && body.date ? body.date : current.date
   const newTime: string = typeof body.time === 'string' && body.time ? body.time : current.time
   const rawDuration = body.duration == null ? current.duration : Number(body.duration)
@@ -65,7 +80,7 @@ export async function PATCH(req: Request, { params }: Params) {
 
   const updated = await prisma.appointment.update({
     where: { id: current.id },
-    data: { date: newDate, time: newTime, duration: newDuration },
+    data: { date: newDate, time: newTime, duration: newDuration, staffId: newStaffId },
   })
 
   return NextResponse.json({ ok: true, appointment: updated })
