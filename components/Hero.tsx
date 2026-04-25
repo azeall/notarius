@@ -98,14 +98,14 @@ export default function Hero() {
 
             {/* Actions */}
             <div
-              className="flex flex-col md:flex-row md:flex-wrap items-center md:items-center justify-center md:justify-start gap-6 md:gap-8 animate-fade-in-up"
+              className="flex flex-col md:flex-row md:flex-wrap items-center md:items-center justify-center md:justify-start gap-6 md:gap-8 mb-5 sm:mb-6 animate-fade-in-up"
               style={{ animationDelay: '280ms' }}
             >
               <BookingButton />
 
               <a
                 href={notary.phoneHref}
-                className="flex items-center gap-3 sm:gap-4 group text-cream no-underline min-w-0 text-left"
+                className="flex items-center gap-3 sm:gap-4 group text-cream no-underline min-w-0 text-left" style={{ textDecoration: 'none' }}
               >
                 <span
                   className="w-12 h-12 rounded-full grid place-items-center flex-shrink-0 transition-all group-hover:bg-gold/10 group-hover:border-gold/50"
@@ -122,7 +122,7 @@ export default function Hero() {
                   >
                     Приём по записи
                   </span>
-                  <span className="font-serif text-[19px] sm:text-[22px] text-cream group-hover:text-gold-light transition-colors whitespace-nowrap">
+                  <span className="font-sans font-medium text-[19px] sm:text-[22px] tracking-wide text-cream group-hover:text-gold-light transition-colors whitespace-nowrap">
                     {notary.phone}
                   </span>
                 </span>
