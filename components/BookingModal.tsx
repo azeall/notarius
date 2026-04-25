@@ -32,14 +32,20 @@ function isWeekday(y: number, m: number, d: number) {
   return day !== 0 && day !== 6
 }
 
-export default function BookingModal({ onClose }: { onClose: () => void }) {
+interface BookingModalProps {
+  onClose: () => void
+  initialDate?: { year: number; month: number; day: number }
+  initialTime?: string
+}
+
+export default function BookingModal({ onClose, initialDate, initialTime }: BookingModalProps) {
   const today = new Date()
   const [step, setStep] = useState<1|2|3>(1)
   const [service, setService] = useState('')
-  const [year, setYear] = useState(today.getFullYear())
-  const [month, setMonth] = useState(today.getMonth())
-  const [day, setDay] = useState<number|null>(null)
-  const [time, setTime] = useState('')
+  const [year, setYear] = useState(initialDate?.year ?? today.getFullYear())
+  const [month, setMonth] = useState(initialDate?.month ?? today.getMonth())
+  const [day, setDay] = useState<number|null>(initialDate?.day ?? null)
+  const [time, setTime] = useState(initialTime ?? '')
   const [duration, setDuration] = useState<number>(30)
   const [booked, setBooked] = useState<string[]>([])
   const [name, setName] = useState('')

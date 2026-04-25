@@ -1,4 +1,5 @@
 import { notary } from '@/lib/data'
+import LiveStatus from '@/components/LiveStatus'
 import BookingButton from '@/components/BookingButton'
 import SealCanvas from '@/components/SealCanvas'
 
@@ -97,7 +98,7 @@ export default function Hero() {
 
             {/* Actions */}
             <div
-              className="flex flex-col md:flex-row md:flex-wrap items-center md:items-center justify-center md:justify-start gap-6 md:gap-8 mb-12 sm:mb-14 animate-fade-in-up"
+              className="flex flex-col md:flex-row md:flex-wrap items-center md:items-center justify-center md:justify-start gap-6 md:gap-8 animate-fade-in-up"
               style={{ animationDelay: '280ms' }}
             >
               <BookingButton />
@@ -127,6 +128,8 @@ export default function Hero() {
                 </span>
               </a>
             </div>
+
+            <LiveStatus />
 
             {/* Trust row */}
             <div

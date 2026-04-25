@@ -7,6 +7,7 @@ import CredentialsSection from '@/components/CredentialsSection'
 import FAQ from '@/components/FAQ'
 import BookingButton from '@/components/BookingButton'
 import { notary, site } from '@/lib/data'
+import ReviewsSection from '@/components/ReviewsSection'
 
 export const metadata: Metadata = {
   title: 'Нотариус в Москве · Запись на приём онлайн',
@@ -142,6 +143,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <ReviewsSection />
 
       <FAQ />
 
