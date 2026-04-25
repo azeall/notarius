@@ -87,7 +87,7 @@ export default function SealCanvas({
       ctx.beginPath(); ctx.arc(0, 0, 1.6, 0, Math.PI * 2); ctx.fill()
     }
 
-    function drawTextRing(text: string, radius: number, font: string, color: string, tracking: number) {
+    function drawTextRing(text: string, radius: number, font: string, color: string, tracking: number, startAngle = -Math.PI / 2) {
       ctx.save()
       ctx.font = font
       ctx.fillStyle = color
@@ -162,7 +162,7 @@ export default function SealCanvas({
       ctx.restore()
 
       // outer text ring (static)
-      drawTextRing(OUTER_TEXT, 148, '600 10px "Manrope", sans-serif', 'rgba(184,154,90,0.38)', 2.2)
+      drawTextRing(OUTER_TEXT, 148, '600 10px "Manrope", sans-serif', 'rgba(184,154,90,0.38)', 2.2, Math.PI / 2)
       ctx.strokeStyle = 'rgba(184,154,90,0.18)'; ctx.lineWidth = 1
       ctx.beginPath(); ctx.arc(0, 0, 156, 0, Math.PI * 2); ctx.stroke()
       ctx.beginPath(); ctx.arc(0, 0, 140, 0, Math.PI * 2); ctx.stroke()
