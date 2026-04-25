@@ -105,7 +105,7 @@ export default function SealCanvas({
       const chars = [...s]
       const widths = chars.map(c => ctx.measureText(c).width + tracking)
       const total = widths.reduce((a, b) => a + b, 0)
-      let angle = -Math.PI / 2
+      let angle = startAngle
       for (let i = 0; i < chars.length; i++) {
         const step = (widths[i] / total) * Math.PI * 2
         const a = angle + step / 2
