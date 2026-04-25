@@ -1,9 +1,11 @@
-import type { Metadata, Viewport } from 'next'
+﻿import type { Metadata, Viewport } from 'next'
 import { Manrope, Playfair_Display, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import RevealObserver from '@/components/RevealObserver'
+import { Suspense } from 'react'
+import YandexMetrika from '@/components/YandexMetrika'
 import { notary, site } from '@/lib/data'
 
 const manrope = Manrope({
@@ -27,8 +29,8 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `Нотариус Быконя Руслан Евгеньевич в Москве · Онлайн-запись`,
-    template: `%s · Нотариус Быконя Р. Е.`,
+    default: `РќРѕС‚Р°СЂРёСѓСЃ Р‘С‹РєРѕРЅСЏ Р СѓСЃР»Р°РЅ Р•РІРіРµРЅСЊРµРІРёС‡ РІ РњРѕСЃРєРІРµ В· РћРЅР»Р°Р№РЅ-Р·Р°РїРёСЃСЊ`,
+    template: `%s В· РќРѕС‚Р°СЂРёСѓСЃ Р‘С‹РєРѕРЅСЏ Р . Р•.`,
   },
   description: site.description,
   keywords: [...site.keywords],
@@ -46,16 +48,16 @@ export const metadata: Metadata = {
     locale: 'ru_RU',
     url: site.url,
     siteName: site.name,
-    title: `Нотариус ${notary.name} в Москве · Онлайн-запись`,
+    title: `РќРѕС‚Р°СЂРёСѓСЃ ${notary.name} РІ РњРѕСЃРєРІРµ В· РћРЅР»Р°Р№РЅ-Р·Р°РїРёСЃСЊ`,
     description:
-      'Нотариус в Москве с 2008 года. Онлайн-запись: сделки, наследство, доверенности, копии. ' +
+      'РќРѕС‚Р°СЂРёСѓСЃ РІ РњРѕСЃРєРІРµ СЃ 2008 РіРѕРґР°. РћРЅР»Р°Р№РЅ-Р·Р°РїРёСЃСЊ: СЃРґРµР»РєРё, РЅР°СЃР»РµРґСЃС‚РІРѕ, РґРѕРІРµСЂРµРЅРЅРѕСЃС‚Рё, РєРѕРїРёРё. ' +
       notary.phone,
   },
   twitter: {
     card: 'summary_large_image',
-    title: `Нотариус ${notary.name} в Москве`,
+    title: `РќРѕС‚Р°СЂРёСѓСЃ ${notary.name} РІ РњРѕСЃРєРІРµ`,
     description:
-      'Нотариус в Москве с 2008 года. Онлайн-запись: сделки, наследство, доверенности, копии.',
+      'РќРѕС‚Р°СЂРёСѓСЃ РІ РњРѕСЃРєРІРµ СЃ 2008 РіРѕРґР°. РћРЅР»Р°Р№РЅ-Р·Р°РїРёСЃСЊ: СЃРґРµР»РєРё, РЅР°СЃР»РµРґСЃС‚РІРѕ, РґРѕРІРµСЂРµРЅРЅРѕСЃС‚Рё, РєРѕРїРёРё.',
   },
   robots: {
     index: true,
@@ -70,7 +72,7 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.webmanifest',
   verification: {
-    // Заполнить реальными токенами при подключении вебмастеров:
+    // Р—Р°РїРѕР»РЅРёС‚СЊ СЂРµР°Р»СЊРЅС‹РјРё С‚РѕРєРµРЅР°РјРё РїСЂРё РїРѕРґРєР»СЋС‡РµРЅРёРё РІРµР±РјР°СЃС‚РµСЂРѕРІ:
     // google: 'xxxxxxxxxxxxxxxxxxxxx',
     // yandex: 'xxxxxxxxxxxxxxxxxxxxx',
   },
@@ -81,7 +83,7 @@ export const metadata: Metadata = {
   },
   other: {
     'geo.region': 'RU-MOW',
-    'geo.placename': 'Москва',
+    'geo.placename': 'РњРѕСЃРєРІР°',
     'geo.position': `${notary.geo.latitude};${notary.geo.longitude}`,
     ICBM: `${notary.geo.latitude}, ${notary.geo.longitude}`,
   },
@@ -97,18 +99,18 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-// JSON-LD: LegalService / LocalBusiness (нотариус) + WebSite
+// JSON-LD: LegalService / LocalBusiness (РЅРѕС‚Р°СЂРёСѓСЃ) + WebSite
 const legalServiceLd = {
   '@context': 'https://schema.org',
   '@type': ['LegalService', 'LocalBusiness'],
   '@id': `${site.url}/#legalservice`,
-  name: `Нотариус ${notary.name}`,
+  name: `РќРѕС‚Р°СЂРёСѓСЃ ${notary.name}`,
   alternateName: site.shortName,
   description: site.description,
   url: site.url,
   telephone: notary.phoneE164,
   email: notary.email,
-  priceRange: '₽₽',
+  priceRange: 'в‚Ѕв‚Ѕ',
   logo: `${site.url}/icon.svg`,
   foundingDate: notary.foundingDate,
   address: {
@@ -126,7 +128,7 @@ const legalServiceLd = {
   },
   areaServed: {
     '@type': 'City',
-    name: 'Москва',
+    name: 'РњРѕСЃРєРІР°',
   },
   openingHoursSpecification: notary.openingHoursSpec.map(spec => ({
     '@type': 'OpeningHoursSpecification',
@@ -137,7 +139,7 @@ const legalServiceLd = {
   founder: {
     '@type': 'Person',
     name: notary.name,
-    jobTitle: 'Нотариус',
+    jobTitle: 'РќРѕС‚Р°СЂРёСѓСЃ',
     memberOf: {
       '@type': 'Organization',
       name: notary.chamber,
@@ -149,16 +151,16 @@ const legalServiceLd = {
   ],
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Нотариальные услуги',
+    name: 'РќРѕС‚Р°СЂРёР°Р»СЊРЅС‹Рµ СѓСЃР»СѓРіРё',
     itemListElement: [
-      'Удостоверение сделок с недвижимостью',
-      'Оформление наследства и завещаний',
-      'Доверенности',
-      'Заверение копий документов',
-      'Нотариальные согласия',
-      'Брачный договор',
-      'Корпоративные документы',
-      'Нотариальный перевод и апостиль',
+      'РЈРґРѕСЃС‚РѕРІРµСЂРµРЅРёРµ СЃРґРµР»РѕРє СЃ РЅРµРґРІРёР¶РёРјРѕСЃС‚СЊСЋ',
+      'РћС„РѕСЂРјР»РµРЅРёРµ РЅР°СЃР»РµРґСЃС‚РІР° Рё Р·Р°РІРµС‰Р°РЅРёР№',
+      'Р”РѕРІРµСЂРµРЅРЅРѕСЃС‚Рё',
+      'Р—Р°РІРµСЂРµРЅРёРµ РєРѕРїРёР№ РґРѕРєСѓРјРµРЅС‚РѕРІ',
+      'РќРѕС‚Р°СЂРёР°Р»СЊРЅС‹Рµ СЃРѕРіР»Р°СЃРёСЏ',
+      'Р‘СЂР°С‡РЅС‹Р№ РґРѕРіРѕРІРѕСЂ',
+      'РљРѕСЂРїРѕСЂР°С‚РёРІРЅС‹Рµ РґРѕРєСѓРјРµРЅС‚С‹',
+      'РќРѕС‚Р°СЂРёР°Р»СЊРЅС‹Р№ РїРµСЂРµРІРѕРґ Рё Р°РїРѕСЃС‚РёР»СЊ',
     ].map(name => ({
       '@type': 'Offer',
       itemOffered: { '@type': 'Service', name },
@@ -196,6 +198,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
         <Footer />
         <RevealObserver />
+        <Suspense><YandexMetrika /></Suspense>
       </body>
     </html>
   )

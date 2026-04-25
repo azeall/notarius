@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { STAFF_LIST } from '@/lib/staff'
@@ -19,10 +19,11 @@ type Appointment = {
   time: string
   duration: number
   status: string
+  staffId?: string | null
 }
 
 function fmtDurLabel(d: number) {
-  return d < 60 ? `${d} мин` : d % 60 === 0 ? `${d / 60} ч` : `${Math.floor(d / 60)}ч ${d % 60}м`
+  return d < 60 ? `${d} РјРёРЅ` : d % 60 === 0 ? `${d / 60} С‡` : `${Math.floor(d / 60)}С‡ ${d % 60}Рј`
 }
 
 function fmtDateRu(ymd: string) {
@@ -61,7 +62,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
   const [reassigning, setReassigning] = useState(false)
   const [newAssignee, setNewAssignee] = useState<string>('')
 
-  // При открытии / смене даты подгружаем занятость
+  // РџСЂРё РѕС‚РєСЂС‹С‚РёРё / СЃРјРµРЅРµ РґР°С‚С‹ РїРѕРґРіСЂСѓР¶Р°РµРј Р·Р°РЅСЏС‚РѕСЃС‚СЊ
   useEffect(() => {
     if (!editing) return
     fetch(`/api/appointments?date=${date}`)
@@ -70,11 +71,11 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
       .catch(() => setDayBooked([]))
   }, [date, editing])
 
-  // Слоты, которые занимает ИСХОДНАЯ запись (a.time, a.duration) — важно,
-  // чтобы на своей дате не показывать их «занятыми».
+  // РЎР»РѕС‚С‹, РєРѕС‚РѕСЂС‹Рµ Р·Р°РЅРёРјР°РµС‚ РРЎРҐРћР”РќРђРЇ Р·Р°РїРёСЃСЊ (a.time, a.duration) вЂ” РІР°Р¶РЅРѕ,
+  // С‡С‚РѕР±С‹ РЅР° СЃРІРѕРµР№ РґР°С‚Рµ РЅРµ РїРѕРєР°Р·С‹РІР°С‚СЊ РёС… В«Р·Р°РЅСЏС‚С‹РјРёВ».
   const ownOriginalSlots = useMemo(() => new Set(expandSlots(a.time, a.duration)), [a.time, a.duration])
 
-  // Итоговый набор «реально заблокированных для меня» слотов
+  // РС‚РѕРіРѕРІС‹Р№ РЅР°Р±РѕСЂ В«СЂРµР°Р»СЊРЅРѕ Р·Р°Р±Р»РѕРєРёСЂРѕРІР°РЅРЅС‹С… РґР»СЏ РјРµРЅСЏВ» СЃР»РѕС‚РѕРІ
   const blockedSet = useMemo(() => {
     const set = new Set(dayBooked)
     if (date === a.date) {
@@ -83,7 +84,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
     return set
   }, [dayBooked, date, a.date, ownOriginalSlots])
 
-  // Слоты нового выбора (start + duration)
+  // РЎР»РѕС‚С‹ РЅРѕРІРѕРіРѕ РІС‹Р±РѕСЂР° (start + duration)
   const selectionSlots = useMemo(() => {
     if (!time) return new Set<string>()
     return new Set(expandSlots(time, duration))
@@ -104,7 +105,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
     })
     setBusy(false)
     if (res.ok) { setReassigning(false); router.refresh() }
-    else { const d = await res.json().catch(() => ({})); setErr(d.error ?? 'Ошибка') }
+    else { const d = await res.json().catch(() => ({})); setErr(d.error ?? 'РћС€РёР±РєР°') }
   }
 
   function startEdit() {
@@ -123,7 +124,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
 
   async function save() {
     if (!selectionFits || selectionConflicts) {
-      setErr(!selectionFits ? 'Не помещается в рабочее время' : 'Пересечение с другой записью')
+      setErr(!selectionFits ? 'РќРµ РїРѕРјРµС‰Р°РµС‚СЃСЏ РІ СЂР°Р±РѕС‡РµРµ РІСЂРµРјСЏ' : 'РџРµСЂРµСЃРµС‡РµРЅРёРµ СЃ РґСЂСѓРіРѕР№ Р·Р°РїРёСЃСЊСЋ')
       return
     }
     setBusy(true); setErr('')
@@ -134,16 +135,16 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
     })
     setBusy(false)
     if (res.ok) { setEditing(false); router.refresh() }
-    else { const d = await res.json().catch(() => ({})); setErr(d.error ?? 'Не удалось сохранить') }
+    else { const d = await res.json().catch(() => ({})); setErr(d.error ?? 'РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕС…СЂР°РЅРёС‚СЊ') }
   }
 
   async function del() {
-    if (!window.confirm(`Удалить запись ${a.name} в ${a.time}?`)) return
+    if (!window.confirm(`РЈРґР°Р»РёС‚СЊ Р·Р°РїРёСЃСЊ ${a.name} РІ ${a.time}?`)) return
     setBusy(true); setErr('')
     const res = await fetch(`/api/admin/appointments/${a.id}`, { method: 'DELETE' })
     setBusy(false)
     if (res.ok) { router.refresh() }
-    else { const d = await res.json().catch(() => ({})); setErr(d.error ?? 'Не удалось удалить') }
+    else { const d = await res.json().catch(() => ({})); setErr(d.error ?? 'РќРµ СѓРґР°Р»РѕСЃСЊ СѓРґР°Р»РёС‚СЊ') }
   }
 
   function renderSlot(t: string) {
@@ -166,14 +167,14 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
         disabled={isBlocked}
         onClick={() => setTime(t)}
         className={`py-2 rounded-md text-[11px] sm:text-xs font-medium transition-colors ${cls}`}
-        title={isBlocked ? 'Занято другой записью' : isOwnOriginal ? 'Текущее время записи' : 'Свободно'}
+        title={isBlocked ? 'Р—Р°РЅСЏС‚Рѕ РґСЂСѓРіРѕР№ Р·Р°РїРёСЃСЊСЋ' : isOwnOriginal ? 'РўРµРєСѓС‰РµРµ РІСЂРµРјСЏ Р·Р°РїРёСЃРё' : 'РЎРІРѕР±РѕРґРЅРѕ'}
       >
         {t}
       </button>
     )
   }
 
-  // ────────────────────── VIEW ──────────────────────
+  // в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ VIEW в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   if (!editing) {
     return (
       <div className="w-full min-w-0 bg-white rounded-2xl px-3 sm:px-6 py-3 sm:py-5 shadow-sm border border-gray-100 hover:border-gold/30 transition-colors">
@@ -190,7 +191,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
           </div>
           <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
             <span className="inline-block bg-gold text-navy font-bold text-xs sm:text-base px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg whitespace-nowrap">
-              {a.time}–{endTime(a.time, a.duration)}
+              {a.time}вЂ“{endTime(a.time, a.duration)}
             </span>
             <span className="text-[10px] sm:text-xs text-gray-400">{fmtDurLabel(a.duration)}</span>
             <div className="flex gap-1.5">
@@ -198,21 +199,21 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
                 onClick={startEdit}
                 className="text-[11px] sm:text-xs text-gray-500 hover:text-navy border border-gray-200 hover:border-navy/30 rounded-md px-2 py-1 transition-colors"
               >
-                Изменить
+                РР·РјРµРЅРёС‚СЊ
               </button>
               <button
                 onClick={del}
                 disabled={busy}
                 className="text-[11px] sm:text-xs text-red-500 hover:text-red-700 border border-red-200 hover:border-red-400 rounded-md px-2 py-1 transition-colors disabled:opacity-50"
               >
-                Удалить
+                РЈРґР°Р»РёС‚СЊ
               </button>
               {isAdmin && (
                 <button
                   onClick={() => { setReassigning(r => !r); setNewAssignee(a.staffId ?? '') }}
                   className="text-[11px] sm:text-xs text-blue-600 hover:text-blue-800 border border-blue-200 hover:border-blue-400 rounded-md px-2 py-1 transition-colors"
                 >
-                  Передать
+                  РџРµСЂРµРґР°С‚СЊ
                 </button>
               )}
             </div>
@@ -223,7 +224,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
                   onChange={e => setNewAssignee(e.target.value)}
                   className="text-xs border border-gray-200 rounded-md px-2 py-1.5 text-gray-700 bg-gray-50 focus:outline-none focus:border-gold"
                 >
-                  <option value="">Нотариус</option>
+                  <option value="">РќРѕС‚Р°СЂРёСѓСЃ</option>
                   {STAFF_LIST.map(s => (
                     <option key={s.id} value={s.id}>{s.name}</option>
                   ))}
@@ -233,9 +234,9 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
                   disabled={busy}
                   className="text-xs bg-gold text-navy font-semibold px-3 py-1.5 rounded-md hover:brightness-110 disabled:opacity-50 whitespace-nowrap"
                 >
-                  {busy ? '…' : 'ОК'}
+                  {busy ? 'вЂ¦' : 'РћРљ'}
                 </button>
-                <button onClick={() => setReassigning(false)} className="text-sm text-gray-400 hover:text-gray-600 px-1">×</button>
+                <button onClick={() => setReassigning(false)} className="text-sm text-gray-400 hover:text-gray-600 px-1">Г—</button>
               </div>
             )}
           </div>
@@ -244,7 +245,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
     )
   }
 
-  // ────────────────────── EDIT ──────────────────────
+  // в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ EDIT в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   return (
     <div className="w-full min-w-0 bg-white rounded-2xl px-3 sm:px-6 py-4 sm:py-5 shadow-md border-2 border-gold/40">
       {/* Header row */}
@@ -254,24 +255,24 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
         </div>
         <div className="min-w-0 flex-1">
           <p className="font-semibold text-gray-900 text-sm sm:text-base truncate">{a.name}</p>
-          <p className="text-gray-500 text-xs truncate">{a.phone} · {a.service}</p>
+          <p className="text-gray-500 text-xs truncate">{a.phone} В· {a.service}</p>
         </div>
         <span className="text-[10px] uppercase tracking-wide text-gold font-semibold bg-gold/10 border border-gold/30 px-2 py-1 rounded-md">
-          Редактирование
+          Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ
         </span>
       </div>
 
       {/* Date stepper */}
       <div className="mb-4">
-        <label className="block text-[10px] uppercase tracking-wide text-gray-500 mb-1.5">Дата</label>
+        <label className="block text-[10px] uppercase tracking-wide text-gray-500 mb-1.5">Р”Р°С‚Р°</label>
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => setDate(d => stepWeekday(d, -1))}
             className="w-9 h-9 flex items-center justify-center rounded-md border border-gray-200 text-gray-600 hover:border-gold hover:text-gold transition-colors"
-            title="Предыдущий рабочий день"
+            title="РџСЂРµРґС‹РґСѓС‰РёР№ СЂР°Р±РѕС‡РёР№ РґРµРЅСЊ"
           >
-            ‹
+            вЂ№
           </button>
           <input
             type="date"
@@ -283,9 +284,9 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
             type="button"
             onClick={() => setDate(d => stepWeekday(d, +1))}
             className="w-9 h-9 flex items-center justify-center rounded-md border border-gray-200 text-gray-600 hover:border-gold hover:text-gold transition-colors"
-            title="Следующий рабочий день"
+            title="РЎР»РµРґСѓСЋС‰РёР№ СЂР°Р±РѕС‡РёР№ РґРµРЅСЊ"
           >
-            ›
+            вЂє
           </button>
           {date !== a.date && (
             <button
@@ -293,7 +294,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
               onClick={() => setDate(a.date)}
               className="text-[11px] text-gray-500 underline-offset-2 hover:underline whitespace-nowrap"
             >
-              к исходной
+              Рє РёСЃС…РѕРґРЅРѕР№
             </button>
           )}
         </div>
@@ -301,7 +302,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
 
       {/* Duration pills */}
       <div className="mb-4">
-        <label className="block text-[10px] uppercase tracking-wide text-gray-500 mb-1.5">Длительность</label>
+        <label className="block text-[10px] uppercase tracking-wide text-gray-500 mb-1.5">Р”Р»РёС‚РµР»СЊРЅРѕСЃС‚СЊ</label>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
           {DURATION_OPTIONS.map(d => (
             <button
@@ -321,22 +322,22 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
 
       {/* Time slot picker */}
       <div className="mb-4">
-        <label className="block text-[10px] uppercase tracking-wide text-gray-500 mb-2">Время (клик = новое начало)</label>
-        <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1.5">Утро · 10:00–13:00</p>
+        <label className="block text-[10px] uppercase tracking-wide text-gray-500 mb-2">Р’СЂРµРјСЏ (РєР»РёРє = РЅРѕРІРѕРµ РЅР°С‡Р°Р»Рѕ)</label>
+        <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1.5">РЈС‚СЂРѕ В· 10:00вЂ“13:00</p>
         <div className="grid grid-cols-6 gap-1.5 mb-2.5">
           {MORNING_SLOTS.map(renderSlot)}
         </div>
-        <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1.5">День · 14:00–19:00</p>
+        <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1.5">Р”РµРЅСЊ В· 14:00вЂ“19:00</p>
         <div className="grid grid-cols-5 gap-1.5">
           {AFTERNOON_SLOTS.map(renderSlot)}
         </div>
 
         {/* Legend */}
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2.5 text-[10px] text-gray-500">
-          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-gold" /> новое начало</span>
-          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-gold/30 border border-gold/60" /> продолжение</span>
-          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm border border-navy/30 border-dashed" /> исходное</span>
-          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-gray-100" /> занято</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-gold" /> РЅРѕРІРѕРµ РЅР°С‡Р°Р»Рѕ</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-gold/30 border border-gold/60" /> РїСЂРѕРґРѕР»Р¶РµРЅРёРµ</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm border border-navy/30 border-dashed" /> РёСЃС…РѕРґРЅРѕРµ</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-gray-100" /> Р·Р°РЅСЏС‚Рѕ</span>
         </div>
       </div>
 
@@ -351,12 +352,12 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
         }`}
       >
         {!selectionFits
-          ? 'Не помещается в рабочее время'
+          ? 'РќРµ РїРѕРјРµС‰Р°РµС‚СЃСЏ РІ СЂР°Р±РѕС‡РµРµ РІСЂРµРјСЏ'
           : selectionConflicts
-            ? 'Пересекается с другой записью'
+            ? 'РџРµСЂРµСЃРµРєР°РµС‚СЃСЏ СЃ РґСЂСѓРіРѕР№ Р·Р°РїРёСЃСЊСЋ'
             : changed
-              ? <>Перенос: <b>{fmtDateRu(a.date)} {a.time}–{endTime(a.time, a.duration)}</b> → <b>{fmtDateRu(date)} {time}–{endTime(time, duration)}</b></>
-              : <>Без изменений: {fmtDateRu(date)} {time}–{endTime(time, duration)}</>}
+              ? <>РџРµСЂРµРЅРѕСЃ: <b>{fmtDateRu(a.date)} {a.time}вЂ“{endTime(a.time, a.duration)}</b> в†’ <b>{fmtDateRu(date)} {time}вЂ“{endTime(time, duration)}</b></>
+              : <>Р‘РµР· РёР·РјРµРЅРµРЅРёР№: {fmtDateRu(date)} {time}вЂ“{endTime(time, duration)}</>}
       </div>
 
       {err && <p className="text-red-600 text-xs mb-2">{err}</p>}
@@ -367,15 +368,16 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
           disabled={busy || !changed || !selectionFits || selectionConflicts}
           className="flex-1 bg-gold text-navy font-semibold text-sm py-2.5 rounded-md hover:brightness-110 transition-all disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed"
         >
-          {busy ? 'Сохранение…' : changed ? 'Сохранить' : 'Нет изменений'}
+          {busy ? 'РЎРѕС…СЂР°РЅРµРЅРёРµвЂ¦' : changed ? 'РЎРѕС…СЂР°РЅРёС‚СЊ' : 'РќРµС‚ РёР·РјРµРЅРµРЅРёР№'}
         </button>
         <button
           onClick={cancelEdit}
           className="flex-1 sm:flex-initial sm:px-6 border border-gray-200 text-gray-600 text-sm py-2.5 rounded-md hover:border-gray-400 transition-colors"
         >
-          Отмена
+          РћС‚РјРµРЅР°
         </button>
       </div>
     </div>
   )
 }
+
