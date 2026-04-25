@@ -1,6 +1,6 @@
 // Set YANDEX_ORG_ID to your numeric org ID from Yandex Business to show the live embed.
 // Find it in your Yandex Maps URL: yandex.ru/maps/org/<NAME>/<ID>/
-const YANDEX_ORG_ID = ''
+const YANDEX_ORG_ID = '113303371166'
 
 interface StaticReview {
   author: string
