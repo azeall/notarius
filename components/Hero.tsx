@@ -147,7 +147,7 @@ export default function Hero() {
               ].map((stat, i) => (
                 <div key={stat.lbl} className="flex items-center gap-3 sm:gap-7 min-w-0">
                   <div className="flex flex-col items-center md:items-start min-w-0 text-center md:text-left">
-                    <span className="font-serif text-[26px] sm:text-[32px] leading-none text-gold mb-1.5 sm:mb-2">{stat.num}</span>
+                    <span className="font-sans font-semibold text-[26px] sm:text-[32px] leading-none text-gold mb-1.5 sm:mb-2 tracking-tight">{stat.num}</span>
                     <span
                       className="text-[9px] sm:text-[11px] tracking-[0.18em] uppercase whitespace-nowrap"
                       style={{ color: '#6b7895' }}
