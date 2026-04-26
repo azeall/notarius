@@ -15,7 +15,7 @@ function toYMD(d: Date) {
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
 }
 
-export default function StaffAddForm({ staffName }: { staffName: string }) {
+export default function StaffAddForm({ staffName, onAdded }: { staffName: string; onAdded?: () => void }) {
   const router = useRouter()
   const today = new Date()
   const [calYear, setCalYear] = useState(today.getFullYear())
@@ -76,7 +76,7 @@ export default function StaffAddForm({ staffName }: { staffName: string }) {
       setSuccess(true)
       setName(''); setPhone(''); setService(SERVICES[0])
       setSelectedDate(''); setSelectedTime(''); setBookedTimes([])
-      setTimeout(() => { setSuccess(false); router.refresh() }, 1500)
+      setTimeout(() => { setSuccess(false); if (onAdded) onAdded(); else router.refresh() }, 1500)
     } else {
       const data = await res.json().catch(() => ({}))
       setError(data.error ?? 'Это время уже занято')
