@@ -18,6 +18,11 @@ export function middleware(request: NextRequest) {
     if (!auth?.value) {
       return NextResponse.redirect(new URL('/staff/login', request.url))
     }
+    // Embed staffId in URL via internal rewrite (not visible in browser).
+    // The page reads it from searchParams — no cookies() needed in the server component.
+    const url = request.nextUrl.clone()
+    url.searchParams.set('_sid', auth.value)
+    return NextResponse.rewrite(url)
   }
 
   return NextResponse.next()
