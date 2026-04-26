@@ -1,6 +1,5 @@
 'use client'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 export default function StaffLogin() {
   const [username, setUsername] = useState('')
@@ -8,7 +7,6 @@ export default function StaffLogin() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -21,7 +19,7 @@ export default function StaffLogin() {
     })
     setLoading(false)
     if (res.ok) {
-      router.push('/staff')
+      window.location.href = '/staff'
     } else {
       const data = await res.json().catch(() => ({}))
       setError(data.error ?? 'Неверный логин или пароль')
