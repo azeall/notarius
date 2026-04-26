@@ -1,6 +1,6 @@
 export const dynamic = 'force-dynamic'
 
-import { cookies } from 'next/headers'
+import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { endTime } from '@/lib/slots'
@@ -19,7 +19,8 @@ export default async function StaffPage({
 }: {
   searchParams: { date?: string }
 }) {
-  const staffId = cookies().get('staff_auth')?.value
+  // staffId is forwarded by middleware via x-staff-id header (avoids cookies() edge-case)
+  const staffId = headers().get('x-staff-id')
   if (!staffId) redirect('/staff/login')
 
   const staff = findStaffById(staffId)

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
+import { headers } from 'next/headers'
 import { prisma } from '@/lib/prisma'
 import { findStaffById } from '@/lib/staff'
 import { MAX_DURATION, SLOT_MINUTES, buildBookedSet, expandSlots, isRangeFree } from '@/lib/slots'
@@ -7,7 +8,7 @@ import { MAX_DURATION, SLOT_MINUTES, buildBookedSet, expandSlots, isRangeFree } 
 export const dynamic = 'force-dynamic'
 
 function getStaffId(): string | null {
-  return cookies().get('staff_auth')?.value ?? null
+  return headers().get('x-staff-id') ?? cookies().get('staff_auth')?.value ?? null
 }
 
 /** GET /api/staff/appointments?date=YYYY-MM-DD → { booked: string[] } only for this staff member */
