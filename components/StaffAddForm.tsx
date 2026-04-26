@@ -96,7 +96,7 @@ export default function StaffAddForm({ staffName }: { staffName: string }) {
             <select
               value={service}
               onChange={e => setService(e.target.value)}
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
             >
               {SERVICES.map(s => <option key={s}>{s}</option>)}
             </select>
@@ -106,7 +106,7 @@ export default function StaffAddForm({ staffName }: { staffName: string }) {
             <input
               required value={name} onChange={e => setName(e.target.value)}
               placeholder="Иванов Иван Иванович"
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
             />
           </div>
           <div>
@@ -114,7 +114,7 @@ export default function StaffAddForm({ staffName }: { staffName: string }) {
             <input
               required value={phone} onChange={e => setPhone(e.target.value)}
               placeholder="+7 (999) 000-00-00"
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
             />
           </div>
 
