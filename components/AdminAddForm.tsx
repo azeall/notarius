@@ -32,7 +32,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
   const [bookedTimes, setBookedTimes] = useState<string[]>([])
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
-  const [service, setService] = useState(SERVICES[0])
+  const [service, setService] = useState<string>(SERVICES[0])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
