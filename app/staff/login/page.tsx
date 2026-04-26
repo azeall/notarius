@@ -56,7 +56,7 @@ export default function StaffLogin() {
               placeholder="Введите логин"
               autoFocus
               autoComplete="off"
-              className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50 text-gray-900 placeholder:text-gray-400 [&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#f9fafb] [&:-webkit-autofill]:[color:_#111827] [&:-webkit-autofill:focus]:shadow-[inset_0_0_0_1000px_#f9fafb]"
+              className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50 text-gray-900 placeholder:text-gray-400 [&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#f9fafb] [&:-webkit-autofill]:[-webkit-text-fill-color:#111827] [&:-webkit-autofill:focus]:shadow-[inset_0_0_0_1000px_#f9fafb] [&:-webkit-autofill:focus]:[-webkit-text-fill-color:#111827]"
             />
           </div>
 
@@ -72,7 +72,7 @@ export default function StaffLogin() {
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Введите пароль"
                 autoComplete="current-password"
-                className="w-full border border-gray-200 rounded-xl px-4 py-2.5 pr-11 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50 text-gray-900 placeholder:text-gray-400 [&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#f9fafb] [&:-webkit-autofill]:[color:_#111827] [&:-webkit-autofill:focus]:shadow-[inset_0_0_0_1000px_#f9fafb]"
+                className="w-full border border-gray-200 rounded-xl px-4 py-2.5 pr-11 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50 text-gray-900 placeholder:text-gray-400 [&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#f9fafb] [&:-webkit-autofill]:[-webkit-text-fill-color:#111827] [&:-webkit-autofill:focus]:shadow-[inset_0_0_0_1000px_#f9fafb] [&:-webkit-autofill:focus]:[-webkit-text-fill-color:#111827]"
               />
               <button
                 type="button"
