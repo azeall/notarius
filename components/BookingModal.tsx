@@ -38,7 +38,6 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
   const [month, setMonth] = useState(initialDate?.month ?? today.getMonth())
   const [day, setDay] = useState<number|null>(initialDate?.day ?? null)
   const [time, setTime] = useState(initialTime ?? '')
-  const [duration, setDuration] = useState<number>(30)
   const [booked, setBooked] = useState<string[]>([])
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
