@@ -146,7 +146,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
             <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Услуга</label>
             <select
               value={service}
-              onChange={e => const svc = e.target.value; setService(svc); setDuration(defaultDurationForService(svc))}
+              onChange={e => { const svc = e.target.value; setService(svc); setDuration(defaultDurationForService(svc)) }}
               className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
             >
               {SERVICES.map(s => <option key={s} className="text-gray-900">{s}</option>)}

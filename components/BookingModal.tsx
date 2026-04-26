@@ -10,17 +10,7 @@ import {
   expandSlots,
 }  from '@/lib/slots'
 import { SERVICES, maxDurationForService, defaultDurationForService } from '@/lib/services'
-
-const SERVICES = [
-  'Удостоверение сделок с недвижимостью',
-  'Оформление наследства',
-  'Доверенности',
-  'Заверение копий документов',
-  'Нотариальные согласия',
-  'Брачный договор',
-  'Корпоративные документы',
-  'Прочее',
-]
+
 
 const MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь',
                 'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
@@ -176,7 +166,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                 <label className="text-[10px] uppercase tracking-[0.24em] text-slate mb-2 block">Услуга</label>
                 <select
                   value={service}
-                  onChange={e => const svc = e.target.value; setService(svc); const def = defaultDurationForService(svc); setDuration(def)}
+                  onChange={e => { const svc = e.target.value; setService(svc); setDuration(defaultDurationForService(svc)) }}
                   className="w-full rounded-lg px-3 py-2.5 text-cream text-sm focus:outline-none"
                   style={{ background: '#060f1e', border: '1px solid rgba(184,154,90,0.20)' }}
                 >
