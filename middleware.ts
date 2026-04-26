@@ -18,10 +18,6 @@ export function middleware(request: NextRequest) {
     if (!auth?.value) {
       return NextResponse.redirect(new URL('/staff/login', request.url))
     }
-    // Pass staffId to the server component via a custom request header
-    const requestHeaders = new Headers(request.headers)
-    requestHeaders.set('x-staff-id', auth.value)
-    return NextResponse.next({ request: { headers: requestHeaders } })
   }
 
   return NextResponse.next()
