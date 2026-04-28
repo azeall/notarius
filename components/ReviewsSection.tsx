@@ -260,9 +260,9 @@ export default function ReviewsSection() {
 
             {/* Aggregate rating */}
             <div className="flex items-center gap-3 pt-3" style={{ borderTop: '1px solid rgba(184,154,90,0.10)' }}>
-              <span className="font-serif text-gold text-2xl leading-none">4.7</span>
+              <span className="font-serif text-gold text-2xl leading-none">4.9</span>
               <Stars n={5} />
-              <span className="text-[12px]" style={{ color: '#6b7895' }}>средняя оценка · 50+ отзывов на Яндекс Картах</span>
+              <span className="text-[12px]" style={{ color: '#6b7895' }}>средняя оценка · 500+ отзывов</span>
             </div>
           </div>
         </div>
