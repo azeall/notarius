@@ -258,9 +258,9 @@ export default function SealCanvas({
       ctx.font = 'bold 46px "Playfair Display", Georgia, serif'
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
       ctx.fillText('НГ', 0, -4)
-      ctx.fillStyle = 'rgba(184,154,90,0.45)'
-      ctx.font = '600 9px "Manrope", sans-serif'
-      ctx.fillText('EST · 2008', 0, 28)
+      ctx.fillStyle = 'rgba(184,154,90,0.50)'
+      ctx.font = 'italic 13px "Playfair Display", Georgia, serif'
+      ctx.fillText('EST · 2008', 0, 30)
 
       ctx.restore()
     }
