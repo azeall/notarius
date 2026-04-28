@@ -260,7 +260,7 @@ export default function SealCanvas({
       ctx.fillText('НГ', 0, -4)
       ctx.fillStyle = 'rgba(184,154,90,0.45)'
       ctx.font = '600 9px "Manrope", sans-serif'
-      ctx.fillText('МОСКВА', 0, 28)
+      ctx.fillText('EST · 2008', 0, 28)
 
       ctx.restore()
     }

@@ -1,7 +1,7 @@
 ﻿'use client'
 import { useRef, useState } from 'react'
 
-const YANDEX_ORG_ID = '' // TODO: вставить ID организации Горбунова на Яндекс Картах
+const YANDEX_ORG_ID = '29490894042'
 
 interface Review {
   author: string
