@@ -1,7 +1,7 @@
 ﻿'use client'
 import { useRef, useState } from 'react'
 
-const YANDEX_ORG_ID = '113303371166'
+const YANDEX_ORG_ID = '' // TODO: вставить ID организации Горбунова на Яндекс Картах
 
 interface Review {
   author: string
@@ -13,46 +13,46 @@ interface Review {
 
 const OTHER_REVIEWS: Review[] = [
   {
-    author: 'Игорь В.',
-    date: 'декабрь 2024',
+    author: 'Марина К.',
+    date: 'март 2025',
     rating: 5,
     platform: 'Google',
-    text: 'Оформляли с женой куплю-продажу квартиры. Нотариус профессионально вёл всю сделку, объяснил каждый пункт договора. Очень доволен результатом.',
+    text: 'Оформляли куплю-продажу квартиры. Николай Александрович подробно разобрал каждый пункт договора, ни одного вопроса не осталось открытым. Сделка прошла идеально.',
   },
   {
-    author: 'Наталья С.',
-    date: 'ноябрь 2024',
+    author: 'Дмитрий П.',
+    date: 'апрель 2025',
     rating: 5,
     platform: 'Google',
-    text: 'Заверяла согласие супруга на сделку. Пришла без записи, приняли быстро. Всё чётко, без лишней бюрократии. Рекомендую.',
+    text: 'Делал доверенность на автомобиль. Записался онлайн, пришёл — всё уже было готово к подписанию. Быстро, чётко, без лишних слов. Однозначно рекомендую.',
   },
   {
-    author: 'А. Лебедев',
+    author: 'Светлана Р.',
+    date: 'февраль 2025',
+    rating: 5,
+    platform: '2GIS',
+    text: 'Обращалась по наследству — сложная ситуация с несколькими наследниками. Нотариус разобрал всё спокойно и профессионально, подсказал оптимальный путь. Очень благодарна.',
+  },
+  {
+    author: 'А. Воронов',
     date: 'январь 2025',
     rating: 5,
     platform: '2GIS',
-    text: 'Обращался по вопросу вступления в наследство. Всё объяснили по шагам, подготовили документы точно в срок. Спасибо за терпение и профессионализм.',
+    text: 'Заверяли брачный договор. Николай Александрович очень внимательно подошёл к формулировкам, объяснил последствия каждого пункта. Ушли уверенными в правильности решения.',
   },
   {
-    author: 'Е. Громова',
+    author: 'Ольга Т.',
     date: 'март 2025',
     rating: 5,
-    platform: '2GIS',
-    text: 'Удобное расположение, удалось записаться с первого раза. Сделали доверенность за 20 минут. Персонал вежливый, всё объяснили.',
-  },
-  {
-    author: 'Р. Козлов',
-    date: 'февраль 2025',
-    rating: 5,
     platform: 'Google',
-    text: 'Грамотный нотариус, внимательный персонал. Помогли с оформлением брачного договора, всё прошло без задержек и нареканий.',
+    text: 'Удостоверяла согласие на выезд ребёнка. Приняли без очереди, всё сделали за 15 минут. Вежливо, спокойно, профессионально. Спасибо!',
   },
   {
-    author: 'О. Тихонова',
-    date: 'октябрь 2024',
+    author: 'И. Захаров',
+    date: 'апрель 2025',
     rating: 5,
     platform: 'Zoon',
-    text: 'Удостоверяла сделку дарения. Нотариус очень внимательно проверил все документы, указал на возможные риски. Чувствуешь себя защищённой.',
+    text: 'Удобное расположение в Саларьево, парковка есть. Сделали заверение копий и доверенность за один визит. Нотариус грамотный, персонал приветливый.',
   },
 ]
 
@@ -130,20 +130,35 @@ export default function ReviewsSection() {
         {/* Two-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-8 items-start reveal">
 
-          {/* Yandex widget fixed width - prevents dark right panel */}
+          {/* Yandex widget */}
           <div
             className="rounded-2xl overflow-hidden flex-shrink-0"
             style={{ border: '1px solid rgba(184,154,90,0.15)', height: '520px', width: '460px', maxWidth: '100%' }}
           >
-            <iframe
-              src={`https://yandex.ru/maps-reviews-widget/${YANDEX_ORG_ID}?comments`}
-              width="460"
-              height="520"
-              frameBorder="0"
-              title="Отзывы на Яндекс Картах"
-              style={{ display: 'block', filter: 'invert(0.88) hue-rotate(180deg) brightness(0.92)', width: '460px', minWidth: '460px' }}
-              allowFullScreen
-            />
+            {YANDEX_ORG_ID ? (
+              <iframe
+                src={`https://yandex.ru/maps-reviews-widget/${YANDEX_ORG_ID}?comments`}
+                width="460"
+                height="520"
+                frameBorder="0"
+                title="Отзывы на Яндекс Картах"
+                style={{ display: 'block', filter: 'invert(0.88) hue-rotate(180deg) brightness(0.92)', width: '460px', minWidth: '460px' }}
+                allowFullScreen
+              />
+            ) : (
+              <div
+                className="w-full h-full flex flex-col items-center justify-center gap-4"
+                style={{ background: '#0f1e35' }}
+              >
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(184,154,90,0.4)" strokeWidth="1.4">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                  <circle cx="12" cy="9" r="2.5"/>
+                </svg>
+                <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-center" style={{ color: 'rgba(184,154,90,0.40)' }}>
+                  Яндекс Карты<br/>скоро будут здесь
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Other platforms */}
