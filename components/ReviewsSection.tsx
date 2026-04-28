@@ -8,7 +8,7 @@ interface Review {
   date: string
   text: string
   rating: number
-  platform: 'Яндекс'
+  platform: 'Яндекс' | '2ГИС'
 }
 
 const OTHER_REVIEWS: Review[] = [
@@ -54,6 +54,20 @@ const OTHER_REVIEWS: Review[] = [
     platform: 'Яндекс',
     text: 'Очень доброжелательный коллектив! Профессионалы своего дела. Нужна была доверенность — быстро и грамотно всё сделали и к тому же всё подробно объяснили, что важно для меня. Спасибо!',
   },
+  {
+    author: 'Алиса И.',
+    date: 'декабрь 2023',
+    rating: 5,
+    platform: '2ГИС',
+    text: 'Спасибо большое сотрудникам конторы, оперативно заверили доверенность и согласие на выезд ребенка. Компетентные и вежливые! Буду обращаться ещё!',
+  },
+  {
+    author: 'Наталья Тагирова',
+    date: 'ноябрь 2023',
+    rating: 5,
+    platform: '2ГИС',
+    text: 'Вежливый, приветливый, компетентный персонал, всё замечательно. Быстро сделали перевод паспортов и нотариальное заверение. Очень удобное расположение и доступность.',
+  },
 ]
 
 function Stars({ n }: { n: number }) {
@@ -71,12 +85,15 @@ function Stars({ n }: { n: number }) {
 
 const PLATFORM_COLOR: Record<string, string> = {
   Яндекс: 'rgba(255,51,51,0.15)',
+  '2ГИС': 'rgba(40,180,100,0.18)',
 }
 const PLATFORM_TEXT: Record<string, string> = {
   Яндекс: '#ff3333',
+  '2ГИС': '#28b464',
 }
 const PLATFORM_LABEL: Record<string, string> = {
   Яндекс: 'Яндекс',
+  '2ГИС': '2ГИС',
 }
 
 export default function ReviewsSection() {
@@ -162,10 +179,10 @@ export default function ReviewsSection() {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <div className="text-[11px] tracking-[0.26em] uppercase mb-2" style={{ color: 'rgba(184,154,90,0.60)' }}>
-                  Отзывы с Яндекс Карт
+                  Отзывы клиентов
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
-                  {['Яндекс'].map(p => (
+                  {['Яндекс', '2ГИС'].map(p => (
                     <span key={p} className="text-[10px] tracking-[0.08em] px-2.5 py-0.5 rounded-full font-medium"
                       style={{ background: PLATFORM_COLOR[p], color: PLATFORM_TEXT[p] }}>
                       {PLATFORM_LABEL[p]}
