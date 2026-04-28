@@ -4,6 +4,9 @@ import WorkingHours from '@/components/WorkingHours'
 import BookingButton from '@/components/BookingButton'
 import { notary } from '@/lib/data'
 
+// notary is typed as const — cast to access optional social fields
+const n = notary as typeof notary & { telegramHref?: string; vk?: string }
+
 export const metadata: Metadata = {
   title: 'Контакты нотариуса · Адрес и телефон',
   description: `Адрес: ${notary.address}. Телефон: ${notary.phone}. Часы работы, карта проезда, связь через Telegram и WhatsApp. Запись на приём онлайн.`,
@@ -73,7 +76,7 @@ export default function ContactsPage() {
                 </a>
 
                 <a
-                  href={`https://t.me/+${notary.phone.replace(/\D/g, '')}`}
+                  href={n.telegramHref ?? `https://t.me/+${notary.phone.replace(/\D/g, '')}`}
                   target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-4 bg-blue-50 border border-blue-100 rounded-xl px-6 py-5 hover:border-blue-300 transition-all group"
                 >
@@ -157,7 +160,7 @@ export default function ContactsPage() {
                   className="font-mono text-[10px] tracking-[0.20em] uppercase mb-0"
                   style={{ color: '#6b7895' }}
                 >
-                  Нотариус · Москва · с 2008
+                  Нотариус · Москва
                 </p>
 
                 <div

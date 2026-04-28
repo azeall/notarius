@@ -119,7 +119,7 @@ export default function SealCanvas({
       ctx.restore()
     }
 
-    const OUTER_TEXT = 'НОТАРИУС ГОРОДА МОСКВЫ · БЫКОНЯ Р.Е. · РЕГ. № 77/1842 · '
+    const OUTER_TEXT = 'НОТАРИУС ГОРОДА МОСКВЫ · ГОРБУНОВ Н.А. · МОСКОВСКАЯ ГОРОДСКАЯ НОТ. ПАЛАТА · '
     const INNER_TEXT = '· УДОСТОВЕРЕНО · ПОДПИСЬ · ПЕЧАТЬ · ЗАКОННО '
 
     function render() {
@@ -257,10 +257,10 @@ export default function SealCanvas({
       ctx.fillStyle = 'rgba(224,189,95,0.75)'
       ctx.font = 'bold 46px "Playfair Display", Georgia, serif'
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
-      ctx.fillText('БР', 0, -4)
+      ctx.fillText('НГ', 0, -4)
       ctx.fillStyle = 'rgba(184,154,90,0.45)'
       ctx.font = '600 9px "Manrope", sans-serif'
-      ctx.fillText('EST · 2008', 0, 28)
+      ctx.fillText('МОСКВА', 0, 28)
 
       ctx.restore()
     }

@@ -5,7 +5,7 @@ import Footer from '@/components/Footer'
 describe('Footer', () => {
   it('displays the notary name', () => {
     render(<Footer />)
-    expect(screen.getByText('Быконя Руслан Евгеньевич')).toBeInTheDocument()
+    expect(screen.getByText('Горбунов Николай Александрович')).toBeInTheDocument()
   })
 
   it('displays the phone number', () => {

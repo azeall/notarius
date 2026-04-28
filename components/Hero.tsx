@@ -49,8 +49,8 @@ export default function Hero() {
             >
               <span className="block w-8 sm:w-11 h-px bg-gold flex-shrink-0" />
               <span className="text-gold font-semibold text-[10px] sm:text-[11px] tracking-[0.28em] sm:tracking-[0.32em] uppercase whitespace-nowrap">
-                <span className="md:hidden">с 2008 года</span>
-                <span className="hidden md:inline">Нотариальная контора · с 2008 года</span>
+                <span className="md:hidden">д. Саларьево · Москва</span>
+                <span className="hidden md:inline">Нотариальная контора · д. Саларьево · Москва</span>
               </span>
               <span className="block w-8 sm:hidden h-px bg-gold flex-shrink-0" />
             </div>
@@ -141,9 +141,9 @@ export default function Hero() {
               }}
             >
               {[
-                { num: '18', lbl: 'лет практики' },
-                { num: '12K+', lbl: 'удостоверений' },
                 { num: '15+', lbl: 'видов услуг' },
+                { num: '5K+', lbl: 'клиентов' },
+                { num: '100%', lbl: 'законность' },
               ].map((stat, i) => (
                 <div key={stat.lbl} className="flex items-center gap-3 sm:gap-7 min-w-0">
                   <div className="flex flex-col items-center md:items-start min-w-0 text-center md:text-left">

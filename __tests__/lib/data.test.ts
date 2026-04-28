@@ -2,7 +2,7 @@ import { notary } from '@/lib/data'
 
 describe('notary data', () => {
   it('has name', () => {
-    expect(notary.name).toBe('Быконя Руслан Евгеньевич')
+    expect(notary.name).toBe('Горбунов Николай Александрович')
   })
 
   it('has phone href', () => {

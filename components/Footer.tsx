@@ -75,7 +75,7 @@ export default function Footer() {
                 className="relative w-10 h-10 grid place-items-center text-gold font-serif text-xl flex-shrink-0"
                 style={{ border: '1px solid #b89a5a' }}
               >
-                Б
+                Г
               </div>
               <div className="flex flex-col">
                 <span className="font-serif text-cream text-base">{notary.name}</span>
@@ -88,7 +88,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-[13px] text-slate leading-relaxed mb-5" style={{ maxWidth: '280px' }}>
-              Профессиональные нотариальные услуги с 2008 года. Надёжность, конфиденциальность, соблюдение закона.
+              Профессиональные нотариальные услуги в Москве. Надёжность, конфиденциальность, соблюдение закона.
             </p>
             <div className="flex flex-col gap-1">
               <a

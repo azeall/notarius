@@ -1,34 +1,36 @@
 export const notary = {
-  name: 'Быконя Руслан Евгеньевич',
+  name: 'Горбунов Николай Александрович',
   title: 'Нотариус города Москвы',
-  address: 'ул. Архитектора Щусева, 5к2, Москва',
+  address: '2-я Новая ул., 23А, д. Саларьево, Москва',
   addressParts: {
-    streetAddress: 'ул. Архитектора Щусева, д. 5, корп. 2',
+    streetAddress: '2-я Новая ул., 23А',
     addressLocality: 'Москва',
-    postalCode: '123103',
+    postalCode: '108811',
     addressCountry: 'RU',
     addressRegion: 'Москва',
   },
-  geo: { latitude: 55.774, longitude: 37.457 },
-  phone: '+7 (499) 647-88-77',
-  phoneHref: 'tel:+74996478877',
-  phoneE164: '+74996478877',
-  email: 'info@notarius-bykonya.ru',
-  foundingDate: '2008-03-14',
-  license: '77/1842',
+  geo: { latitude: 55.619, longitude: 37.357 },
+  phone: '+7 (977) 252-86-86',
+  phoneHref: 'tel:+79772528686',
+  phoneE164: '+79772528686',
+  email: 'notarius_gorbunov@mail.ru',
+  foundingDate: '2020-01-01',
+  license: '',
   chamber: 'Московская городская нотариальная палата',
+  telegram: '@Notarius_GZ',
+  telegramHref: 'https://t.me/Notarius_GZ',
+  vk: 'https://vk.com/notarius_gorbunov',
   workingHours: [
-    { day: 'Понедельник', hours: '10:00–19:00' },
-    { day: 'Вторник',     hours: '10:00–19:00' },
-    { day: 'Среда',       hours: '10:00–19:00' },
-    { day: 'Четверг',     hours: '10:00–19:00' },
-    { day: 'Пятница',     hours: '10:00–13:00 / 14:00–18:00' },
+    { day: 'Понедельник', hours: '10:00–18:30' },
+    { day: 'Вторник',     hours: '10:00–18:30' },
+    { day: 'Среда',       hours: '10:00–18:30' },
+    { day: 'Четверг',     hours: '10:00–18:30' },
+    { day: 'Пятница',     hours: '10:00–18:30' },
     { day: 'Суббота',     hours: 'Выходной' },
     { day: 'Воскресенье', hours: 'Выходной' },
   ],
   openingHoursSpec: [
-    { dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday'], opens: '10:00', closes: '19:00' },
-    { dayOfWeek: 'Friday', opens: '10:00', closes: '18:00' },
+    { dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '18:30' },
   ],
 } as const
 
@@ -41,19 +43,20 @@ function resolveSiteUrl(): string {
   if (vercelProd) return `https://${vercelProd}`.replace(/\/$/, '')
   const vercelUrl = process.env.VERCEL_URL
   if (vercelUrl) return `https://${vercelUrl}`.replace(/\/$/, '')
-  return 'https://notarius-bykonya.ru'
+  return 'https://notarius-gorbunov.ru'
 }
 
 export const site = {
   url: resolveSiteUrl(),
   name: `Нотариус ${notary.name} · Москва`,
-  shortName: 'Нотариус Быконя',
+  shortName: 'Нотариус Горбунов',
   // Короткий description для превью (~150 символов, помещается в Telegram/Google).
   description:
-    'Нотариус Быконя Руслан Евгеньевич в Москве. Онлайн-запись: сделки с недвижимостью, наследство, доверенности, копии. Приём пн–пт, +7 (499) 647-88-77.',
+    'Нотариус Горбунов Николай Александрович в Москве. Онлайн-запись: сделки с недвижимостью, наследство, доверенности, копии. Приём пн–пт, +7 (977) 252-86-86.',
   keywords: [
     'нотариус Москва',
-    'нотариус Быконя',
+    'нотариус Горбунов',
+    'нотариус Саларьево',
     'нотариальные услуги',
     'удостоверение сделок',
     'оформление наследства',
@@ -61,7 +64,6 @@ export const site = {
     'доверенность',
     'брачный договор',
     'заверение копий',
-    'нотариус ЗАО',
     'запись к нотариусу онлайн',
   ],
   locale: 'ru_RU',

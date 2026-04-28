@@ -23,8 +23,8 @@ export const metadata: Metadata = {
 }
 
 export default function HomePage() {
-  const weekdayHours = 'Пн–Чт 10:00–19:00'
-  const fridayHours = 'Пт 10:00–13:00 / 14:00–18:00'
+  const weekdayHours = 'Пн–Пт 10:00–18:30'
+  const fridayHours = ''
   const weekendHours = 'Сб, Вс — выходной'
 
   return (
@@ -95,7 +95,7 @@ export default function HomePage() {
                 },
                 {
                   k: 'Часы',
-                  v: weekdayHours + '\n' + fridayHours + '\n' + weekendHours,
+                  v: [weekdayHours, fridayHours, weekendHours].filter(Boolean).join('\n'),
                 },
                 {
                   k: 'Email',

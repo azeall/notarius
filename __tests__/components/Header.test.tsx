@@ -5,7 +5,7 @@ import Header from '@/components/Header'
 describe('Header', () => {
   it('displays the notary name', () => {
     render(<Header />)
-    expect(screen.getAllByText('Быконя Руслан Евгеньевич')[0]).toBeInTheDocument()
+    expect(screen.getAllByText('Горбунов Николай Александрович')[0]).toBeInTheDocument()
   })
 
   it('has a link to services', () => {
