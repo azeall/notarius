@@ -3,7 +3,7 @@ import Script from 'next/script'
 import { useEffect } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 
-const YM_ID = 108757765
+const YM_ID = 108966393
 
 declare global {
   interface Window {
