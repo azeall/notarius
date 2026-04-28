@@ -75,7 +75,7 @@ export default function Footer() {
                 className="relative w-10 h-10 grid place-items-center text-gold font-serif text-xl flex-shrink-0"
                 style={{ border: '1px solid #b89a5a' }}
               >
-                Г
+                {notary.name.charAt(0)}
               </div>
               <div className="flex flex-col">
                 <span className="font-serif text-cream text-base">{notary.name}</span>

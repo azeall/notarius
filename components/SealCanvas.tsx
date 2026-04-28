@@ -1,5 +1,20 @@
 'use client'
 import { useEffect, useRef } from 'react'
+import { notary } from '@/lib/data'
+
+// Автоматически формируем монограмму и текст печати из данных нотариуса
+function getMonogram(name: string) {
+  const parts = name.trim().split(/\s+/)
+  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase()
+  return parts[0].slice(0, 2).toUpperCase()
+}
+
+function getSealText(name: string) {
+  const parts = name.trim().split(/\s+/)
+  const surname = parts[0] ?? ''
+  const initials = parts.slice(1).map(p => p[0] + '.').join('')
+  return `НОТАРИУС ГОРОДА МОСКВЫ · ${surname.toUpperCase()} ${initials} · МОСКОВСКАЯ ГОРОДСКАЯ НОТ. ПАЛАТА · `
+}
 
 export default function SealCanvas({
   className,
@@ -119,7 +134,7 @@ export default function SealCanvas({
       ctx.restore()
     }
 
-    const OUTER_TEXT = 'НОТАРИУС ГОРОДА МОСКВЫ · ГОРБУНОВ Н.А. · МОСКОВСКАЯ ГОРОДСКАЯ НОТ. ПАЛАТА · '
+    const OUTER_TEXT = getSealText(notary.name)
     const INNER_TEXT = '· УДОСТОВЕРЕНО · ПОДПИСЬ · ПЕЧАТЬ · ЗАКОННО '
 
     function render() {
@@ -257,7 +272,7 @@ export default function SealCanvas({
       ctx.fillStyle = 'rgba(224,189,95,0.75)'
       ctx.font = 'bold 46px "Playfair Display", Georgia, serif'
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
-      ctx.fillText('НГ', 0, -4)
+      ctx.fillText(getMonogram(notary.name), 0, -4)
       ctx.fillStyle = 'rgba(184,154,90,0.50)'
       ctx.font = 'italic 13px "Playfair Display", Georgia, serif'
       ctx.fillText('EST · 2008', 0, 30)

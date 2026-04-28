@@ -3,9 +3,9 @@ import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 
 export const metadata: Metadata = {
-  title: 'О нотариусе · Горбунов Николай Александрович',
+  title: 'О нотариусе',
   description:
-    'Нотариус города Москвы Горбунов Николай Александрович. Член Московской городской нотариальной палаты. Принципы работы, квалификация, членство.',
+    'Нотариус города Москвы. Член Московской городской нотариальной палаты. Принципы работы, квалификация, членство.',
   alternates: { canonical: '/about' },
 }
 
@@ -109,7 +109,9 @@ export default function AboutPage() {
             <div className="space-y-5">
               <div className="bg-navy text-white rounded-xl p-6">
                 <div className="w-20 h-20 rounded-full bg-white/10 border-2 border-gold/40 flex items-center justify-center mx-auto mb-4">
-                  <span className="font-serif text-2xl font-bold text-gold">Г</span>
+                  <span className="font-serif text-2xl font-bold text-gold">
+                    {notary.name.charAt(0)}
+                  </span>
                 </div>
                 <div className="text-center mb-5">
                   <p className="font-serif font-bold text-lg">{notary.name}</p>

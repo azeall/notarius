@@ -5,7 +5,7 @@ import Hero from '@/components/Hero'
 describe('Hero', () => {
   it('displays notary name as heading', () => {
     render(<Hero />)
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Горбунов Николай Александрович')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Иванов Иван Иванович')
   })
 
   it('has a CTA link to contacts', () => {

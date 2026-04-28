@@ -49,8 +49,8 @@ export default function Hero() {
             >
               <span className="block w-8 sm:w-11 h-px bg-gold flex-shrink-0" />
               <span className="text-gold font-semibold text-[10px] sm:text-[11px] tracking-[0.28em] sm:tracking-[0.32em] uppercase whitespace-nowrap">
-                <span className="md:hidden">д. Саларьево · Москва</span>
-                <span className="hidden md:inline">Нотариальная контора · д. Саларьево · Москва</span>
+                <span className="md:hidden">Нотариальная контора · Москва</span>
+                <span className="hidden md:inline">Нотариальная контора · {notary.addressParts.addressLocality}</span>
               </span>
               <span className="block w-8 sm:hidden h-px bg-gold flex-shrink-0" />
             </div>
