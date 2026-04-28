@@ -29,8 +29,8 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `Нотариус ${notary.name} в Москве · Онлайн-запись`,
-    template: `%s · Нотариус`,
+    default: `Нотариус Горбунов Николай Александрович в Москве · Онлайн-запись`,
+    template: `%s · Нотариус Горбунов Н. А.`,
   },
   description: site.description,
   keywords: [...site.keywords],
