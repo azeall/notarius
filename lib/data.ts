@@ -3,27 +3,27 @@
 // ─────────────────────────────────────────────
 
 export const notary = {
-  name: 'Фамилия Имя Отчество',            // ФИО нотариуса
+  name: 'Гунина Татьяна Петровна',
   title: 'Нотариус города Москвы',
-  address: 'ул. Примерная, 1, Москва',    // Полный адрес
+  address: 'Армянский пер., 13, Москва',
   addressParts: {
-    streetAddress: 'ул. Примерная, 1',
+    streetAddress: 'Армянский переулок, 13',
     addressLocality: 'Москва',
-    postalCode: '000000',                  // Почтовый индекс
+    postalCode: '101000',
     addressCountry: 'RU',
     addressRegion: 'Москва',
   },
-  geo: { latitude: 55.751, longitude: 37.618 }, // Координаты офиса
-  phone: '+7 (999) 999-99-99',            // Телефон
-  phoneHref: 'tel:+79999999999',
-  phoneE164: '+79999999999',
-  email: 'info@notarius.ru',              // Email
-  foundingDate: '2020-01-01',             // Дата начала деятельности
-  license: '',                            // Номер лицензии
+  geo: { latitude: 55.7565, longitude: 37.6378 },
+  phone: '+7 (495) 624-15-48',
+  phoneHref: 'tel:+74956241548',
+  phoneE164: '+74956241548',
+  email: 'info@notarius.ru',              // Email — уточнить
+  foundingDate: '2010-01-01',             // Дата начала деятельности — уточнить
+  license: '',
   chamber: 'Московская городская нотариальная палата',
-  telegram: '@notarius',                  // Telegram-ник (с @)
-  telegramHref: 'https://t.me/notarius',  // Ссылка на Telegram
-  vk: 'https://vk.com/notarius',         // Ссылка на VK
+  telegram: '',                           // Telegram — уточнить
+  telegramHref: '',
+  vk: '',                                 // VK — уточнить
   workingHours: [
     { day: 'Понедельник', hours: '10:00–19:00' },
     { day: 'Вторник',     hours: '10:00–19:00' },
