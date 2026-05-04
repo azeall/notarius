@@ -3,27 +3,27 @@
 // ─────────────────────────────────────────────
 
 export const notary = {
-  name: 'Фамилия Имя Отчество',            // ФИО нотариуса
+  name: 'Долина Вера Алексеевна',
   title: 'Нотариус города Москвы',
-  address: 'ул. Примерная, 1, Москва',    // Полный адрес
+  address: 'Мясницкая ул., 24/7, Москва',
   addressParts: {
-    streetAddress: 'ул. Примерная, 1',
+    streetAddress: 'Мясницкая улица, 24/7',
     addressLocality: 'Москва',
-    postalCode: '000000',                  // Почтовый индекс
+    postalCode: '101000',
     addressCountry: 'RU',
     addressRegion: 'Москва',
   },
-  geo: { latitude: 55.751, longitude: 37.618 }, // Координаты офиса
-  phone: '+7 (999) 999-99-99',            // Телефон
-  phoneHref: 'tel:+79999999999',
-  phoneE164: '+79999999999',
-  email: 'info@notarius.ru',              // Email
-  foundingDate: '2020-01-01',             // Дата начала деятельности
-  license: '',                            // Номер лицензии
+  geo: { latitude: 55.7651, longitude: 37.6369 },
+  phone: '+7 (495) 623-00-35',
+  phoneHref: 'tel:+74956230035',
+  phoneE164: '+74956230035',
+  email: 'info@notarius.ru',              // Email — уточнить
+  foundingDate: '2010-01-01',             // Дата начала деятельности — уточнить
+  license: '',
   chamber: 'Московская городская нотариальная палата',
-  telegram: '@notarius',                  // Telegram-ник (с @)
-  telegramHref: 'https://t.me/notarius',  // Ссылка на Telegram
-  vk: 'https://vk.com/notarius',         // Ссылка на VK
+  telegram: '',
+  telegramHref: '',
+  vk: '',
   workingHours: [
     { day: 'Понедельник', hours: '10:00–19:00' },
     { day: 'Вторник',     hours: '10:00–19:00' },
