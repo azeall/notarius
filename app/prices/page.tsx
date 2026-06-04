@@ -101,30 +101,30 @@ export default function PricesPage() {
       </div>
 
       {/* Price tables */}
-      <section className="bg-gray-50">
+      <section className="bg-navy-dark">
         <div className="max-w-6xl mx-auto px-4 py-16 space-y-10">
           {PRICE_SECTIONS.map(section => (
-            <div key={section.title} className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-100 bg-navy/[0.02]">
-                <h2 className="font-serif font-bold text-navy text-lg">{section.title}</h2>
-                {section.note && <p className="text-gray-400 text-xs mt-1">{section.note}</p>}
+            <div key={section.title} className="rounded-2xl overflow-hidden" style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}>
+              <div className="px-6 py-4" style={{ borderBottom: '1px solid rgba(184,154,90,0.12)', background: 'rgba(184,154,90,0.05)' }}>
+                <h2 className="font-serif font-bold text-cream text-lg">{section.title}</h2>
+                {section.note && <p className="text-slate/70 text-xs mt-1">{section.note}</p>}
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-gray-100">
-                      <th className="text-left px-6 py-3 text-gray-400 font-medium text-xs uppercase tracking-wider w-1/2">Действие</th>
-                      <th className="text-left px-4 py-3 text-gray-400 font-medium text-xs uppercase tracking-wider">Тариф</th>
-                      <th className="text-left px-4 py-3 text-gray-400 font-medium text-xs uppercase tracking-wider">УПТХ</th>
-                      <th className="text-left px-4 py-3 text-gray-400 font-medium text-xs uppercase tracking-wider">Итого</th>
+                    <tr style={{ borderBottom: '1px solid rgba(184,154,90,0.12)' }}>
+                      <th className="text-left px-6 py-3 font-medium text-xs uppercase tracking-wider w-1/2" style={{ color: 'rgba(184,154,90,0.70)' }}>Действие</th>
+                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(184,154,90,0.70)' }}>Тариф</th>
+                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(184,154,90,0.70)' }}>УПТХ</th>
+                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(184,154,90,0.70)' }}>Итого</th>
                     </tr>
                   </thead>
                   <tbody>
                     {section.rows.map((row, i) => (
-                      <tr key={i} className="border-b border-gray-50 last:border-0 hover:bg-gray-50 transition-colors">
-                        <td className="px-6 py-3.5 text-navy font-medium">{row.name}</td>
-                        <td className="px-4 py-3.5 text-gray-600">{row.tariff}</td>
-                        <td className="px-4 py-3.5 text-gray-600">{row.uptx}</td>
+                      <tr key={i} className="transition-colors hover:bg-white/[0.03]" style={{ borderBottom: '1px solid rgba(184,154,90,0.07)' }}>
+                        <td className="px-6 py-3.5 text-cream font-medium">{row.name}</td>
+                        <td className="px-4 py-3.5 text-slate">{row.tariff}</td>
+                        <td className="px-4 py-3.5 text-slate">{row.uptx}</td>
                         <td className="px-4 py-3.5 font-semibold text-gold">{row.total}</td>
                       </tr>
                     ))}

@@ -19,7 +19,11 @@ export const notary = {
   phoneE164: '+74956230035',
   email: 'info@notarius.ru',              // Email — уточнить
   foundingDate: '2010-01-01',             // Дата начала деятельности — уточнить
-  license: '',
+  practiceSince: '',                      // Год начала практики, напр. '2014' (пусто — не показывать)
+  license: '',                            // Номер лицензии, напр. '№ 77/123'
+  registryNumber: '',                     // Реестровый номер нотариуса (пусто — не показывать)
+  insuranceSum: '5 000 000 ₽',            // Страховая сумма проф. ответственности
+  fnpVerifyUrl: 'https://notariat.ru/ru-ru/help/probate-cases/',  // Ссылка на проверку в реестре ФНП
   chamber: 'Московская городская нотариальная палата',
   telegram: '',
   telegramHref: '',

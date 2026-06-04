@@ -143,7 +143,7 @@ export default function Hero() {
               {[
                 { num: '15+', lbl: 'видов услуг' },
                 { num: '5K+', lbl: 'клиентов' },
-                { num: '100%', lbl: 'законность' },
+                { num: 'ФНП', lbl: 'в реестре' },
               ].map((stat, i) => (
                 <div key={stat.lbl} className="flex items-center gap-3 sm:gap-7 min-w-0">
                   <div className="flex flex-col items-center md:items-start min-w-0 text-center md:text-left">

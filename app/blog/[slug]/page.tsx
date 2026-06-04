@@ -45,13 +45,13 @@ function renderBlock(block: Block, i: number) {
   switch (block.type) {
     case 'h2':
       return (
-        <h2 key={i} className="font-serif text-2xl font-bold text-navy mt-10 mb-4 scroll-mt-24">
+        <h2 key={i} className="font-serif text-2xl font-bold text-cream mt-10 mb-4 scroll-mt-24">
           {block.text}
         </h2>
       )
     case 'p':
       return (
-        <p key={i} className="text-gray-600 leading-relaxed mb-5" style={{ lineHeight: '1.8' }}>
+        <p key={i} className="text-slate leading-relaxed mb-5" style={{ lineHeight: '1.8' }}>
           {block.text}
         </p>
       )
@@ -59,7 +59,7 @@ function renderBlock(block: Block, i: number) {
       return (
         <ul key={i} className="space-y-2.5 mb-6">
           {block.items.map(item => (
-            <li key={item} className="flex items-start gap-3 text-gray-600 leading-relaxed">
+            <li key={item} className="flex items-start gap-3 text-slate leading-relaxed">
               <span className="mt-2 w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0" />
               <span>{item}</span>
             </li>
@@ -70,8 +70,8 @@ function renderBlock(block: Block, i: number) {
       return (
         <ol key={i} className="space-y-3 mb-6 counter-reset-list">
           {block.items.map((item, idx) => (
-            <li key={item} className="flex items-start gap-3.5 text-gray-600 leading-relaxed">
-              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-navy text-cream text-xs font-semibold grid place-items-center mt-0.5">
+            <li key={item} className="flex items-start gap-3.5 text-slate leading-relaxed">
+              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gold text-navy text-xs font-semibold grid place-items-center mt-0.5">
                 {idx + 1}
               </span>
               <span className="pt-0.5">{item}</span>
@@ -83,15 +83,16 @@ function renderBlock(block: Block, i: number) {
       return (
         <div
           key={i}
-          className="my-7 rounded-xl border-l-2 border-gold bg-navy/[0.03] p-5 sm:p-6"
+          className="my-7 rounded-xl border-l-2 border-gold p-5 sm:p-6"
+          style={{ background: '#0f1e35' }}
         >
-          <p className="font-serif font-bold text-navy text-base mb-1.5 flex items-center gap-2">
+          <p className="font-serif font-bold text-cream text-base mb-1.5 flex items-center gap-2">
             <svg className="w-4 h-4 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             {block.title}
           </p>
-          <p className="text-gray-600 text-sm leading-relaxed">{block.text}</p>
+          <p className="text-slate text-sm leading-relaxed">{block.text}</p>
         </div>
       )
   }
@@ -161,14 +162,14 @@ export default async function ArticlePage({
       </section>
 
       {/* Body */}
-      <article className="bg-white">
+      <article className="bg-navy">
         <div className="max-w-3xl mx-auto px-4 py-12 md:py-16">
-          <p className="text-lg text-gray-700 leading-relaxed mb-8 font-medium">{article.excerpt}</p>
+          <p className="text-lg text-cream leading-relaxed mb-8 font-medium">{article.excerpt}</p>
           {article.content.map(renderBlock)}
 
           {/* Disclaimer */}
-          <div className="mt-10 pt-6 border-t border-gray-100">
-            <p className="text-xs text-gray-400 leading-relaxed">
+          <div className="mt-10 pt-6 border-t" style={{ borderColor: 'rgba(184,154,90,0.12)' }}>
+            <p className="text-xs text-slate/70 leading-relaxed">
               Материал носит справочный характер и не заменяет консультацию. Точный перечень документов и стоимость
               зависят от конкретной ситуации — уточняйте при записи на приём.
             </p>
@@ -177,15 +178,16 @@ export default async function ArticlePage({
       </article>
 
       {/* CTA */}
-      <section className="bg-gray-50 border-t border-gray-100">
+      <section className="bg-navy-dark border-t" style={{ borderColor: 'rgba(184,154,90,0.12)' }}>
         <div className="max-w-3xl mx-auto px-4 py-12 text-center">
-          <h2 className="font-serif text-2xl font-bold text-navy mb-3">Нужна консультация по вашему вопросу?</h2>
-          <p className="text-gray-500 mb-6 text-sm">Запишитесь на приём — подскажем точный список документов и порядок действий</p>
+          <h2 className="font-serif text-2xl font-bold text-cream mb-3">Нужна консультация по вашему вопросу?</h2>
+          <p className="text-slate mb-6 text-sm">Запишитесь на приём — подскажем точный список документов и порядок действий</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <BookingButton />
             <a
               href={notary.phoneHref}
-              className="border border-navy/20 text-navy font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
+              className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
+              style={{ borderColor: 'rgba(184,154,90,0.35)' }}
             >
               {notary.phone}
             </a>
@@ -194,26 +196,27 @@ export default async function ArticlePage({
       </section>
 
       {/* Related */}
-      <section className="bg-white border-t border-gray-100">
+      <section className="bg-navy border-t" style={{ borderColor: 'rgba(184,154,90,0.12)' }}>
         <div className="max-w-6xl mx-auto px-4 py-14">
-          <h2 className="font-serif text-xl font-bold text-navy mb-6">Читайте также</h2>
+          <h2 className="font-serif text-xl font-bold text-cream mb-6">Читайте также</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {related.map(a => (
               <Link
                 key={a.slug}
                 href={`/blog/${a.slug}`}
-                className="group flex flex-col bg-gray-50 rounded-xl border border-gray-100 p-6 hover:border-gold/40 hover:shadow-md transition-all"
+                className="group flex flex-col rounded-2xl p-6 transition-all hover:-translate-y-0.5"
+                style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}
               >
                 <div className="flex items-center gap-3 mb-2 text-xs">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-navy/5 text-navy font-semibold uppercase tracking-wide">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgba(184,154,90,0.12)' }}>
                     {a.category}
                   </span>
-                  <span className="text-gray-400">{a.readingTime} мин</span>
+                  <span className="text-slate">{a.readingTime} мин</span>
                 </div>
-                <h3 className="font-serif text-lg font-bold text-navy leading-snug mb-2 group-hover:text-gold transition-colors">
+                <h3 className="font-serif text-lg font-bold text-cream leading-snug mb-2 group-hover:text-gold transition-colors">
                   {a.title}
                 </h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{a.excerpt}</p>
+                <p className="text-slate text-sm leading-relaxed">{a.excerpt}</p>
               </Link>
             ))}
           </div>
