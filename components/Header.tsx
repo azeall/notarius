@@ -8,6 +8,8 @@ const navLinks = [
   { href: '/',         label: 'Главная' },
   { href: '/services', label: 'Услуги' },
   { href: '/prices',   label: 'Цены' },
+  { href: '/visit',    label: 'Подготовка' },
+  { href: '/blog',     label: 'Блог' },
   { href: '/about',    label: 'О конторе' },
   { href: '/contacts', label: 'Контакты' },
 ]
@@ -76,7 +78,7 @@ export default function Header() {
         </Link>
 
         {/* Nav links */}
-        <nav className="hidden md:flex items-center gap-[34px]">
+        <nav className="hidden md:flex items-center gap-5 lg:gap-[28px]">
           {navLinks.map(link => (
             <Link
               key={link.href}

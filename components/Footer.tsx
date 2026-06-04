@@ -11,8 +11,9 @@ const footerLinks = {
   'Информация': [
     { href: '/about', label: 'О нотариусе' },
     { href: '/prices', label: 'Цены и тарифы' },
+    { href: '/visit', label: 'Подготовка к визиту' },
+    { href: '/blog', label: 'Блог' },
     { href: '/contacts', label: 'Контакты' },
-    { href: '/contacts', label: 'Режим работы' },
   ],
   'Контакты': [
     { href: notary.phoneHref, label: notary.phone },
