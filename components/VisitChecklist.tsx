@@ -65,9 +65,9 @@ export default function VisitChecklist() {
                 onClick={() => setActiveId(c.id)}
                 className="text-left whitespace-nowrap lg:whitespace-normal rounded-lg px-4 py-3 text-sm font-medium transition-all flex-shrink-0 lg:flex-shrink"
                 style={{
-                  background: isActive ? '#0a1628' : '#ffffff',
-                  color: isActive ? '#f0ece4' : '#334155',
-                  border: `1px solid ${isActive ? '#0a1628' : 'rgba(0,0,0,0.08)'}`,
+                  background: isActive ? 'rgba(184,154,90,0.14)' : '#0f1e35',
+                  color: isActive ? '#f0ece4' : '#8a9ab5',
+                  border: `1px solid ${isActive ? '#b89a5a' : 'rgba(184,154,90,0.12)'}`,
                 }}
               >
                 {c.title}
@@ -78,16 +78,17 @@ export default function VisitChecklist() {
       </aside>
 
       {/* Checklist */}
-      <div className="bg-white rounded-2xl border border-gray-100 p-6 sm:p-8 shadow-sm">
+      <div data-checklist className="rounded-2xl p-6 sm:p-8" style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}>
         <div className="flex items-start justify-between gap-4 mb-6 flex-wrap">
           <div>
-            <h2 className="font-serif text-2xl font-bold text-navy mb-1">{active.title}</h2>
-            <p className="text-sm text-gray-500">Отметьте подготовленные документы</p>
+            <h2 className="font-serif text-2xl font-bold text-cream mb-1">{active.title}</h2>
+            <p className="text-sm text-slate">Отметьте подготовленные документы</p>
           </div>
           <div className="flex items-center gap-2 print:hidden">
             <button
               onClick={() => window.print()}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-navy border border-navy/20 rounded-lg px-3 py-2 hover:border-gold hover:text-gold transition-all"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-cream rounded-lg px-3 py-2 hover:border-gold hover:text-gold transition-all"
+              style={{ border: '1px solid rgba(184,154,90,0.30)' }}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
@@ -96,7 +97,8 @@ export default function VisitChecklist() {
             </button>
             <button
               onClick={resetActive}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 border border-gray-200 rounded-lg px-3 py-2 hover:text-navy hover:border-gray-300 transition-all"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate rounded-lg px-3 py-2 hover:text-cream transition-all"
+              style={{ border: '1px solid rgba(184,154,90,0.18)' }}
             >
               Сбросить
             </button>
@@ -105,21 +107,21 @@ export default function VisitChecklist() {
 
         {/* Progress */}
         <div className="mb-6 print:hidden">
-          <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
+          <div className="flex items-center justify-between text-xs text-slate mb-2">
             <span>Готовность обязательных документов</span>
-            <span className="font-mono font-semibold text-navy">{progress}%</span>
+            <span className="font-mono font-semibold text-cream">{progress}%</span>
           </div>
-          <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
+          <div className="h-2 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${progress}%`,
-                background: progress === 100 ? '#16a34a' : '#b89a5a',
+                background: progress === 100 ? '#4f9d7a' : '#b89a5a',
               }}
             />
           </div>
           {progress === 100 && (
-            <p className="text-xs text-green-600 font-medium mt-2 flex items-center gap-1.5">
+            <p className="text-xs text-emerald-light font-medium mt-2 flex items-center gap-1.5">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
@@ -138,15 +140,15 @@ export default function VisitChecklist() {
                   onClick={() => toggle(item.label)}
                   className="w-full flex items-start gap-3.5 text-left rounded-xl p-3.5 transition-all border"
                   style={{
-                    background: isChecked ? 'rgba(22,163,74,0.05)' : '#fafafa',
-                    borderColor: isChecked ? 'rgba(22,163,74,0.30)' : 'rgba(0,0,0,0.06)',
+                    background: isChecked ? 'rgba(79,157,122,0.10)' : 'rgba(255,255,255,0.02)',
+                    borderColor: isChecked ? 'rgba(79,157,122,0.40)' : 'rgba(184,154,90,0.12)',
                   }}
                 >
                   <span
                     className="mt-0.5 w-5 h-5 rounded-md flex-shrink-0 grid place-items-center transition-all"
                     style={{
-                      background: isChecked ? '#16a34a' : '#ffffff',
-                      border: `1.5px solid ${isChecked ? '#16a34a' : 'rgba(0,0,0,0.20)'}`,
+                      background: isChecked ? '#4f9d7a' : 'transparent',
+                      border: `1.5px solid ${isChecked ? '#4f9d7a' : 'rgba(184,154,90,0.35)'}`,
                     }}
                   >
                     {isChecked && (
@@ -160,19 +162,19 @@ export default function VisitChecklist() {
                       <span
                         className="text-sm font-medium transition-colors"
                         style={{
-                          color: isChecked ? '#9ca3af' : '#1e293b',
+                          color: isChecked ? '#6b7895' : '#f0ece4',
                           textDecoration: isChecked ? 'line-through' : 'none',
                         }}
                       >
                         {item.label}
                       </span>
                       {item.optional && (
-                        <span className="text-[10px] uppercase tracking-wide font-semibold text-gray-400 border border-gray-200 rounded px-1.5 py-0.5">
+                        <span className="text-[10px] uppercase tracking-wide font-semibold text-slate rounded px-1.5 py-0.5" style={{ border: '1px solid rgba(184,154,90,0.20)' }}>
                           не для всех
                         </span>
                       )}
                     </span>
-                    {item.note && <span className="block text-xs text-gray-400 mt-1">{item.note}</span>}
+                    {item.note && <span className="block text-xs text-slate/70 mt-1">{item.note}</span>}
                   </span>
                 </button>
               </li>
@@ -180,7 +182,7 @@ export default function VisitChecklist() {
           })}
         </ul>
 
-        <p className="text-xs text-gray-400 mt-6 leading-relaxed">
+        <p className="text-xs text-slate/70 mt-6 leading-relaxed">
           Пункты «не для всех» нужны только в определённых ситуациях. Точный перечень под вашу задачу
           уточнит нотариус при записи на приём.
         </p>

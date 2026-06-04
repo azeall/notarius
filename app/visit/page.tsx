@@ -80,14 +80,14 @@ export default function VisitPage() {
       </section>
 
       {/* Steps */}
-      <section className="bg-white border-b border-gray-100">
+      <section className="bg-navy border-b" style={{ borderColor: 'rgba(184,154,90,0.12)' }}>
         <div className="max-w-6xl mx-auto px-4 py-14">
           <div className="grid md:grid-cols-3 gap-6">
             {STEPS.map(s => (
               <div key={s.n} className="relative">
-                <span className="font-serif text-5xl font-bold text-gold/20">{s.n}</span>
-                <h3 className="font-serif text-lg font-bold text-navy mt-2 mb-2">{s.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{s.text}</p>
+                <span className="font-serif text-5xl font-bold" style={{ color: 'rgba(184,154,90,0.30)' }}>{s.n}</span>
+                <h3 className="font-serif text-lg font-bold text-cream mt-2 mb-2">{s.title}</h3>
+                <p className="text-sm text-slate leading-relaxed">{s.text}</p>
               </div>
             ))}
           </div>
@@ -95,34 +95,34 @@ export default function VisitPage() {
       </section>
 
       {/* Interactive checklist */}
-      <section className="bg-gray-50">
+      <section className="bg-navy-dark">
         <div className="max-w-6xl mx-auto px-4 py-14 md:py-16">
           <div className="mb-8">
             <div className="inline-flex items-center gap-3 mb-3">
               <span className="block w-6 h-px bg-gold" />
               <span className="text-[11px] tracking-[0.28em] uppercase text-gold/80">Чек-лист документов</span>
             </div>
-            <h2 className="font-serif text-2xl md:text-3xl font-bold text-navy">Что взять с собой</h2>
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-cream">Что взять с собой</h2>
           </div>
           <VisitChecklist />
         </div>
       </section>
 
       {/* Notes */}
-      <section className="bg-white border-t border-gray-100">
+      <section className="bg-navy border-t" style={{ borderColor: 'rgba(184,154,90,0.12)' }}>
         <div className="max-w-6xl mx-auto px-4 py-14">
-          <h2 className="font-serif text-2xl font-bold text-navy mb-8">Что важно знать</h2>
+          <h2 className="font-serif text-2xl font-bold text-cream mb-8">Что важно знать</h2>
           <div className="grid sm:grid-cols-2 gap-x-10 gap-y-8">
             {NOTES.map(n => (
               <div key={n.title} className="flex gap-4">
-                <span className="w-9 h-9 rounded-lg bg-navy/5 grid place-items-center flex-shrink-0 text-gold">
+                <span className="w-9 h-9 rounded-lg grid place-items-center flex-shrink-0 text-gold" style={{ background: 'rgba(184,154,90,0.10)' }}>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.6} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </span>
                 <div>
-                  <h3 className="font-semibold text-navy mb-1.5">{n.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{n.text}</p>
+                  <h3 className="font-semibold text-cream mb-1.5">{n.title}</h3>
+                  <p className="text-sm text-slate leading-relaxed">{n.text}</p>
                 </div>
               </div>
             ))}
@@ -131,21 +131,23 @@ export default function VisitPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-gray-50 border-t border-gray-100">
+      <section className="bg-navy-dark border-t" style={{ borderColor: 'rgba(184,154,90,0.12)' }}>
         <div className="max-w-3xl mx-auto px-4 py-14 text-center">
-          <h2 className="font-serif text-2xl font-bold text-navy mb-3">Документы готовы?</h2>
-          <p className="text-gray-500 mb-6 text-sm">Запишитесь на приём в удобное время — или загляните в блог за подробностями</p>
+          <h2 className="font-serif text-2xl font-bold text-cream mb-3">Документы готовы?</h2>
+          <p className="text-slate mb-6 text-sm">Запишитесь на приём в удобное время — или загляните в блог за подробностями</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <BookingButton />
             <Link
               href="/blog"
-              className="border border-navy/20 text-navy font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
+              className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
+              style={{ borderColor: 'rgba(184,154,90,0.35)' }}
             >
               Полезные статьи →
             </Link>
             <a
               href={notary.phoneHref}
-              className="border border-navy/20 text-navy font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
+              className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
+              style={{ borderColor: 'rgba(184,154,90,0.35)' }}
             >
               {notary.phone}
             </a>

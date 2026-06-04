@@ -5,7 +5,7 @@ const STATS = [
   { value: 18, suffix: '+', label: 'лет практики' },
   { value: 5000, suffix: '+', label: 'клиентов' },
   { value: 20, suffix: '+', label: 'видов услуг' },
-  { value: 100, suffix: '%', label: 'юридическая сила' },
+  { value: 24, suffix: '/7', label: 'запись онлайн' },
 ]
 
 function Counter({ value, suffix }: { value: number; suffix: string }) {

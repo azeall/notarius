@@ -79,3 +79,14 @@
     .animate-pulse-dot { animation: none; }
   }
 }
+
+/* Print: make the dark visit checklist legible on paper */
+@media print {
+  [data-checklist],
+  [data-checklist] * {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #cccccc !important;
+    box-shadow: none !important;
+  }
+}

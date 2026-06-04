@@ -18,8 +18,12 @@ export const notary = {
   phoneHref: 'tel:+79999999999',
   phoneE164: '+79999999999',
   email: 'info@notarius.ru',              // Email
-  foundingDate: '2020-01-01',             // Дата начала деятельности
-  license: '',                            // Номер лицензии
+  foundingDate: '2020-01-01',             // Дата начала деятельности (для разметки)
+  practiceSince: '',                      // Год начала практики, напр. '2014' (пусто — не показывать)
+  license: '',                            // Номер лицензии, напр. '№ 77/123'
+  registryNumber: '',                     // Реестровый номер нотариуса (пусто — не показывать)
+  insuranceSum: '5 000 000 ₽',            // Страховая сумма проф. ответственности
+  fnpVerifyUrl: 'https://notariat.ru/ru-ru/help/probate-cases/',  // Ссылка на проверку в реестре ФНП
   chamber: 'Московская городская нотариальная палата',
   telegram: '@notarius',                  // Telegram-ник (с @)
   telegramHref: 'https://t.me/notarius',  // Ссылка на Telegram

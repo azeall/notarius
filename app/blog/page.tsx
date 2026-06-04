@@ -73,26 +73,27 @@ export default function BlogPage() {
       </section>
 
       {/* Articles */}
-      <section className="bg-gray-50">
+      <section className="bg-navy-dark">
         <div className="max-w-6xl mx-auto px-4 py-16">
 
           {/* Featured */}
           <Link
             href={`/blog/${featured.slug}`}
-            className="group block mb-8 bg-white rounded-2xl border border-gray-100 overflow-hidden hover:border-gold/40 hover:shadow-lg transition-all"
+            className="group block mb-8 rounded-2xl overflow-hidden transition-all hover:-translate-y-0.5"
+            style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.18)' }}
           >
             <div className="grid md:grid-cols-[1.1fr_1fr]">
               <div className="p-8 md:p-10 flex flex-col justify-center">
                 <div className="flex items-center gap-3 mb-4 text-xs">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-navy/5 text-navy font-semibold uppercase tracking-wide">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgba(184,154,90,0.12)' }}>
                     {featured.category}
                   </span>
-                  <span className="text-gray-400">{featured.readingTime} мин чтения</span>
+                  <span className="text-slate">{featured.readingTime} мин чтения</span>
                 </div>
-                <h2 className="font-serif text-2xl md:text-3xl font-bold text-navy leading-tight mb-3 group-hover:text-gold transition-colors">
+                <h2 className="font-serif text-2xl md:text-3xl font-bold text-cream leading-tight mb-3 group-hover:text-gold transition-colors">
                   {featured.title}
                 </h2>
-                <p className="text-gray-500 text-sm leading-relaxed mb-5">{featured.excerpt}</p>
+                <p className="text-slate text-sm leading-relaxed mb-5">{featured.excerpt}</p>
                 <span className="inline-flex items-center gap-2 text-sm font-semibold text-gold">
                   Читать статью
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -101,7 +102,7 @@ export default function BlogPage() {
                 </span>
               </div>
               {/* Decorative panel */}
-              <div className="relative min-h-[200px] bg-navy hidden md:block overflow-hidden">
+              <div className="relative min-h-[200px] hidden md:block overflow-hidden" style={{ background: '#0a1628' }}>
                 <div
                   className="absolute inset-0"
                   style={{
@@ -125,19 +126,20 @@ export default function BlogPage() {
               <Link
                 key={a.slug}
                 href={`/blog/${a.slug}`}
-                className="group flex flex-col bg-white rounded-xl border border-gray-100 p-6 hover:border-gold/40 hover:shadow-md transition-all"
+                className="group flex flex-col rounded-2xl p-6 transition-all hover:-translate-y-0.5"
+                style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}
               >
                 <div className="flex items-center gap-3 mb-3 text-xs">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-navy/5 text-navy font-semibold uppercase tracking-wide">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgba(184,154,90,0.12)' }}>
                     {a.category}
                   </span>
-                  <span className="text-gray-400">{a.readingTime} мин</span>
+                  <span className="text-slate">{a.readingTime} мин</span>
                 </div>
-                <h3 className="font-serif text-lg font-bold text-navy leading-snug mb-2 group-hover:text-gold transition-colors">
+                <h3 className="font-serif text-lg font-bold text-cream leading-snug mb-2 group-hover:text-gold transition-colors">
                   {a.title}
                 </h3>
-                <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{a.excerpt}</p>
-                <span className="text-xs text-gray-400 mt-auto">Обновлено {formatDate(a.updated)}</span>
+                <p className="text-slate text-sm leading-relaxed mb-4 flex-1">{a.excerpt}</p>
+                <span className="text-xs text-slate/70 mt-auto">Обновлено {formatDate(a.updated)}</span>
               </Link>
             ))}
           </div>

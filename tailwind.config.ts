@@ -19,6 +19,9 @@ const config: Config = {
         cream: '#f0ece4',
         slate: '#8a9ab5',
         offwhite: '#f5f5f5',
+        // Функциональный акцент «проверено / успех» — приглушённый изумруд
+        emerald: '#4f9d7a',
+        'emerald-light': '#6fbf99',
       },
       fontFamily: {
         serif: ['var(--font-playfair)', 'Georgia', 'serif'],

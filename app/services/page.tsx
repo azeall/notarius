@@ -311,13 +311,14 @@ export default function ServicesPage() {
       </section>
 
       {/* Services list */}
-      <section className="bg-gray-50">
+      <section className="bg-navy-dark">
         <div className="max-w-6xl mx-auto px-4 py-16">
 
           {/* Prep banner */}
           <Link
             href="/visit"
-            className="group flex items-center gap-4 sm:gap-5 mb-8 bg-navy rounded-2xl p-5 sm:p-6 hover:shadow-lg transition-all overflow-hidden relative"
+            className="group flex items-center gap-4 sm:gap-5 mb-8 rounded-2xl p-5 sm:p-6 transition-all overflow-hidden relative hover:-translate-y-0.5"
+            style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.25)' }}
           >
             <span className="w-12 h-12 rounded-xl bg-gold/15 grid place-items-center flex-shrink-0 text-gold">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -326,7 +327,7 @@ export default function ServicesPage() {
             </span>
             <div className="flex-1 min-w-0">
               <h3 className="font-serif font-bold text-cream text-lg leading-snug">Интерактивный чек-лист документов</h3>
-              <p className="text-gray-300 text-sm mt-0.5">Отметьте, что уже собрали, и распечатайте список перед визитом</p>
+              <p className="text-slate text-sm mt-0.5">Отметьте, что уже собрали, и распечатайте список перед визитом</p>
             </div>
             <span className="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-gold flex-shrink-0">
               Открыть
@@ -338,23 +339,27 @@ export default function ServicesPage() {
 
           <div className="grid md:grid-cols-2 gap-6">
             {SERVICES.map(s => (
-              <div key={s.title} className="bg-white rounded-xl p-6 border border-gray-100 hover:border-gold/30 hover:shadow-md transition-all group flex flex-col">
+              <div
+                key={s.title}
+                className="rounded-2xl p-6 transition-all group flex flex-col hover:-translate-y-0.5"
+                style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}
+              >
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-navy/5 group-hover:bg-gold/10 flex items-center justify-center flex-shrink-0 transition-colors">
-                    <svg className="w-5 h-5 text-navy group-hover:text-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0 transition-colors text-gold" style={{ background: 'rgba(184,154,90,0.10)' }}>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       {s.icon}
                     </svg>
                   </div>
                   <div>
-                    <h2 className="font-serif font-bold text-navy text-lg leading-snug">{s.title}</h2>
-                    <p className="text-gray-500 text-sm mt-1">{s.desc}</p>
+                    <h2 className="font-serif font-bold text-cream text-lg leading-snug">{s.title}</h2>
+                    <p className="text-slate text-sm mt-1">{s.desc}</p>
                   </div>
                 </div>
 
                 {/* Sub-services */}
                 <ul className="space-y-1.5 pl-14 mb-5">
                   {s.items.map(item => (
-                    <li key={item} className="flex items-start gap-2 text-sm text-gray-600">
+                    <li key={item} className="flex items-start gap-2 text-sm text-slate">
                       <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0" />
                       {item}
                     </li>
@@ -362,8 +367,8 @@ export default function ServicesPage() {
                 </ul>
 
                 {/* Documents accordion */}
-                <details className="group/details mt-auto border-t border-gray-100 pt-4">
-                  <summary className="flex items-center gap-2 cursor-pointer select-none text-sm font-semibold text-navy/70 hover:text-navy list-none transition-colors">
+                <details className="group/details mt-auto pt-4" style={{ borderTop: '1px solid rgba(184,154,90,0.12)' }}>
+                  <summary className="flex items-center gap-2 cursor-pointer select-none text-sm font-semibold text-cream/80 hover:text-cream list-none transition-colors">
                     <svg
                       className="w-4 h-4 flex-shrink-0 text-gold transition-transform duration-200 group-open/details:rotate-90"
                       fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -379,8 +384,8 @@ export default function ServicesPage() {
                         <p className="text-xs font-semibold text-gold uppercase tracking-wide mb-2">{group.label}</p>
                         <ul className="space-y-1.5">
                           {group.docs.map(doc => (
-                            <li key={doc} className="flex items-start gap-2 text-sm text-gray-600">
-                              <svg className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 text-navy/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <li key={doc} className="flex items-start gap-2 text-sm text-slate">
+                              <svg className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 text-gold/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                               </svg>
                               {doc}
@@ -408,16 +413,16 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-white border-t border-gray-100">
+      <section className="bg-navy border-t" style={{ borderColor: 'rgba(184,154,90,0.12)' }}>
         <div className="max-w-3xl mx-auto px-4 py-14 text-center">
-          <h2 className="font-serif text-2xl font-bold text-navy mb-3">Не нашли нужную услугу?</h2>
-          <p className="text-gray-500 mb-6 text-sm">Свяжитесь с нами — мы проконсультируем и поможем с любым нотариальным вопросом</p>
+          <h2 className="font-serif text-2xl font-bold text-cream mb-3">Не нашли нужную услугу?</h2>
+          <p className="text-slate mb-6 text-sm">Свяжитесь с нами — мы проконсультируем и поможем с любым нотариальным вопросом</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <BookingButton />
-            <Link href="/visit" className="border border-navy/20 text-navy font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
+            <Link href="/visit" className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm" style={{ borderColor: 'rgba(184,154,90,0.35)' }}>
               Подготовка к визиту →
             </Link>
-            <Link href="/prices" className="border border-navy/20 text-navy font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
+            <Link href="/prices" className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm" style={{ borderColor: 'rgba(184,154,90,0.35)' }}>
               Тарифы и цены →
             </Link>
           </div>

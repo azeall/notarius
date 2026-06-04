@@ -58,15 +58,15 @@ export default function AboutPage() {
       </section>
 
       {/* Main content */}
-      <section className="bg-white">
+      <section className="bg-navy">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <div className="grid md:grid-cols-3 gap-12">
 
             {/* Text */}
-            <div className="md:col-span-2 space-y-6 text-gray-700 leading-relaxed">
-              <h2 className="font-serif text-2xl font-bold text-navy">О нотариусе</h2>
+            <div className="md:col-span-2 space-y-6 text-slate leading-relaxed">
+              <h2 className="font-serif text-2xl font-bold text-cream">О нотариусе</h2>
               <p>
-                <strong className="text-navy">{notary.name}</strong> — нотариус города Москвы, назначенный на должность
+                <strong className="text-cream">{notary.name}</strong> — нотариус города Москвы, назначенный на должность
                 Министерством юстиции Российской Федерации. Нотариальная деятельность осуществляется на основании
                 лицензии, выданной Главным управлением Министерства юстиции РФ по городу Москве.
               </p>
@@ -76,12 +76,12 @@ export default function AboutPage() {
                 оформленных документов.
               </p>
               <p>
-                Нотариус является членом <strong className="text-navy">Московской городской нотариальной палаты</strong> и
+                Нотариус является членом <strong className="text-cream">Московской городской нотариальной палаты</strong> и
                 Федеральной нотариальной палаты, регулярно проходит повышение квалификации и следит за
                 изменениями в законодательстве.
               </p>
 
-              <h2 className="font-serif text-2xl font-bold text-navy pt-4">Почему нотариус?</h2>
+              <h2 className="font-serif text-2xl font-bold text-cream pt-4">Почему нотариус?</h2>
               <p>
                 Нотариальное удостоверение — это не формальность, а реальная защита ваших прав. Нотариально
                 удостоверенные документы имеют повышенную доказательную силу в суде, а нотариус несёт
@@ -93,7 +93,7 @@ export default function AboutPage() {
                 существенно снижает риски мошенничества и оспаривания сделок в будущем.
               </p>
 
-              <h2 className="font-serif text-2xl font-bold text-navy pt-4">Как мы работаем</h2>
+              <h2 className="font-serif text-2xl font-bold text-cream pt-4">Как мы работаем</h2>
               <p>
                 Приём ведётся по предварительной записи. Это позволяет нам уделить каждому клиенту достаточно
                 времени, заранее подготовить проекты документов и проверить правовую чистоту предстоящей сделки.
@@ -107,7 +107,7 @@ export default function AboutPage() {
 
             {/* Sidebar */}
             <div className="space-y-5">
-              <div className="bg-navy text-white rounded-xl p-6">
+              <div className="bg-navy-card text-white rounded-2xl p-6" style={{ border: '1px solid rgba(184,154,90,0.18)' }}>
                 <div className="w-20 h-20 rounded-full bg-white/10 border-2 border-gold/40 flex items-center justify-center mx-auto mb-4">
                   <span className="font-serif text-2xl font-bold text-gold">
                     {notary.name.charAt(0)}
@@ -134,16 +134,59 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div className="bg-gray-50 rounded-xl p-5 border border-gray-100 space-y-3">
-                <p className="text-xs uppercase tracking-widest text-gray-400 font-semibold">Членство</p>
-                <div className="flex items-start gap-2 text-sm text-gray-600">
+              <div className="rounded-2xl p-5 space-y-3" style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}>
+                <p className="text-xs uppercase tracking-widest text-gold/70 font-semibold">Членство</p>
+                <div className="flex items-start gap-2 text-sm text-slate">
                   <span className="w-1.5 h-1.5 rounded-full bg-gold mt-2 flex-shrink-0" />
                   Московская городская нотариальная палата
                 </div>
-                <div className="flex items-start gap-2 text-sm text-gray-600">
+                <div className="flex items-start gap-2 text-sm text-slate">
                   <span className="w-1.5 h-1.5 rounded-full bg-gold mt-2 flex-shrink-0" />
                   Федеральная нотариальная палата России
                 </div>
+              </div>
+
+              {/* Реквизиты и проверка */}
+              <div className="rounded-2xl p-5 space-y-3" style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}>
+                <p className="text-xs uppercase tracking-widest text-gold/70 font-semibold">Реквизиты и проверка</p>
+                <dl className="space-y-2.5 text-sm">
+                  {notary.registryNumber && (
+                    <div className="flex justify-between gap-3">
+                      <dt className="text-slate/70">Реестровый №</dt>
+                      <dd className="text-cream font-mono text-right">{notary.registryNumber}</dd>
+                    </div>
+                  )}
+                  {notary.license && (
+                    <div className="flex justify-between gap-3">
+                      <dt className="text-slate/70">Лицензия</dt>
+                      <dd className="text-cream font-mono text-right">{notary.license}</dd>
+                    </div>
+                  )}
+                  {notary.practiceSince && (
+                    <div className="flex justify-between gap-3">
+                      <dt className="text-slate/70">Практика с</dt>
+                      <dd className="text-cream font-mono text-right">{notary.practiceSince}</dd>
+                    </div>
+                  )}
+                  {notary.insuranceSum && (
+                    <div className="flex justify-between gap-3">
+                      <dt className="text-slate/70">Страхование</dt>
+                      <dd className="text-cream font-mono text-right">{notary.insuranceSum}</dd>
+                    </div>
+                  )}
+                </dl>
+                <a
+                  href={notary.fnpVerifyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs font-semibold mt-1 transition-colors"
+                  style={{ color: '#6fbf99' }}
+                >
+                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Проверить в реестре ФНП
+                </a>
               </div>
 
               <BookingButton className="w-full" />
@@ -154,22 +197,22 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="bg-gray-50 border-t border-gray-100">
+      <section className="bg-navy-dark border-t" style={{ borderColor: 'rgba(184,154,90,0.12)' }}>
         <div className="max-w-6xl mx-auto px-4 py-16">
           <div className="mb-10">
             <p className="text-gold uppercase tracking-[0.18em] text-xs font-semibold mb-2">Наши принципы</p>
-            <h2 className="font-serif text-3xl font-bold text-navy">На чём строится наша работа</h2>
+            <h2 className="font-serif text-3xl font-bold text-cream">На чём строится наша работа</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {VALUES.map(v => (
-              <div key={v.title} className="bg-white rounded-xl p-6 border border-gray-100">
-                <div className="w-10 h-10 rounded-lg bg-navy/5 flex items-center justify-center mb-4">
-                  <svg className="w-5 h-5 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div key={v.title} className="rounded-2xl p-6 transition-all hover:-translate-y-0.5" style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}>
+                <div className="w-10 h-10 rounded-lg grid place-items-center mb-4 text-gold" style={{ background: 'rgba(184,154,90,0.10)' }}>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     {v.icon}
                   </svg>
                 </div>
-                <h3 className="font-semibold text-navy mb-2">{v.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{v.text}</p>
+                <h3 className="font-semibold text-cream mb-2">{v.title}</h3>
+                <p className="text-slate text-sm leading-relaxed">{v.text}</p>
               </div>
             ))}
           </div>
