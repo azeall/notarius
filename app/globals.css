@@ -80,13 +80,15 @@
   }
 }
 
-/* Print: make the dark visit checklist legible on paper */
+/* Печать: на экране памятка скрыта, при печати показываем только её */
+.print-sheet { display: none; }
+
 @media print {
-  [data-checklist],
-  [data-checklist] * {
+  body > *:not(.print-sheet) { display: none !important; }
+  .print-sheet {
+    display: block !important;
     background: #ffffff !important;
-    color: #111111 !important;
-    border-color: #cccccc !important;
-    box-shadow: none !important;
   }
+  html, body { background: #ffffff !important; }
+  @page { margin: 16mm; }
 }

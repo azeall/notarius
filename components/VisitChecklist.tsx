@@ -1,6 +1,8 @@
 'use client'
 import { useState, useEffect, useMemo } from 'react'
+import { createPortal } from 'react-dom'
 import { checklists } from '@/lib/checklists'
+import { notary } from '@/lib/data'
 
 const STORAGE_KEY = 'visit-checklist-v1'
 
@@ -8,6 +10,9 @@ export default function VisitChecklist() {
   const [activeId, setActiveId] = useState(checklists[0].id)
   const [checked, setChecked] = useState<Record<string, boolean>>({})
   const [hydrated, setHydrated] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => setMounted(true), [])
 
   // Load persisted state
   useEffect(() => {
@@ -87,13 +92,13 @@ export default function VisitChecklist() {
           <div className="flex items-center gap-2 print:hidden">
             <button
               onClick={() => window.print()}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-cream rounded-lg px-3 py-2 hover:border-gold hover:text-gold transition-all"
-              style={{ border: '1px solid rgba(184,154,90,0.30)' }}
+              title="Сформировать чистый лист со списком документов и распечатать или сохранить в PDF"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-navy bg-gold rounded-lg px-3.5 py-2 hover:bg-gold-light transition-all"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
               </svg>
-              Печать
+              Распечатать памятку
             </button>
             <button
               onClick={resetActive}
@@ -186,7 +191,79 @@ export default function VisitChecklist() {
           Пункты «не для всех» нужны только в определённых ситуациях. Точный перечень под вашу задачу
           уточнит нотариус при записи на приём.
         </p>
+        <p className="text-xs text-slate/70 mt-2 leading-relaxed print:hidden">
+          <span className="text-gold">«Распечатать памятку»</span> — соберёт чистый лист со списком документов
+          и контактами нотариуса. Его удобно распечатать или сохранить в PDF и взять с собой.
+        </p>
       </div>
+
+      {/* Печатаемая памятка — рендерится в body, видна только при печати */}
+      {mounted &&
+        createPortal(
+          <div className="print-sheet">
+            <div style={{ fontFamily: 'Georgia, "Times New Roman", serif', color: '#111', lineHeight: 1.5 }}>
+              {/* Шапка */}
+              <div style={{ borderBottom: '2px solid #b89a5a', paddingBottom: 14, marginBottom: 22 }}>
+                <div style={{ fontSize: 11, letterSpacing: 2, textTransform: 'uppercase', color: '#8a6d2f', marginBottom: 4 }}>
+                  Памятка к визиту · {notary.title}
+                </div>
+                <div style={{ fontSize: 22, fontWeight: 700 }}>Нотариус {notary.name}</div>
+                <div style={{ fontSize: 13, color: '#444', marginTop: 6 }}>
+                  {notary.address} · тел. {notary.phone}
+                </div>
+              </div>
+
+              {/* Заголовок услуги */}
+              <div style={{ fontSize: 17, fontWeight: 700, marginBottom: 14 }}>
+                Документы: {active.title}
+              </div>
+
+              {/* Список документов */}
+              <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+                {active.items.map(item => {
+                  const isChecked = !!checked[keyFor(item.label)]
+                  return (
+                    <li key={item.label} style={{ display: 'flex', gap: 10, padding: '7px 0', borderBottom: '1px solid #e5e5e5', breakInside: 'avoid' }}>
+                      <span
+                        style={{
+                          width: 15,
+                          height: 15,
+                          flexShrink: 0,
+                          marginTop: 2,
+                          border: '1.5px solid #555',
+                          borderRadius: 3,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 12,
+                          lineHeight: 1,
+                          color: '#111',
+                        }}
+                      >
+                        {isChecked ? '✓' : ''}
+                      </span>
+                      <span>
+                        <span style={{ fontSize: 14 }}>
+                          {item.label}
+                          {item.optional && <span style={{ color: '#888', fontStyle: 'italic' }}> — при необходимости</span>}
+                        </span>
+                        {item.note && <span style={{ display: 'block', fontSize: 12, color: '#666' }}>{item.note}</span>}
+                      </span>
+                    </li>
+                  )
+                })}
+              </ul>
+
+              {/* Подвал */}
+              <div style={{ marginTop: 22, fontSize: 12, color: '#444' }}>
+                <div style={{ marginBottom: 4 }}>• Берите оригиналы документов — копии для большинства действий не подходят.</div>
+                <div style={{ marginBottom: 4 }}>• Приём по предварительной записи: {notary.phone}.</div>
+                <div>• Пункты «при необходимости» нужны не во всех ситуациях — уточните при записи.</div>
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )}
     </div>
   )
 }
