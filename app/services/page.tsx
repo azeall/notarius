@@ -313,6 +313,29 @@ export default function ServicesPage() {
       {/* Services list */}
       <section className="bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 py-16">
+
+          {/* Prep banner */}
+          <Link
+            href="/visit"
+            className="group flex items-center gap-4 sm:gap-5 mb-8 bg-navy rounded-2xl p-5 sm:p-6 hover:shadow-lg transition-all overflow-hidden relative"
+          >
+            <span className="w-12 h-12 rounded-xl bg-gold/15 grid place-items-center flex-shrink-0 text-gold">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.6} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+              </svg>
+            </span>
+            <div className="flex-1 min-w-0">
+              <h3 className="font-serif font-bold text-cream text-lg leading-snug">Интерактивный чек-лист документов</h3>
+              <p className="text-gray-300 text-sm mt-0.5">Отметьте, что уже собрали, и распечатайте список перед визитом</p>
+            </div>
+            <span className="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-gold flex-shrink-0">
+              Открыть
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </Link>
+
           <div className="grid md:grid-cols-2 gap-6">
             {SERVICES.map(s => (
               <div key={s.title} className="bg-white rounded-xl p-6 border border-gray-100 hover:border-gold/30 hover:shadow-md transition-all group flex flex-col">
@@ -366,6 +389,16 @@ export default function ServicesPage() {
                         </ul>
                       </div>
                     ))}
+
+                    <Link
+                      href="/visit"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-gold hover:text-gold-light transition-colors pt-1"
+                    >
+                      Открыть в чек-листе
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
                   </div>
                 </details>
               </div>
@@ -381,6 +414,9 @@ export default function ServicesPage() {
           <p className="text-gray-500 mb-6 text-sm">Свяжитесь с нами — мы проконсультируем и поможем с любым нотариальным вопросом</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <BookingButton />
+            <Link href="/visit" className="border border-navy/20 text-navy font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
+              Подготовка к визиту →
+            </Link>
             <Link href="/prices" className="border border-navy/20 text-navy font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
               Тарифы и цены →
             </Link>
