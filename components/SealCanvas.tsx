@@ -268,10 +268,10 @@ export default function SealCanvas({
         ctx.restore()
       }
 
-      // L7: inner field + radial rays (тиснение — градиент глубины)
-      const fieldGrad = ctx.createRadialGradient(-26, -30, 8, 0, 0, 82)
-      fieldGrad.addColorStop(0, 'rgba(17,33,58,0.92)')
-      fieldGrad.addColorStop(1, 'rgba(6,13,26,0.92)')
+      // L7: inner field + radial rays (вдавленность — свет копится снизу-справа)
+      const fieldGrad = ctx.createRadialGradient(24, 30, 8, 0, 0, 82)
+      fieldGrad.addColorStop(0, 'rgba(15,29,52,0.92)')
+      fieldGrad.addColorStop(1, 'rgba(5,11,22,0.94)')
       ctx.fillStyle = fieldGrad
       ctx.beginPath(); ctx.arc(0, 0, 82, 0, Math.PI * 2); ctx.fill()
       ctx.strokeStyle = 'rgba(184,154,90,0.30)'; ctx.lineWidth = 1
@@ -307,19 +307,19 @@ export default function SealCanvas({
         ctx.fillText(`EST · ${estYear}`, 0, 30)
       }
 
-      // Тиснение: золотой блик (верх-слева) + тень (низ-справа)
+      // Тиснение (вдавленная печать): тень сверху-слева + блик снизу-справа
+      const sh = ctx.createRadialGradient(-72, -88, 8, -72, -88, 205)
+      sh.addColorStop(0, 'rgba(0,0,0,0.20)')
+      sh.addColorStop(1, 'rgba(0,0,0,0)')
+      ctx.fillStyle = sh
+      ctx.beginPath(); ctx.arc(0, 0, 212, 0, Math.PI * 2); ctx.fill()
       ctx.globalCompositeOperation = 'lighter'
-      const hl = ctx.createRadialGradient(-70, -82, 8, -70, -82, 190)
-      hl.addColorStop(0, 'rgba(224,189,95,0.09)')
+      const hl = ctx.createRadialGradient(72, 88, 8, 72, 88, 195)
+      hl.addColorStop(0, 'rgba(224,189,95,0.11)')
       hl.addColorStop(1, 'rgba(224,189,95,0)')
       ctx.fillStyle = hl
       ctx.beginPath(); ctx.arc(0, 0, 212, 0, Math.PI * 2); ctx.fill()
       ctx.globalCompositeOperation = 'source-over'
-      const sh = ctx.createRadialGradient(72, 90, 8, 72, 90, 200)
-      sh.addColorStop(0, 'rgba(0,0,0,0.13)')
-      sh.addColorStop(1, 'rgba(0,0,0,0)')
-      ctx.fillStyle = sh
-      ctx.beginPath(); ctx.arc(0, 0, 212, 0, Math.PI * 2); ctx.fill()
 
       ctx.restore()
     }
@@ -337,11 +337,17 @@ export default function SealCanvas({
     updateScrollProgress()
     window.addEventListener('scroll', updateScrollProgress, { passive: true })
 
+    // Параллакс реагирует только когда курсор над печатью
     function onPointer(e: PointerEvent) {
-      tgX = (e.clientX / window.innerWidth - 0.5) * 2
-      tgY = (e.clientY / window.innerHeight - 0.5) * 2
+      const r = canvas.getBoundingClientRect()
+      const nx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2)
+      const ny = (e.clientY - (r.top + r.height / 2)) / (r.height / 2)
+      tgX = Math.max(-1, Math.min(1, nx))
+      tgY = Math.max(-1, Math.min(1, ny))
     }
-    window.addEventListener('pointermove', onPointer, { passive: true })
+    function onLeave() { tgX = 0; tgY = 0 }
+    canvas.addEventListener('pointermove', onPointer, { passive: true })
+    canvas.addEventListener('pointerleave', onLeave, { passive: true })
 
     function applyParallax() {
       curX += (tgX - curX) * 0.06
@@ -380,7 +386,8 @@ export default function SealCanvas({
     return () => {
       cancelAnimationFrame(rafId)
       window.removeEventListener('scroll', updateScrollProgress)
-      window.removeEventListener('pointermove', onPointer)
+      canvas.removeEventListener('pointermove', onPointer)
+      canvas.removeEventListener('pointerleave', onLeave)
       ro.disconnect()
     }
   }, [])
