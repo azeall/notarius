@@ -35,6 +35,19 @@ export async function PATCH(req: Request, { params }: Params) {
     return NextResponse.json({ error: 'Запись не найдена' }, { status: 404 })
   }
 
+  // Смена статуса: active | completed | no_show | cancelled
+  const VALID_STATUSES = ['active', 'completed', 'no_show', 'cancelled']
+  if ('status' in body && !body.date && !body.time && body.duration == null && !('staffId' in body)) {
+    if (!VALID_STATUSES.includes(body.status)) {
+      return NextResponse.json({ error: 'Недопустимый статус' }, { status: 400 })
+    }
+    const updated = await prisma.appointment.update({
+      where: { id: current.id },
+      data: { status: body.status },
+    })
+    return NextResponse.json({ ok: true, appointment: updated })
+  }
+
   // staffId reassign: explicitly passed (null = notary, string = staff_id)
   const hasStaffId = 'staffId' in body
   const newStaffId = hasStaffId
