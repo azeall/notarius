@@ -66,6 +66,13 @@ export default function SealCanvas({
     // Параллакс от курсора
     let tgX = 0, tgY = 0, curX = 0, curY = 0
 
+    // Блик-проблеск («металл») — раз в несколько секунд
+    const SHIMMER_CYCLE = 6500
+    const SHIMMER_DUR = 1300
+    let shimStart = 0
+    let shimmerActive = false
+    let shimmerP = 0
+
     const MAX = {
       l1: -720 * Math.PI / 180,
       l2: 1080 * Math.PI / 180,
@@ -172,6 +179,15 @@ export default function SealCanvas({
 
       const P = easedProgress
 
+      // Золотой ореол вокруг печати (мягкое свечение по ободу)
+      ctx.save()
+      ctx.shadowColor = 'rgba(184,154,90,0.45)'
+      ctx.shadowBlur = 26
+      ctx.strokeStyle = 'rgba(184,154,90,0.16)'
+      ctx.lineWidth = 2
+      ctx.beginPath(); ctx.arc(0, 0, 206, 0, Math.PI * 2); ctx.stroke()
+      ctx.restore()
+
       // L1: outer halo + 72 ticks (CCW)
       ctx.save()
       ctx.rotate(P * MAX.l1)
@@ -268,11 +284,8 @@ export default function SealCanvas({
         ctx.restore()
       }
 
-      // L7: inner field + radial rays (вдавленность — свет копится снизу-справа)
-      const fieldGrad = ctx.createRadialGradient(24, 30, 8, 0, 0, 82)
-      fieldGrad.addColorStop(0, 'rgba(15,29,52,0.92)')
-      fieldGrad.addColorStop(1, 'rgba(5,11,22,0.94)')
-      ctx.fillStyle = fieldGrad
+      // L7: inner field + radial rays
+      ctx.fillStyle = 'rgba(10,22,40,0.88)'
       ctx.beginPath(); ctx.arc(0, 0, 82, 0, Math.PI * 2); ctx.fill()
       ctx.strokeStyle = 'rgba(184,154,90,0.30)'; ctx.lineWidth = 1
       ctx.beginPath(); ctx.arc(0, 0, 82, 0, Math.PI * 2); ctx.stroke()
@@ -307,19 +320,21 @@ export default function SealCanvas({
         ctx.fillText(`EST · ${estYear}`, 0, 30)
       }
 
-      // Тиснение (вдавленная печать): тень сверху-слева + блик снизу-справа
-      const sh = ctx.createRadialGradient(-72, -88, 8, -72, -88, 205)
-      sh.addColorStop(0, 'rgba(0,0,0,0.20)')
-      sh.addColorStop(1, 'rgba(0,0,0,0)')
-      ctx.fillStyle = sh
-      ctx.beginPath(); ctx.arc(0, 0, 212, 0, Math.PI * 2); ctx.fill()
-      ctx.globalCompositeOperation = 'lighter'
-      const hl = ctx.createRadialGradient(72, 88, 8, 72, 88, 195)
-      hl.addColorStop(0, 'rgba(224,189,95,0.11)')
-      hl.addColorStop(1, 'rgba(224,189,95,0)')
-      ctx.fillStyle = hl
-      ctx.beginPath(); ctx.arc(0, 0, 212, 0, Math.PI * 2); ctx.fill()
-      ctx.globalCompositeOperation = 'source-over'
+      // Блик-проблеск («металл»): диагональная световая полоса проходит по печати
+      if (shimmerActive) {
+        ctx.save()
+        ctx.beginPath(); ctx.arc(0, 0, 208, 0, Math.PI * 2); ctx.clip()
+        ctx.rotate(-0.5)
+        ctx.globalCompositeOperation = 'lighter'
+        const sx = -300 + shimmerP * 600
+        const band = ctx.createLinearGradient(sx - 70, 0, sx + 70, 0)
+        band.addColorStop(0, 'rgba(245,226,150,0)')
+        band.addColorStop(0.5, 'rgba(245,226,150,0.13)')
+        band.addColorStop(1, 'rgba(245,226,150,0)')
+        ctx.fillStyle = band
+        ctx.fillRect(-320, -320, 640, 640)
+        ctx.restore()
+      }
 
       ctx.restore()
     }
@@ -370,13 +385,18 @@ export default function SealCanvas({
         eRot = (1 - k) * 0.10
         eAlpha = Math.min(1, e * 1.5)
         render()
-        if (e >= 1) { entranceDone = true; eScale = 1; eRot = 0; eAlpha = 1; render() }
+        if (e >= 1) { entranceDone = true; eScale = 1; eRot = 0; eAlpha = 1; shimStart = now; render() }
       } else {
+        // Проблеск раз в SHIMMER_CYCLE, длится SHIMMER_DUR
+        const cyc = (now - shimStart) % SHIMMER_CYCLE
+        const active = cyc < SHIMMER_DUR
+        shimmerP = active ? cyc / SHIMMER_DUR : 0
+        const wasActive = shimmerActive
+        shimmerActive = active
         const delta = scrollProgress - easedProgress
-        if (Math.abs(delta) > 0.00005) {
-          easedProgress += delta * 0.06
-          render()
-        }
+        const scrollMoving = Math.abs(delta) > 0.00005
+        if (scrollMoving) easedProgress += delta * 0.06
+        if (active || scrollMoving || wasActive) render()
       }
       applyParallax()
       rafId = requestAnimationFrame(tick)
