@@ -43,6 +43,29 @@ export default function SealCanvas({
     let easedProgress = 0
     let rafId = 0
 
+    // Год основания для центральной надписи — из данных, не хардкод
+    const estYear = (() => {
+      const ps = (notary as { practiceSince?: string }).practiceSince
+      if (ps && /^\d{4}$/.test(ps)) return ps
+      const fd = notary.foundingDate
+      if (fd && /^\d{4}/.test(fd)) return fd.slice(0, 4)
+      return ''
+    })()
+
+    function easeOutBack(x: number) {
+      const c1 = 1.70158, c3 = c1 + 1
+      return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2)
+    }
+
+    // Появление («оттиск»)
+    const ENTRANCE_MS = 780
+    let entranceT0 = 0
+    let entranceDone = prefersReduced
+    let eScale = 1, eRot = 0, eAlpha = prefersReduced ? 1 : 0
+
+    // Параллакс от курсора
+    let tgX = 0, tgY = 0, curX = 0, curY = 0
+
     const MAX = {
       l1: -720 * Math.PI / 180,
       l2: 1080 * Math.PI / 180,
@@ -142,8 +165,10 @@ export default function SealCanvas({
       const minDim = Math.min(W, H)
       const SCALE = (minDim / 2) / BASE_R * 1.05
       ctx.save()
+      ctx.globalAlpha = eAlpha
       ctx.translate(CX, CY)
-      ctx.scale(SCALE, SCALE)
+      ctx.rotate(eRot)
+      ctx.scale(SCALE * eScale, SCALE * eScale)
 
       const P = easedProgress
 
@@ -243,8 +268,11 @@ export default function SealCanvas({
         ctx.restore()
       }
 
-      // L7: inner field + radial rays
-      ctx.fillStyle = 'rgba(10,22,40,0.88)'
+      // L7: inner field + radial rays (тиснение — градиент глубины)
+      const fieldGrad = ctx.createRadialGradient(-26, -30, 8, 0, 0, 82)
+      fieldGrad.addColorStop(0, 'rgba(17,33,58,0.92)')
+      fieldGrad.addColorStop(1, 'rgba(6,13,26,0.92)')
+      ctx.fillStyle = fieldGrad
       ctx.beginPath(); ctx.arc(0, 0, 82, 0, Math.PI * 2); ctx.fill()
       ctx.strokeStyle = 'rgba(184,154,90,0.30)'; ctx.lineWidth = 1
       ctx.beginPath(); ctx.arc(0, 0, 82, 0, Math.PI * 2); ctx.stroke()
@@ -273,9 +301,25 @@ export default function SealCanvas({
       ctx.font = 'bold 46px "Playfair Display", Georgia, serif'
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
       ctx.fillText(getMonogram(notary.name), 0, -4)
-      ctx.fillStyle = 'rgba(184,154,90,0.50)'
-      ctx.font = 'italic 13px "Playfair Display", Georgia, serif'
-      ctx.fillText('EST · 2008', 0, 30)
+      if (estYear) {
+        ctx.fillStyle = 'rgba(184,154,90,0.50)'
+        ctx.font = 'italic 13px "Playfair Display", Georgia, serif'
+        ctx.fillText(`EST · ${estYear}`, 0, 30)
+      }
+
+      // Тиснение: золотой блик (верх-слева) + тень (низ-справа)
+      ctx.globalCompositeOperation = 'lighter'
+      const hl = ctx.createRadialGradient(-70, -82, 8, -70, -82, 190)
+      hl.addColorStop(0, 'rgba(224,189,95,0.09)')
+      hl.addColorStop(1, 'rgba(224,189,95,0)')
+      ctx.fillStyle = hl
+      ctx.beginPath(); ctx.arc(0, 0, 212, 0, Math.PI * 2); ctx.fill()
+      ctx.globalCompositeOperation = 'source-over'
+      const sh = ctx.createRadialGradient(72, 90, 8, 72, 90, 200)
+      sh.addColorStop(0, 'rgba(0,0,0,0.13)')
+      sh.addColorStop(1, 'rgba(0,0,0,0)')
+      ctx.fillStyle = sh
+      ctx.beginPath(); ctx.arc(0, 0, 212, 0, Math.PI * 2); ctx.fill()
 
       ctx.restore()
     }
@@ -293,20 +337,50 @@ export default function SealCanvas({
     updateScrollProgress()
     window.addEventListener('scroll', updateScrollProgress, { passive: true })
 
-    function tick() {
-      const delta = scrollProgress - easedProgress
-      if (Math.abs(delta) > 0.00005) {
-        easedProgress += delta * 0.06
+    function onPointer(e: PointerEvent) {
+      tgX = (e.clientX / window.innerWidth - 0.5) * 2
+      tgY = (e.clientY / window.innerHeight - 0.5) * 2
+    }
+    window.addEventListener('pointermove', onPointer, { passive: true })
+
+    function applyParallax() {
+      curX += (tgX - curX) * 0.06
+      curY += (tgY - curY) * 0.06
+      const rotY = curX * 5
+      const rotX = -curY * 5
+      const tx = curX * 7, ty = curY * 7
+      canvas.style.transform =
+        `perspective(900px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translate3d(${tx.toFixed(1)}px, ${ty.toFixed(1)}px, 0)`
+    }
+
+    entranceT0 = performance.now()
+
+    function tick(now: number) {
+      if (!entranceDone) {
+        // Оттиск: «нажим» с лёгкой осадкой (easeOutBack) + проявление
+        const e = Math.min(1, (now - entranceT0) / ENTRANCE_MS)
+        const k = easeOutBack(e)
+        eScale = 1 + (1 - k) * 0.14
+        eRot = (1 - k) * 0.10
+        eAlpha = Math.min(1, e * 1.5)
         render()
+        if (e >= 1) { entranceDone = true; eScale = 1; eRot = 0; eAlpha = 1; render() }
+      } else {
+        const delta = scrollProgress - easedProgress
+        if (Math.abs(delta) > 0.00005) {
+          easedProgress += delta * 0.06
+          render()
+        }
       }
+      applyParallax()
       rafId = requestAnimationFrame(tick)
     }
-    render()
     rafId = requestAnimationFrame(tick)
 
     return () => {
       cancelAnimationFrame(rafId)
       window.removeEventListener('scroll', updateScrollProgress)
+      window.removeEventListener('pointermove', onPointer)
       ro.disconnect()
     }
   }, [])
