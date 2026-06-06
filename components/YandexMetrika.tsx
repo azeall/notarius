@@ -1,6 +1,6 @@
 'use client'
 import Script from 'next/script'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 
 const YM_ID = 108966393
@@ -25,6 +25,22 @@ function YandexMetrikaHit() {
 }
 
 export default function YandexMetrika() {
+  // Грузим аналитику только после согласия (cookie-уведомление)
+  const [allowed, setAllowed] = useState(false)
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem('cookie-consent') === 'accepted') setAllowed(true)
+    } catch {
+      /* ignore */
+    }
+    const onAccept = () => setAllowed(true)
+    window.addEventListener('cookie-consent-accepted', onAccept)
+    return () => window.removeEventListener('cookie-consent-accepted', onAccept)
+  }, [])
+
+  if (!allowed) return null
+
   return (
     <>
       <Script
