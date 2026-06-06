@@ -10,7 +10,7 @@ import {
   expandSlots,
 }  from '@/lib/slots'
 import { SERVICES, maxDurationForService, defaultDurationForService } from '@/lib/services'
-
+
 
 const MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь',
                 'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
@@ -43,6 +43,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
   const [phone, setPhone] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [consent, setConsent] = useState(false)
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -91,6 +92,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
 
   const submit = async () => {
     if (!name.trim() || !phone.trim()) { setError('Заполните все поля'); return }
+    if (!consent) { setError('Подтвердите согласие на обработку персональных данных'); return }
     setLoading(true); setError('')
     try {
       const res = await fetch('/api/appointments', {
@@ -314,6 +316,22 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   style={{ background: '#060f1e', border: '1px solid rgba(184,154,90,0.20)' }}
                 />
               </div>
+              {/* Согласие на обработку персональных данных (152-ФЗ) */}
+              <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={e => setConsent(e.target.checked)}
+                  className="mt-0.5 w-4 h-4 flex-shrink-0 accent-[#b89a5a] cursor-pointer"
+                />
+                <span className="text-[12px] text-slate leading-snug">
+                  Я согласен(а) на обработку персональных данных и принимаю{' '}
+                  <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold-light underline underline-offset-2">
+                    политику конфиденциальности
+                  </a>
+                </span>
+              </label>
+
               {error && <p className="text-red-400 text-sm">{error}</p>}
               <div className="flex gap-3 pt-1">
                 <button
@@ -324,9 +342,9 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   ← Назад
                 </button>
                 <button
-                  disabled={loading}
+                  disabled={loading || !consent}
                   onClick={submit}
-                  className="flex-1 py-3 rounded-xl font-semibold text-sm disabled:opacity-50 hover:brightness-110 transition-all text-navy"
+                  className="flex-1 py-3 rounded-xl font-semibold text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110 transition-all text-navy"
                   style={{ background: '#b89a5a' }}
                 >
                   {loading ? 'Отправка…' : 'Записаться'}

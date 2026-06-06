@@ -158,7 +158,7 @@ export default function Footer() {
         >
           <p className="m-0">© {new Date().getFullYear()} {notary.name}. Все права защищены.</p>
           <div className="flex items-center gap-4">
-            <Link href="/about" className="hover:text-slate transition-colors no-underline">Политика конфиденциальности</Link>
+            <Link href="/privacy" className="hover:text-slate transition-colors no-underline">Политика конфиденциальности</Link>
             <Link href="/admin" className="text-white/10 hover:text-white/30 transition-colors text-xs" title="Управление">
               ⚙
             </Link>

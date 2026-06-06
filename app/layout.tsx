@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import RevealObserver from '@/components/RevealObserver'
 import { Suspense } from 'react'
 import YandexMetrika from '@/components/YandexMetrika'
+import CookieNotice from '@/components/CookieNotice'
 import { notary, site } from '@/lib/data'
 
 const manrope = Manrope({
@@ -198,6 +199,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
         <Footer />
         <RevealObserver />
+        <CookieNotice />
         <Suspense><YandexMetrika /></Suspense>
       </body>
     </html>
