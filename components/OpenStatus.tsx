@@ -44,7 +44,7 @@ export default function OpenStatus() {
       <span className="text-[12px] text-slate tracking-[0.04em]">
         <strong
           className="font-medium"
-          style={{ color: open ? '#f0ece4' : '#f87171' }}
+          style={{ color: open ? '#3d2010' : '#f87171' }}
         >
           {open ? 'Открыто сейчас' : 'Закрыто'}
         </strong>

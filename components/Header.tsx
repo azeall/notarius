@@ -30,14 +30,14 @@ export default function Header() {
       style={{
         backdropFilter: 'blur(14px)',
         WebkitBackdropFilter: 'blur(14px)',
-        background: scrolled ? 'rgba(6,16,31,0.92)' : 'rgba(10,22,40,0.82)',
-        borderBottom: '1px solid rgba(184,154,90,0.18)',
+        background: scrolled ? 'rgba(239,228,209,0.92)' : 'rgba(233,220,198,0.82)',
+        borderBottom: '1px solid rgba(192,92,46,0.18)',
       }}
     >
       {/* Gold hairline */}
       <div
         className="absolute left-0 right-0 bottom-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(184,154,90,0.55), transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(192,92,46,0.55), transparent)' }}
         aria-hidden
       />
 
@@ -49,17 +49,17 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 no-underline group min-w-0">
           <div
             className="relative w-10 h-10 grid place-items-center flex-shrink-0 text-gold font-serif text-xl"
-            style={{ border: '1px solid #b89a5a' }}
+            style={{ border: '1px solid #c05c2e' }}
           >
             {/* Corner decorations */}
             <span
               className="absolute top-0 left-0 w-1.5 h-1.5"
-              style={{ borderTop: '1px solid #b89a5a', borderLeft: '1px solid #b89a5a' }}
+              style={{ borderTop: '1px solid #c05c2e', borderLeft: '1px solid #c05c2e' }}
               aria-hidden
             />
             <span
               className="absolute bottom-0 right-0 w-1.5 h-1.5"
-              style={{ borderBottom: '1px solid #b89a5a', borderRight: '1px solid #b89a5a' }}
+              style={{ borderBottom: '1px solid #c05c2e', borderRight: '1px solid #c05c2e' }}
               aria-hidden
             />
             Б
@@ -70,7 +70,7 @@ export default function Header() {
             </span>
             <span
               className="font-sans text-[9px] tracking-[0.22em] sm:tracking-[0.28em] uppercase mt-0.5 truncate"
-              style={{ color: 'rgba(184,154,90,0.70)' }}
+              style={{ color: 'rgba(192,92,46,0.70)' }}
             >
               Нотариус · Москва
             </span>
@@ -114,14 +114,14 @@ export default function Header() {
       {menuOpen && (
         <nav
           className="md:hidden px-5 pb-5 flex flex-col gap-0"
-          style={{ borderTop: '1px solid rgba(184,154,90,0.10)', background: 'rgba(6,16,31,0.96)' }}
+          style={{ borderTop: '1px solid rgba(192,92,46,0.10)', background: 'rgba(239,228,209,0.96)' }}
         >
           {navLinks.map(link => (
             <Link
               key={link.href}
               href={link.href}
               className="py-3.5 text-[11px] tracking-[0.20em] uppercase text-slate hover:text-gold transition-colors no-underline border-b"
-              style={{ borderColor: 'rgba(184,154,90,0.08)' }}
+              style={{ borderColor: 'rgba(192,92,46,0.08)' }}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}

@@ -80,7 +80,7 @@ export default function ParticleCanvas({ className }: { className?: string }) {
 
         const rad = p.r * 4
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rad)
-        g.addColorStop(0, `rgba(224,189,95,${p.alpha})`)
+        g.addColorStop(0, `rgba(212,118,63,${p.alpha})`)
         g.addColorStop(0.45, `rgba(200,160,60,${p.alpha * 0.45})`)
         g.addColorStop(1, 'rgba(200,160,60,0)')
         ctx.fillStyle = g

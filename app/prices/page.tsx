@@ -67,7 +67,7 @@ export default function PricesPage() {
   return (
     <>
       {/* Page header */}
-      <section className="relative bg-navy text-white overflow-hidden">
+      <section className="relative bg-navy text-cream overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
         <div className="absolute inset-0 opacity-[0.04]" aria-hidden>
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -82,7 +82,7 @@ export default function PricesPage() {
         <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
           <p className="text-gold uppercase tracking-widest text-xs font-semibold mb-3">Нотариальная контора</p>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Тарифы и цены</h1>
-          <p className="text-gray-300 max-w-xl text-sm leading-relaxed">
+          <p className="text-slate max-w-xl text-sm leading-relaxed">
             Стоимость нотариальных действий складывается из государственной пошлины (нотариального тарифа) и платы за услуги правового и технического характера (УПТХ). Указанные цены ориентировочные — точную стоимость уточняйте при записи.
           </p>
         </div>
@@ -104,24 +104,24 @@ export default function PricesPage() {
       <section className="bg-navy-dark">
         <div className="max-w-6xl mx-auto px-4 py-16 space-y-10">
           {PRICE_SECTIONS.map(section => (
-            <div key={section.title} className="rounded-2xl overflow-hidden" style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}>
-              <div className="px-6 py-4" style={{ borderBottom: '1px solid rgba(184,154,90,0.12)', background: 'rgba(184,154,90,0.05)' }}>
+            <div key={section.title} className="rounded-2xl overflow-hidden" style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.15)' }}>
+              <div className="px-6 py-4" style={{ borderBottom: '1px solid rgba(192,92,46,0.12)', background: 'rgba(192,92,46,0.05)' }}>
                 <h2 className="font-serif font-bold text-cream text-lg">{section.title}</h2>
                 {section.note && <p className="text-slate/70 text-xs mt-1">{section.note}</p>}
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr style={{ borderBottom: '1px solid rgba(184,154,90,0.12)' }}>
-                      <th className="text-left px-6 py-3 font-medium text-xs uppercase tracking-wider w-1/2" style={{ color: 'rgba(184,154,90,0.70)' }}>Действие</th>
-                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(184,154,90,0.70)' }}>Тариф</th>
-                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(184,154,90,0.70)' }}>УПТХ</th>
-                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(184,154,90,0.70)' }}>Итого</th>
+                    <tr style={{ borderBottom: '1px solid rgba(192,92,46,0.12)' }}>
+                      <th className="text-left px-6 py-3 font-medium text-xs uppercase tracking-wider w-1/2" style={{ color: 'rgba(192,92,46,0.70)' }}>Действие</th>
+                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(192,92,46,0.70)' }}>Тариф</th>
+                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(192,92,46,0.70)' }}>УПТХ</th>
+                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(192,92,46,0.70)' }}>Итого</th>
                     </tr>
                   </thead>
                   <tbody>
                     {section.rows.map((row, i) => (
-                      <tr key={i} className="transition-colors hover:bg-white/[0.03]" style={{ borderBottom: '1px solid rgba(184,154,90,0.07)' }}>
+                      <tr key={i} className="transition-colors hover:bg-black/[0.03]" style={{ borderBottom: '1px solid rgba(192,92,46,0.07)' }}>
                         <td className="px-6 py-3.5 text-cream font-medium">{row.name}</td>
                         <td className="px-4 py-3.5 text-slate">{row.tariff}</td>
                         <td className="px-4 py-3.5 text-slate">{row.uptx}</td>
@@ -137,17 +137,17 @@ export default function PricesPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-navy text-white">
+      <section className="bg-navy text-cream">
         <div className="max-w-3xl mx-auto px-4 py-14 text-center">
           <h2 className="font-serif text-2xl md:text-3xl font-bold mb-3">Узнайте точную стоимость</h2>
-          <p className="text-gray-300 mb-6 text-sm">
+          <p className="text-slate mb-6 text-sm">
             Позвоните нам или запишитесь на консультацию — мы рассчитаем стоимость конкретно для вашей ситуации
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <BookingButton className="bg-gold text-navy font-semibold px-8 py-3 rounded-lg hover:brightness-110 transition-all" />
+            <BookingButton className="bg-gold text-white font-semibold px-8 py-3 rounded-lg hover:brightness-110 transition-all" />
             <a
               href={notary.phoneHref}
-              className="flex items-center gap-2 border border-white/20 text-white font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
+              className="flex items-center gap-2 border border-black/20 text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
             >
               {notary.phone}
             </a>

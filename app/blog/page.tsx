@@ -51,7 +51,7 @@ export default function BlogPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogLd) }} />
 
       {/* Page header */}
-      <section className="relative bg-navy text-white overflow-hidden">
+      <section className="relative bg-navy text-cream overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
         <div className="absolute inset-0 opacity-[0.04]" aria-hidden>
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -66,7 +66,7 @@ export default function BlogPage() {
         <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
           <p className="text-gold uppercase tracking-widest text-xs font-semibold mb-3">Полезные материалы</p>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Блог нотариуса</h1>
-          <p className="text-gray-300 max-w-xl">
+          <p className="text-slate max-w-xl">
             Понятные разборы нотариальных вопросов: наследство, сделки, доверенности и документы для заграницы
           </p>
         </div>
@@ -80,12 +80,12 @@ export default function BlogPage() {
           <Link
             href={`/blog/${featured.slug}`}
             className="group block mb-8 rounded-2xl overflow-hidden transition-all hover:-translate-y-0.5"
-            style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.18)' }}
+            style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.18)' }}
           >
             <div className="grid md:grid-cols-[1.1fr_1fr]">
               <div className="p-8 md:p-10 flex flex-col justify-center">
                 <div className="flex items-center gap-3 mb-4 text-xs">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgba(184,154,90,0.12)' }}>
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgba(192,92,46,0.12)' }}>
                     {featured.category}
                   </span>
                   <span className="text-slate">{featured.readingTime} мин чтения</span>
@@ -102,13 +102,13 @@ export default function BlogPage() {
                 </span>
               </div>
               {/* Decorative panel */}
-              <div className="relative min-h-[200px] hidden md:block overflow-hidden" style={{ background: '#0a1628' }}>
+              <div className="relative min-h-[200px] hidden md:block overflow-hidden" style={{ background: '#f5ede0' }}>
                 <div
                   className="absolute inset-0"
                   style={{
                     backgroundImage:
-                      'linear-gradient(rgba(184,154,90,0.10) 1px, transparent 1px),' +
-                      'linear-gradient(90deg, rgba(184,154,90,0.10) 1px, transparent 1px)',
+                      'linear-gradient(rgba(192,92,46,0.10) 1px, transparent 1px),' +
+                      'linear-gradient(90deg, rgba(192,92,46,0.10) 1px, transparent 1px)',
                     backgroundSize: '40px 40px',
                   }}
                   aria-hidden
@@ -127,10 +127,10 @@ export default function BlogPage() {
                 key={a.slug}
                 href={`/blog/${a.slug}`}
                 className="group flex flex-col rounded-2xl p-6 transition-all hover:-translate-y-0.5"
-                style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}
+                style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.15)' }}
               >
                 <div className="flex items-center gap-3 mb-3 text-xs">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgba(184,154,90,0.12)' }}>
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgba(192,92,46,0.12)' }}>
                     {a.category}
                   </span>
                   <span className="text-slate">{a.readingTime} мин</span>

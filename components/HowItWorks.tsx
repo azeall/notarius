@@ -26,7 +26,7 @@ export default function HowItWorks() {
         <div className="mb-10 sm:mb-16 reveal">
           <div className="inline-flex items-center gap-3.5 mb-5">
             <span className="block w-6 h-px bg-gold flex-shrink-0" />
-            <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(184,154,90,0.70)' }}>
+            <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(192,92,46,0.70)' }}>
               Шаги к успеху
             </span>
           </div>
@@ -53,7 +53,7 @@ export default function HowItWorks() {
                     top: '28px',
                     left: '4.5rem',
                     right: '-1rem',
-                    background: 'linear-gradient(90deg, rgba(184,154,90,0.30), transparent)',
+                    background: 'linear-gradient(90deg, rgba(192,92,46,0.30), transparent)',
                   }}
                   aria-hidden
                 />
@@ -62,7 +62,7 @@ export default function HowItWorks() {
               <div className="flex items-center gap-4 mb-6">
                 <div
                   className="w-14 h-14 grid place-items-center flex-shrink-0"
-                  style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.18)', borderRadius: '12px' }}
+                  style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.18)', borderRadius: '12px' }}
                 >
                   <span className="font-serif text-gold text-lg font-bold">{step.n}</span>
                 </div>

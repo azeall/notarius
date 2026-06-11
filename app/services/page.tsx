@@ -289,7 +289,7 @@ export default function ServicesPage() {
   return (
     <>
       {/* Page header */}
-      <section className="relative bg-navy text-white overflow-hidden">
+      <section className="relative bg-navy text-cream overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
         <div className="absolute inset-0 opacity-[0.04]" aria-hidden>
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -304,7 +304,7 @@ export default function ServicesPage() {
         <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
           <p className="text-gold uppercase tracking-widest text-xs font-semibold mb-3">Нотариальная контора</p>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Услуги</h1>
-          <p className="text-gray-300 max-w-xl">
+          <p className="text-slate max-w-xl">
             Полный спектр нотариальных действий для физических и юридических лиц в соответствии с законодательством РФ
           </p>
         </div>
@@ -318,7 +318,7 @@ export default function ServicesPage() {
           <Link
             href="/visit"
             className="group flex items-center gap-4 sm:gap-5 mb-8 rounded-2xl p-5 sm:p-6 transition-all overflow-hidden relative hover:-translate-y-0.5"
-            style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.25)' }}
+            style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.25)' }}
           >
             <span className="w-12 h-12 rounded-xl bg-gold/15 grid place-items-center flex-shrink-0 text-gold">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -342,10 +342,10 @@ export default function ServicesPage() {
               <div
                 key={s.title}
                 className="rounded-2xl p-6 transition-all group flex flex-col hover:-translate-y-0.5"
-                style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}
+                style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.15)' }}
               >
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0 transition-colors text-gold" style={{ background: 'rgba(184,154,90,0.10)' }}>
+                  <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0 transition-colors text-gold" style={{ background: 'rgba(192,92,46,0.10)' }}>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       {s.icon}
                     </svg>
@@ -367,7 +367,7 @@ export default function ServicesPage() {
                 </ul>
 
                 {/* Documents accordion */}
-                <details className="group/details mt-auto pt-4" style={{ borderTop: '1px solid rgba(184,154,90,0.12)' }}>
+                <details className="group/details mt-auto pt-4" style={{ borderTop: '1px solid rgba(192,92,46,0.12)' }}>
                   <summary className="flex items-center gap-2 cursor-pointer select-none text-sm font-semibold text-cream/80 hover:text-cream list-none transition-colors">
                     <svg
                       className="w-4 h-4 flex-shrink-0 text-gold transition-transform duration-200 group-open/details:rotate-90"
@@ -413,16 +413,16 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-navy border-t" style={{ borderColor: 'rgba(184,154,90,0.12)' }}>
+      <section className="bg-navy border-t" style={{ borderColor: 'rgba(192,92,46,0.12)' }}>
         <div className="max-w-3xl mx-auto px-4 py-14 text-center">
           <h2 className="font-serif text-2xl font-bold text-cream mb-3">Не нашли нужную услугу?</h2>
           <p className="text-slate mb-6 text-sm">Свяжитесь с нами — мы проконсультируем и поможем с любым нотариальным вопросом</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <BookingButton />
-            <Link href="/visit" className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm" style={{ borderColor: 'rgba(184,154,90,0.35)' }}>
+            <Link href="/visit" className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm" style={{ borderColor: 'rgba(192,92,46,0.35)' }}>
               Подготовка к визиту →
             </Link>
-            <Link href="/prices" className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm" style={{ borderColor: 'rgba(184,154,90,0.35)' }}>
+            <Link href="/prices" className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm" style={{ borderColor: 'rgba(192,92,46,0.35)' }}>
               Тарифы и цены →
             </Link>
           </div>

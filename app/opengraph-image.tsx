@@ -40,14 +40,14 @@ export default async function OpengraphImage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: 'linear-gradient(135deg, #0a1628 0%, #081329 55%, #06101f 100%)',
+          background: 'linear-gradient(135deg, #f5ede0 0%, #f5ede0 55%, #efe4d1 100%)',
           padding: '64px 72px',
           fontFamily: 'PT Serif',
           position: 'relative',
         }}
       >
         {/* Gold top hairline */}
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 6, background: 'linear-gradient(90deg, transparent, #b89a5a, transparent)' }} />
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 6, background: 'linear-gradient(90deg, transparent, #c05c2e, transparent)' }} />
 
         {/* Top row: monogram + chamber */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -58,27 +58,27 @@ export default async function OpengraphImage() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: '2px solid #b89a5a',
-              color: '#d4b978',
+              border: '2px solid #c05c2e',
+              color: '#d4763f',
               fontSize: 52,
               fontWeight: 700,
             }}
           >
             {initial}
           </div>
-          <div style={{ display: 'flex', color: 'rgba(184,154,90,0.75)', fontSize: 22, letterSpacing: 4, textTransform: 'uppercase' }}>
+          <div style={{ display: 'flex', color: 'rgba(192,92,46,0.75)', fontSize: 22, letterSpacing: 4, textTransform: 'uppercase' }}>
             Нотариальная контора
           </div>
         </div>
 
         {/* Name */}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', color: '#f0ece4', fontSize: 84, fontWeight: 700, lineHeight: 1.05 }}>
+          <div style={{ display: 'flex', color: '#3d2010', fontSize: 84, fontWeight: 700, lineHeight: 1.05 }}>
             {notary.name}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', marginTop: 20 }}>
-            <div style={{ width: 64, height: 2, background: '#b89a5a' }} />
-            <div style={{ display: 'flex', color: '#8a9ab5', fontSize: 30, marginLeft: 20 }}>
+            <div style={{ width: 64, height: 2, background: '#c05c2e' }} />
+            <div style={{ display: 'flex', color: '#7d6a55', fontSize: 30, marginLeft: 20 }}>
               Нотариус города Москвы
             </div>
           </div>
@@ -86,10 +86,10 @@ export default async function OpengraphImage() {
 
         {/* Bottom row: services + phone */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', color: '#8a9ab5', fontSize: 26 }}>
+          <div style={{ display: 'flex', color: '#7d6a55', fontSize: 26 }}>
             Сделки · Наследство · Доверенности · Копии
           </div>
-          <div style={{ display: 'flex', color: '#d4b978', fontSize: 34, fontWeight: 700 }}>
+          <div style={{ display: 'flex', color: '#d4763f', fontSize: 34, fontWeight: 700 }}>
             {notary.phone}
           </div>
         </div>

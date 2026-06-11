@@ -4,8 +4,8 @@ export default function ContactCard() {
   return (
     <div
       style={{
-        background: '#0f1e35',
-        border: '1px solid rgba(184,154,90,0.15)',
+        background: '#fdf8ef',
+        border: '1px solid rgba(192,92,46,0.15)',
         borderRadius: '12px',
         padding: '24px',
       }}
@@ -18,13 +18,13 @@ export default function ContactCard() {
       </h3>
       <div className="space-y-4">
         <div>
-          <p className="text-[10px] tracking-[0.22em] uppercase mb-1.5" style={{ color: '#6b7895' }}>
+          <p className="text-[10px] tracking-[0.22em] uppercase mb-1.5" style={{ color: '#94816b' }}>
             Адрес
           </p>
           <p className="text-[13px] text-cream font-medium leading-snug">{notary.address}</p>
         </div>
         <div>
-          <p className="text-[10px] tracking-[0.22em] uppercase mb-1.5" style={{ color: '#6b7895' }}>
+          <p className="text-[10px] tracking-[0.22em] uppercase mb-1.5" style={{ color: '#94816b' }}>
             Телефон
           </p>
           <a

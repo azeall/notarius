@@ -12,7 +12,7 @@ export default function StaffLogoutButton() {
   return (
     <button
       onClick={handleLogout}
-      className="text-sm text-gray-400 hover:text-cream border border-white/10 hover:border-white/30 px-4 py-2 rounded-xl transition-colors"
+      className="text-sm text-slate/80 hover:text-cream border border-black/10 hover:border-black/30 px-4 py-2 rounded-xl transition-colors"
     >
       Выйти
     </button>

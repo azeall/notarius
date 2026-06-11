@@ -52,8 +52,8 @@ export default function ServicesGrid() {
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(184,154,90,0.05) 1px, transparent 1px),' +
-            'linear-gradient(90deg, rgba(184,154,90,0.05) 1px, transparent 1px)',
+            'linear-gradient(rgba(192,92,46,0.05) 1px, transparent 1px),' +
+            'linear-gradient(90deg, rgba(192,92,46,0.05) 1px, transparent 1px)',
           backgroundSize: '64px 64px',
           maskImage: 'radial-gradient(ellipse 100% 80% at 50% 50%, black 30%, transparent 85%)',
           WebkitMaskImage: 'radial-gradient(ellipse 100% 80% at 50% 50%, black 30%, transparent 85%)',
@@ -67,7 +67,7 @@ export default function ServicesGrid() {
           <div>
             <div className="inline-flex items-center gap-3.5 mb-5">
               <span className="block w-6 h-px bg-gold flex-shrink-0" />
-              <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(184,154,90,0.70)' }}>
+              <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(192,92,46,0.70)' }}>
                 Что мы предоставляем
               </span>
             </div>
@@ -81,7 +81,7 @@ export default function ServicesGrid() {
           <Link
             href="/services"
             className="inline-flex items-center gap-2.5 text-[12px] tracking-[0.22em] uppercase text-gold no-underline pb-1 transition-colors hover:text-gold-light"
-            style={{ borderBottom: '1px solid rgba(184,154,90,0.30)' }}
+            style={{ borderBottom: '1px solid rgba(192,92,46,0.30)' }}
           >
             Все услуги
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,15 +97,15 @@ export default function ServicesGrid() {
               key={s.title}
               className="group flex items-start gap-4 sm:gap-5 cursor-pointer transition-all duration-250 reveal p-5 sm:p-7"
               style={{
-                border: '1px solid rgba(184,154,90,0.15)',
+                border: '1px solid rgba(192,92,46,0.15)',
                 borderLeft: '2px solid transparent',
                 borderRadius: '16px',
               }}
               data-reveal-delay={i * 60}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLElement
-                el.style.borderLeftColor = '#b89a5a'
-                el.style.background = '#0f1e35'
+                el.style.borderLeftColor = '#c05c2e'
+                el.style.background = '#fdf8ef'
                 el.style.transform = 'translateX(2px)'
               }}
               onMouseLeave={e => {
@@ -117,7 +117,7 @@ export default function ServicesGrid() {
             >
               <div
                 className="w-12 h-12 flex-shrink-0 grid place-items-center rounded-[10px] text-gold"
-                style={{ background: 'rgba(184,154,90,0.08)' }}
+                style={{ background: 'rgba(192,92,46,0.08)' }}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   {s.icon}

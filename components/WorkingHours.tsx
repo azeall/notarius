@@ -4,8 +4,8 @@ export default function WorkingHours() {
   return (
     <div
       style={{
-        background: '#0f1e35',
-        border: '1px solid rgba(184,154,90,0.15)',
+        background: '#fdf8ef',
+        border: '1px solid rgba(192,92,46,0.15)',
         borderRadius: '12px',
         padding: '24px',
       }}
@@ -21,11 +21,11 @@ export default function WorkingHours() {
           {notary.workingHours.map(({ day, hours }: { day: string; hours: string }) => (
             <tr
               key={day}
-              style={{ borderBottom: '1px solid rgba(184,154,90,0.08)' }}
+              style={{ borderBottom: '1px solid rgba(192,92,46,0.08)' }}
               className="last:border-0"
             >
               <td className="py-2.5 text-[13px] text-cream font-medium pr-4">{day}</td>
-              <td className="py-2.5 text-[13px] text-right" style={{ color: '#8a9ab5' }}>
+              <td className="py-2.5 text-[13px] text-right" style={{ color: '#7d6a55' }}>
                 {hours}
               </td>
             </tr>

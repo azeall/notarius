@@ -4,8 +4,9 @@ import Hero from '@/components/Hero'
 import ServicesGrid from '@/components/ServicesGrid'
 import HowItWorks from '@/components/HowItWorks'
 import CredentialsSection from '@/components/CredentialsSection'
-import FAQ from '@/components/FAQ'
+import FAQSearch from '@/components/FAQSearch'
 import BookingButton from '@/components/BookingButton'
+import BookingInline from '@/components/BookingInline'
 import { notary, site } from '@/lib/data'
 import ReviewsSection from '@/components/ReviewsSection'
 
@@ -38,7 +39,7 @@ export default function HomePage() {
       <HowItWorks />
 
       {/* ── Map / Contacts section ── */}
-      <section className="relative py-20 sm:py-[120px]" style={{ background: '#0a1628' }}>
+      <section className="relative py-20 sm:py-[120px]" style={{ background: '#f5ede0' }}>
         <div className="relative mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1340px' }}>
 
           {/* Section header */}
@@ -46,7 +47,7 @@ export default function HomePage() {
             <div>
               <div className="inline-flex items-center gap-3.5 mb-5">
                 <span className="block w-6 h-px bg-gold flex-shrink-0" />
-                <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(184,154,90,0.70)' }}>
+                <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(192,92,46,0.70)' }}>
                   Адрес и контакты
                 </span>
               </div>
@@ -61,7 +62,7 @@ export default function HomePage() {
             <Link
               href="/contacts"
               className="inline-flex items-center gap-2.5 text-[12px] tracking-[0.22em] uppercase text-gold no-underline pb-1 transition-colors hover:text-gold-light flex-shrink-0"
-              style={{ borderBottom: '1px solid rgba(184,154,90,0.30)' }}
+              style={{ borderBottom: '1px solid rgba(192,92,46,0.30)' }}
             >
               Контакты
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -73,10 +74,10 @@ export default function HomePage() {
           {/* 2-column card: info | map */}
           <div
             className="reveal grid grid-cols-1 md:grid-cols-[0.85fr_1.15fr] overflow-hidden rounded-2xl"
-            style={{ border: '1px solid rgba(184,154,90,0.15)', background: 'rgba(184,154,90,0.12)' }}
+            style={{ border: '1px solid rgba(192,92,46,0.15)', background: 'rgba(192,92,46,0.12)' }}
           >
             {/* Info column */}
-            <div style={{ padding: '44px 40px', background: '#0f1e35' }}>
+            <div style={{ padding: '44px 40px', background: '#fdf8ef' }}>
               <h3
                 className="font-serif font-medium text-cream"
                 style={{ fontSize: '26px', margin: '0 0 20px' }}
@@ -106,11 +107,11 @@ export default function HomePage() {
                 <div
                   key={row.k}
                   className="flex gap-3 py-3.5"
-                  style={{ borderTop: '1px solid rgba(184,154,90,0.08)' }}
+                  style={{ borderTop: '1px solid rgba(192,92,46,0.08)' }}
                 >
                   <div
                     className="font-mono text-[10px] tracking-[0.2em] uppercase pt-0.5 flex-shrink-0"
-                    style={{ color: 'rgba(184,154,90,0.70)', minWidth: '72px' }}
+                    style={{ color: 'rgba(192,92,46,0.70)', minWidth: '72px' }}
                   >
                     {row.k}
                   </div>
@@ -128,7 +129,7 @@ export default function HomePage() {
             </div>
 
             {/* Map column */}
-            <div className="relative" style={{ minHeight: '380px', background: '#0a1628' }}>
+            <div className="relative" style={{ minHeight: '380px', background: '#f5ede0' }}>
               <iframe
                 src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(notary.address)}&z=16`}
                 width="100%"
@@ -136,7 +137,7 @@ export default function HomePage() {
                 frameBorder="0"
                 allowFullScreen
                 className="absolute inset-0 w-full h-full"
-                style={{ filter: 'invert(0.85) hue-rotate(180deg)', border: 'none', display: 'block' }}
+                style={{ border: 'none', display: 'block' }}
                 title="Карта"
               />
             </div>
@@ -146,14 +147,16 @@ export default function HomePage() {
 
       <ReviewsSection />
 
-      <FAQ />
+      <BookingInline />
+
+      <FAQSearch />
 
       {/* ── Bottom CTA ── */}
       <section
         className="relative py-20 sm:py-24 md:py-[120px]"
         style={{
-          background: '#06101f',
-          borderTop: '1px solid rgba(184,154,90,0.10)',
+          background: '#efe4d1',
+          borderTop: '1px solid rgba(192,92,46,0.10)',
         }}
       >
         {/* Gold grid */}
@@ -161,8 +164,8 @@ export default function HomePage() {
           className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage:
-              'linear-gradient(rgba(184,154,90,0.04) 1px, transparent 1px),' +
-              'linear-gradient(90deg, rgba(184,154,90,0.04) 1px, transparent 1px)',
+              'linear-gradient(rgba(192,92,46,0.04) 1px, transparent 1px),' +
+              'linear-gradient(90deg, rgba(192,92,46,0.04) 1px, transparent 1px)',
             backgroundSize: '64px 64px',
             maskImage: 'radial-gradient(ellipse 70% 80% at 50% 50%, black 20%, transparent 80%)',
             WebkitMaskImage: 'radial-gradient(ellipse 70% 80% at 50% 50%, black 20%, transparent 80%)',
@@ -173,7 +176,7 @@ export default function HomePage() {
         <div className="relative mx-auto px-5 sm:px-8 md:px-10 text-center" style={{ maxWidth: '780px' }}>
           <div className="inline-flex items-center gap-3.5 mb-6 reveal">
             <span className="block w-6 h-px bg-gold" />
-            <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(184,154,90,0.70)' }}>
+            <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(192,92,46,0.70)' }}>
               Готовы помочь
             </span>
             <span className="block w-6 h-px bg-gold" />
@@ -196,7 +199,7 @@ export default function HomePage() {
             <a
               href={notary.phoneHref}
               className="inline-flex items-center gap-2.5 font-sans font-semibold text-[11px] sm:text-[12px] tracking-[0.22em] uppercase px-5 sm:px-8 py-4 sm:py-5 text-cream no-underline transition-colors border hover:text-gold-light hover:border-gold whitespace-nowrap"
-              style={{ borderColor: 'rgba(184,154,90,0.35)' }}
+              style={{ borderColor: 'rgba(192,92,46,0.35)' }}
             >
               {notary.phone}
             </a>
