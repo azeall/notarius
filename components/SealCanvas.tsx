@@ -121,7 +121,7 @@ export default function SealCanvas({
     }
 
     function drawFleur() {
-      ctx.fillStyle = 'rgba(184,154,90,0.35)'
+      ctx.fillStyle = 'rgba(29,158,117,0.35)'
       const d = 4.0
       for (let i = 0; i < 3; i++) {
         const a = (i / 3) * Math.PI * 2 - Math.PI / 2
@@ -181,9 +181,9 @@ export default function SealCanvas({
 
       // Золотой ореол вокруг печати (мягкое свечение по ободу)
       ctx.save()
-      ctx.shadowColor = 'rgba(184,154,90,0.45)'
+      ctx.shadowColor = 'rgba(29,158,117,0.45)'
       ctx.shadowBlur = 26
-      ctx.strokeStyle = 'rgba(184,154,90,0.16)'
+      ctx.strokeStyle = 'rgba(29,158,117,0.16)'
       ctx.lineWidth = 2
       ctx.beginPath(); ctx.arc(0, 0, 206, 0, Math.PI * 2); ctx.stroke()
       ctx.restore()
@@ -191,9 +191,9 @@ export default function SealCanvas({
       // L1: outer halo + 72 ticks (CCW)
       ctx.save()
       ctx.rotate(P * MAX.l1)
-      ctx.strokeStyle = 'rgba(184,154,90,0.12)'; ctx.lineWidth = 1
+      ctx.strokeStyle = 'rgba(29,158,117,0.12)'; ctx.lineWidth = 1
       ctx.beginPath(); ctx.arc(0, 0, 210, 0, Math.PI * 2); ctx.stroke()
-      ctx.strokeStyle = 'rgba(184,154,90,0.22)'
+      ctx.strokeStyle = 'rgba(29,158,117,0.22)'
       for (let i = 0; i < 72; i++) {
         const a = (i / 72) * Math.PI * 2
         const len = (i % 5 === 0) ? 12 : 5
@@ -207,27 +207,27 @@ export default function SealCanvas({
       // L2: outer guilloche rose (CW)
       ctx.save()
       ctx.rotate(P * MAX.l2)
-      ctx.strokeStyle = 'rgba(200,170,80,0.18)'; ctx.lineWidth = 0.8
+      ctx.strokeStyle = 'rgba(29,158,117,0.18)'; ctx.lineWidth = 0.8
       drawRose(175, 18, 7, 2000)
       ctx.restore()
 
       // micro-text band (CCW)
       ctx.save()
       ctx.rotate(P * MAX.l3b)
-      drawTextRing(INNER_TEXT, 162, '600 8px "Manrope", sans-serif', 'rgba(184,154,90,0.20)', 1.6)
+      drawTextRing(INNER_TEXT, 162, '600 8px "Manrope", sans-serif', 'rgba(29,158,117,0.20)', 1.6)
       ctx.restore()
 
       // outer text ring (static)
-      drawTextRing(OUTER_TEXT, 148, '600 10px "Manrope", sans-serif', 'rgba(184,154,90,0.38)', 2.2, Math.PI / 2)
-      ctx.strokeStyle = 'rgba(184,154,90,0.18)'; ctx.lineWidth = 1
+      drawTextRing(OUTER_TEXT, 148, '600 10px "Manrope", sans-serif', 'rgba(29,158,117,0.38)', 2.2, Math.PI / 2)
+      ctx.strokeStyle = 'rgba(29,158,117,0.18)'; ctx.lineWidth = 1
       ctx.beginPath(); ctx.arc(0, 0, 156, 0, Math.PI * 2); ctx.stroke()
       ctx.beginPath(); ctx.arc(0, 0, 140, 0, Math.PI * 2); ctx.stroke()
 
       // L4: diamonds ring (CCW)
       ctx.save()
       ctx.rotate(P * MAX.l4)
-      ctx.fillStyle = 'rgba(184,154,90,0.24)'
-      ctx.strokeStyle = 'rgba(184,154,90,0.14)'; ctx.lineWidth = 0.8
+      ctx.fillStyle = 'rgba(29,158,117,0.24)'
+      ctx.strokeStyle = 'rgba(29,158,117,0.14)'; ctx.lineWidth = 0.8
       for (let i = 0; i < 36; i++) {
         const a = (i / 36) * Math.PI * 2
         ctx.save()
@@ -246,31 +246,31 @@ export default function SealCanvas({
       // guilloche band 3 (CW)
       ctx.save()
       ctx.rotate(P * MAX.l4b)
-      ctx.strokeStyle = 'rgba(200,170,80,0.13)'; ctx.lineWidth = 0.6
+      ctx.strokeStyle = 'rgba(29,158,117,0.13)'; ctx.lineWidth = 0.6
       drawRose(125, 8, 11, 1800)
       ctx.restore()
 
       // L5: inner guilloche (CW)
       ctx.save()
       ctx.rotate(P * MAX.l5)
-      ctx.strokeStyle = 'rgba(224,189,95,0.15)'; ctx.lineWidth = 0.7
+      ctx.strokeStyle = 'rgba(39,181,133,0.15)'; ctx.lineWidth = 0.7
       drawRose(110, 12, 5, 1500)
       ctx.restore()
 
       // L6: annulus + 8 dots + 4 fleurs
       const grad = ctx.createRadialGradient(0, 0, 85, 0, 0, 95)
-      grad.addColorStop(0, 'rgba(184,154,90,0.00)')
-      grad.addColorStop(0.5, 'rgba(184,154,90,0.12)')
-      grad.addColorStop(1, 'rgba(184,154,90,0.00)')
+      grad.addColorStop(0, 'rgba(29,158,117,0.00)')
+      grad.addColorStop(0.5, 'rgba(29,158,117,0.12)')
+      grad.addColorStop(1, 'rgba(29,158,117,0.00)')
       ctx.fillStyle = grad
       ctx.beginPath()
       ctx.arc(0, 0, 95, 0, Math.PI * 2)
       ctx.arc(0, 0, 85, 0, Math.PI * 2, true)
       ctx.fill('evenodd')
-      ctx.strokeStyle = 'rgba(184,154,90,0.22)'; ctx.lineWidth = 1
+      ctx.strokeStyle = 'rgba(29,158,117,0.22)'; ctx.lineWidth = 1
       ctx.beginPath(); ctx.arc(0, 0, 95, 0, Math.PI * 2); ctx.stroke()
       ctx.beginPath(); ctx.arc(0, 0, 85, 0, Math.PI * 2); ctx.stroke()
-      ctx.fillStyle = 'rgba(184,154,90,0.40)'
+      ctx.fillStyle = 'rgba(29,158,117,0.40)'
       for (let i = 0; i < 8; i++) {
         const a = (i / 8) * Math.PI * 2 - Math.PI / 2
         ctx.beginPath(); ctx.arc(Math.cos(a) * 90, Math.sin(a) * 90, 3, 0, Math.PI * 2); ctx.fill()
@@ -285,13 +285,13 @@ export default function SealCanvas({
       }
 
       // L7: inner field + radial rays
-      ctx.fillStyle = 'rgba(10,22,40,0.88)'
+      ctx.fillStyle = 'rgba(222,240,232,0.88)'
       ctx.beginPath(); ctx.arc(0, 0, 82, 0, Math.PI * 2); ctx.fill()
-      ctx.strokeStyle = 'rgba(184,154,90,0.30)'; ctx.lineWidth = 1
+      ctx.strokeStyle = 'rgba(29,158,117,0.30)'; ctx.lineWidth = 1
       ctx.beginPath(); ctx.arc(0, 0, 82, 0, Math.PI * 2); ctx.stroke()
-      ctx.strokeStyle = 'rgba(184,154,90,0.15)'
+      ctx.strokeStyle = 'rgba(29,158,117,0.15)'
       ctx.beginPath(); ctx.arc(0, 0, 74, 0, Math.PI * 2); ctx.stroke()
-      ctx.strokeStyle = 'rgba(184,154,90,0.08)'; ctx.lineWidth = 0.5
+      ctx.strokeStyle = 'rgba(29,158,117,0.08)'; ctx.lineWidth = 0.5
       for (let i = 0; i < 24; i++) {
         const a = (i / 24) * Math.PI * 2
         ctx.beginPath()
@@ -302,20 +302,20 @@ export default function SealCanvas({
 
       // 8-pointed star
       ctx.save()
-      ctx.strokeStyle = 'rgba(184,154,90,0.20)'; ctx.lineWidth = 1
+      ctx.strokeStyle = 'rgba(29,158,117,0.20)'; ctx.lineWidth = 1
       drawStar(30); ctx.stroke()
       ctx.rotate(Math.PI / 8)
-      ctx.strokeStyle = 'rgba(184,154,90,0.10)'
+      ctx.strokeStyle = 'rgba(29,158,117,0.10)'
       drawStar(24); ctx.stroke()
       ctx.restore()
 
       // Monogram
-      ctx.fillStyle = 'rgba(224,189,95,0.75)'
+      ctx.fillStyle = 'rgba(39,181,133,0.75)'
       ctx.font = 'bold 46px "Playfair Display", Georgia, serif'
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
       ctx.fillText(getMonogram(notary.name), 0, -4)
       if (estYear) {
-        ctx.fillStyle = 'rgba(184,154,90,0.50)'
+        ctx.fillStyle = 'rgba(29,158,117,0.50)'
         ctx.font = 'italic 13px "Playfair Display", Georgia, serif'
         ctx.fillText(`EST · ${estYear}`, 0, 30)
       }
@@ -328,9 +328,9 @@ export default function SealCanvas({
         ctx.globalCompositeOperation = 'lighter'
         const sx = -300 + shimmerP * 600
         const band = ctx.createLinearGradient(sx - 70, 0, sx + 70, 0)
-        band.addColorStop(0, 'rgba(245,226,150,0)')
-        band.addColorStop(0.5, 'rgba(245,226,150,0.13)')
-        band.addColorStop(1, 'rgba(245,226,150,0)')
+        band.addColorStop(0, 'rgba(39,181,133,0)')
+        band.addColorStop(0.5, 'rgba(39,181,133,0.13)')
+        band.addColorStop(1, 'rgba(39,181,133,0)')
         ctx.fillStyle = band
         ctx.fillRect(-320, -320, 640, 640)
         ctx.restore()

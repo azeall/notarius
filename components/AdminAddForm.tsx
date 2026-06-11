@@ -14,7 +14,7 @@ import { SERVICES, maxDurationForService, defaultDurationForService } from '@/li
 const MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
 const DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс']
 
-const INPUT_STYLE: React.CSSProperties = { background: '#0a1628', border: '1px solid rgba(184,154,90,0.20)' }
+const INPUT_STYLE: React.CSSProperties = { background: '#ffffff', border: '1px solid rgba(29,158,117,0.20)' }
 
 function toYMD(d: Date) {
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
@@ -107,11 +107,11 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
     const isStart = t === selectedTime
     const isInSelection = selectionSlots.has(t)
     const conflict = isInSelection && isBooked && !isStart
-    let cls = 'text-cream/80 border border-[rgba(184,154,90,0.15)] hover:bg-gold/15'
-    let style: React.CSSProperties = { background: 'rgba(255,255,255,0.03)' }
-    if (isBooked && !isStart) { cls = 'text-cream/20 line-through cursor-not-allowed border border-white/5'; style = { background: 'rgba(255,255,255,0.02)' } }
-    if (isStart) { cls = 'text-navy font-bold border border-gold'; style = { background: '#b89a5a' } }
-    else if (isInSelection && !conflict) { cls = 'text-cream border border-gold/50'; style = { background: 'rgba(184,154,90,0.28)' } }
+    let cls = 'text-cream/80 border border-[rgba(29,158,117,0.15)] hover:bg-gold/15'
+    let style: React.CSSProperties = { background: 'rgba(0,0,0,0.03)' }
+    if (isBooked && !isStart) { cls = 'text-cream/20 line-through cursor-not-allowed border border-black/5'; style = { background: 'rgba(0,0,0,0.02)' } }
+    if (isStart) { cls = 'text-white font-bold border border-gold'; style = { background: '#1D9E75' } }
+    else if (isInSelection && !conflict) { cls = 'text-cream border border-gold/50'; style = { background: 'rgba(29,158,117,0.28)' } }
     else if (isInSelection && conflict) { cls = 'text-red-300 border border-red-500/40'; style = { background: 'rgba(239,68,68,0.15)' } }
     return (
       <button key={t} type="button" disabled={isBooked} onClick={() => setSelectedTime(t)}
@@ -122,7 +122,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-2xl p-4 sm:p-6 mb-8 sm:mb-10" style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}>
+    <form onSubmit={handleSubmit} className="rounded-2xl p-4 sm:p-6 mb-8 sm:mb-10" style={{ background: '#ffffff', border: '1px solid rgba(29,158,117,0.15)' }}>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-5 sm:mb-6">
         <h2 className="font-serif text-cream text-lg sm:text-xl font-bold">Добавить запись вручную</h2>
         <span className="text-xs text-cream/50">Приём: {WORKING_HOURS_LABEL}</span>
@@ -139,7 +139,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
               className="w-full rounded-xl px-4 py-3 text-sm text-cream focus:outline-none focus:border-gold"
               style={INPUT_STYLE}
             >
-              {SERVICES.map(s => <option key={s} style={{ background: '#0a1628' }}>{s}</option>)}
+              {SERVICES.map(s => <option key={s} style={{ background: '#ffffff' }}>{s}</option>)}
             </select>
           </div>
           <div>
@@ -158,8 +158,8 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
               {filteredDurations.map(d => (
                 <button key={d} type="button" onClick={() => setDuration(d)}
-                  className={`py-2 rounded-lg text-xs font-medium transition-colors ${duration === d ? 'text-navy border border-gold' : 'text-cream/80 border'}`}
-                  style={duration === d ? { background: '#b89a5a' } : { background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(184,154,90,0.15)' }}>
+                  className={`py-2 rounded-lg text-xs font-medium transition-colors ${duration === d ? 'text-white border border-gold' : 'text-cream/80 border'}`}
+                  style={duration === d ? { background: '#1D9E75' } : { background: 'rgba(0,0,0,0.03)', borderColor: 'rgba(29,158,117,0.15)' }}>
                   {d < 60 ? `${d} мин` : d % 60 === 0 ? `${d/60} ч` : `${Math.floor(d/60)}ч ${d%60}м`}
                 </button>
               ))}
@@ -172,7 +172,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
               style={
                 !selectionFits || selectionConflicts
                   ? { background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.3)', color: '#fca5a5' }
-                  : { background: 'rgba(184,154,90,0.10)', border: '1px solid rgba(184,154,90,0.25)', color: '#f0ece4' }
+                  : { background: 'rgba(29,158,117,0.10)', border: '1px solid rgba(29,158,117,0.25)', color: '#2c2c2c' }
               }
             >
               <p className="font-semibold mb-0.5">Итог записи:</p>
@@ -191,7 +191,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
           <button
             type="submit"
             disabled={loading || !selectedDate || !selectedTime || !selectionFits || selectionConflicts}
-            className="w-full bg-gold text-navy font-bold py-3 rounded-xl hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed text-sm"
+            className="w-full bg-gold text-white font-bold py-3 rounded-xl hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed text-sm"
           >
             {loading ? 'Сохранение...'
               : !selectedDate ? 'Выберите дату ниже'
@@ -206,9 +206,9 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
         <div>
           <div className="mb-4">
             <div className="flex items-center justify-between mb-3">
-              <button type="button" onClick={prevMonth} className="w-8 h-8 rounded-full hover:bg-white/5 flex items-center justify-center text-cream/60">‹</button>
+              <button type="button" onClick={prevMonth} className="w-8 h-8 rounded-full hover:bg-black/5 flex items-center justify-center text-cream/60">‹</button>
               <span className="font-semibold text-cream text-sm">{MONTHS[calMonth]} {calYear}</span>
-              <button type="button" onClick={nextMonth} className="w-8 h-8 rounded-full hover:bg-white/5 flex items-center justify-center text-cream/60">›</button>
+              <button type="button" onClick={nextMonth} className="w-8 h-8 rounded-full hover:bg-black/5 flex items-center justify-center text-cream/60">›</button>
             </div>
             <div className="grid grid-cols-7 gap-0.5 mb-1">
               {DAYS.map(d => <div key={d} className="text-center text-xs font-semibold text-cream/40 py-1">{d}</div>)}
@@ -223,7 +223,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
                   <button key={i} type="button" disabled={disabled}
                     onClick={() => { setSelectedDate(ymd); setSelectedTime('') }}
                     className={`aspect-square flex items-center justify-center rounded-lg text-sm font-medium transition-colors
-                      ${disabled ? 'text-cream/20 cursor-not-allowed' : selected ? 'bg-gold text-navy' : 'hover:bg-gold/10 text-cream/80'}`}>
+                      ${disabled ? 'text-cream/20 cursor-not-allowed' : selected ? 'bg-gold text-white' : 'hover:bg-gold/10 text-cream/80'}`}>
                     {day}
                   </button>
                 )

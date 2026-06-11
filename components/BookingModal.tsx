@@ -118,11 +118,11 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
         disabled={isBooked}
         onClick={() => setTime(t)}
         className={`text-xs py-2 rounded-lg border transition-all
-          ${isBooked ? 'border-white/5 bg-white/3 text-gray-600 cursor-not-allowed line-through' : ''}
-          ${!isBooked && isStart ? 'bg-gold border-gold text-navy font-bold' : ''}
+          ${isBooked ? 'border-black/5 bg-black/3 text-slate cursor-not-allowed line-through' : ''}
+          ${!isBooked && isStart ? 'bg-gold border-gold text-white font-bold' : ''}
           ${!isBooked && !isStart && isInSelection && !conflict ? 'bg-gold/30 border-gold/60 text-gold' : ''}
           ${!isBooked && !isStart && isInSelection && conflict ? 'bg-red-500/20 border-red-500/40 text-red-300' : ''}
-          ${!isBooked && !isInSelection ? 'border-white/10 text-gray-300 hover:border-gold/50 hover:text-white' : ''}
+          ${!isBooked && !isInSelection ? 'border-black/10 text-slate hover:border-gold/50 hover:text-cream' : ''}
         `}
       >
         {t}
@@ -139,16 +139,16 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
       <div
         className="w-full max-w-lg max-h-[92vh] overflow-y-auto rounded-2xl shadow-2xl"
         style={{
-          background: '#0d1b33',
-          border: '1px solid rgba(184,154,90,0.30)',
-          boxShadow: '0 24px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(184,154,90,0.10)',
+          background: '#ffffff',
+          border: '1px solid rgba(29,158,117,0.30)',
+          boxShadow: '0 24px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(29,158,117,0.10)',
         }}
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
         <div
           className="flex items-center justify-between px-5 sm:px-6 pt-5 pb-4"
-          style={{ borderBottom: '1px solid rgba(184,154,90,0.12)' }}
+          style={{ borderBottom: '1px solid rgba(29,158,117,0.12)' }}
         >
           <h2 className="font-serif text-lg sm:text-xl text-cream font-medium">Запись на приём</h2>
           <button
@@ -169,7 +169,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   value={service}
                   onChange={e => { const svc = e.target.value; setService(svc); setDuration(defaultDurationForService(svc)) }}
                   className="w-full rounded-lg px-3 py-2.5 text-cream text-sm focus:outline-none"
-                  style={{ background: '#060f1e', border: '1px solid rgba(184,154,90,0.20)' }}
+                  style={{ background: '#f2f8f5', border: '1px solid rgba(29,158,117,0.20)' }}
                 >
                   <option value="">— Выберите услугу —</option>
                   {SERVICES.map(s => <option key={s} value={s}>{s}</option>)}
@@ -178,11 +178,11 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
 
               <div>
                 <label className="text-[10px] uppercase tracking-[0.24em] text-slate mb-2 block">Дата</label>
-                <div className="rounded-xl p-4" style={{ background: '#060f1e', border: '1px solid rgba(184,154,90,0.12)' }}>
+                <div className="rounded-xl p-4" style={{ background: '#f2f8f5', border: '1px solid rgba(29,158,117,0.12)' }}>
                   <div className="flex items-center justify-between mb-3">
-                    <button onClick={prevMonth} className="text-slate hover:text-cream w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5 transition-colors">‹</button>
+                    <button onClick={prevMonth} className="text-slate hover:text-cream w-8 h-8 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors">‹</button>
                     <span className="text-cream text-sm font-medium">{MONTHS[month]} {year}</span>
-                    <button onClick={nextMonth} className="text-slate hover:text-cream w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5 transition-colors">›</button>
+                    <button onClick={nextMonth} className="text-slate hover:text-cream w-8 h-8 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors">›</button>
                   </div>
                   <div className="grid grid-cols-7 mb-1">
                     {['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map(d => (
@@ -202,11 +202,11 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                           disabled={!wd || past}
                           onClick={() => { setDay(d); setTime('') }}
                           className={`text-xs py-1.5 rounded-lg transition-all
-                            ${sel ? 'text-navy font-bold' : ''}
-                            ${wd && !past && !sel ? 'text-cream hover:bg-white/10' : ''}
+                            ${sel ? 'text-white font-bold' : ''}
+                            ${wd && !past && !sel ? 'text-cream hover:bg-black/10' : ''}
                             ${(!wd || past) ? 'text-slate/30 cursor-not-allowed' : ''}
                           `}
-                          style={sel ? { background: '#b89a5a' } : {}}
+                          style={sel ? { background: '#1D9E75' } : {}}
                         >
                           {d}
                         </button>
@@ -230,8 +230,8 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                         onClick={() => setDuration(d)}
                         className={`text-xs py-2 rounded-lg border transition-all
                           ${duration === d
-                            ? 'bg-gold border-gold text-navy font-bold'
-                            : 'border-white/10 text-gray-300 hover:border-gold/50 hover:text-white'}`}
+                            ? 'bg-gold border-gold text-white font-bold'
+                            : 'border-black/10 text-slate hover:border-gold/50 hover:text-cream'}`}
                       >
                         {d < 60 ? `${d} мин` : d % 60 === 0 ? `${d/60} ч` : `${Math.floor(d/60)}ч ${d%60}м`}
                       </button>
@@ -273,8 +273,8 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
               <button
                 disabled={!service || !day || !time || !selectionFits || selectionConflicts}
                 onClick={() => setStep(2)}
-                className="w-full py-3 rounded-xl font-semibold text-sm disabled:opacity-30 hover:brightness-110 transition-all mt-2 text-navy"
-                style={{ background: '#b89a5a' }}
+                className="w-full py-3 rounded-xl font-semibold text-sm disabled:opacity-30 hover:brightness-110 transition-all mt-2 text-white"
+                style={{ background: '#1D9E75' }}
               >
                 Далее →
               </button>
@@ -286,7 +286,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
             <div className="space-y-4">
               <div
                 className="rounded-xl p-4 text-sm space-y-1.5"
-                style={{ background: '#060f1e', border: '1px solid rgba(184,154,90,0.12)' }}
+                style={{ background: '#f2f8f5', border: '1px solid rgba(29,158,117,0.12)' }}
               >
                 <p className="text-slate">Услуга: <span className="text-cream">{service}</span></p>
                 <p className="text-slate">
@@ -303,7 +303,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   onChange={e => setName(e.target.value)}
                   placeholder="Иванов Иван Иванович"
                   className="w-full rounded-lg px-3 py-2.5 text-cream text-sm focus:outline-none placeholder-slate/40"
-                  style={{ background: '#060f1e', border: '1px solid rgba(184,154,90,0.20)' }}
+                  style={{ background: '#f2f8f5', border: '1px solid rgba(29,158,117,0.20)' }}
                 />
               </div>
               <div>
@@ -313,7 +313,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   onChange={e => setPhone(e.target.value)}
                   placeholder="+7 (999) 000-00-00"
                   className="w-full rounded-lg px-3 py-2.5 text-cream text-sm focus:outline-none placeholder-slate/40"
-                  style={{ background: '#060f1e', border: '1px solid rgba(184,154,90,0.20)' }}
+                  style={{ background: '#f2f8f5', border: '1px solid rgba(29,158,117,0.20)' }}
                 />
               </div>
               {/* Согласие на обработку персональных данных (152-ФЗ) */}
@@ -322,7 +322,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   type="checkbox"
                   checked={consent}
                   onChange={e => setConsent(e.target.checked)}
-                  className="mt-0.5 w-4 h-4 flex-shrink-0 accent-[#b89a5a] cursor-pointer"
+                  className="mt-0.5 w-4 h-4 flex-shrink-0 accent-[#1D9E75] cursor-pointer"
                 />
                 <span className="text-[12px] text-slate leading-snug">
                   Я согласен(а) на обработку персональных данных и принимаю{' '}
@@ -337,15 +337,15 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                 <button
                   onClick={() => setStep(1)}
                   className="flex-1 py-3 rounded-xl text-slate text-sm hover:text-cream transition-colors"
-                  style={{ border: '1px solid rgba(184,154,90,0.20)' }}
+                  style={{ border: '1px solid rgba(29,158,117,0.20)' }}
                 >
                   ← Назад
                 </button>
                 <button
                   disabled={loading || !consent}
                   onClick={submit}
-                  className="flex-1 py-3 rounded-xl font-semibold text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110 transition-all text-navy"
-                  style={{ background: '#b89a5a' }}
+                  className="flex-1 py-3 rounded-xl font-semibold text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110 transition-all text-white"
+                  style={{ background: '#1D9E75' }}
                 >
                   {loading ? 'Отправка…' : 'Записаться'}
                 </button>
@@ -358,7 +358,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
             <div className="text-center py-8 space-y-4">
               <div
                 className="w-16 h-16 rounded-full flex items-center justify-center mx-auto"
-                style={{ background: 'rgba(184,154,90,0.10)', border: '1px solid rgba(184,154,90,0.30)' }}
+                style={{ background: 'rgba(29,158,117,0.10)', border: '1px solid rgba(29,158,117,0.30)' }}
               >
                 <span className="text-gold text-2xl">✓</span>
               </div>
@@ -371,8 +371,8 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
               </p>
               <button
                 onClick={onClose}
-                className="mt-2 px-8 py-3 rounded-xl font-semibold text-sm hover:brightness-110 transition-all text-navy"
-                style={{ background: '#b89a5a' }}
+                className="mt-2 px-8 py-3 rounded-xl font-semibold text-sm hover:brightness-110 transition-all text-white"
+                style={{ background: '#1D9E75' }}
               >
                 Закрыть
               </button>

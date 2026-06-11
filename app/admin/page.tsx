@@ -164,7 +164,7 @@ export default async function AdminPage({
           <div
             key={s.label}
             className="rounded-2xl px-4 py-4 sm:px-5 sm:py-5"
-            style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}
+            style={{ background: '#ffffff', border: '1px solid rgba(29,158,117,0.15)' }}
           >
             <div className="font-serif text-gold font-bold leading-none" style={{ fontSize: 'clamp(20px, 4vw, 30px)' }}>
               {s.value}
@@ -196,7 +196,7 @@ export default async function AdminPage({
                 <div key={a.id}>
                   <p className="text-xs text-cream/40 mb-1 ml-1">
                     {formatDate(a.date)}
-                    {activeTab === 'all' && <span style={{ color: '#b89a5a' }}> · {staffLabel(a.staffId ?? null)}</span>}
+                    {activeTab === 'all' && <span style={{ color: '#1D9E75' }}> · {staffLabel(a.staffId ?? null)}</span>}
                   </p>
                   <AdminAppointmentCard a={a} isAdmin />
                 </div>
@@ -253,7 +253,7 @@ export default async function AdminPage({
                       {items.map(a => (
                         <div key={a.id}>
                           {activeTab === 'all' && (
-                            <p className="text-xs font-semibold mb-1 ml-1" style={{ color: '#b89a5a' }}>
+                            <p className="text-xs font-semibold mb-1 ml-1" style={{ color: '#1D9E75' }}>
                               {staffLabel(a.staffId ?? null)}
                             </p>
                           )}

@@ -164,13 +164,13 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
     const isInSelection = selectionSlots.has(t)
     const isOwnOriginal = date === a.date && ownOriginalSlots.has(t) && !isInSelection
 
-    let cls = 'text-cream/80 border border-[rgba(184,154,90,0.15)] hover:bg-gold/15'
-    let style: React.CSSProperties = { background: 'rgba(255,255,255,0.03)' }
+    let cls = 'text-cream/80 border border-[rgba(29,158,117,0.15)] hover:bg-gold/15'
+    let style: React.CSSProperties = { background: 'rgba(0,0,0,0.03)' }
     if (isBlocked && isInSelection) { cls = 'text-red-300 border border-red-500/40 line-through cursor-not-allowed'; style = { background: 'rgba(239,68,68,0.15)' } }
-    else if (isBlocked) { cls = 'text-cream/20 line-through cursor-not-allowed border border-white/5'; style = { background: 'rgba(255,255,255,0.02)' } }
-    else if (isStart) { cls = 'text-navy font-bold border border-gold'; style = { background: '#b89a5a' } }
-    else if (isInSelection) { cls = 'text-cream border border-gold/50'; style = { background: 'rgba(184,154,90,0.28)' } }
-    else if (isOwnOriginal) { cls = 'text-cream/60 border border-dashed'; style = { background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(184,154,90,0.35)' } }
+    else if (isBlocked) { cls = 'text-cream/20 line-through cursor-not-allowed border border-black/5'; style = { background: 'rgba(0,0,0,0.02)' } }
+    else if (isStart) { cls = 'text-white font-bold border border-gold'; style = { background: '#1D9E75' } }
+    else if (isInSelection) { cls = 'text-cream border border-gold/50'; style = { background: 'rgba(29,158,117,0.28)' } }
+    else if (isOwnOriginal) { cls = 'text-cream/60 border border-dashed'; style = { background: 'rgba(0,0,0,0.04)', borderColor: 'rgba(29,158,117,0.35)' } }
 
     return (
       <button
@@ -196,8 +196,8 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
       <div
         className="w-full min-w-0 rounded-2xl px-3 sm:px-5 py-3 sm:py-4 transition-colors"
         style={{
-          background: '#0f1e35',
-          border: '1px solid rgba(184,154,90,0.15)',
+          background: '#ffffff',
+          border: '1px solid rgba(29,158,117,0.15)',
           opacity: dimmed ? 0.65 : 1,
         }}
       >
@@ -214,7 +214,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
             </div>
           </div>
           <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
-            <span className="inline-block bg-gold text-navy font-bold text-xs sm:text-base px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg whitespace-nowrap">
+            <span className="inline-block bg-gold text-white font-bold text-xs sm:text-base px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg whitespace-nowrap">
               {a.time}–{endTime(a.time, a.duration)}
             </span>
             <span className="text-[10px] sm:text-xs text-cream/40">{fmtDurLabel(a.duration)}</span>
@@ -230,12 +230,12 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
         </div>
 
         {/* Action bar */}
-        <div className="flex flex-wrap items-center gap-1.5 mt-3 pt-3" style={{ borderTop: '1px solid rgba(184,154,90,0.10)' }}>
+        <div className="flex flex-wrap items-center gap-1.5 mt-3 pt-3" style={{ borderTop: '1px solid rgba(29,158,117,0.10)' }}>
           {/* Contact */}
           <a
             href={`tel:+${phoneDigits}`}
             className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-medium text-cream/80 rounded-md px-2.5 py-1.5 transition-colors hover:text-gold"
-            style={{ border: '1px solid rgba(184,154,90,0.18)' }}
+            style={{ border: '1px solid rgba(29,158,117,0.18)' }}
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -255,7 +255,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
             WhatsApp
           </a>
 
-          <span className="mx-0.5 w-px h-4 self-center" style={{ background: 'rgba(184,154,90,0.15)' }} />
+          <span className="mx-0.5 w-px h-4 self-center" style={{ background: 'rgba(29,158,117,0.15)' }} />
 
           {/* Status */}
           {a.status === 'active' ? (
@@ -274,17 +274,17 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
           ) : (
             <button onClick={() => setStatus('active')} disabled={busy}
               className="text-[11px] sm:text-xs text-cream/60 rounded-md px-2.5 py-1.5 transition-colors disabled:opacity-50 hover:text-cream"
-              style={{ border: '1px solid rgba(184,154,90,0.18)' }}>
+              style={{ border: '1px solid rgba(29,158,117,0.18)' }}>
               Вернуть в активные
             </button>
           )}
 
-          <span className="mx-0.5 w-px h-4 self-center" style={{ background: 'rgba(184,154,90,0.15)' }} />
+          <span className="mx-0.5 w-px h-4 self-center" style={{ background: 'rgba(29,158,117,0.15)' }} />
 
           {/* Manage */}
           <button onClick={startEdit}
             className="text-[11px] sm:text-xs text-cream/70 hover:text-gold rounded-md px-2.5 py-1.5 transition-colors"
-            style={{ border: '1px solid rgba(184,154,90,0.18)' }}>
+            style={{ border: '1px solid rgba(29,158,117,0.18)' }}>
             Перенести
           </button>
           {isAdmin && (
@@ -307,7 +307,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
               value={newAssignee}
               onChange={e => setNewAssignee(e.target.value)}
               className="text-xs rounded-md px-2 py-1.5 text-cream focus:outline-none focus:border-gold"
-              style={{ background: '#0a1628', border: '1px solid rgba(184,154,90,0.25)' }}
+              style={{ background: '#ffffff', border: '1px solid rgba(29,158,117,0.25)' }}
             >
               <option value="">Нотариус</option>
               {STAFF_LIST.map(s => (
@@ -315,7 +315,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
               ))}
             </select>
             <button onClick={reassign} disabled={busy}
-              className="text-xs bg-gold text-navy font-semibold px-3 py-1.5 rounded-md hover:brightness-110 disabled:opacity-50 whitespace-nowrap">
+              className="text-xs bg-gold text-white font-semibold px-3 py-1.5 rounded-md hover:brightness-110 disabled:opacity-50 whitespace-nowrap">
               {busy ? '…' : 'ОК'}
             </button>
             <button onClick={() => setReassigning(false)} className="text-sm text-cream/40 hover:text-cream px-1">×</button>
@@ -329,7 +329,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
 
   // ────────────────────── EDIT ──────────────────────
   return (
-    <div className="w-full min-w-0 rounded-2xl px-3 sm:px-6 py-4 sm:py-5" style={{ background: '#0f1e35', border: '2px solid rgba(184,154,90,0.40)' }}>
+    <div className="w-full min-w-0 rounded-2xl px-3 sm:px-6 py-4 sm:py-5" style={{ background: '#ffffff', border: '2px solid rgba(29,158,117,0.40)' }}>
       {/* Header row */}
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
@@ -350,17 +350,17 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
         <div className="flex items-center gap-2">
           <button type="button" onClick={() => setDate(d => stepWeekday(d, -1))}
             className="w-9 h-9 flex items-center justify-center rounded-md text-cream/70 hover:text-gold transition-colors"
-            style={{ border: '1px solid rgba(184,154,90,0.20)' }} title="Предыдущий рабочий день">‹</button>
+            style={{ border: '1px solid rgba(29,158,117,0.20)' }} title="Предыдущий рабочий день">‹</button>
           <input
             type="date"
             value={date}
             onChange={e => setDate(e.target.value || a.date)}
             className="flex-1 rounded-md px-3 py-2 text-sm text-cream focus:outline-none focus:border-gold font-medium text-center"
-            style={{ background: '#0a1628', border: '1px solid rgba(184,154,90,0.20)', colorScheme: 'dark' }}
+            style={{ background: '#ffffff', border: '1px solid rgba(29,158,117,0.20)', colorScheme: 'light' }}
           />
           <button type="button" onClick={() => setDate(d => stepWeekday(d, +1))}
             className="w-9 h-9 flex items-center justify-center rounded-md text-cream/70 hover:text-gold transition-colors"
-            style={{ border: '1px solid rgba(184,154,90,0.20)' }} title="Следующий рабочий день">›</button>
+            style={{ border: '1px solid rgba(29,158,117,0.20)' }} title="Следующий рабочий день">›</button>
           {date !== a.date && (
             <button type="button" onClick={() => setDate(a.date)}
               className="text-[11px] text-cream/50 hover:text-cream hover:underline whitespace-nowrap">к исходной</button>
@@ -374,8 +374,8 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
           {DURATION_OPTIONS.map(d => (
             <button key={d} type="button" onClick={() => setDuration(d)}
-              className={`py-2 rounded-md text-xs font-medium transition-colors ${duration === d ? 'text-navy border border-gold' : 'text-cream/80 border'}`}
-              style={duration === d ? { background: '#b89a5a' } : { background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(184,154,90,0.15)' }}>
+              className={`py-2 rounded-md text-xs font-medium transition-colors ${duration === d ? 'text-white border border-gold' : 'text-cream/80 border'}`}
+              style={duration === d ? { background: '#1D9E75' } : { background: 'rgba(0,0,0,0.03)', borderColor: 'rgba(29,158,117,0.15)' }}>
               {fmtDurLabel(d)}
             </button>
           ))}
@@ -392,9 +392,9 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
 
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2.5 text-[10px] text-cream/50">
           <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-gold" /> новое начало</span>
-          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: 'rgba(184,154,90,0.28)' }} /> продолжение</span>
-          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm border border-dashed" style={{ borderColor: 'rgba(184,154,90,0.5)' }} /> исходное</span>
-          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: 'rgba(255,255,255,0.06)' }} /> занято</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: 'rgba(29,158,117,0.28)' }} /> продолжение</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm border border-dashed" style={{ borderColor: 'rgba(29,158,117,0.5)' }} /> исходное</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: 'rgba(0,0,0,0.06)' }} /> занято</span>
         </div>
       </div>
 
@@ -405,8 +405,8 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
           !selectionFits || selectionConflicts
             ? { background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.3)', color: '#fca5a5' }
             : changed
-              ? { background: 'rgba(184,154,90,0.10)', border: '1px solid rgba(184,154,90,0.3)', color: '#f0ece4' }
-              : { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(184,154,90,0.15)', color: '#8a9ab5' }
+              ? { background: 'rgba(29,158,117,0.10)', border: '1px solid rgba(29,158,117,0.3)', color: '#2c2c2c' }
+              : { background: 'rgba(0,0,0,0.03)', border: '1px solid rgba(29,158,117,0.15)', color: '#5d6e67' }
         }
       >
         {!selectionFits
@@ -422,12 +422,12 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
 
       <div className="flex gap-2">
         <button onClick={save} disabled={busy || !changed || !selectionFits || selectionConflicts}
-          className="flex-1 bg-gold text-navy font-semibold text-sm py-2.5 rounded-md hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+          className="flex-1 bg-gold text-white font-semibold text-sm py-2.5 rounded-md hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
           {busy ? 'Сохранение…' : changed ? 'Сохранить' : 'Нет изменений'}
         </button>
         <button onClick={cancelEdit}
           className="flex-1 sm:flex-initial sm:px-6 text-cream/70 text-sm py-2.5 rounded-md hover:text-cream transition-colors"
-          style={{ border: '1px solid rgba(184,154,90,0.20)' }}>
+          style={{ border: '1px solid rgba(29,158,117,0.20)' }}>
           Отмена
         </button>
       </div>

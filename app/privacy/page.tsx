@@ -84,13 +84,13 @@ export default function PrivacyPage() {
   return (
     <>
       {/* Header */}
-      <section className="relative bg-navy text-white overflow-hidden">
+      <section className="relative bg-navy text-cream overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
         <div className="relative max-w-3xl mx-auto px-4 py-14 md:py-16">
-          <nav className="flex items-center gap-2 text-xs text-gray-400 mb-5">
+          <nav className="flex items-center gap-2 text-xs text-slate/80 mb-5">
             <Link href="/" className="hover:text-gold transition-colors">Главная</Link>
             <span>/</span>
-            <span className="text-gray-300">Политика конфиденциальности</span>
+            <span className="text-slate">Политика конфиденциальности</span>
           </nav>
           <h1 className="font-serif text-3xl md:text-4xl font-bold leading-tight">
             Политика обработки персональных данных
@@ -122,7 +122,7 @@ export default function PrivacyPage() {
             ))}
 
             {/* Контакты оператора */}
-            <div className="rounded-2xl p-6 mt-4" style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}>
+            <div className="rounded-2xl p-6 mt-4" style={{ background: '#ffffff', border: '1px solid rgba(29,158,117,0.15)' }}>
               <h2 className="font-serif text-xl font-bold text-cream mb-3">10. Контакты Оператора</h2>
               <dl className="space-y-2 text-sm">
                 <div className="flex gap-3"><dt className="text-slate/70 min-w-[90px]">Оператор</dt><dd className="text-cream">{notary.name}</dd></div>

@@ -94,16 +94,16 @@ export default function HeroDocumentsCanvas({ className }: { className?: string 
       ctx.translate(d.x, d.y); ctx.rotate(d.rot)
 
       ctx.globalAlpha = 1
-      ctx.fillStyle = 'rgba(10,22,40,0.60)'
-      ctx.strokeStyle = 'rgba(184,154,90,0.18)'; ctx.lineWidth = 1
+      ctx.fillStyle = 'rgba(222,240,232,0.60)'
+      ctx.strokeStyle = 'rgba(29,158,117,0.18)'; ctx.lineWidth = 1
       ctx.beginPath(); ctx.rect(0, 0, DOC_W, DOC_H); ctx.fill(); ctx.stroke()
 
       const fold = 14
-      ctx.fillStyle = 'rgba(184,154,90,0.10)'
+      ctx.fillStyle = 'rgba(29,158,117,0.10)'
       ctx.beginPath()
       ctx.moveTo(DOC_W - fold, 0); ctx.lineTo(DOC_W, 0); ctx.lineTo(DOC_W, fold)
       ctx.closePath(); ctx.fill()
-      ctx.strokeStyle = 'rgba(184,154,90,0.14)'
+      ctx.strokeStyle = 'rgba(29,158,117,0.14)'
       ctx.beginPath(); ctx.moveTo(DOC_W - fold, 0); ctx.lineTo(DOC_W, fold); ctx.stroke()
 
       for (const ln of d.lines) {
@@ -132,7 +132,7 @@ export default function HeroDocumentsCanvas({ className }: { className?: string 
 
       ctx.save()
       ctx.translate(48, DOC_H - 52); ctx.rotate(d.sealRot)
-      ctx.globalAlpha = 1; ctx.strokeStyle = 'rgba(224,189,95,0.22)'; ctx.lineWidth = 1
+      ctx.globalAlpha = 1; ctx.strokeStyle = 'rgba(39,181,133,0.22)'; ctx.lineWidth = 1
       ctx.beginPath(); ctx.arc(0, 0, 28, 0, Math.PI * 2); ctx.stroke()
       ctx.beginPath(); ctx.arc(0, 0, 22, 0, Math.PI * 2); ctx.stroke()
       for (let i = 0; i < 12; i++) {
@@ -142,7 +142,7 @@ export default function HeroDocumentsCanvas({ className }: { className?: string 
         ctx.lineTo(Math.cos(a) * 27.5, Math.sin(a) * 27.5); ctx.stroke()
       }
       ctx.rotate(-d.sealRot)
-      ctx.globalAlpha = 0.25; ctx.fillStyle = 'rgba(224,189,95,1)'
+      ctx.globalAlpha = 0.25; ctx.fillStyle = 'rgba(39,181,133,1)'
       ctx.font = '600 16px "Playfair Display", serif'
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
       ctx.fillText('\u0411\u0420', 0, 1)
@@ -153,7 +153,7 @@ export default function HeroDocumentsCanvas({ className }: { className?: string 
 
     function drawSym(s: Sym) {
       ctx.save()
-      ctx.globalAlpha = s.op; ctx.fillStyle = 'rgba(184,154,90,1)'
+      ctx.globalAlpha = s.op; ctx.fillStyle = 'rgba(29,158,117,1)'
       ctx.font = `${s.size}px "Playfair Display", serif`
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
       ctx.fillText('\u00A7', s.x, s.y)

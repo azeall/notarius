@@ -57,8 +57,8 @@ export default function Footer() {
     <footer
       className="py-16 sm:py-20 pb-8"
       style={{
-        background: '#040d18',
-        borderTop: '1px solid rgba(184,154,90,0.12)',
+        background: '#def0e8',
+        borderTop: '1px solid rgba(29,158,117,0.12)',
       }}
     >
       <div className="mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1340px' }}>
@@ -66,7 +66,7 @@ export default function Footer() {
         <div
           className="grid gap-8 sm:gap-10 md:gap-12 pb-10 sm:pb-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr]"
           style={{
-            borderBottom: '1px solid rgba(184,154,90,0.08)',
+            borderBottom: '1px solid rgba(29,158,117,0.08)',
           }}
         >
           {/* Brand column */}
@@ -74,7 +74,7 @@ export default function Footer() {
             <div className="flex items-center gap-3.5 mb-5">
               <div
                 className="relative w-10 h-10 grid place-items-center text-gold font-serif text-xl flex-shrink-0"
-                style={{ border: '1px solid #b89a5a' }}
+                style={{ border: '1px solid #1D9E75' }}
               >
                 {notary.name.charAt(0)}
               </div>
@@ -82,7 +82,7 @@ export default function Footer() {
                 <span className="font-serif text-cream text-base">{notary.name}</span>
                 <span
                   className="font-sans text-[9px] tracking-[0.28em] uppercase mt-0.5"
-                  style={{ color: 'rgba(184,154,90,0.70)' }}
+                  style={{ color: 'rgba(29,158,117,0.70)' }}
                 >
                   Нотариус · Москва
                 </span>
@@ -124,7 +124,7 @@ export default function Footer() {
         {/* Official orgs strip */}
         <div
           className="flex flex-wrap gap-x-6 sm:gap-x-10 gap-y-5 items-center py-6 sm:py-8"
-          style={{ borderBottom: '1px solid rgba(184,154,90,0.08)' }}
+          style={{ borderBottom: '1px solid rgba(29,158,117,0.08)' }}
         >
           {ORGS.map(org => (
             <a
@@ -138,13 +138,13 @@ export default function Footer() {
               <span
                 className="w-9 h-9 rounded-full flex-shrink-0 grid place-items-center text-gold flex-shrink-0"
                 style={{
-                  border: '1px solid rgba(184,154,90,0.35)',
-                  background: 'rgba(184,154,90,0.06)',
+                  border: '1px solid rgba(29,158,117,0.35)',
+                  background: 'rgba(29,158,117,0.06)',
                 }}
               >
                 {org.icon}
               </span>
-              <span className="font-serif text-[13px] tracking-[0.02em]" style={{ color: '#6b7895' }}>
+              <span className="font-serif text-[13px] tracking-[0.02em]" style={{ color: '#7c8b85' }}>
                 {org.name}
               </span>
             </a>
@@ -154,12 +154,12 @@ export default function Footer() {
         {/* Bottom bar */}
         <div
           className="flex flex-col md:flex-row justify-between items-center gap-3 pt-6 text-[12px] text-center md:text-left"
-          style={{ color: '#4a5568' }}
+          style={{ color: '#7c8b85' }}
         >
           <p className="m-0">© {new Date().getFullYear()} {notary.name}. Все права защищены.</p>
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="hover:text-slate transition-colors no-underline">Политика конфиденциальности</Link>
-            <Link href="/admin" className="text-white/10 hover:text-white/30 transition-colors text-xs" title="Управление">
+            <Link href="/admin" className="text-cream/10 hover:text-cream/30 transition-colors text-xs" title="Управление">
               ⚙
             </Link>
           </div>
