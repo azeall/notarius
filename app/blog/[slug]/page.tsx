@@ -71,7 +71,7 @@ function renderBlock(block: Block, i: number) {
         <ol key={i} className="space-y-3 mb-6 counter-reset-list">
           {block.items.map((item, idx) => (
             <li key={item} className="flex items-start gap-3.5 text-slate leading-relaxed">
-              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gold text-navy text-xs font-semibold grid place-items-center mt-0.5">
+              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gold text-white text-xs font-semibold grid place-items-center mt-0.5">
                 {idx + 1}
               </span>
               <span className="pt-0.5">{item}</span>
@@ -84,7 +84,7 @@ function renderBlock(block: Block, i: number) {
         <div
           key={i}
           className="my-7 rounded-xl border-l-2 border-gold p-5 sm:p-6"
-          style={{ background: '#0f1e35' }}
+          style={{ background: '#ffffff' }}
         >
           <p className="font-serif font-bold text-cream text-base mb-1.5 flex items-center gap-2">
             <svg className="w-4 h-4 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,24 +138,24 @@ export default async function ArticlePage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
       {/* Header */}
-      <section className="relative bg-navy text-white overflow-hidden">
+      <section className="relative bg-navy text-cream overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
         <div className="relative max-w-3xl mx-auto px-4 py-12 md:py-16">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-xs text-gray-400 mb-6 flex-wrap">
+          <nav className="flex items-center gap-2 text-xs text-slate/80 mb-6 flex-wrap">
             <Link href="/" className="hover:text-gold transition-colors">Главная</Link>
             <span>/</span>
             <Link href="/blog" className="hover:text-gold transition-colors">Блог</Link>
             <span>/</span>
-            <span className="text-gray-300">{article.category}</span>
+            <span className="text-slate">{article.category}</span>
           </nav>
           <div className="flex items-center gap-3 mb-4 text-xs">
             <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-gold/15 text-gold font-semibold uppercase tracking-wide">
               {article.category}
             </span>
-            <span className="text-gray-400">{article.readingTime} мин чтения</span>
-            <span className="text-gray-500">·</span>
-            <span className="text-gray-400">Обновлено {formatDate(article.updated)}</span>
+            <span className="text-slate/80">{article.readingTime} мин чтения</span>
+            <span className="text-slate/70">·</span>
+            <span className="text-slate/80">Обновлено {formatDate(article.updated)}</span>
           </div>
           <h1 className="font-serif text-3xl md:text-4xl font-bold leading-tight">{article.title}</h1>
         </div>
@@ -168,7 +168,7 @@ export default async function ArticlePage({
           {article.content.map(renderBlock)}
 
           {/* Disclaimer */}
-          <div className="mt-10 pt-6 border-t" style={{ borderColor: 'rgba(184,154,90,0.12)' }}>
+          <div className="mt-10 pt-6 border-t" style={{ borderColor: 'rgba(83,74,183,0.12)' }}>
             <p className="text-xs text-slate/70 leading-relaxed">
               Материал носит справочный характер и не заменяет консультацию. Точный перечень документов и стоимость
               зависят от конкретной ситуации — уточняйте при записи на приём.
@@ -178,7 +178,7 @@ export default async function ArticlePage({
       </article>
 
       {/* CTA */}
-      <section className="bg-navy-dark border-t" style={{ borderColor: 'rgba(184,154,90,0.12)' }}>
+      <section className="bg-navy-dark border-t" style={{ borderColor: 'rgba(83,74,183,0.12)' }}>
         <div className="max-w-3xl mx-auto px-4 py-12 text-center">
           <h2 className="font-serif text-2xl font-bold text-cream mb-3">Нужна консультация по вашему вопросу?</h2>
           <p className="text-slate mb-6 text-sm">Запишитесь на приём — подскажем точный список документов и порядок действий</p>
@@ -187,7 +187,7 @@ export default async function ArticlePage({
             <a
               href={notary.phoneHref}
               className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
-              style={{ borderColor: 'rgba(184,154,90,0.35)' }}
+              style={{ borderColor: 'rgba(83,74,183,0.35)' }}
             >
               {notary.phone}
             </a>
@@ -196,7 +196,7 @@ export default async function ArticlePage({
       </section>
 
       {/* Related */}
-      <section className="bg-navy border-t" style={{ borderColor: 'rgba(184,154,90,0.12)' }}>
+      <section className="bg-navy border-t" style={{ borderColor: 'rgba(83,74,183,0.12)' }}>
         <div className="max-w-6xl mx-auto px-4 py-14">
           <h2 className="font-serif text-xl font-bold text-cream mb-6">Читайте также</h2>
           <div className="grid md:grid-cols-2 gap-6">
@@ -205,10 +205,10 @@ export default async function ArticlePage({
                 key={a.slug}
                 href={`/blog/${a.slug}`}
                 className="group flex flex-col rounded-2xl p-6 transition-all hover:-translate-y-0.5"
-                style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}
+                style={{ background: '#ffffff', border: '1px solid rgba(83,74,183,0.15)' }}
               >
                 <div className="flex items-center gap-3 mb-2 text-xs">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgba(184,154,90,0.12)' }}>
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgba(83,74,183,0.12)' }}>
                     {a.category}
                   </span>
                   <span className="text-slate">{a.readingTime} мин</span>

@@ -44,9 +44,9 @@ export default function StatsCounter() {
     <section
       className="relative py-12 sm:py-16"
       style={{
-        background: '#0f1e35',
-        borderTop: '1px solid rgba(184,154,90,0.12)',
-        borderBottom: '1px solid rgba(184,154,90,0.12)',
+        background: '#ffffff',
+        borderTop: '1px solid rgba(83,74,183,0.12)',
+        borderBottom: '1px solid rgba(83,74,183,0.12)',
       }}
     >
       <div className="mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1340px' }}>
@@ -61,7 +61,7 @@ export default function StatsCounter() {
               </div>
               <div
                 className="text-[10px] sm:text-[11px] tracking-[0.18em] sm:tracking-[0.22em] uppercase"
-                style={{ color: '#6b7895' }}
+                style={{ color: '#8d89a6' }}
               >
                 {stat.label}
               </div>

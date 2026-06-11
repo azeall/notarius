@@ -85,41 +85,41 @@ export default function StaffAddForm({ staffName, onAdded }: { staffName: string
 
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
-      <h2 className="font-serif text-navy text-xl font-bold mb-1">Добавить запись</h2>
-      <p className="text-gray-400 text-xs mb-6">Сотрудник: {staffName}</p>
+      <h2 className="font-serif text-white text-xl font-bold mb-1">Добавить запись</h2>
+      <p className="text-slate/80 text-xs mb-6">Сотрудник: {staffName}</p>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left: fields */}
         <div className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Услуга</label>
+            <label className="block text-xs font-semibold text-slate/70 uppercase tracking-wide mb-1.5">Услуга</label>
             <select
               value={service}
               onChange={e => setService(e.target.value)}
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-cream focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
             >
               {SERVICES.map(s => <option key={s}>{s}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">ФИО клиента</label>
+            <label className="block text-xs font-semibold text-slate/70 uppercase tracking-wide mb-1.5">ФИО клиента</label>
             <input
               required value={name} onChange={e => setName(e.target.value)}
               placeholder="Иванов Иван Иванович"
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-cream focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
             />
           </div>
           <div>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Телефон</label>
+            <label className="block text-xs font-semibold text-slate/70 uppercase tracking-wide mb-1.5">Телефон</label>
             <input
               required value={phone} onChange={e => setPhone(e.target.value)}
               placeholder="+7 (999) 000-00-00"
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-cream focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-gray-50"
             />
           </div>
 
           {selectedDate && selectedTime && (
-            <div className="rounded-xl bg-navy/5 border border-navy/10 px-4 py-3 text-sm text-navy">
+            <div className="rounded-xl bg-navy/5 border border-navy/10 px-4 py-3 text-sm text-white">
               <p className="font-semibold mb-0.5">Итог:</p>
               <p>{service}</p>
               <p>{selectedDate.split('-').reverse().join('.')} в {selectedTime}</p>
@@ -132,7 +132,7 @@ export default function StaffAddForm({ staffName, onAdded }: { staffName: string
           <button
             type="submit"
             disabled={loading || !selectedDate || !selectedTime}
-            className="w-full bg-gold text-navy font-semibold py-3 rounded-xl hover:brightness-110 transition-all disabled:opacity-40 text-sm"
+            className="w-full bg-gold text-white font-semibold py-3 rounded-xl hover:brightness-110 transition-all disabled:opacity-40 text-sm"
           >
             {loading ? 'Сохранение...' : 'Добавить запись'}
           </button>
@@ -142,13 +142,13 @@ export default function StaffAddForm({ staffName, onAdded }: { staffName: string
         <div>
           <div className="mb-4">
             <div className="flex items-center justify-between mb-3">
-              <button type="button" onClick={prevMonth} className="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center text-gray-500">‹</button>
-              <span className="font-semibold text-navy text-sm">{MONTHS[calMonth]} {calYear}</span>
-              <button type="button" onClick={nextMonth} className="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center text-gray-500">›</button>
+              <button type="button" onClick={prevMonth} className="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center text-slate/70">‹</button>
+              <span className="font-semibold text-white text-sm">{MONTHS[calMonth]} {calYear}</span>
+              <button type="button" onClick={nextMonth} className="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center text-slate/70">›</button>
             </div>
             <div className="grid grid-cols-7 gap-0.5 mb-1">
               {DAYS.map(d => (
-                <div key={d} className="text-center text-xs font-semibold text-gray-400 py-1">{d}</div>
+                <div key={d} className="text-center text-xs font-semibold text-slate/80 py-1">{d}</div>
               ))}
             </div>
             <div className="grid grid-cols-7 gap-0.5">
@@ -162,7 +162,7 @@ export default function StaffAddForm({ staffName, onAdded }: { staffName: string
                     key={i} type="button" disabled={disabled}
                     onClick={() => { setSelectedDate(ymd); setSelectedTime('') }}
                     className={`aspect-square flex items-center justify-center rounded-lg text-sm font-medium transition-colors
-                      ${disabled ? 'text-gray-300 cursor-not-allowed' : selected ? 'bg-gold text-navy' : 'hover:bg-gold/10 text-gray-700'}`}
+                      ${disabled ? 'text-slate cursor-not-allowed' : selected ? 'bg-gold text-white' : 'hover:bg-gold/10 text-cream/80'}`}
                   >
                     {day}
                   </button>
@@ -173,7 +173,7 @@ export default function StaffAddForm({ staffName, onAdded }: { staffName: string
 
           {selectedDate && (
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Утро</p>
+              <p className="text-xs font-semibold text-slate/70 uppercase tracking-wide mb-2">Утро</p>
               <div className="grid grid-cols-6 gap-1.5 mb-3">
                 {MORNING.map(t => {
                   const booked = bookedTimes.includes(t)
@@ -181,12 +181,12 @@ export default function StaffAddForm({ staffName, onAdded }: { staffName: string
                   return (
                     <button key={t} type="button" disabled={booked} onClick={() => setSelectedTime(t)}
                       className={`py-1.5 rounded-lg text-xs font-medium transition-colors
-                        ${booked ? 'bg-gray-100 text-gray-300 line-through cursor-not-allowed' : sel ? 'bg-gold text-navy' : 'bg-gray-50 text-gray-700 hover:bg-gold/10 border border-gray-200'}`}
+                        ${booked ? 'bg-gray-100 text-slate line-through cursor-not-allowed' : sel ? 'bg-gold text-white' : 'bg-gray-50 text-cream/80 hover:bg-gold/10 border border-gray-200'}`}
                     >{t}</button>
                   )
                 })}
               </div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">День</p>
+              <p className="text-xs font-semibold text-slate/70 uppercase tracking-wide mb-2">День</p>
               <div className="grid grid-cols-6 gap-1.5">
                 {AFTERNOON.map(t => {
                   const booked = bookedTimes.includes(t)
@@ -194,7 +194,7 @@ export default function StaffAddForm({ staffName, onAdded }: { staffName: string
                   return (
                     <button key={t} type="button" disabled={booked} onClick={() => setSelectedTime(t)}
                       className={`py-1.5 rounded-lg text-xs font-medium transition-colors
-                        ${booked ? 'bg-gray-100 text-gray-300 line-through cursor-not-allowed' : sel ? 'bg-gold text-navy' : 'bg-gray-50 text-gray-700 hover:bg-gold/10 border border-gray-200'}`}
+                        ${booked ? 'bg-gray-100 text-slate line-through cursor-not-allowed' : sel ? 'bg-gold text-white' : 'bg-gray-50 text-cream/80 hover:bg-gold/10 border border-gray-200'}`}
                     >{t}</button>
                   )
                 })}

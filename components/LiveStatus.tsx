@@ -120,10 +120,10 @@ export default function LiveStatus() {
               {status.isOpen ? 'Открыто сейчас' : 'Закрыто'}
             </span>
             {status.isOpen && status.closesIn && (
-              <span style={{ color: '#6b7895' }}> · закрывается {status.closesIn}</span>
+              <span style={{ color: '#8d89a6' }}> · закрывается {status.closesIn}</span>
             )}
             {!status.isOpen && status.opensAt && (
-              <span style={{ color: '#6b7895' }}> · откроется {status.opensAt}</span>
+              <span style={{ color: '#8d89a6' }}> · откроется {status.opensAt}</span>
             )}
           </span>
         </div>
@@ -134,9 +134,9 @@ export default function LiveStatus() {
                 key={s.label}
                 onClick={() => setModal({ date: s.date, time: s.slot })}
                 className="text-[11px] tracking-[0.06em] px-3 py-1.5 rounded transition-all"
-                style={{ border: '1px solid rgba(184,154,90,0.25)', color: '#c5a84a', background: 'rgba(184,154,90,0.06)' }}
-                onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = 'rgba(184,154,90,0.14)'; b.style.borderColor = 'rgba(184,154,90,0.5)' }}
-                onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = 'rgba(184,154,90,0.06)'; b.style.borderColor = 'rgba(184,154,90,0.25)' }}
+                style={{ border: '1px solid rgba(83,74,183,0.25)', color: '#c5a84a', background: 'rgba(83,74,183,0.06)' }}
+                onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = 'rgba(83,74,183,0.14)'; b.style.borderColor = 'rgba(83,74,183,0.5)' }}
+                onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = 'rgba(83,74,183,0.06)'; b.style.borderColor = 'rgba(83,74,183,0.25)' }}
               >
                 {s.label}
               </button>

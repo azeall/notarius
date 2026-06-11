@@ -71,8 +71,8 @@ export default function StaffDashboard() {
     return (
       <div className="max-w-5xl mx-auto px-4 py-12">
         <div className="animate-pulse space-y-4">
-          <div className="h-10 w-48 bg-white/10 rounded-xl" />
-          <div className="h-4 w-32 bg-white/10 rounded" />
+          <div className="h-10 w-48 bg-black/10 rounded-xl" />
+          <div className="h-4 w-32 bg-black/10 rounded" />
         </div>
       </div>
     )
@@ -104,11 +104,11 @@ export default function StaffDashboard() {
       {/* Appointments */}
       {dateKeys.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-gray-400 text-lg">
+          <p className="text-slate/80 text-lg">
             {lookupDate ? `Нет записей за ${formatDate(lookupDate)}` : 'Нет предстоящих записей'}
           </p>
           {!lookupDate && (
-            <p className="text-gray-500 text-sm mt-2">
+            <p className="text-slate/70 text-sm mt-2">
               Прошедшие записи можно найти через «История записей» выше
             </p>
           )}
@@ -139,13 +139,13 @@ export default function StaffDashboard() {
                           <span className="text-gold font-bold text-lg">{a.name.charAt(0)}</span>
                         </div>
                         <div>
-                          <p className="font-semibold text-gray-900 text-lg leading-tight">{a.name}</p>
-                          <p className="text-gray-500 text-sm mt-0.5">{a.phone}</p>
-                          <p className="text-navy/70 text-sm mt-1 font-medium">{a.service}</p>
+                          <p className="font-semibold text-cream text-lg leading-tight">{a.name}</p>
+                          <p className="text-slate/70 text-sm mt-0.5">{a.phone}</p>
+                          <p className="text-white/70 text-sm mt-1 font-medium">{a.service}</p>
                         </div>
                       </div>
                       <div className="text-right flex-shrink-0 ml-4">
-                        <span className="inline-block bg-gold text-navy font-bold text-xl px-5 py-2 rounded-xl">
+                        <span className="inline-block bg-gold text-white font-bold text-xl px-5 py-2 rounded-xl">
                           {a.time}–{endTime(a.time, a.duration)}
                         </span>
                       </div>
@@ -181,7 +181,7 @@ function HistoryPicker({ currentDate, today }: { currentDate: string | null; tod
         max={today}
         onChange={e => setValue(e.target.value)}
         onBlur={e => go(e.target.value)}
-        className="bg-white/10 border border-white/20 rounded-xl px-3 py-2 text-cream text-sm focus:outline-none focus:border-gold"
+        className="bg-black/10 border border-black/20 rounded-xl px-3 py-2 text-cream text-sm focus:outline-none focus:border-gold"
       />
       {currentDate && (
         <button

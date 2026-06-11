@@ -74,11 +74,11 @@ export default async function StaffPage({
       {/* Appointments */}
       {dateKeys.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-gray-400 text-lg">
+          <p className="text-slate/80 text-lg">
             {lookupDate ? `Нет записей за ${formatDate(lookupDate)}` : 'Нет предстоящих записей'}
           </p>
           {!lookupDate && (
-            <p className="text-gray-500 text-sm mt-2">
+            <p className="text-slate/70 text-sm mt-2">
               Прошедшие записи можно найти через «История записей» выше
             </p>
           )}
@@ -109,13 +109,13 @@ export default async function StaffPage({
                           <span className="text-gold font-bold text-lg">{a.name.charAt(0)}</span>
                         </div>
                         <div>
-                          <p className="font-semibold text-gray-900 text-lg leading-tight">{a.name}</p>
-                          <p className="text-gray-500 text-sm mt-0.5">{a.phone}</p>
-                          <p className="text-navy/70 text-sm mt-1 font-medium">{a.service}</p>
+                          <p className="font-semibold text-cream text-lg leading-tight">{a.name}</p>
+                          <p className="text-slate/70 text-sm mt-0.5">{a.phone}</p>
+                          <p className="text-white/70 text-sm mt-1 font-medium">{a.service}</p>
                         </div>
                       </div>
                       <div className="text-right flex-shrink-0 ml-4">
-                        <span className="inline-block bg-gold text-navy font-bold text-xl px-5 py-2 rounded-xl">
+                        <span className="inline-block bg-gold text-white font-bold text-xl px-5 py-2 rounded-xl">
                           {a.time}–{endTime(a.time, a.duration)}
                         </span>
                       </div>

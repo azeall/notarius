@@ -36,7 +36,7 @@ export default function AboutPage() {
   return (
     <>
       {/* Page header */}
-      <section className="relative bg-navy text-white overflow-hidden">
+      <section className="relative bg-navy text-cream overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent opacity-60" />
         <div className="absolute inset-0 opacity-[0.04]" aria-hidden>
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -51,7 +51,7 @@ export default function AboutPage() {
         <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
           <p className="text-gold uppercase tracking-[0.18em] text-xs font-semibold mb-3">О нас</p>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Нотариальная контора</h1>
-          <p className="text-gray-300 max-w-xl leading-relaxed">
+          <p className="text-slate max-w-xl leading-relaxed">
             {notary.name} — нотариус города Москвы с многолетним опытом защиты прав граждан и организаций
           </p>
         </div>
@@ -107,8 +107,8 @@ export default function AboutPage() {
 
             {/* Sidebar */}
             <div className="space-y-5">
-              <div className="bg-navy-card text-white rounded-2xl p-6" style={{ border: '1px solid rgba(184,154,90,0.18)' }}>
-                <div className="w-20 h-20 rounded-full bg-white/10 border-2 border-gold/40 flex items-center justify-center mx-auto mb-4">
+              <div className="bg-navy-card text-cream rounded-2xl p-6" style={{ border: '1px solid rgba(83,74,183,0.18)' }}>
+                <div className="w-20 h-20 rounded-full bg-black/10 border-2 border-gold/40 flex items-center justify-center mx-auto mb-4">
                   <span className="font-serif text-2xl font-bold text-gold">
                     {notary.name.charAt(0)}
                   </span>
@@ -123,18 +123,18 @@ export default function AboutPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                     </svg>
-                    <span className="text-gray-300">{notary.address}</span>
+                    <span className="text-slate">{notary.address}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <svg className="w-4 h-4 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                     </svg>
-                    <a href={notary.phoneHref} className="text-gray-300 hover:text-gold transition-colors">{notary.phone}</a>
+                    <a href={notary.phoneHref} className="text-slate hover:text-gold transition-colors">{notary.phone}</a>
                   </div>
                 </div>
               </div>
 
-              <div className="rounded-2xl p-5 space-y-3" style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}>
+              <div className="rounded-2xl p-5 space-y-3" style={{ background: '#ffffff', border: '1px solid rgba(83,74,183,0.15)' }}>
                 <p className="text-xs uppercase tracking-widest text-gold/70 font-semibold">Членство</p>
                 <div className="flex items-start gap-2 text-sm text-slate">
                   <span className="w-1.5 h-1.5 rounded-full bg-gold mt-2 flex-shrink-0" />
@@ -147,7 +147,7 @@ export default function AboutPage() {
               </div>
 
               {/* Реквизиты и проверка */}
-              <div className="rounded-2xl p-5 space-y-3" style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}>
+              <div className="rounded-2xl p-5 space-y-3" style={{ background: '#ffffff', border: '1px solid rgba(83,74,183,0.15)' }}>
                 <p className="text-xs uppercase tracking-widest text-gold/70 font-semibold">Реквизиты и проверка</p>
                 <dl className="space-y-2.5 text-sm">
                   {notary.registryNumber && (
@@ -197,7 +197,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="bg-navy-dark border-t" style={{ borderColor: 'rgba(184,154,90,0.12)' }}>
+      <section className="bg-navy-dark border-t" style={{ borderColor: 'rgba(83,74,183,0.12)' }}>
         <div className="max-w-6xl mx-auto px-4 py-16">
           <div className="mb-10">
             <p className="text-gold uppercase tracking-[0.18em] text-xs font-semibold mb-2">Наши принципы</p>
@@ -205,8 +205,8 @@ export default function AboutPage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {VALUES.map(v => (
-              <div key={v.title} className="rounded-2xl p-6 transition-all hover:-translate-y-0.5" style={{ background: '#0f1e35', border: '1px solid rgba(184,154,90,0.15)' }}>
-                <div className="w-10 h-10 rounded-lg grid place-items-center mb-4 text-gold" style={{ background: 'rgba(184,154,90,0.10)' }}>
+              <div key={v.title} className="rounded-2xl p-6 transition-all hover:-translate-y-0.5" style={{ background: '#ffffff', border: '1px solid rgba(83,74,183,0.15)' }}>
+                <div className="w-10 h-10 rounded-lg grid place-items-center mb-4 text-gold" style={{ background: 'rgba(83,74,183,0.10)' }}>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     {v.icon}
                   </svg>

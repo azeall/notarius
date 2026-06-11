@@ -3,24 +3,24 @@
 // ─────────────────────────────────────────────
 
 export const notary = {
-  name: 'Фамилия Имя Отчество',            // ФИО нотариуса
+  name: 'Смирнова Елена Викторовна',
   title: 'Нотариус города Москвы',
-  address: 'ул. Примерная, 1, Москва',    // Полный адрес
+  address: 'ул. Примерная, д. 1, Москва',
   addressParts: {
-    streetAddress: 'ул. Примерная, 1',
+    streetAddress: 'ул. Примерная, д. 1',
     addressLocality: 'Москва',
     postalCode: '000000',                  // Почтовый индекс
     addressCountry: 'RU',
     addressRegion: 'Москва',
   },
   geo: { latitude: 55.751, longitude: 37.618 }, // Координаты офиса
-  phone: '+7 (999) 999-99-99',            // Телефон
-  phoneHref: 'tel:+79999999999',
-  phoneE164: '+79999999999',
+  phone: '+7 (000) 000-00-00',
+  phoneHref: 'tel:+70000000000',
+  phoneE164: '+70000000000',
   email: 'info@notarius.ru',              // Email
   foundingDate: '2020-01-01',             // Дата начала деятельности (для разметки)
-  practiceSince: '',                      // Год начала практики, напр. '2014' (пусто — не показывать)
-  license: '',                            // Номер лицензии, напр. '№ 77/123'
+  practiceSince: '2010',
+  license: '№ 77/000-н/77',
   registryNumber: '',                     // Реестровый номер нотариуса (пусто — не показывать)
   insuranceSum: '5 000 000 ₽',            // Страховая сумма проф. ответственности
   fnpVerifyUrl: 'https://notariat.ru/ru-ru/help/probate-cases/',  // Ссылка на проверку в реестре ФНП
@@ -71,3 +71,22 @@ export const site = {
   ],
   locale: 'ru_RU',
 } as const
+
+// ─── Калькулятор стоимости услуг (тарифы-заглушки) ───
+export interface CalcService {
+  id: string
+  label: string
+  tariff?: number        // фикс. нотариальный тариф, ₽
+  tariffPercent?: number // % от суммы сделки
+  uptx?: number          // УПТХ, ₽
+  perPage?: number       // ₽ за страницу
+  needsSum?: boolean
+  needsPages?: boolean
+}
+
+export const calcServices: CalcService[] = [
+  { id: 'will', label: 'Завещание', tariff: 100, uptx: 2400 },
+  { id: 'poa', label: 'Доверенность', tariff: 500, uptx: 2000 },
+  { id: 'sale', label: 'Купля-продажа недвижимости', tariffPercent: 0.5, uptx: 8000, needsSum: true },
+  { id: 'copy', label: 'Заверение копий', perPage: 90, needsPages: true },
+]

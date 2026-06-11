@@ -1,7 +1,5 @@
 import { notary } from '@/lib/data'
-import LiveStatus from '@/components/LiveStatus'
 import BookingButton from '@/components/BookingButton'
-import SealCanvas from '@/components/SealCanvas'
 
 export default function Hero() {
   const nameParts = notary.name.trim().split(/\s+/)
@@ -10,218 +8,103 @@ export default function Hero() {
 
   return (
     <section
-      className="relative overflow-hidden flex flex-col"
-      style={{
-        minHeight: '100dvh',
-        background:
-          'radial-gradient(ellipse 80% 60% at 85% 15%, rgba(184,154,90,0.09), transparent 60%),' +
-          'radial-gradient(ellipse 70% 80% at 10% 90%, rgba(184,154,90,0.05), transparent 60%),' +
-          'linear-gradient(180deg, #0a1628 0%, #081329 60%, #06101f 100%)',
-      }}
+      className="relative overflow-hidden flex"
+      style={{ minHeight: '100dvh', background: '#f4f3fd' }}
     >
-      {/* Vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none z-[2]"
-        style={{ background: 'radial-gradient(ellipse 100% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.35) 100%)' }}
+      {/* Вертикальный акцент-блок слева */}
+      <aside
+        className="hidden md:flex flex-col items-center justify-between flex-shrink-0 w-16 lg:w-20 py-10"
+        style={{ background: '#534AB7' }}
         aria-hidden
-      />
-
-      {/* Gold hairline */}
-      <div
-        className="absolute top-0 left-0 right-0 h-px z-[3]"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(184,154,90,0.6), transparent)' }}
-        aria-hidden
-      />
-
-      {/* Main grid */}
-      <div
-        className="relative z-[5] flex-1 mx-auto w-full flex items-center px-5 sm:px-8 md:px-16 py-8 md:py-12"
-        style={{ maxWidth: '1480px' }}
       >
-        <div className="w-full grid items-center gap-10 md:gap-20 grid-cols-1 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.95fr)]">
+        <span
+          className="text-[10px] tracking-[0.35em] uppercase whitespace-nowrap"
+          style={{ writingMode: 'vertical-rl', color: 'rgba(255,255,255,0.85)' }}
+        >
+          Практика с {notary.practiceSince} года
+        </span>
+        <span className="block w-px flex-1 my-6" style={{ background: 'rgba(255,255,255,0.25)' }} />
+        <span
+          className="text-[10px] tracking-[0.35em] uppercase whitespace-nowrap"
+          style={{ writingMode: 'vertical-rl', color: 'rgba(255,255,255,0.85)' }}
+        >
+          Лицензия {notary.license}
+        </span>
+      </aside>
 
-          {/* ── LEFT COLUMN ── */}
-          <div className="min-w-0 text-center md:text-left">
-            {/* Eyebrow */}
-            <div
-              className="flex items-center justify-center md:justify-start gap-3 mb-6 sm:mb-8 animate-fade-in-up"
-              style={{ animationDelay: '0ms' }}
-            >
-              <span className="block w-8 sm:w-11 h-px bg-gold flex-shrink-0" />
-              <span className="text-gold font-semibold text-[10px] sm:text-[11px] tracking-[0.28em] sm:tracking-[0.32em] uppercase whitespace-nowrap">
-                <span className="md:hidden">Нотариальная контора · Москва</span>
-                <span className="hidden md:inline">Нотариальная контора · {notary.addressParts.addressLocality}</span>
-              </span>
-              <span className="block w-8 sm:hidden h-px bg-gold flex-shrink-0" />
-            </div>
-
-            {/* H1 */}
-            <h1
-              className="font-serif font-medium leading-[1.04] tracking-tight mb-5 sm:mb-7 animate-fade-in-up text-cream break-words"
-              style={{ fontSize: 'clamp(34px, 5.4vw, 78px)', letterSpacing: '-0.01em', animationDelay: '80ms' }}
-            >
-              <em className="italic font-normal" style={{ color: '#e0bd5f' }}>{surname}</em>
-              {rest && (
-                <>
-                  <br />
-                  {rest}
-                </>
-              )}
-            </h1>
-
-            {/* Gold ornament */}
-            <div
-              className="flex items-center justify-center md:justify-start gap-3 mb-5 sm:mb-6 animate-fade-in-up"
-              style={{ animationDelay: '120ms' }}
-              aria-hidden
-            >
-              <span className="block w-10 h-px bg-gold/70 flex-shrink-0" />
-              <span className="block w-1.5 h-1.5 rotate-45 flex-shrink-0" style={{ border: '1px solid #b89a5a' }} />
-              <span className="block w-10 h-px bg-gold/70 flex-shrink-0 md:hidden" />
-            </div>
-
-            {/* Role */}
-            <p
-              className="font-serif italic text-slate mb-6 sm:mb-7 animate-fade-in-up"
-              style={{ fontSize: '18px', animationDelay: '140ms' }}
-            >
-              — нотариус города Москвы
-            </p>
-
-            {/* Subtitle */}
-            <p
-              className="text-slate leading-relaxed mb-10 sm:mb-12 max-w-[560px] mx-auto md:mx-0 animate-fade-in-up"
-              style={{ fontSize: '17px', lineHeight: '1.65', animationDelay: '200ms' }}
-            >
-              Защита ваших прав и юридическая безопасность каждой сделки. Полный спектр нотариальных действий с соблюдением конфиденциальности и профессиональной этики.
-            </p>
-
-            {/* Actions */}
-            <div
-              className="flex flex-col md:flex-row md:flex-wrap items-center md:items-center justify-center md:justify-start gap-6 md:gap-8 mb-5 sm:mb-6 animate-fade-in-up"
-              style={{ animationDelay: '280ms' }}
-            >
-              <BookingButton />
-
-              <a
-                href={notary.phoneHref}
-                className="flex items-center gap-3 sm:gap-4 group text-cream no-underline min-w-0 text-left" style={{ textDecoration: 'none' }}
-              >
-                <span
-                  className="w-12 h-12 rounded-full grid place-items-center flex-shrink-0 transition-all group-hover:bg-gold/10 group-hover:border-gold/50"
-                  style={{ border: '1px solid rgba(200,160,60,0.30)', color: '#b89a5a' }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                  </svg>
-                </span>
-                <span className="flex flex-col gap-0.5 min-w-0">
-                  <span
-                    className="text-[10px] sm:text-[11px] tracking-[0.22em] uppercase whitespace-nowrap"
-                    style={{ color: '#6b7895' }}
-                  >
-                    Приём по записи
-                  </span>
-                  <span className="font-sans font-medium text-[19px] sm:text-[22px] tracking-wide text-cream group-hover:text-gold-light transition-colors whitespace-nowrap">
-                    {notary.phone}
-                  </span>
-                </span>
-              </a>
-            </div>
-
-            <LiveStatus />
-
-            {/* Trust row */}
-            <div
-              className="flex items-center justify-center md:justify-start gap-3 sm:gap-7 pt-8 sm:pt-9 animate-fade-in-up mx-auto md:mx-0"
-              style={{
-                borderTop: '1px solid rgba(184,154,90,0.18)',
-                maxWidth: '620px',
-                animationDelay: '360ms',
-              }}
-            >
-              {[
-                { num: '15+', lbl: 'видов услуг' },
-                { num: '5K+', lbl: 'клиентов' },
-                { num: 'ФНП', lbl: 'в реестре' },
-              ].map((stat, i) => (
-                <div key={stat.lbl} className="flex items-center gap-3 sm:gap-7 min-w-0">
-                  <div className="flex flex-col items-center md:items-start min-w-0 text-center md:text-left">
-                    <span className="font-sans font-semibold text-[26px] sm:text-[32px] leading-none text-gold mb-1.5 sm:mb-2 tracking-tight">{stat.num}</span>
-                    <span
-                      className="text-[9px] sm:text-[11px] tracking-[0.18em] uppercase whitespace-nowrap"
-                      style={{ color: '#6b7895' }}
-                    >
-                      {stat.lbl}
-                    </span>
-                  </div>
-                  {i < 2 && (
-                    <div className="w-px h-9 flex-shrink-0" style={{ background: 'rgba(184,154,90,0.20)' }} />
-                  )}
-                </div>
-              ))}
-            </div>
+      {/* Контент */}
+      <div className="relative flex-1 flex items-center">
+        <div className="w-full mx-auto px-5 sm:px-10 lg:px-20 py-16" style={{ maxWidth: '1180px' }}>
+          {/* Eyebrow */}
+          <div className="flex items-center gap-3 mb-8 animate-fade-in-up" style={{ animationDelay: '0ms' }}>
+            <span className="block w-10 h-px" style={{ background: '#534AB7' }} />
+            <span className="font-semibold text-[11px] tracking-[0.32em] uppercase" style={{ color: '#534AB7' }}>
+              Нотариальная контора · Москва
+            </span>
           </div>
 
-          {/* ── RIGHT COLUMN — Notarial Seal Canvas ── */}
-          <div
-            className="hidden md:flex items-center justify-center animate-fade-in"
-            style={{
-              position: 'relative',
-              width: '100%',
-              minHeight: '720px',
-              height: '100%',
-              overflow: 'visible',
-              animationDelay: '200ms',
-            }}
+          {/* ФИО с серебристым подчёркиванием */}
+          <h1
+            className="font-serif font-medium leading-[1.06] mb-3 animate-fade-in-up"
+            style={{ fontSize: 'clamp(38px, 6vw, 84px)', letterSpacing: '-0.01em', color: '#26223d', animationDelay: '80ms' }}
           >
-            <SealCanvas
-              style={{
-                width: '160%',
-                height: '160%',
-                maxWidth: '880px',
-                maxHeight: '880px',
-                display: 'block',
-                position: 'relative',
-                zIndex: 3,
-              }}
-            />
+            {surname}
+            <br />
+            <span className="relative inline-block pb-3">
+              {rest}
+              <span
+                className="absolute left-0 right-0 bottom-0 h-[2px]"
+                style={{ background: 'linear-gradient(90deg, #c0bfcc, rgba(192,191,204,0.15))' }}
+                aria-hidden
+              />
+            </span>
+          </h1>
+
+          <p
+            className="font-serif italic mb-8 animate-fade-in-up"
+            style={{ fontSize: '19px', color: '#75718f', animationDelay: '140ms' }}
+          >
+            — нотариус города Москвы
+          </p>
+
+          <p
+            className="leading-relaxed mb-12 max-w-[540px] animate-fade-in-up"
+            style={{ fontSize: '17px', lineHeight: '1.7', color: '#75718f', animationDelay: '200ms' }}
+          >
+            Удостоверение сделок, наследство, доверенности и копии документов.
+            Внимательно, спокойно и строго по закону.
+          </p>
+
+          {/* Действия */}
+          <div className="flex flex-wrap items-center gap-6 animate-fade-in-up" style={{ animationDelay: '280ms' }}>
+            <BookingButton />
+            <a href={notary.phoneHref} className="flex items-center gap-3.5 no-underline group">
+              <span
+                className="w-12 h-12 rounded-full grid place-items-center flex-shrink-0 transition-colors group-hover:bg-[rgba(83,74,183,0.08)]"
+                style={{ border: '1px solid rgba(83,74,183,0.30)', color: '#534AB7' }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+              </span>
+              <span className="flex flex-col">
+                <span className="text-[10px] tracking-[0.22em] uppercase" style={{ color: '#8d89a6' }}>
+                  Приём по записи
+                </span>
+                <span className="font-medium text-[20px] transition-colors group-hover:text-[#534AB7]" style={{ color: '#26223d' }}>
+                  {notary.phone}
+                </span>
+              </span>
+            </a>
+          </div>
+
+          {/* Мобильная версия акцент-блока */}
+          <div className="flex md:hidden items-center gap-4 mt-12 pt-6 text-[11px] tracking-[0.18em] uppercase" style={{ borderTop: '1px solid rgba(83,74,183,0.18)', color: '#534AB7' }}>
+            <span>Практика с {notary.practiceSince}</span>
+            <span className="block w-1 h-1 rounded-full" style={{ background: '#c0bfcc' }} />
+            <span>Лицензия {notary.license}</span>
           </div>
         </div>
-      </div>
-
-      {/* Vertical address note */}
-      <div
-        className="absolute right-6 top-1/2 -translate-y-1/2 hidden xl:block z-[6]"
-        style={{
-          writingMode: 'vertical-rl',
-          transform: 'rotate(180deg) translateY(50%)',
-          fontSize: '10px',
-          letterSpacing: '0.4em',
-          textTransform: 'uppercase',
-          color: 'rgba(184,154,90,0.20)',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {notary.address}
-      </div>
-
-      {/* Scroll cue */}
-      <div
-        className="absolute left-16 bottom-9 z-[6] hidden md:flex items-center gap-3.5"
-        style={{ fontSize: '10px', letterSpacing: '0.32em', textTransform: 'uppercase', color: '#6b7895' }}
-      >
-        <span>Листайте ниже</span>
-        <span
-          className="relative overflow-hidden"
-          style={{ width: '60px', height: '1px', background: 'linear-gradient(90deg, #b89a5a, transparent)' }}
-        >
-          <span
-            className="absolute inset-0 bg-gold animate-scroll-line"
-            style={{ transformOrigin: 'left' }}
-            aria-hidden
-          />
-        </span>
       </div>
     </section>
   )

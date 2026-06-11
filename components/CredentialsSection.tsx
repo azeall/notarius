@@ -56,15 +56,15 @@ export default function CredentialsSection() {
   return (
     <section
       className="relative py-20 sm:py-[120px] overflow-hidden"
-      style={{ background: '#06101f' }}
+      style={{ background: '#eceafb' }}
     >
       {/* Gold grid */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(184,154,90,0.05) 1px, transparent 1px),' +
-            'linear-gradient(90deg, rgba(184,154,90,0.05) 1px, transparent 1px)',
+            'linear-gradient(rgba(83,74,183,0.05) 1px, transparent 1px),' +
+            'linear-gradient(90deg, rgba(83,74,183,0.05) 1px, transparent 1px)',
           backgroundSize: '64px 64px',
           maskImage: 'radial-gradient(ellipse 100% 80% at 50% 50%, black 30%, transparent 85%)',
           WebkitMaskImage: 'radial-gradient(ellipse 100% 80% at 50% 50%, black 30%, transparent 85%)',
@@ -80,7 +80,7 @@ export default function CredentialsSection() {
               <span className="block w-6 h-px bg-gold flex-shrink-0" />
               <span
                 className="text-[11px] tracking-[0.32em] uppercase"
-                style={{ color: 'rgba(184,154,90,0.70)' }}
+                style={{ color: 'rgba(83,74,183,0.70)' }}
               >
                 Документы и членство
               </span>
@@ -98,7 +98,7 @@ export default function CredentialsSection() {
           <Link
             href="/about"
             className="inline-flex items-center gap-2.5 text-[12px] tracking-[0.22em] uppercase text-gold no-underline pb-1 transition-colors hover:text-gold-light flex-shrink-0"
-            style={{ borderBottom: '1px solid rgba(184,154,90,0.30)' }}
+            style={{ borderBottom: '1px solid rgba(83,74,183,0.30)' }}
           >
             О нотариусе
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,19 +115,19 @@ export default function CredentialsSection() {
               className="relative reveal border border-gold/15 rounded-[14px] transition-all duration-300 hover:border-gold/40 hover:-translate-y-0.5"
               style={{
                 padding: '22px',
-                background: '#0f1e35',
+                background: '#ffffff',
               }}
               data-reveal-delay={i * 100}
             >
               <div
                 className="w-10 h-10 grid place-items-center text-gold mb-3.5"
-                style={{ background: 'radial-gradient(circle, rgba(184,154,90,0.18), transparent 70%)' }}
+                style={{ background: 'radial-gradient(circle, rgba(83,74,183,0.18), transparent 70%)' }}
               >
                 {c.icon}
               </div>
               <div
                 className="font-mono text-[10px] tracking-[0.18em] uppercase mb-1.5"
-                style={{ color: 'rgba(184,154,90,0.70)' }}
+                style={{ color: 'rgba(83,74,183,0.70)' }}
               >
                 {c.code}
               </div>

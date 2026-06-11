@@ -9,15 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        navy: '#0a1628',
-        'navy-dark': '#06101f',
-        'navy-darker': '#040d18',
-        'navy-card': '#0f1e35',
-        'navy-card-2': '#112240',
-        gold: '#b89a5a',
-        'gold-light': '#d4b978',
-        cream: '#f0ece4',
-        slate: '#8a9ab5',
+        navy: '#f4f3fd',
+        'navy-dark': '#eceafb',
+        'navy-darker': '#e4e1f7',
+        'navy-card': '#ffffff',
+        'navy-card-2': '#f8f7fe',
+        gold: '#534AB7',
+        'gold-light': '#6f66d6',
+        cream: '#26223d',
+        slate: '#75718f',
         offwhite: '#f5f5f5',
         // Функциональный акцент «проверено / успех» — приглушённый изумруд
         emerald: '#4f9d7a',
