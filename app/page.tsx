@@ -121,8 +121,73 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Отзывы: полароиды ── */}
+      <section className="py-20 sm:py-24 overflow-hidden" style={{ background: '#f5ede0' }}>
+        <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
+          <div className="text-center mb-14 reveal">
+            <div className="inline-flex items-center gap-3.5 mb-4">
+              <span className="block w-6 h-px" style={{ background: '#c05c2e' }} />
+              <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(192,92,46,0.75)' }}>Отзывы</span>
+              <span className="block w-6 h-px" style={{ background: '#c05c2e' }} />
+            </div>
+            <h2 className="font-serif font-medium m-0" style={{ fontSize: 'clamp(32px, 4vw, 50px)', color: '#3d2010' }}>
+              Тёплые <em className="italic font-normal" style={{ color: '#c05c2e' }}>слова</em>
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-8 sm:gap-6">
+            {[
+              { n: 'Ольга К.', s: 'наследство', t: 'Думали, утонем в бумагах — Анна Владимировна разложила всё по полочкам и сама запросила половину документов.', r: '-3deg' },
+              { n: 'Дмитрий С.', s: 'доверенность', t: 'Приняли точно в назначенное время, доверенность сделали за полчаса. Очень душевная контора.', r: '2deg' },
+              { n: 'Марина В.', s: 'купля-продажа', t: 'Сделку провели за один визит, всё объяснили простым языком. Спасибо за спокойствие!', r: '-1.5deg' },
+            ].map((r, i) => (
+              <figure
+                key={r.n}
+                className="m-0 p-5 pb-7 bg-white reveal transition-transform hover:scale-[1.03] hover:rotate-0"
+                style={{ transform: `rotate(${r.r})`, boxShadow: '0 16px 40px rgba(61,32,16,0.16)', borderRadius: '6px', transitionDuration: '300ms' }}
+                data-reveal-delay={i * 100}
+              >
+                <div className="h-2 w-16 mx-auto -mt-8 mb-5 rounded-sm" style={{ background: 'rgba(232,201,160,0.9)', boxShadow: '0 2px 6px rgba(61,32,16,0.15)' }} aria-hidden />
+                <blockquote className="m-0 mb-4 text-[14px] leading-relaxed" style={{ color: '#5d4a38' }}>{r.t}</blockquote>
+                <figcaption className="font-serif italic text-[15px]" style={{ color: '#c05c2e' }}>
+                  — {r.n}
+                  <span className="block not-italic font-sans text-[11px] mt-0.5" style={{ color: '#94816b' }}>{r.s}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── FAQ с live-поиском (уникальная фича) ── */}
       <FAQSearch />
+
+      {/* ── Карта + часы работы ── */}
+      <section className="py-20" style={{ background: '#fdf8ef' }}>
+        <div className="mx-auto px-5 sm:px-10 grid md:grid-cols-[0.6fr_0.4fr] gap-8 items-stretch" style={{ maxWidth: '1080px' }}>
+          <div className="rounded-2xl overflow-hidden reveal" style={{ border: '1px solid rgba(192,92,46,0.20)', minHeight: '380px' }}>
+            <iframe
+              src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(notary.address)}&z=16`}
+              width="100%" height="100%" frameBorder="0" allowFullScreen
+              className="w-full h-full" style={{ border: 'none', display: 'block', minHeight: '380px' }}
+              title="Карта"
+            />
+          </div>
+          <div className="rounded-2xl p-7 reveal" style={{ background: '#f5ede0', border: '1px solid rgba(192,92,46,0.18)' }}>
+            <h2 className="font-serif font-medium mb-5" style={{ fontSize: '24px', color: '#3d2010' }}>Ждём вас</h2>
+            <p className="text-[14px] m-0 mb-1" style={{ color: '#7d6a55' }}>{notary.address}</p>
+            <a href={notary.phoneHref} className="font-semibold text-[16px] no-underline" style={{ color: '#c05c2e' }}>{notary.phone}</a>
+            <div className="mt-6 pt-5" style={{ borderTop: '1px dashed rgba(192,92,46,0.3)' }}>
+              <p className="text-[10px] tracking-[0.22em] uppercase m-0 mb-3" style={{ color: '#c05c2e' }}>Часы работы</p>
+              {notary.workingHours.slice(0, 7).map(w => (
+                <div key={w.day} className="flex justify-between text-[13px] py-1.5" style={{ borderBottom: '1px solid rgba(192,92,46,0.08)' }}>
+                  <span style={{ color: '#5d4a38' }}>{w.day}</span>
+                  <span style={{ color: w.hours === 'Выходной' ? '#94816b' : '#3d2010', fontWeight: w.hours === 'Выходной' ? 400 : 600 }}>{w.hours}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ── Форма записи ── */}
       <BookingInline />
