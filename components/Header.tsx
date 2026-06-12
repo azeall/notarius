@@ -62,7 +62,7 @@ export default function Header() {
               style={{ borderBottom: '1px solid #c05c2e', borderRight: '1px solid #c05c2e' }}
               aria-hidden
             />
-            Б
+            {notary.name.trim().charAt(0)}
           </div>
           <div className="flex flex-col min-w-0">
             <span className="font-serif text-sm sm:text-base text-cream group-hover:text-gold transition-colors truncate">
