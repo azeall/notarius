@@ -1,104 +1,133 @@
-'use client'
-import { useRef } from 'react'
 import { notary, motto } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 
-/** Интерактивная визитка: 3D-наклон за курсором + блик; в покое мягко покачивается. */
-function BusinessCard3D() {
-  const wrapRef = useRef<HTMLDivElement>(null)
-  const cardRef = useRef<HTMLDivElement>(null)
-  const glareRef = useRef<HTMLDivElement>(null)
+/**
+ * Hero «Вечерний кабинет»:
+ * тёплая SVG-сцена — настольная лампа с дышащим конусом света,
+ * стол с документами и книгами, пылинки, плывущие в луче.
+ */
 
-  function onMove(e: React.PointerEvent) {
-    const card = cardRef.current, glare = glareRef.current, wrap = wrapRef.current
-    if (!card || !glare || !wrap) return
-    wrap.style.animationPlayState = 'paused'
-    const r = card.getBoundingClientRect()
-    const nx = (e.clientX - r.left) / r.width - 0.5
-    const ny = (e.clientY - r.top) / r.height - 0.5
-    card.style.transform = `rotateY(${nx * 16}deg) rotateX(${-ny * 14}deg)`
-    glare.style.opacity = '1'
-    glare.style.background = `radial-gradient(circle at ${(nx + 0.5) * 100}% ${(ny + 0.5) * 100}%, rgba(255,255,255,0.45), transparent 55%)`
-  }
-
-  function onLeave() {
-    const card = cardRef.current, glare = glareRef.current, wrap = wrapRef.current
-    if (!card || !glare || !wrap) return
-    card.style.transform = 'rotateY(0deg) rotateX(0deg)'
-    glare.style.opacity = '0'
-    wrap.style.animationPlayState = 'running'
-  }
-
+function EveningStudy() {
+  const dust = [
+    { cx: 330, cy: 420, r: 2.2, dur: 9, delay: 0 },
+    { cx: 365, cy: 380, r: 1.6, dur: 7, delay: 1.2 },
+    { cx: 400, cy: 440, r: 2.6, dur: 11, delay: 0.6 },
+    { cx: 345, cy: 300, r: 1.4, dur: 8, delay: 2.1 },
+    { cx: 415, cy: 330, r: 1.8, dur: 10, delay: 3 },
+    { cx: 378, cy: 250, r: 1.3, dur: 6.5, delay: 1.8 },
+    { cx: 300, cy: 360, r: 1.5, dur: 9.5, delay: 2.6 },
+  ]
   return (
-    <div style={{ perspective: '1100px' }} className="select-none">
+    <div className="relative w-full max-w-[540px] mx-auto select-none" aria-hidden>
       <style>{`
-        @keyframes cardSway {
-          0%, 100% { transform: rotateY(-5deg) rotateX(3deg) translateY(0); }
-          50% { transform: rotateY(5deg) rotateX(-2deg) translateY(-8px); }
+        @keyframes lampBreathe {
+          0%, 100% { opacity: 0.85; }
+          50% { opacity: 1; }
         }
-        @media (prefers-reduced-motion: reduce) { .bc-sway { animation: none !important; } }
+        @keyframes glowPulse {
+          0%, 100% { opacity: 0.55; transform: scale(1); }
+          50% { opacity: 0.85; transform: scale(1.06); }
+        }
+        @keyframes dustRise {
+          0% { transform: translateY(26px) translateX(0); opacity: 0; }
+          12% { opacity: 0.9; }
+          55% { transform: translateY(-34px) translateX(7px); opacity: 0.7; }
+          100% { transform: translateY(-90px) translateX(-4px); opacity: 0; }
+        }
+        @keyframes sceneIn {
+          from { opacity: 0; transform: translateY(26px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .study-scene { animation: sceneIn 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both; }
+        .lamp-light { animation: lampBreathe 6.5s ease-in-out infinite; transform-origin: 370px 130px; }
+        .lamp-glow { animation: glowPulse 6.5s ease-in-out infinite; transform-origin: 370px 470px; }
+        .dust { animation: dustRise var(--d) ease-in-out var(--dl) infinite; }
+        @media (prefers-reduced-motion: reduce) {
+          .study-scene, .lamp-light, .lamp-glow, .dust { animation: none !important; opacity: 1 !important; }
+          .study-scene { transform: none; }
+        }
       `}</style>
-      <div ref={wrapRef} className="bc-sway" style={{ animation: 'cardSway 7s ease-in-out infinite', transformStyle: 'preserve-3d' }}>
-        <div
-          ref={cardRef}
-          onPointerMove={onMove}
-          onPointerLeave={onLeave}
-          className="relative mx-auto rounded-2xl overflow-hidden cursor-pointer"
-          style={{
-            width: 'min(420px, 86vw)',
-            aspectRatio: '8 / 5',
-            background: 'linear-gradient(135deg, #fdf8ef 0%, #f7eeda 100%)',
-            border: '1px solid rgba(192,92,46,0.30)',
-            boxShadow: '0 34px 80px rgba(61,32,16,0.30), inset 0 1px 0 rgba(255,255,255,0.8)',
-            transition: 'transform 0.18s ease-out',
-            transformStyle: 'preserve-3d',
-          }}
-        >
-          {/* фактура */}
-          <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgba(192,92,46,0.025) 0 2px, transparent 2px 9px)' }} />
-          {/* терракотовая кромка */}
-          <div className="absolute top-0 left-0 bottom-0 w-2.5" style={{ background: '#c05c2e' }} />
-          {/* уголки */}
-          {[
-            { top: 12, right: 12, borderTop: '2px solid rgba(192,92,46,0.45)', borderRight: '2px solid rgba(192,92,46,0.45)' },
-            { bottom: 12, right: 12, borderBottom: '2px solid rgba(192,92,46,0.45)', borderRight: '2px solid rgba(192,92,46,0.45)' },
-          ].map((s, i) => (
-            <span key={i} className="absolute w-4 h-4 pointer-events-none" style={s as React.CSSProperties} aria-hidden />
-          ))}
 
-          {/* содержимое визитки */}
-          <div className="relative h-full flex flex-col justify-between py-6 pl-9 pr-7">
-            <div>
-              <p className="m-0 text-[9px] font-bold tracking-[0.34em] uppercase" style={{ color: '#c05c2e' }}>
-                {notary.title}
-              </p>
-              <h3 className="font-serif m-0 mt-3 leading-tight" style={{ fontSize: 'clamp(20px, 4.6vw, 27px)', color: '#3d2010' }}>
-                {notary.name.split(' ')[0]}
-                <br />
-                <span className="font-normal">{notary.name.split(' ').slice(1).join(' ')}</span>
-              </h3>
-            </div>
-            <div className="flex items-end justify-between gap-3">
-              <div>
-                <p className="m-0 font-mono text-[10px] tracking-wide" style={{ color: '#7d6a55' }}>лицензия {notary.license}</p>
-                <p className="m-0 font-mono text-[12px] font-bold mt-1" style={{ color: '#3d2010' }}>{notary.phone}</p>
-              </div>
-              {/* монограмма */}
-              <span
-                className="w-12 h-12 rounded-full grid place-items-center font-serif text-xl flex-shrink-0"
-                style={{ border: '1.5px solid rgba(192,92,46,0.55)', color: '#c05c2e', transform: 'translateZ(24px)' }}
-              >
-                {notary.name.charAt(0)}
-              </span>
-            </div>
-          </div>
+      <svg className="study-scene w-full h-auto" viewBox="0 0 560 540" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="coneGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="rgba(255,213,158,0.55)" />
+            <stop offset="70%" stopColor="rgba(255,213,158,0.16)" />
+            <stop offset="100%" stopColor="rgba(255,213,158,0.04)" />
+          </linearGradient>
+          <radialGradient id="poolGrad" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0%" stopColor="rgba(255,196,128,0.55)" />
+            <stop offset="100%" stopColor="rgba(255,196,128,0)" />
+          </radialGradient>
+        </defs>
 
-          {/* блик */}
-          <div ref={glareRef} className="absolute inset-0 pointer-events-none transition-opacity duration-300" style={{ opacity: 0 }} />
-        </div>
-      </div>
-      <p className="text-center font-serif italic mt-6" style={{ color: '#94816b', fontSize: '14px' }}>
-        наведите курсор — визитка живая
+        {/* шнур и лампа */}
+        <line x1="370" y1="0" x2="370" y2="86" stroke="#3d2010" strokeWidth="3" />
+        <circle cx="370" cy="92" r="4" fill="#3d2010" />
+        <path d="M330 96 L410 96 L432 138 L308 138 Z" fill="#c05c2e" />
+        <path d="M330 96 L410 96 L416 108 L324 108 Z" fill="rgba(255,255,255,0.18)" />
+        <ellipse cx="370" cy="138" rx="62" ry="7" fill="#a34a22" />
+        <circle cx="370" cy="142" r="7" fill="#ffd9a0" />
+
+        {/* конус света (дышит) */}
+        <g className="lamp-light">
+          <path d="M318 134 L422 134 L508 470 L232 470 Z" fill="url(#coneGrad)" />
+        </g>
+
+        {/* тёплое пятно на столе */}
+        <ellipse className="lamp-glow" cx="370" cy="470" rx="185" ry="30" fill="url(#poolGrad)" />
+
+        {/* пылинки в луче */}
+        {dust.map((p, i) => (
+          <circle
+            key={i}
+            className="dust"
+            cx={p.cx} cy={p.cy} r={p.r}
+            fill="#ffdcae"
+            style={{ ['--d' as string]: `${p.dur}s`, ['--dl' as string]: `${p.delay}s` }}
+          />
+        ))}
+
+        {/* столешница */}
+        <rect x="96" y="468" width="448" height="10" rx="3" fill="#4a2c14" />
+        <rect x="96" y="478" width="448" height="4" fill="rgba(61,32,16,0.35)" />
+
+        {/* стопка книг слева в полутени */}
+        <g>
+          <rect x="138" y="436" width="120" height="13" rx="2.5" fill="#7a4326" />
+          <rect x="150" y="422" width="100" height="13" rx="2.5" fill="#a3552d" />
+          <rect x="144" y="408" width="112" height="13" rx="2.5" fill="#8a6a4f" />
+          <line x1="160" y1="442" x2="236" y2="442" stroke="rgba(245,237,224,0.35)" strokeWidth="1.5" />
+          <line x1="170" y1="428" x2="230" y2="428" stroke="rgba(245,237,224,0.3)" strokeWidth="1.5" />
+        </g>
+
+        {/* документ в свете лампы */}
+        <g transform="rotate(-5 392 430)">
+          <rect x="318" y="386" width="148" height="84" rx="4" fill="#fdf8ef" stroke="rgba(61,32,16,0.18)" />
+          <line x1="334" y1="406" x2="448" y2="406" stroke="#d8c5a8" strokeWidth="3" />
+          <line x1="334" y1="420" x2="436" y2="420" stroke="#e2d3ba" strokeWidth="3" />
+          <line x1="334" y1="434" x2="448" y2="434" stroke="#e2d3ba" strokeWidth="3" />
+          <path d="M340 454 C 352 444, 360 460, 372 450 S 392 444, 400 452" fill="none" stroke="#3d2010" strokeWidth="1.6" opacity="0.75" />
+        </g>
+
+        {/* чернильница и перо справа */}
+        <g>
+          <rect x="486" y="446" width="26" height="22" rx="4" fill="#3d2010" />
+          <ellipse cx="499" cy="446" rx="13" ry="4" fill="#241007" />
+          <line x1="499" y1="446" x2="522" y2="402" stroke="#c05c2e" strokeWidth="3" strokeLinecap="round" />
+          <path d="M522 402 L530 388 L526 404 Z" fill="#c05c2e" />
+        </g>
+
+        {/* чашка чая в полутени */}
+        <g opacity="0.85">
+          <rect x="270" y="444" width="30" height="24" rx="5" fill="#a3552d" />
+          <path d="M300 450 q12 4 0 12" fill="none" stroke="#a3552d" strokeWidth="3.5" />
+          <path d="M278 436 q3 -7 0 -12 M290 436 q3 -7 0 -12" fill="none" stroke="rgba(255,220,174,0.6)" strokeWidth="2" strokeLinecap="round" />
+        </g>
+      </svg>
+
+      <p className="text-center font-serif italic mt-4" style={{ color: '#94816b', fontSize: '14px' }}>
+        кабинет, где вас выслушают
       </p>
     </div>
   )
@@ -111,13 +140,13 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden flex items-center" style={{ minHeight: '100dvh', background: '#f5ede0' }}>
-      {/* фактура-полосы + персиковое пятно */}
-      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(0deg, rgba(192,92,46,0.03) 0 1px, transparent 1px 32px)' }} aria-hidden />
-      <div className="absolute rounded-full pointer-events-none" style={{ width: 480, height: 480, top: '-16%', right: '-8%', background: 'radial-gradient(circle, rgba(232,201,160,0.55), transparent 65%)' }} aria-hidden />
+      {/* тёплый градиент сверху-справа — отсвет лампы на весь hero */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 55% at 72% 30%, rgba(232,201,160,0.45), transparent 70%)' }} aria-hidden />
+      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(0deg, rgba(192,92,46,0.025) 0 1px, transparent 1px 32px)' }} aria-hidden />
 
-      <div className="relative w-full mx-auto px-5 sm:px-10 lg:px-16 py-16 grid md:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center" style={{ maxWidth: '1280px' }}>
+      <div className="relative w-full mx-auto px-5 sm:px-10 lg:px-16 py-16 grid md:grid-cols-[1.02fr_0.98fr] gap-12 lg:gap-14 items-center" style={{ maxWidth: '1280px' }}>
 
-        {/* Левая колонка: ИМЯ — главное */}
+        {/* Имя — главное */}
         <div>
           <div className="flex items-center gap-3 mb-8 animate-fade-in-up">
             <span className="block w-10 h-px" style={{ background: '#c05c2e' }} />
@@ -141,7 +170,7 @@ export default function Hero() {
 
           <p className="leading-relaxed mb-10 max-w-[460px] animate-fade-in-up" style={{ fontSize: '17px', lineHeight: '1.7', color: '#7d6a55', animationDelay: '200ms' }}>
             Тёплый приём и внимание к каждой ситуации. Сделки, наследство,
-            доверенности и копии — спокойно и по закону. Практика с {notary.practiceSince} года.
+            доверенности и копии — спокойно и по закону.
           </p>
 
           <div className="flex flex-wrap items-center gap-5 animate-fade-in-up" style={{ animationDelay: '280ms' }}>
@@ -161,9 +190,9 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Правая колонка: 3D-визитка */}
+        {/* Сцена «вечерний кабинет» */}
         <div className="animate-fade-in" style={{ animationDelay: '240ms' }}>
-          <BusinessCard3D />
+          <EveningStudy />
         </div>
       </div>
     </section>
