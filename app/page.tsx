@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Hero from '@/components/Hero'
-import BookingInline from '@/components/BookingInline'
+import DocVerify from '@/components/DocVerify'
 import BookingButton from '@/components/BookingButton'
 import { notary, site } from '@/lib/data'
 
@@ -101,8 +101,95 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Онлайн-запись (уникальная фича) ── */}
-      <BookingInline />
+      {/* ── Проверка документов: анимация + текст ── */}
+      <section className="py-20 sm:py-28" style={{ background: '#ffffff' }}>
+        <div className="mx-auto px-5 sm:px-10 grid lg:grid-cols-2 gap-14 items-center" style={{ maxWidth: '1180px' }}>
+          <div className="reveal">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="block w-10 h-[2px]" style={{ background: '#1D9E75' }} />
+              <span className="font-semibold text-[11px] tracking-[0.32em] uppercase" style={{ color: '#1D9E75' }}>Контроль качества</span>
+            </div>
+            <h2 className="font-sans font-extrabold mb-6" style={{ fontSize: 'clamp(28px, 3.6vw, 44px)', letterSpacing: '-0.02em', color: '#2c2c2c' }}>
+              Каждый документ<br />проходит <span style={{ color: '#1D9E75' }}>проверку</span>
+            </h2>
+            <div className="space-y-5">
+              {[
+                { t: 'Проверка по реестрам', d: 'ЕГРН, ЕГРЮЛ, реестры доверенностей и наследственных дел — в день обращения' },
+                { t: 'Проверка личности и дееспособности', d: 'Удостоверяем личность сторон и отсутствие ограничений' },
+                { t: 'Юридическая чистота текста', d: 'Каждая формулировка — по закону, без двусмысленностей' },
+              ].map((p, i) => (
+                <div key={p.t} className="flex gap-4 reveal" data-reveal-delay={i * 90}>
+                  <span className="w-8 h-8 rounded-lg grid place-items-center flex-shrink-0 mt-0.5" style={{ background: '#e8f5f0', color: '#1D9E75' }}>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-[16px] mb-1" style={{ color: '#2c2c2c' }}>{p.t}</h3>
+                    <p className="text-[14px] leading-relaxed m-0" style={{ color: '#7c8b85' }}>{p.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="reveal">
+            <DocVerify />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Отзывы: карточки с рейтингом ── */}
+      <section className="py-20" style={{ background: '#e8f5f0' }}>
+        <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1180px' }}>
+          <h2 className="font-sans font-extrabold mb-10 reveal" style={{ fontSize: 'clamp(28px, 3.6vw, 44px)', letterSpacing: '-0.02em', color: '#2c2c2c' }}>
+            Что говорят <span style={{ color: '#1D9E75' }}>клиенты</span>
+          </h2>
+          <div className="grid md:grid-cols-3 gap-5">
+            {[
+              { n: 'Алексей Р.', s: 'купля-продажа', t: 'Записался онлайн вечером, утром уже был на приёме. Сделку оформили за час, документы ушли в Росреестр в тот же день.' },
+              { n: 'Светлана М.', s: 'доверенность', t: 'Очень удобно, что видно свободное время. Пришла к 12:00 — приняли ровно в 12:00. Никаких очередей.' },
+              { n: 'Игорь Т.', s: 'завещание', t: 'Помогли сформулировать всё корректно, объяснили нюансы простым языком. Цена совпала с тарифом на сайте.' },
+            ].map((r, i) => (
+              <figure key={r.n} className="m-0 rounded-3xl p-7 bg-white reveal" style={{ border: '1px solid rgba(29,158,117,0.12)' }} data-reveal-delay={i * 90}>
+                <div className="flex gap-1 mb-4" aria-label="5 из 5">
+                  {[...Array(5)].map((_, j) => (
+                    <svg key={j} width="16" height="16" viewBox="0 0 24 24" fill="#1D9E75"><path d="M12 2l2.9 6.26 6.6.56-5 4.46 1.5 6.5L12 16.3 5.99 19.8l1.5-6.5-5-4.47 6.61-.56L12 2z" /></svg>
+                  ))}
+                </div>
+                <blockquote className="m-0 mb-5 text-[14px] leading-relaxed" style={{ color: '#5d6e67' }}>{r.t}</blockquote>
+                <figcaption className="flex items-center gap-3">
+                  <span className="w-9 h-9 rounded-full grid place-items-center font-bold text-sm text-white" style={{ background: '#1D9E75' }}>{r.n.charAt(0)}</span>
+                  <span>
+                    <span className="block font-bold text-[14px]" style={{ color: '#2c2c2c' }}>{r.n}</span>
+                    <span className="block text-[12px]" style={{ color: '#7c8b85' }}>{r.s}</span>
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Карта с плавающей карточкой ── */}
+      <section className="py-20" style={{ background: '#ffffff' }}>
+        <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1180px' }}>
+          <div className="relative rounded-3xl overflow-hidden reveal" style={{ border: '1px solid rgba(29,158,117,0.15)', height: '440px' }}>
+            <iframe
+              src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(notary.address)}&z=16`}
+              width="100%" height="100%" frameBorder="0" allowFullScreen
+              className="absolute inset-0 w-full h-full" style={{ border: 'none' }}
+              title="Карта"
+            />
+            <div
+              className="absolute left-4 top-4 sm:left-8 sm:top-8 rounded-2xl p-6 bg-white max-w-[300px]"
+              style={{ boxShadow: '0 20px 50px rgba(0,0,0,0.18)', border: '1px solid rgba(29,158,117,0.15)' }}
+            >
+              <h2 className="font-sans font-extrabold m-0 mb-3" style={{ fontSize: '19px', color: '#2c2c2c' }}>Наш офис</h2>
+              <p className="text-sm m-0 mb-2" style={{ color: '#5d6e67' }}>{notary.address}</p>
+              <p className="text-sm m-0 mb-3" style={{ color: '#5d6e67' }}>Пн–Пт 10:00–19:00</p>
+              <a href={notary.phoneHref} className="font-bold text-[15px] no-underline" style={{ color: '#1D9E75' }}>{notary.phone}</a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ── Гарантии: строка из 4 пунктов ── */}
       <section className="py-16" style={{ background: '#ffffff', borderTop: '1px solid rgba(29,158,117,0.10)' }}>
