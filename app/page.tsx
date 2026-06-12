@@ -1,20 +1,15 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Hero from '@/components/Hero'
-import ServicesGrid from '@/components/ServicesGrid'
-import HowItWorks from '@/components/HowItWorks'
-import CredentialsSection from '@/components/CredentialsSection'
-import FAQ from '@/components/FAQ'
-import BookingButton from '@/components/BookingButton'
 import CostCalculator from '@/components/CostCalculator'
 import BookingInline from '@/components/BookingInline'
+import BookingButton from '@/components/BookingButton'
 import { notary, site } from '@/lib/data'
-import ReviewsSection from '@/components/ReviewsSection'
 
 export const metadata: Metadata = {
   title: 'Нотариус в Москве · Запись на приём онлайн',
   description:
-    'Нотариальная контора в Москве. Удостоверение сделок, наследство, доверенности, брачные договоры, заверение копий. Запись онлайн, гибкие часы.',
+    'Нотариальная контора в Москве. Удостоверение сделок, наследство, доверенности, заверение копий. Калькулятор стоимости и запись онлайн.',
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
@@ -24,185 +19,123 @@ export const metadata: Metadata = {
   },
 }
 
-export default function HomePage() {
-  const weekdayHours = 'Пн–Пт 10:00–18:30'
-  const fridayHours = ''
-  const weekendHours = 'Сб, Вс — выходной'
+const SERVICES = [
+  { n: '01', title: 'Завещание', text: 'Составление и удостоверение завещаний любой сложности' },
+  { n: '02', title: 'Доверенность', text: 'Генеральные, на автомобиль, на представление интересов' },
+  { n: '03', title: 'Купля-продажа', text: 'Удостоверение сделок с недвижимостью и долями' },
+  { n: '04', title: 'Согласие супруга', text: 'Нотариальные согласия на совершение сделок' },
+  { n: '05', title: 'Заверение копий', text: 'Верность копий документов и выписок' },
+  { n: '06', title: 'Перевод документов', text: 'Свидетельствование подписи переводчика' },
+]
 
+const STEPS = [
+  { t: 'Запишитесь', d: 'Онлайн на сайте или по телефону — выберите удобные дату и время' },
+  { t: 'Подготовьте документы', d: 'При записи подскажем точный перечень для вашей ситуации' },
+  { t: 'Приходите на приём', d: 'Всё пройдёт спокойно, внимательно и строго по закону' },
+]
+
+export default function HomePage() {
   return (
     <>
       <Hero />
 
-      <CredentialsSection />
-
-      <ServicesGrid />
-
-      <CostCalculator />
-
-      <HowItWorks />
-
-      <BookingInline />
-
-      {/* ── Map / Contacts section ── */}
-      <section className="relative py-20 sm:py-[120px]" style={{ background: '#f4f3fd' }}>
-        <div className="relative mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1340px' }}>
-
-          {/* Section header */}
-          <div className="flex items-end justify-between gap-10 mb-14 sm:mb-16 flex-wrap reveal">
+      {/* ── Услуги: минималистичный нумерованный список ── */}
+      <section className="py-20 sm:py-28" style={{ background: '#ffffff' }}>
+        <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
+          <div className="flex items-end justify-between flex-wrap gap-6 mb-12 reveal">
             <div>
-              <div className="inline-flex items-center gap-3.5 mb-5">
-                <span className="block w-6 h-px bg-gold flex-shrink-0" />
-                <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(83,74,183,0.70)' }}>
-                  Адрес и контакты
-                </span>
+              <div className="inline-flex items-center gap-3.5 mb-4">
+                <span className="block w-6 h-px" style={{ background: '#534AB7' }} />
+                <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(83,74,183,0.75)' }}>Услуги</span>
               </div>
-              <h2
-                className="font-serif font-medium text-cream m-0"
-                style={{ fontSize: 'clamp(36px, 4vw, 54px)', lineHeight: '1.08', letterSpacing: '-0.01em' }}
-              >
-                Как нас{' '}
-                <em className="italic font-normal text-gold">найти</em>
+              <h2 className="font-serif font-medium m-0" style={{ fontSize: 'clamp(32px, 4vw, 50px)', color: '#26223d' }}>
+                Чем мы <em className="italic font-normal" style={{ color: '#534AB7' }}>поможем</em>
               </h2>
             </div>
             <Link
-              href="/contacts"
-              className="inline-flex items-center gap-2.5 text-[12px] tracking-[0.22em] uppercase text-gold no-underline pb-1 transition-colors hover:text-gold-light flex-shrink-0"
-              style={{ borderBottom: '1px solid rgba(83,74,183,0.30)' }}
+              href="/services"
+              className="inline-flex items-center gap-2.5 text-[12px] tracking-[0.22em] uppercase no-underline pb-1 transition-opacity hover:opacity-70"
+              style={{ color: '#534AB7', borderBottom: '1px solid rgba(83,74,183,0.30)' }}
             >
-              Контакты
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
+              Все услуги
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
             </Link>
           </div>
 
-          {/* 2-column card: info | map */}
-          <div
-            className="reveal grid grid-cols-1 md:grid-cols-[0.85fr_1.15fr] overflow-hidden rounded-2xl"
-            style={{ border: '1px solid rgba(83,74,183,0.15)', background: 'rgba(83,74,183,0.12)' }}
-          >
-            {/* Info column */}
-            <div style={{ padding: '44px 40px', background: '#ffffff' }}>
-              <h3
-                className="font-serif font-medium text-cream"
-                style={{ fontSize: '26px', margin: '0 0 20px' }}
+          <div>
+            {SERVICES.map((s, i) => (
+              <Link
+                key={s.n}
+                href="/services"
+                className="group grid grid-cols-[48px_1fr] sm:grid-cols-[80px_240px_1fr_24px] items-baseline gap-4 sm:gap-8 py-6 no-underline transition-all hover:pl-2 reveal"
+                style={{ borderTop: '1px solid rgba(83,74,183,0.12)', ...(i === SERVICES.length - 1 ? { borderBottom: '1px solid rgba(83,74,183,0.12)' } : {}) }}
+                data-reveal-delay={i * 60}
               >
-                Офис конторы
-              </h3>
-              {[
-                {
-                  k: 'Адрес',
-                  v: notary.addressParts.streetAddress + ', ' + notary.addressParts.addressLocality,
-                },
-                {
-                  k: 'Тел.',
-                  v: notary.phone,
-                  href: notary.phoneHref,
-                },
-                {
-                  k: 'Часы',
-                  v: [weekdayHours, fridayHours, weekendHours].filter(Boolean).join('\n'),
-                },
-                {
-                  k: 'Email',
-                  v: notary.email,
-                  href: `mailto:${notary.email}`,
-                },
-              ].map(row => (
-                <div
-                  key={row.k}
-                  className="flex gap-3 py-3.5"
-                  style={{ borderTop: '1px solid rgba(83,74,183,0.08)' }}
-                >
-                  <div
-                    className="font-mono text-[10px] tracking-[0.2em] uppercase pt-0.5 flex-shrink-0"
-                    style={{ color: 'rgba(83,74,183,0.70)', minWidth: '72px' }}
-                  >
-                    {row.k}
-                  </div>
-                  <div className="text-cream text-[14px] leading-relaxed" style={{ whiteSpace: 'pre-line' }}>
-                    {row.href ? (
-                      <a href={row.href} className="text-cream hover:text-gold-light transition-colors no-underline">
-                        {row.v}
-                      </a>
-                    ) : (
-                      row.v
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Map column */}
-            <div className="relative" style={{ minHeight: '380px', background: '#f4f3fd' }}>
-              <iframe
-                src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(notary.address)}&z=16`}
-                width="100%"
-                height="100%"
-                frameBorder="0"
-                allowFullScreen
-                className="absolute inset-0 w-full h-full"
-                style={{ filter: 'invert(0.85) hue-rotate(180deg)', border: 'none', display: 'block' }}
-                title="Карта"
-              />
-            </div>
+                <span className="font-serif text-[28px] sm:text-[34px] leading-none transition-colors" style={{ color: '#c0bfcc' }}>
+                  {s.n}
+                </span>
+                <span className="font-serif text-[20px] sm:text-[24px] transition-colors group-hover:text-[#534AB7]" style={{ color: '#26223d' }}>
+                  {s.title}
+                </span>
+                <span className="hidden sm:block text-[14px] leading-relaxed" style={{ color: '#75718f' }}>
+                  {s.text}
+                </span>
+                <span className="hidden sm:grid w-6 h-6 rounded-full place-items-center transition-all opacity-0 group-hover:opacity-100" style={{ background: 'rgba(83,74,183,0.10)', color: '#534AB7' }}>
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      <ReviewsSection />
+      {/* ── Калькулятор стоимости (уникальная фича) ── */}
+      <CostCalculator />
 
-      <FAQ />
-
-      {/* ── Bottom CTA ── */}
-      <section
-        className="relative py-20 sm:py-24 md:py-[120px]"
-        style={{
-          background: '#eceafb',
-          borderTop: '1px solid rgba(83,74,183,0.10)',
-        }}
-      >
-        {/* Gold grid */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(83,74,183,0.04) 1px, transparent 1px),' +
-              'linear-gradient(90deg, rgba(83,74,183,0.04) 1px, transparent 1px)',
-            backgroundSize: '64px 64px',
-            maskImage: 'radial-gradient(ellipse 70% 80% at 50% 50%, black 20%, transparent 80%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 70% 80% at 50% 50%, black 20%, transparent 80%)',
-          }}
-          aria-hidden
-        />
-
-        <div className="relative mx-auto px-5 sm:px-8 md:px-10 text-center" style={{ maxWidth: '780px' }}>
-          <div className="inline-flex items-center gap-3.5 mb-6 reveal">
-            <span className="block w-6 h-px bg-gold" />
-            <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(83,74,183,0.70)' }}>
-              Готовы помочь
-            </span>
-            <span className="block w-6 h-px bg-gold" />
-          </div>
-
-          <h2
-            className="font-serif font-medium text-cream mb-5 reveal"
-            style={{ fontSize: 'clamp(32px, 4vw, 54px)', lineHeight: '1.08', letterSpacing: '-0.01em' }}
-          >
-            Готовы{' '}
-            <em className="italic font-normal text-gold">записаться?</em>
+      {/* ── Как проходит приём: 3 шага ── */}
+      <section className="py-20 sm:py-24" style={{ background: '#ffffff' }}>
+        <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
+          <h2 className="font-serif font-medium mb-12 reveal" style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', color: '#26223d' }}>
+            Как проходит <em className="italic font-normal" style={{ color: '#534AB7' }}>приём</em>
           </h2>
+          <div className="grid sm:grid-cols-3 gap-8">
+            {STEPS.map((s, i) => (
+              <div key={s.t} className="relative reveal" data-reveal-delay={i * 100}>
+                <div
+                  className="w-10 h-10 rounded-full grid place-items-center font-serif text-lg mb-4"
+                  style={{ background: i === 2 ? '#534AB7' : 'rgba(83,74,183,0.10)', color: i === 2 ? '#fff' : '#534AB7' }}
+                >
+                  {i + 1}
+                </div>
+                {i < 2 && (
+                  <span className="hidden sm:block absolute top-5 left-12 right-0 h-px" style={{ background: 'rgba(83,74,183,0.15)' }} aria-hidden />
+                )}
+                <h3 className="font-serif text-xl mb-2" style={{ color: '#26223d' }}>{s.t}</h3>
+                <p className="text-sm leading-relaxed m-0" style={{ color: '#75718f' }}>{s.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <p className="text-slate mb-12 leading-relaxed reveal" style={{ fontSize: '17px' }}>
-            Позвоните, напишите или заполните форму — согласуем удобное время и подготовим всё необходимое к визиту.
+      {/* ── Форма записи ── */}
+      <BookingInline />
+
+      {/* ── CTA ── */}
+      <section className="py-16 text-center" style={{ background: '#ffffff', borderTop: '1px solid rgba(83,74,183,0.10)' }}>
+        <div className="mx-auto px-5" style={{ maxWidth: '640px' }}>
+          <h2 className="font-serif font-medium mb-3" style={{ fontSize: 'clamp(26px, 3vw, 36px)', color: '#26223d' }}>
+            Остались вопросы?
+          </h2>
+          <p className="mb-7 text-[15px]" style={{ color: '#75718f' }}>
+            Позвоните — подскажем по документам и подберём удобное время
           </p>
-
-          <div className="flex flex-wrap gap-3 sm:gap-4 justify-center reveal">
+          <div className="flex flex-wrap gap-3 justify-center">
             <BookingButton />
             <a
               href={notary.phoneHref}
-              className="inline-flex items-center gap-2.5 font-sans font-semibold text-[11px] sm:text-[12px] tracking-[0.22em] uppercase px-5 sm:px-8 py-4 sm:py-5 text-cream no-underline transition-colors border hover:text-gold-light hover:border-gold whitespace-nowrap"
-              style={{ borderColor: 'rgba(83,74,183,0.35)' }}
+              className="inline-flex items-center px-8 py-3 rounded-lg font-semibold text-sm no-underline transition-colors hover:text-white hover:bg-[#534AB7]"
+              style={{ border: '1px solid rgba(83,74,183,0.35)', color: '#534AB7' }}
             >
               {notary.phone}
             </a>
