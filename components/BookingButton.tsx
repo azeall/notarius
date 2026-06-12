@@ -7,19 +7,12 @@ const BASE_CLASS =
   'font-sans font-bold uppercase rounded-xl ' +
   'cursor-pointer overflow-hidden whitespace-nowrap ' +
   'transition-[transform,filter,box-shadow] duration-200 ' +
-  'hover:-translate-y-0.5 active:scale-[0.98]'
+  'hover:-translate-y-0.5 hover:brightness-110 active:scale-[0.98] ' +
+  'bg-gold text-white'
 
 const SIZE: Record<'sm' | 'md', string> = {
-  // header — just a touch smaller than the full CTA
   sm: 'text-[11px] tracking-[0.20em] px-6 py-3',
-  // hero / section CTAs
   md: 'text-[11px] sm:text-[12px] tracking-[0.22em] px-7 sm:px-10 py-4 sm:py-[18px]',
-}
-
-const PREMIUM_STYLE: React.CSSProperties = {
-  background: 'linear-gradient(180deg, #c8a03c 0%, #a07828 100%)',
-  color: '#1a1307',
-  boxShadow: '0 8px 28px -10px rgba(200,160,60,0.50)',
 }
 
 export default function BookingButton({
@@ -38,7 +31,7 @@ export default function BookingButton({
       <button
         onClick={() => setOpen(true)}
         className={`${BASE_CLASS} ${SIZE[size]} ${className}`}
-        style={{ ...PREMIUM_STYLE, ...style }}
+        style={{ boxShadow: '0 10px 26px -12px rgba(0,0,0,0.40)', ...style }}
       >
         Записаться на приём
       </button>

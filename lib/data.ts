@@ -87,6 +87,8 @@ export interface CalcService {
 export const calcServices: CalcService[] = [
   { id: 'will', label: 'Завещание', tariff: 100, uptx: 2400 },
   { id: 'poa', label: 'Доверенность', tariff: 500, uptx: 2000 },
-  { id: 'sale', label: 'Купля-продажа недвижимости', tariffPercent: 0.5, uptx: 8000, needsSum: true },
+  { id: 'sale', label: 'Купля-продажа', tariffPercent: 0.5, uptx: 8000, needsSum: true },
+  { id: 'consent', label: 'Согласие супруга', tariff: 500, uptx: 1500 },
   { id: 'copy', label: 'Заверение копий', perPage: 90, needsPages: true },
+  { id: 'translate', label: 'Перевод документов', tariff: 100, perPage: 900, needsPages: true },
 ]

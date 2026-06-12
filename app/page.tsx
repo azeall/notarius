@@ -118,6 +118,63 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Отзывы: крупная цитата + малые ── */}
+      <section className="py-20 sm:py-24" style={{ background: '#f4f3fd' }}>
+        <div className="mx-auto px-5 sm:px-10 grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center" style={{ maxWidth: '1080px' }}>
+          <div className="reveal">
+            <span className="font-serif block leading-none mb-4" style={{ fontSize: '90px', color: 'rgba(83,74,183,0.18)' }}>«</span>
+            <blockquote className="font-serif italic m-0 mb-6" style={{ fontSize: 'clamp(22px, 2.6vw, 30px)', lineHeight: '1.45', color: '#26223d' }}>
+              Оформляли наследство — думали, утонем в бумагах. Елена Викторовна разложила всё по полочкам
+              и сама запросила половину документов. Спокойно и по-человечески.
+            </blockquote>
+            <p className="m-0 text-sm" style={{ color: '#75718f' }}>
+              <span className="font-semibold" style={{ color: '#534AB7' }}>Ольга К.</span> · оформление наследства
+            </p>
+          </div>
+          <div className="space-y-4">
+            {[
+              { n: 'Дмитрий С.', s: 'доверенность', t: 'Записался онлайн, приняли точно в назначенное время. Доверенность сделали за полчаса.' },
+              { n: 'Марина В.', s: 'купля-продажа', t: 'Сделку с квартирой провели за один визит, документы в Росреестр ушли в тот же день.' },
+            ].map((r, i) => (
+              <figure key={r.n} className="m-0 rounded-2xl p-6 bg-white reveal" style={{ border: '1px solid rgba(83,74,183,0.14)' }} data-reveal-delay={i * 100}>
+                <blockquote className="m-0 mb-3 text-[14px] leading-relaxed" style={{ color: '#75718f' }}>{r.t}</blockquote>
+                <figcaption className="text-[13px]"><span className="font-semibold" style={{ color: '#534AB7' }}>{r.n}</span> <span style={{ color: '#8d89a6' }}>· {r.s}</span></figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Карта и контакты ── */}
+      <section className="py-20" style={{ background: '#ffffff' }}>
+        <div className="mx-auto px-5 sm:px-10 grid md:grid-cols-[0.45fr_0.55fr] gap-8 items-stretch" style={{ maxWidth: '1080px' }}>
+          <div className="rounded-2xl p-7 sm:p-8 reveal" style={{ background: '#f4f3fd', border: '1px solid rgba(83,74,183,0.14)' }}>
+            <h2 className="font-serif font-medium mb-6" style={{ fontSize: '26px', color: '#26223d' }}>Как нас найти</h2>
+            {[
+              { k: 'Адрес', v: notary.address },
+              { k: 'Телефон', v: notary.phone, href: notary.phoneHref },
+              { k: 'Часы', v: 'Пн–Пт 10:00–19:00\nСб, Вс — выходной' },
+              { k: 'Email', v: notary.email, href: `mailto:${notary.email}` },
+            ].map(row => (
+              <div key={row.k} className="py-3.5" style={{ borderTop: '1px solid rgba(83,74,183,0.10)' }}>
+                <p className="text-[10px] tracking-[0.22em] uppercase m-0 mb-1" style={{ color: '#534AB7' }}>{row.k}</p>
+                {row.href
+                  ? <a href={row.href} className="text-[15px] no-underline transition-opacity hover:opacity-70" style={{ color: '#26223d' }}>{row.v}</a>
+                  : <p className="text-[15px] m-0" style={{ color: '#26223d', whiteSpace: 'pre-line' }}>{row.v}</p>}
+              </div>
+            ))}
+          </div>
+          <div className="rounded-2xl overflow-hidden reveal" style={{ border: '1px solid rgba(83,74,183,0.18)', minHeight: '380px' }}>
+            <iframe
+              src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(notary.address)}&z=16`}
+              width="100%" height="100%" frameBorder="0" allowFullScreen
+              className="w-full h-full" style={{ border: 'none', display: 'block', minHeight: '380px' }}
+              title="Карта"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* ── Форма записи ── */}
       <BookingInline />
 
