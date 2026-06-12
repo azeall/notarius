@@ -2,136 +2,141 @@ import { notary, motto } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 
 /**
- * Hero «Вечерний кабинет»:
- * тёплая SVG-сцена — настольная лампа с дышащим конусом света,
- * стол с документами и книгами, пылинки, плывущие в луче.
+ * Hero «Прошитый документ» — макет Claude Design (Нотариус - Hero v2).
+ * Стопка листов, верхний прошит терракотовым шнуром: стежки продеваются,
+ * завязывается бант, хвосты уходят вниз к качающейся бирке-заверению.
  */
 
-function EveningStudy() {
-  const dust = [
-    { cx: 330, cy: 420, r: 2.2, dur: 9, delay: 0 },
-    { cx: 365, cy: 380, r: 1.6, dur: 7, delay: 1.2 },
-    { cx: 400, cy: 440, r: 2.6, dur: 11, delay: 0.6 },
-    { cx: 345, cy: 300, r: 1.4, dur: 8, delay: 2.1 },
-    { cx: 415, cy: 330, r: 1.8, dur: 10, delay: 3 },
-    { cx: 378, cy: 250, r: 1.3, dur: 6.5, delay: 1.8 },
-    { cx: 300, cy: 360, r: 1.5, dur: 9.5, delay: 2.6 },
-  ]
-  return (
-    <div className="relative w-full max-w-[540px] mx-auto select-none" aria-hidden>
-      <style>{`
-        @keyframes lampBreathe {
-          0%, 100% { opacity: 0.85; }
-          50% { opacity: 1; }
-        }
-        @keyframes glowPulse {
-          0%, 100% { opacity: 0.55; transform: scale(1); }
-          50% { opacity: 0.85; transform: scale(1.06); }
-        }
-        @keyframes dustRise {
-          0% { transform: translateY(26px) translateX(0); opacity: 0; }
-          12% { opacity: 0.9; }
-          55% { transform: translateY(-34px) translateX(7px); opacity: 0.7; }
-          100% { transform: translateY(-90px) translateX(-4px); opacity: 0; }
-        }
-        @keyframes sceneIn {
-          from { opacity: 0; transform: translateY(26px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .study-scene { animation: sceneIn 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both; }
-        .lamp-light { animation: lampBreathe 6.5s ease-in-out infinite; transform-origin: 370px 130px; }
-        .lamp-glow { animation: glowPulse 6.5s ease-in-out infinite; transform-origin: 370px 470px; }
-        .dust { animation: dustRise var(--d) ease-in-out var(--dl) infinite; }
-        @media (prefers-reduced-motion: reduce) {
-          .study-scene, .lamp-light, .lamp-glow, .dust { animation: none !important; opacity: 1 !important; }
-          .study-scene { transform: none; }
-        }
-      `}</style>
+const ART = `
+<svg viewBox="0 0 600 640" role="img" aria-label="Стопка листов, прошитая терракотовым шнуром с узлом и бумажной биркой-заверением">
+  <defs>
+    <radialGradient id="wglow1" cx="50%" cy="48%" r="55%">
+      <stop offset="0%" stop-color="#e8c9a0" stop-opacity="0.6"/>
+      <stop offset="70%" stop-color="#e8c9a0" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#e8c9a0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
 
-      <svg className="study-scene w-full h-auto" viewBox="0 0 560 540" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="coneGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="rgba(255,213,158,0.55)" />
-            <stop offset="70%" stopColor="rgba(255,213,158,0.16)" />
-            <stop offset="100%" stopColor="rgba(255,213,158,0.04)" />
-          </linearGradient>
-          <radialGradient id="poolGrad" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0%" stopColor="rgba(255,196,128,0.55)" />
-            <stop offset="100%" stopColor="rgba(255,196,128,0)" />
-          </radialGradient>
-        </defs>
+  <ellipse class="wglow" cx="300" cy="330" rx="255" ry="240" fill="url(#wglow1)"/>
+  <ellipse class="pop" style="--pl:0.3s;" cx="305" cy="560" rx="180" ry="20" fill="#3d2010" opacity="0.08"/>
 
-        {/* шнур и лампа */}
-        <line x1="370" y1="0" x2="370" y2="86" stroke="#3d2010" strokeWidth="3" />
-        <circle cx="370" cy="92" r="4" fill="#3d2010" />
-        <path d="M330 96 L410 96 L432 138 L308 138 Z" fill="#c05c2e" />
-        <path d="M330 96 L410 96 L416 108 L324 108 Z" fill="rgba(255,255,255,0.18)" />
-        <ellipse cx="370" cy="138" rx="62" ry="7" fill="#a34a22" />
-        <circle cx="370" cy="142" r="7" fill="#ffd9a0" />
+  <g transform="translate(312,338) rotate(4)">
+    <g class="pop" style="--pl:0.25s;"><g class="floaty" style="--fdu:8s;--fde:1.8s;">
+      <rect x="-132" y="-172" width="264" height="344" rx="4" fill="#f0e4cf" stroke="#3d2010" stroke-width="1.4"/>
+    </g></g>
+  </g>
+  <g transform="translate(294,344) rotate(-3.5)">
+    <g class="pop" style="--pl:0.4s;"><g class="floaty" style="--fdu:7.4s;--fde:0.9s;">
+      <rect x="-132" y="-172" width="264" height="344" rx="4" fill="#f7efdf" stroke="#3d2010" stroke-width="1.4"/>
+    </g></g>
+  </g>
 
-        {/* конус света (дышит) */}
-        <g className="lamp-light">
-          <path d="M318 134 L422 134 L508 470 L232 470 Z" fill="url(#coneGrad)" />
+  <g transform="translate(303,340) rotate(0.5)">
+    <g class="floaty" style="--fdu:6.6s;">
+      <g class="pop" style="--pl:0.55s;">
+        <rect x="-134" y="-176" width="268" height="352" rx="4" fill="#fbf6ea" stroke="#3d2010" stroke-width="1.7"/>
+        <path d="M134,-176 L134,-148 L106,-176 Z" fill="#e8c9a0" stroke="#3d2010" stroke-width="1.4" stroke-linejoin="round"/>
+      </g>
+
+      <line class="wstroke thin draw" pathLength="1" style="--dl:1.0s;--dd:0.8s;stroke:rgba(61,32,16,0.35);" x1="-92" y1="-176" x2="-92" y2="176"/>
+
+      <line class="pop" style="--pl:1.2s;" x1="-66" y1="-130" x2="52" y2="-130" stroke="#c05c2e" stroke-width="3" stroke-linecap="round"/>
+      <line class="pop" style="--pl:1.3s;" x1="-66" y1="-96" x2="104" y2="-96" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
+      <line class="pop" style="--pl:1.36s;" x1="-66" y1="-74" x2="104" y2="-74" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
+      <line class="pop" style="--pl:1.42s;" x1="-66" y1="-52" x2="84" y2="-52" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
+      <line class="pop" style="--pl:1.48s;" x1="-66" y1="-30" x2="104" y2="-30" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
+      <line class="pop" style="--pl:1.54s;" x1="-66" y1="-8" x2="104" y2="-8" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
+      <line class="pop" style="--pl:1.6s;" x1="-66" y1="14" x2="64" y2="14" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
+      <line class="pop" style="--pl:1.66s;" x1="-66" y1="36" x2="104" y2="36" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
+      <line class="pop" style="--pl:1.72s;" x1="-66" y1="58" x2="92" y2="58" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
+      <path class="wstroke terra thin draw" pathLength="1" style="--dl:1.9s;--dd:0.9s;" d="M22,116 C40,100 52,110 60,118 C70,128 84,120 98,108 M58,122 C76,124 92,120 106,114"/>
+      <line class="pop" style="--pl:2.1s;" x1="-66" y1="118" x2="0" y2="118" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
+
+      <g class="pop" style="--pl:2.25s;"><circle cx="-113" cy="-78" r="4.2" fill="#f5ede0" stroke="#3d2010" stroke-width="1.6"/></g>
+      <g class="pop" style="--pl:2.33s;"><circle cx="-113" cy="0" r="4.2" fill="#f5ede0" stroke="#3d2010" stroke-width="1.6"/></g>
+      <g class="pop" style="--pl:2.41s;"><circle cx="-113" cy="78" r="4.2" fill="#f5ede0" stroke="#3d2010" stroke-width="1.6"/></g>
+
+      <path class="cord draw" pathLength="1" style="--dl:2.55s;--dd:0.55s;" d="M-113,-78 C-110,-52 -110,-26 -113,0"/>
+      <path class="cord draw" pathLength="1" style="--dl:3.0s;--dd:0.55s;" d="M-113,0 C-116,26 -116,52 -113,78"/>
+      <path class="cord draw" pathLength="1" style="--dl:2.45s;--dd:0.35s;" d="M-134,-92 C-128,-88 -120,-83 -113,-78"/>
+      <path class="cord draw" pathLength="1" style="--dl:3.45s;--dd:0.35s;" d="M-113,78 C-120,83 -128,88 -134,92"/>
+      <path class="cord draw" pathLength="1" style="--dl:3.6s;--dd:0.6s;" d="M-113,0 C-140,-20 -150,6 -119,5"/>
+      <path class="cord draw" pathLength="1" style="--dl:3.75s;--dd:0.6s;" d="M-113,0 C-86,-20 -76,6 -107,5"/>
+      <g class="pop" style="--pl:3.95s;"><circle cx="-113" cy="2" r="5" fill="#a84d23"/></g>
+      <path class="cord draw" pathLength="1" style="--dl:4.0s;--dd:0.7s;stroke-width:3;" d="M-116,6 C-128,44 -118,84 -130,124 C-134,138 -136,150 -135,162"/>
+      <path class="cord draw" pathLength="1" style="--dl:4.1s;--dd:0.7s;stroke-width:3;" d="M-109,7 C-100,46 -110,86 -101,126 C-98,140 -98,152 -101,164"/>
+
+      <g class="swing" style="--so:-118px 130px;">
+        <g class="pop" style="--pl:4.55s;">
+          <g transform="translate(-118,178) rotate(-7)">
+            <rect x="-44" y="-32" width="88" height="64" rx="4" fill="#fbf6ea" stroke="#3d2010" stroke-width="1.6"/>
+            <line x1="-28" y1="-14" x2="14" y2="-14" stroke="#c05c2e" stroke-width="2.4" stroke-linecap="round"/>
+            <line x1="-28" y1="0" x2="28" y2="0" stroke="#e8c9a0" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="-28" y1="12" x2="28" y2="12" stroke="#e8c9a0" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M2,24 C10,18 18,26 28,22" fill="none" stroke="#c05c2e" stroke-width="1.8" stroke-linecap="round"/>
+          </g>
         </g>
+      </g>
+    </g>
+  </g>
 
-        {/* тёплое пятно на столе */}
-        <ellipse className="lamp-glow" cx="370" cy="470" rx="185" ry="30" fill="url(#poolGrad)" />
+  <rect class="twinkle" style="--tw:4.8s;" x="118" y="148" width="9" height="9" fill="#c05c2e" transform="rotate(45 122.5 152.5)"/>
+  <rect class="twinkle" style="--tw:6.2s;" x="478" y="120" width="8" height="8" fill="#e8c9a0" transform="rotate(45 482 124)"/>
+  <rect class="twinkle" style="--tw:7.6s;" x="500" y="430" width="8" height="8" fill="#c05c2e" transform="rotate(45 504 434)"/>
+  <rect class="twinkle" style="--tw:9s;" x="106" y="470" width="7" height="7" fill="#e8c9a0" transform="rotate(45 109.5 473.5)"/>
+</svg>
+`
 
-        {/* пылинки в луче */}
-        {dust.map((p, i) => (
-          <circle
-            key={i}
-            className="dust"
-            cx={p.cx} cy={p.cy} r={p.r}
-            fill="#ffdcae"
-            style={{ ['--d' as string]: `${p.dur}s`, ['--dl' as string]: `${p.delay}s` }}
-          />
-        ))}
-
-        {/* столешница */}
-        <rect x="96" y="468" width="448" height="10" rx="3" fill="#4a2c14" />
-        <rect x="96" y="478" width="448" height="4" fill="rgba(61,32,16,0.35)" />
-
-        {/* стопка книг слева в полутени */}
-        <g>
-          <rect x="138" y="436" width="120" height="13" rx="2.5" fill="#7a4326" />
-          <rect x="150" y="422" width="100" height="13" rx="2.5" fill="#a3552d" />
-          <rect x="144" y="408" width="112" height="13" rx="2.5" fill="#8a6a4f" />
-          <line x1="160" y1="442" x2="236" y2="442" stroke="rgba(245,237,224,0.35)" strokeWidth="1.5" />
-          <line x1="170" y1="428" x2="230" y2="428" stroke="rgba(245,237,224,0.3)" strokeWidth="1.5" />
-        </g>
-
-        {/* документ в свете лампы */}
-        <g transform="rotate(-5 392 430)">
-          <rect x="318" y="386" width="148" height="84" rx="4" fill="#fdf8ef" stroke="rgba(61,32,16,0.18)" />
-          <line x1="334" y1="406" x2="448" y2="406" stroke="#d8c5a8" strokeWidth="3" />
-          <line x1="334" y1="420" x2="436" y2="420" stroke="#e2d3ba" strokeWidth="3" />
-          <line x1="334" y1="434" x2="448" y2="434" stroke="#e2d3ba" strokeWidth="3" />
-          <path d="M340 454 C 352 444, 360 460, 372 450 S 392 444, 400 452" fill="none" stroke="#3d2010" strokeWidth="1.6" opacity="0.75" />
-        </g>
-
-        {/* чернильница и перо справа */}
-        <g>
-          <rect x="486" y="446" width="26" height="22" rx="4" fill="#3d2010" />
-          <ellipse cx="499" cy="446" rx="13" ry="4" fill="#241007" />
-          <line x1="499" y1="446" x2="522" y2="402" stroke="#c05c2e" strokeWidth="3" strokeLinecap="round" />
-          <path d="M522 402 L530 388 L526 404 Z" fill="#c05c2e" />
-        </g>
-
-        {/* чашка чая в полутени */}
-        <g opacity="0.85">
-          <rect x="270" y="444" width="30" height="24" rx="5" fill="#a3552d" />
-          <path d="M300 450 q12 4 0 12" fill="none" stroke="#a3552d" strokeWidth="3.5" />
-          <path d="M278 436 q3 -7 0 -12 M290 436 q3 -7 0 -12" fill="none" stroke="rgba(255,220,174,0.6)" strokeWidth="2" strokeLinecap="round" />
-        </g>
-      </svg>
-
-      <p className="text-center font-serif italic mt-4" style={{ color: '#94816b', fontSize: '14px' }}>
-        кабинет, где вас выслушают
-      </p>
-    </div>
-  )
+const CSS = `
+.wm-hero{min-height:100vh;min-height:100svh;display:grid;grid-template-columns:1.05fr 0.95fr;align-items:center;gap:clamp(28px,5vw,80px);max-width:1440px;margin:0 auto;padding:clamp(28px,6vw,90px);position:relative;background:#f5ede0;}
+.wm-text{max-width:620px;}
+.wm-art{position:relative;}
+.wm-art svg{display:block;width:100%;max-width:600px;height:auto;margin-inline:auto;}
+.wm-eyebrow{font-size:12px;font-weight:600;letter-spacing:0.24em;color:rgba(61,32,16,0.62);text-transform:uppercase;}
+.wm-eyebrow .dot{color:#c05c2e;}
+.wm-h1{font-family:var(--font-playfair),Georgia,serif;font-weight:600;font-size:clamp(40px,5.6vw,76px);line-height:1.06;margin-top:clamp(14px,2vw,22px);color:#3d2010;}
+.wm-motto{font-family:var(--font-playfair),Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(20px,2.1vw,28px);color:#c05c2e;margin-top:clamp(12px,1.6vw,18px);}
+.wm-desc{font-size:clamp(15px,1.25vw,17.5px);line-height:1.65;color:rgba(61,32,16,0.78);margin-top:clamp(18px,2.2vw,26px);max-width:50ch;}
+.wm-cta{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(16px,2vw,28px);margin-top:clamp(24px,3vw,38px);}
+.wm-phone{font-weight:700;font-size:17px;color:#3d2010;text-decoration:none;border-bottom:2px solid rgba(192,92,46,0);transition:border-color 0.25s ease;white-space:nowrap;}
+.wm-phone:hover{border-color:#c05c2e;}
+@media (prefers-reduced-motion: no-preference){
+  .cas{opacity:0;animation:wmrise 0.8s cubic-bezier(0.2,0.7,0.2,1) var(--cl,0s) forwards;}
 }
+@keyframes wmrise{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+svg .wstroke{fill:none;stroke:#3d2010;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+svg .wstroke.thin{stroke-width:1.5;}
+svg .wstroke.terra{stroke:#c05c2e;}
+svg .cord{fill:none;stroke:#c05c2e;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;}
+@media (prefers-reduced-motion: no-preference){
+  .draw{stroke-dasharray:1 1;stroke-dashoffset:1;animation:wmdraw var(--dd,1.2s) cubic-bezier(0.45,0,0.2,1) var(--dl,0s) forwards;}
+}
+@keyframes wmdraw{to{stroke-dashoffset:0;}}
+svg .pop, svg .floaty, svg .swing{transform-box:fill-box;transform-origin:center;}
+@media (prefers-reduced-motion: no-preference){
+  .pop{opacity:0;animation:wmpop 0.9s cubic-bezier(0.2,0.8,0.3,1.05) var(--pl,0s) forwards;}
+  .floaty{animation:wmfloat var(--fdu,7s) ease-in-out var(--fde,0s) infinite;}
+  .swing{transform-box:view-box;transform-origin:var(--so);animation:wmswing 6.5s ease-in-out infinite;}
+  .wglow{animation:wmglow 7s ease-in-out infinite;}
+  .twinkle{transform-box:fill-box;transform-origin:center;opacity:0;animation:wmtwinkle 6s ease-in-out var(--tw,0s) infinite;}
+}
+@keyframes wmpop{from{opacity:0;transform:translateY(12px) scale(0.85);}to{opacity:1;transform:none;}}
+@keyframes wmfloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+@keyframes wmswing{0%,100%{transform:rotate(2deg);}50%{transform:rotate(-2deg);}}
+@keyframes wmglow{0%,100%{opacity:0.55;}50%{opacity:0.85;}}
+@keyframes wmtwinkle{0%,18%,100%{opacity:0;transform:scale(0.2) rotate(45deg);}9%{opacity:0.9;transform:scale(1) rotate(45deg);}}
+@media (max-width: 940px){
+  .wm-hero{grid-template-columns:1fr;gap:8px;padding:clamp(24px,6vw,48px);text-align:center;}
+  .wm-text{max-width:560px;margin-inline:auto;}
+  .wm-desc{margin-inline:auto;}
+  .wm-cta{justify-content:center;}
+  .wm-art svg{max-width:420px;margin-top:16px;}
+}
+@media (max-width: 420px){
+  .wm-cta{gap:14px;}
+  .wm-cta .booking-cta{width:100%;}
+}
+`
 
 export default function Hero() {
   const nameParts = notary.name.trim().split(/\s+/)
@@ -139,62 +144,30 @@ export default function Hero() {
   const rest = nameParts.slice(1).join(' ')
 
   return (
-    <section className="relative overflow-hidden flex items-center" style={{ minHeight: '100dvh', background: '#f5ede0' }}>
-      {/* тёплый градиент сверху-справа — отсвет лампы на весь hero */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 55% at 72% 30%, rgba(232,201,160,0.45), transparent 70%)' }} aria-hidden />
-      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(0deg, rgba(192,92,46,0.025) 0 1px, transparent 1px 32px)' }} aria-hidden />
-
-      <div className="relative w-full mx-auto px-5 sm:px-10 lg:px-16 py-16 grid md:grid-cols-[1.02fr_0.98fr] gap-12 lg:gap-14 items-center" style={{ maxWidth: '1280px' }}>
-
-        {/* Имя — главное */}
-        <div>
-          <div className="flex items-center gap-3 mb-8 animate-fade-in-up">
-            <span className="block w-10 h-px" style={{ background: '#c05c2e' }} />
-            <span className="font-semibold text-[11px] tracking-[0.32em] uppercase" style={{ color: '#c05c2e' }}>
-              Нотариальная контора · Москва
-            </span>
-          </div>
-
-          <h1
-            className="font-serif font-medium leading-[1.08] mb-5 animate-fade-in-up"
-            style={{ fontSize: 'clamp(38px, 5.5vw, 74px)', letterSpacing: '-0.01em', color: '#3d2010', animationDelay: '80ms' }}
-          >
-            {surname}
-            <br />
-            {rest}
-          </h1>
-
-          <p className="font-serif italic mb-9 animate-fade-in-up" style={{ fontSize: 'clamp(18px, 2vw, 23px)', color: '#c05c2e', animationDelay: '140ms' }}>
-            «{motto}»
-          </p>
-
-          <p className="leading-relaxed mb-10 max-w-[460px] animate-fade-in-up" style={{ fontSize: '17px', lineHeight: '1.7', color: '#7d6a55', animationDelay: '200ms' }}>
-            Тёплый приём и внимание к каждой ситуации. Сделки, наследство,
-            доверенности и копии — спокойно и по закону.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-5 animate-fade-in-up" style={{ animationDelay: '280ms' }}>
-            <BookingButton />
-            <a href={notary.phoneHref} className="inline-flex items-center gap-2.5 font-semibold text-[16px] no-underline transition-opacity hover:opacity-75" style={{ color: '#3d2010' }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c05c2e" strokeWidth="1.8">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-              </svg>
-              {notary.phone}
-            </a>
-          </div>
-
-          <div className="flex items-center gap-4 mt-10 pt-6 text-[11px] tracking-[0.18em] uppercase animate-fade-in-up" style={{ borderTop: '1px solid rgba(192,92,46,0.18)', color: '#c05c2e', animationDelay: '340ms' }}>
-            <span>Практика с {notary.practiceSince}</span>
-            <span className="block w-1 h-1 rounded-full" style={{ background: '#e8c9a0' }} />
-            <span>Лицензия {notary.license}</span>
-          </div>
-        </div>
-
-        {/* Сцена «вечерний кабинет» */}
-        <div className="animate-fade-in" style={{ animationDelay: '240ms' }}>
-          <EveningStudy />
+    <section className="wm-hero">
+      <style>{CSS}</style>
+      <div className="wm-text">
+        <p className="wm-eyebrow cas" style={{ ['--cl' as string]: '0.1s' }}>
+          Нотариальная контора <span className="dot">·</span> Москва
+        </p>
+        <h1 className="wm-h1 cas" style={{ ['--cl' as string]: '0.22s' }}>
+          {surname}
+          <br />
+          {rest}
+        </h1>
+        <p className="wm-motto cas" style={{ ['--cl' as string]: '0.36s' }}>{motto}</p>
+        <p className="wm-desc cas" style={{ ['--cl' as string]: '0.5s' }}>
+          Веду нотариальную практику с {notary.practiceSince} года: наследственные дела, семейные
+          соглашения, сделки с недвижимостью и доверенности. Каждый документ проверяю,
+          заверяю и прошиваю лично — спокойно, грамотно и с вниманием к деталям.
+        </p>
+        <div className="wm-cta cas" style={{ ['--cl' as string]: '0.64s' }}>
+          <BookingButton />
+          <a className="wm-phone" href={notary.phoneHref}>{notary.phone}</a>
         </div>
       </div>
+
+      <div className="wm-art" dangerouslySetInnerHTML={{ __html: ART }} />
     </section>
   )
 }
