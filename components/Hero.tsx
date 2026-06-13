@@ -81,27 +81,9 @@ const ART = `
       <line class="pop" style="--pl:1.6s;" x1="-66" y1="14" x2="64" y2="14" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
       <line class="pop" style="--pl:1.66s;" x1="-66" y1="36" x2="104" y2="36" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
       <line class="pop" style="--pl:1.72s;" x1="-66" y1="58" x2="92" y2="58" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
-      <!-- круглая печать нотариуса в самом низу документа, в левом углу подписи -->
-      <text x="-64" y="108" font-family="Manrope, sans-serif" font-size="9" letter-spacing="1" fill="#3d2010" fill-opacity="0.5">Подпись и печать:</text>
-      <g class="seal" style="--sl:2.0s;" transform="translate(-34,154) rotate(-7)">
-        <circle r="31" fill="none" stroke="#a84d23" stroke-width="2.6" stroke-opacity="0.82"/>
-        <circle r="26.5" fill="none" stroke="#a84d23" stroke-width="1" stroke-opacity="0.7"/>
-        <circle r="13" fill="none" stroke="#a84d23" stroke-width="0.9" stroke-opacity="0.6"/>
-        <path id="wmStampRing" d="M-20,0 a20,20 0 1,1 40,0 a20,20 0 1,1 -40,0" fill="none"/>
-        <text font-family="Manrope, sans-serif" font-size="5.6" font-weight="700" letter-spacing="1.5" fill="#a84d23" fill-opacity="0.85">
-          <textPath href="#wmStampRing" startOffset="0">· НОТАРИУС · ГОРОД МОСКВА · РОССИЙСКАЯ ФЕДЕРАЦИЯ </textPath>
-        </text>
-        <g stroke="#a84d23" stroke-opacity="0.85">
-          <line x1="0" y1="-11" x2="0" y2="7" stroke-width="1.5"/>
-          <circle cx="0" cy="-11.6" r="1.6" fill="#a84d23" stroke="none"/>
-          <line x1="-9.5" y1="-7.5" x2="9.5" y2="-7.5" stroke-width="1.5"/>
-          <path d="M-9.5,-7.5 L-13,-0.5 M-9.5,-7.5 L-6,-0.5" stroke-width="0.6"/>
-          <path d="M-13.5,-0.5 a4.4,2.6 0 0 0 8.8,0" fill="none" stroke-width="1.3"/>
-          <path d="M9.5,-7.5 L6,-0.5 M9.5,-7.5 L13,-0.5" stroke-width="0.6"/>
-          <path d="M5,-0.5 a4.4,2.6 0 0 0 8.8,0" fill="none" stroke-width="1.3"/>
-          <line x1="-6" y1="7" x2="6" y2="7" stroke-width="1.7" stroke-linecap="round"/>
-        </g>
-      </g>
+      <!-- строка подписи внизу документа: надпись слева, печать справа -->
+      <text class="pop" style="--pl:2.0s;" x="-66" y="146" font-family="Manrope, sans-serif" font-size="10" letter-spacing="0.5" fill="#3d2010" fill-opacity="0.55">Подпись и печать:</text>
+      <path class="wstroke terra thin draw" pathLength="1" style="--dl:2.2s;--dd:0.7s;stroke-width:1.3;stroke-opacity:0.45;" d="M-66,156 L18,156"/>
 
       <g class="pop" style="--pl:2.25s;"><circle cx="-113" cy="-78" r="4.2" fill="#f5ede0" stroke="#3d2010" stroke-width="1.6"/></g>
       <g class="pop" style="--pl:2.33s;"><circle cx="-113" cy="0" r="4.2" fill="#f5ede0" stroke="#3d2010" stroke-width="1.6"/></g>
@@ -131,13 +113,13 @@ const ART = `
 
       <!-- ленты под печатью свисают за край листа -->
       <g class="pop" style="--pl:4.9s;">
-        <path d="M56,150 L42,202 L60,192 L66,154 Z" fill="#c05c2e" stroke="#7e3617" stroke-width="1" stroke-linejoin="round"/>
-        <path d="M72,150 L92,198 L74,192 L66,154 Z" fill="#a84d23" stroke="#7e3617" stroke-width="1" stroke-linejoin="round"/>
-        <path d="M59,154 L51,190" stroke="#fbe6d8" stroke-width="0.7" opacity="0.4"/>
+        <path d="M56,172 L42,224 L60,214 L66,176 Z" fill="#c05c2e" stroke="#7e3617" stroke-width="1" stroke-linejoin="round"/>
+        <path d="M72,172 L92,220 L74,214 L66,176 Z" fill="#a84d23" stroke="#7e3617" stroke-width="1" stroke-linejoin="round"/>
+        <path d="M59,176 L51,212" stroke="#fbe6d8" stroke-width="0.7" opacity="0.4"/>
       </g>
 
-      <!-- сургучная печать конторы (прижимается в конце) -->
-      <g class="seal" style="--sl:5.1s;" transform="translate(64,132)">
+      <!-- сургучная печать конторы внизу, рядом с подписью (прижимается в конце) -->
+      <g class="seal" style="--sl:5.1s;" transform="translate(64,154)">
         <ellipse cx="3" cy="6" rx="34" ry="30" fill="#3d2010" opacity="0.14"/>
         <path d="M0,-33 C13,-34 21,-27 26,-18 C34,-20 39,-13 37,-5 C43,-1 43,8 36,12 C39,22 31,31 22,29 C18,37 6,39 0,32 C-6,39 -18,37 -22,29 C-31,31 -39,22 -36,12 C-43,8 -43,-1 -37,-5 C-39,-13 -34,-20 -26,-18 C-21,-27 -13,-34 0,-33 Z" fill="#a84d23"/>
         <circle r="28" fill="#c05c2e"/>
