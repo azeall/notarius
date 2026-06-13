@@ -200,7 +200,7 @@ function buildCrest(sfx: string): string {
   `
 
   return `
-  <svg class="monogram" viewBox="0 -84 560 744" role="img" aria-label="Герб нотариальной конторы: щит с весами правосудия, колонной закона и свитком, лавровые ветви, лента «НОТАРИУС»">
+  <svg class="monogram" viewBox="0 -6 560 666" role="img" aria-label="Герб нотариальной конторы: щит с весами правосудия, колонной закона и свитком, лавровые ветви, лента «НОТАРИУС»">
     <defs>
       <clipPath id="shieldClip-${sfx}"><path d="${shieldD}"/></clipPath>
       <path id="rib-${sfx}" d="M 150 564 Q 280 588 410 564" fill="none"/>
@@ -278,7 +278,7 @@ const CSS = `
 .lv-phone .lbl{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#8e89ad;}
 .lv-phone .num{font-family:var(--font-playfair),Georgia,serif;font-size:clamp(18px,2.1vw,24px);font-weight:500;color:#534AB7;letter-spacing:.01em;transition:color .3s ease;}
 .lv-phone:hover .num{color:#3a3480;}
-.lv-mono{position:relative;display:flex;align-items:center;justify-content:center;}
+.lv-mono{position:relative;display:flex;align-items:center;justify-content:center;transform:translateY(40px);}
 .lv-mono .monogram{width:100%;max-width:560px;height:auto;overflow:visible;display:block;}
 .lv-reveal{opacity:1;animation:lvrise .95s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s);}
 @keyframes lvrise{0%{opacity:0;transform:translateY(26px);}100%{opacity:1;transform:translateY(0);}}
@@ -303,15 +303,15 @@ const CSS = `
 @media (max-width:880px){
   .lv-hero{padding:104px clamp(22px,7vw,48px) 64px;}
   .lv-wrap{grid-template-columns:1fr;}
-  .lv-mono{order:-1;max-width:420px;margin:0 auto;}
-  .lv-mono .monogram{max-width:380px;}
+  .lv-mono{order:-1;max-width:480px;margin:0 auto;transform:none;}
+  .lv-mono .monogram{max-width:440px;}
 }
 @media (max-width:430px){
   .lv-hero{padding:96px 22px 56px;}
   .lv-kicker{letter-spacing:.3em;gap:10px;}
   .lv-actions{gap:20px;}
   .lv-actions .lv-btn{width:100%;}
-  .lv-mono .monogram{max-width:300px;width:min(300px,82vw);}
+  .lv-mono .monogram{max-width:360px;width:min(360px,92vw);}
 }
 @media (prefers-reduced-motion:reduce){
   .lv-reveal,.s1,.s1soft,.s2 *,.s3,.s3 .stem,.s4,.s5,.fade-fill,.fade-orn,.glow,.sheen,.lv-bg svg{animation:none !important;}
