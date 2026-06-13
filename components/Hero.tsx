@@ -81,9 +81,26 @@ const ART = `
       <line class="pop" style="--pl:1.6s;" x1="-66" y1="14" x2="64" y2="14" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
       <line class="pop" style="--pl:1.66s;" x1="-66" y1="36" x2="104" y2="36" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
       <line class="pop" style="--pl:1.72s;" x1="-66" y1="58" x2="92" y2="58" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
-      <path class="wstroke terra thin draw" pathLength="1" style="--dl:1.9s;--dd:1.0s;stroke-width:1.7;" d="M-56,115 C-65,103 -52,91 -43,101 C-37,108 -46,120 -37,116 C-31,113 -35,103 -27,106 C-19,109 -25,121 -16,115 C-9,110 -14,102 -5,105 C4,108 7,120 18,105 C23,99 27,102 29,96"/>
-      <path class="wstroke terra thin draw" pathLength="1" style="--dl:2.75s;--dd:0.55s;stroke-width:2;" d="M-52,122 C-26,130 2,128 24,118 C32,114 28,107 20,112"/>
-      <line class="pop" style="--pl:2.1s;" x1="-66" y1="118" x2="0" y2="118" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
+      <!-- круглая печать нотариуса вместо подписи (оттиск штампа) -->
+      <g class="seal" style="--sl:2.0s;" transform="translate(-10,106) rotate(-7)">
+        <circle r="31" fill="none" stroke="#a84d23" stroke-width="2.6" stroke-opacity="0.82"/>
+        <circle r="26.5" fill="none" stroke="#a84d23" stroke-width="1" stroke-opacity="0.7"/>
+        <circle r="13" fill="none" stroke="#a84d23" stroke-width="0.9" stroke-opacity="0.6"/>
+        <path id="wmStampRing" d="M-20,0 a20,20 0 1,1 40,0 a20,20 0 1,1 -40,0" fill="none"/>
+        <text font-family="Manrope, sans-serif" font-size="5.6" font-weight="700" letter-spacing="1.5" fill="#a84d23" fill-opacity="0.85">
+          <textPath href="#wmStampRing" startOffset="0">· НОТАРИУС · ГОРОД МОСКВА · РОССИЙСКАЯ ФЕДЕРАЦИЯ </textPath>
+        </text>
+        <g stroke="#a84d23" stroke-opacity="0.85">
+          <line x1="0" y1="-11" x2="0" y2="7" stroke-width="1.5"/>
+          <circle cx="0" cy="-11.6" r="1.6" fill="#a84d23" stroke="none"/>
+          <line x1="-9.5" y1="-7.5" x2="9.5" y2="-7.5" stroke-width="1.5"/>
+          <path d="M-9.5,-7.5 L-13,-0.5 M-9.5,-7.5 L-6,-0.5" stroke-width="0.6"/>
+          <path d="M-13.5,-0.5 a4.4,2.6 0 0 0 8.8,0" fill="none" stroke-width="1.3"/>
+          <path d="M9.5,-7.5 L6,-0.5 M9.5,-7.5 L13,-0.5" stroke-width="0.6"/>
+          <path d="M5,-0.5 a4.4,2.6 0 0 0 8.8,0" fill="none" stroke-width="1.3"/>
+          <line x1="-6" y1="7" x2="6" y2="7" stroke-width="1.7" stroke-linecap="round"/>
+        </g>
+      </g>
 
       <g class="pop" style="--pl:2.25s;"><circle cx="-113" cy="-78" r="4.2" fill="#f5ede0" stroke="#3d2010" stroke-width="1.6"/></g>
       <g class="pop" style="--pl:2.33s;"><circle cx="-113" cy="0" r="4.2" fill="#f5ede0" stroke="#3d2010" stroke-width="1.6"/></g>
