@@ -118,8 +118,11 @@ const ART = `
         <path d="M59,176 L51,212" stroke="#fbe6d8" stroke-width="0.7" opacity="0.4"/>
       </g>
 
-      <!-- сургучная печать конторы внизу, рядом с подписью (прижимается в конце) -->
-      <g class="seal" style="--sl:2.7s;" transform="translate(64,154)">
+      <!-- сургучная печать конторы внизу, рядом с подписью.
+           Позиция — на внешней группе (translate), анимация scale — на внутренней,
+           иначе CSS-transform класса .seal перекрывает атрибут transform и печать улетает в центр. -->
+      <g transform="translate(64,154)">
+      <g class="seal" style="--sl:2.7s;">
         <ellipse cx="3" cy="6" rx="34" ry="30" fill="#3d2010" opacity="0.14"/>
         <path d="M0,-33 C13,-34 21,-27 26,-18 C34,-20 39,-13 37,-5 C43,-1 43,8 36,12 C39,22 31,31 22,29 C18,37 6,39 0,32 C-6,39 -18,37 -22,29 C-31,31 -39,22 -36,12 C-43,8 -43,-1 -37,-5 C-39,-13 -34,-20 -26,-18 C-21,-27 -13,-34 0,-33 Z" fill="#a84d23"/>
         <circle r="28" fill="#c05c2e"/>
@@ -135,6 +138,7 @@ const ART = `
         </g>
         <circle r="4.2" fill="none" stroke="#fbe6d8" stroke-width="1.2"/>
         <ellipse cx="-8" cy="-9" rx="13" ry="8" fill="#ffffff" opacity="0.15"/>
+      </g>
       </g>
     </g>
   </g>
