@@ -2,82 +2,45 @@
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 
+/**
+ * Двусторонний reveal: элемент проявляется при входе в зону видимости
+ * (со стаггером data-reveal-delay) и снова скрывается при уходе —
+ * скорость задаётся в CSS (.reveal — медленное скрытие, .reveal.in — проявление).
+ */
 export default function RevealObserver() {
   const pathname = usePathname()
 
   useEffect(() => {
-    let io: IntersectionObserver | null = null
-    let safetyTimer: ReturnType<typeof setTimeout> | null = null
-    let visibilityHandler: (() => void) | null = null
-    const cleanupTimers: ReturnType<typeof setTimeout>[] = []
+    const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal'))
+    if (!els.length) return
 
-    const reveal = (el: Element) => {
-      const htmlEl = el as HTMLElement
-      // data-reveal-delay="120" (number in ms) drives stagger.
-      // Falls back to animationDelay inline style for legacy components.
-      const rawDelay = htmlEl.dataset.revealDelay ?? htmlEl.style.animationDelay
-      if (rawDelay) {
-        const delayMs = parseFloat(rawDelay) || 0
-        if (delayMs > 0) {
-          htmlEl.style.transitionDelay = `${delayMs}ms`
-          const t = setTimeout(
-            () => { htmlEl.style.transitionDelay = '' },
-            delayMs + 750
-          )
-          cleanupTimers.push(t)
-        }
-      }
-      el.classList.add('in')
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(el => el.classList.add('in'))
+      return
     }
 
-    const setupTimer = setTimeout(() => {
-      io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              reveal(e.target)
-              io?.unobserve(e.target)
-            }
-          })
-        },
-        { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-      )
+    const io = new IntersectionObserver(
+      entries => {
+        entries.forEach(e => {
+          const el = e.target as HTMLElement
+          if (e.isIntersecting) {
+            const raw = el.dataset.revealDelay
+            el.style.transitionDelay = raw ? `${parseFloat(raw) || 0}ms` : ''
+            el.classList.add('in')
+          } else {
+            el.style.transitionDelay = '0ms'
+            el.classList.remove('in')
+          }
+        })
+      },
+      { threshold: 0.14, rootMargin: '0px 0px -12% 0px' },
+    )
 
-      document.querySelectorAll('.reveal').forEach((el) => {
-        const r = el.getBoundingClientRect()
-        if (r.top < window.innerHeight * 1.05) {
-          reveal(el)
-        } else {
-          io!.observe(el)
-        }
-      })
-
-      visibilityHandler = () => {
-        if (!document.hidden) {
-          document.querySelectorAll('.reveal:not(.in)').forEach((el) => {
-            const r = el.getBoundingClientRect()
-            if (r.top < window.innerHeight * 1.2) reveal(el)
-          })
-        }
-      }
-      document.addEventListener('visibilitychange', visibilityHandler)
-
-      safetyTimer = setTimeout(() => {
-        document.querySelectorAll('.reveal:not(.in)').forEach((el) => reveal(el))
-      }, 2500)
-    }, 100)
+    els.forEach(el => io.observe(el))
 
     return () => {
-      clearTimeout(setupTimer)
-      if (safetyTimer) clearTimeout(safetyTimer)
-      cleanupTimers.forEach((t) => clearTimeout(t))
-      if (io) io.disconnect()
-      if (visibilityHandler)
-        document.removeEventListener('visibilitychange', visibilityHandler)
-      document.querySelectorAll('.reveal.in').forEach((el) => {
-        el.classList.remove('in')
-        ;(el as HTMLElement).style.transitionDelay = ''
-      })
+      io.disconnect()
+      els.forEach(el => { el.classList.remove('in'); el.style.transitionDelay = '' })
     }
   }, [pathname])
 

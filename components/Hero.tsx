@@ -274,7 +274,7 @@ export default function Hero() {
   const bg = buildBackground()
 
   return (
-    <section className="lv-hero">
+    <section className="lv-hero" data-hero>
       <style>{CSS}</style>
       <div className="lv-bg" dangerouslySetInnerHTML={{ __html: bg }} aria-hidden />
       <div className="lv-veil" aria-hidden />

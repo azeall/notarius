@@ -4,6 +4,7 @@ import Hero from '@/components/Hero'
 import CostCalculator from '@/components/CostCalculator'
 import BookingInline from '@/components/BookingInline'
 import BookingButton from '@/components/BookingButton'
+import CountUp from '@/components/CountUp'
 import { notary, site } from '@/lib/data'
 
 export const metadata: Metadata = {
@@ -89,6 +90,29 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Полоса счётчиков ── */}
+      <section className="py-16 sm:py-20" style={{ background: '#534AB7' }}>
+        <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-6">
+            {[
+              { v: 15, s: ' лет', l: 'нотариальной практики' },
+              { v: 5000, s: '+', l: 'оформленных документов' },
+              { v: 6, s: '', l: 'направлений услуг' },
+              { v: 100, s: '%', l: 'юридическая сила' },
+            ].map((st, i) => (
+              <div key={st.l} className="text-center reveal" data-reveal-delay={i * 90}>
+                <div className="font-serif font-medium leading-none mb-2" style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#ffffff' }}>
+                  <CountUp value={st.v} suffix={st.s} />
+                </div>
+                <div className="text-[11px] sm:text-xs tracking-[0.16em] uppercase" style={{ color: 'rgba(255,255,255,0.65)' }}>
+                  {st.l}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Калькулятор стоимости (уникальная фича) ── */}
       <CostCalculator />
 
@@ -117,6 +141,19 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Гильош-разделитель ── */}
+      <div className="reveal" style={{ background: '#f4f3fd' }} aria-hidden>
+        <div className="mx-auto flex items-center gap-4 py-2" style={{ maxWidth: 260 }}>
+          <span className="flex-1 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(83,74,183,0.35))' }} />
+          <svg width="44" height="14" viewBox="0 0 44 14" fill="none">
+            <path d="M2 7 Q 11 0 22 7 Q 33 14 42 7" stroke="#534AB7" strokeWidth="1" opacity="0.5" />
+            <path d="M2 7 Q 11 14 22 7 Q 33 0 42 7" stroke="#AFA9EC" strokeWidth="1" opacity="0.6" />
+            <rect x="19" y="4" width="6" height="6" transform="rotate(45 22 7)" fill="none" stroke="#534AB7" strokeWidth="1" />
+          </svg>
+          <span className="flex-1 h-px" style={{ background: 'linear-gradient(90deg, rgba(83,74,183,0.35), transparent)' }} />
+        </div>
+      </div>
 
       {/* ── Отзывы: крупная цитата + малые ── */}
       <section className="py-20 sm:py-24" style={{ background: '#f4f3fd' }}>

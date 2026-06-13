@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5",
+    "lenis": "^1.1.13",
     "next": "^14",
     "react": "^18",
     "react-dom": "^18"
