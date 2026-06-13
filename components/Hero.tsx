@@ -25,30 +25,32 @@ function guilloche(cx: number, cy: number, R: number, r: number, d: number, amp:
   return s + 'Z'
 }
 
-function laurelBranch(x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, flip: number): string {
+function laurelBranch(x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, flip: number, sfx: string): string {
   const B = (t: number) => { const u = 1 - t; return [u * u * x0 + 2 * u * t * x1 + t * t * x2, u * u * y0 + 2 * u * t * y1 + t * t * y2] }
   const T = (t: number) => {
     const dx = 2 * (1 - t) * (x1 - x0) + 2 * t * (x2 - x1), dy = 2 * (1 - t) * (y1 - y0) + 2 * t * (y2 - y1)
     const l = Math.hypot(dx, dy); return [dx / l, dy / l]
   }
-  let s = `<path class="stem" d="M ${x0} ${y0} Q ${x1} ${y1} ${x2} ${y2}" fill="none" stroke="#534AB7" stroke-width="1.6" stroke-linecap="round"/>`
-  const n = 11
+  // двойной стебель: плотная основа + золотая жилка поверх
+  let s = `<path class="stem" d="M ${x0} ${y0} Q ${x1} ${y1} ${x2} ${y2}" fill="none" stroke="#403988" stroke-width="3.2" stroke-linecap="round"/>`
+  s += `<path class="stem" d="M ${x0} ${y0} Q ${x1} ${y1} ${x2} ${y2}" fill="none" stroke="url(#gold-${sfx})" stroke-width="1.1" stroke-linecap="round" opacity=".85"/>`
+  const n = 14
   for (let i = 0; i < n; i++) {
-    const t = 0.08 + (0.84 * i) / (n - 1)
+    const t = 0.06 + (0.88 * i) / (n - 1)
     const [px, py] = B(t), [tx, ty] = T(t)
     const side = (i % 2 ? 1 : -1) * flip
-    const ang = Math.atan2(ty, tx) + side * 0.82
-    const len = 30 - 12 * (i / (n - 1))
+    const ang = Math.atan2(ty, tx) + side * 0.72
+    const len = 44 - 18 * (i / (n - 1))
     const dx = Math.cos(ang), dy = Math.sin(ang)
     const pxp = -dy, pyp = dx
-    const w = len * 0.3
+    const w = len * 0.38
     const tipx = px + dx * len, tipy = py + dy * len
-    const c1x = px + dx * len * 0.45 + pxp * w, c1y = py + dy * len * 0.45 + pyp * w
-    const c2x = px + dx * len * 0.45 - pxp * w, c2y = py + dy * len * 0.45 - pyp * w
-    s += `<path d="M ${px.toFixed(1)} ${py.toFixed(1)} Q ${c1x.toFixed(1)} ${c1y.toFixed(1)} ${tipx.toFixed(1)} ${tipy.toFixed(1)} Q ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${px.toFixed(1)} ${py.toFixed(1)} Z" fill="rgba(175,169,236,.3)" stroke="#534AB7" stroke-width="1" stroke-linejoin="round"/>`
-    s += `<line x1="${px.toFixed(1)}" y1="${py.toFixed(1)}" x2="${(px + dx * len * 0.78).toFixed(1)}" y2="${(py + dy * len * 0.78).toFixed(1)}" stroke="#534AB7" stroke-width=".6" opacity=".5"/>`
+    const c1x = px + dx * len * 0.42 + pxp * w, c1y = py + dy * len * 0.42 + pyp * w
+    const c2x = px + dx * len * 0.42 - pxp * w, c2y = py + dy * len * 0.42 - pyp * w
+    s += `<path d="M ${px.toFixed(1)} ${py.toFixed(1)} Q ${c1x.toFixed(1)} ${c1y.toFixed(1)} ${tipx.toFixed(1)} ${tipy.toFixed(1)} Q ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${px.toFixed(1)} ${py.toFixed(1)} Z" fill="url(#leaf-${sfx})" fill-opacity=".66" stroke="#534AB7" stroke-width="1.1" stroke-linejoin="round"/>`
+    s += `<line x1="${px.toFixed(1)}" y1="${py.toFixed(1)}" x2="${(px + dx * len * 0.8).toFixed(1)}" y2="${(py + dy * len * 0.8).toFixed(1)}" stroke="#534AB7" stroke-width=".7" opacity=".55"/>`
     if (i % 3 === 2) {
-      s += `<circle cx="${(px - dx * 6).toFixed(1)}" cy="${(py - dy * 6).toFixed(1)}" r="2" fill="#c8b27e"/>`
+      s += `<circle cx="${(px - dx * 7).toFixed(1)}" cy="${(py - dy * 7).toFixed(1)}" r="2.7" fill="url(#gold-${sfx})"/>`
     }
   }
   return s
@@ -98,6 +100,10 @@ function buildCrest(sfx: string): string {
 
   const L = '#e9e7fa'
   const sym = `
+    <path d="M 244 152 Q 262 145 280 149 Q 298 145 316 152" fill="none" stroke="${L}" stroke-width="1.3" opacity=".8"/>
+    <circle cx="244" cy="152" r="1.6" fill="${L}"/>
+    <circle cx="316" cy="152" r="1.6" fill="${L}"/>
+    <circle cx="280" cy="149" r="2.4" fill="none" stroke="url(#gold-${sfx})" stroke-width="1.4"/>
     <path d="M 196 170 Q 280 158 364 170" fill="none" stroke="${L}" stroke-width="2.6"/>
     <line x1="280" y1="166" x2="280" y2="182" stroke="${L}" stroke-width="1.4"/>
     <circle cx="280" cy="186" r="4" fill="none" stroke="url(#gold-${sfx})" stroke-width="1.8"/>
@@ -135,15 +141,41 @@ function buildCrest(sfx: string): string {
     <line x1="222" y1="398" x2="338" y2="398" stroke="${L}" stroke-width="1" opacity=".5"/>
   `
 
-  const laurels = laurelBranch(150, 538, 44, 348, 120, 156, 1) + laurelBranch(410, 538, 516, 348, 440, 156, -1)
+  const laurels = laurelBranch(150, 538, 44, 348, 120, 156, 1, sfx) + laurelBranch(410, 538, 516, 348, 440, 156, -1, sfx)
+
+  // Геральдическая корона на навершии щита — закрывает «пустой» верх
+  const crown = `
+    <path d="M 222 112 Q 280 103 338 112 L 340 130 Q 280 121 220 130 Z" fill="url(#violetFill-${sfx})" stroke="url(#gold-${sfx})" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M 228 116 Q 280 109 332 116" fill="none" stroke="url(#gold-${sfx})" stroke-width=".8" opacity=".85"/>
+    <circle cx="252" cy="121" r="2.3" fill="url(#gold-${sfx})"/>
+    <circle cx="280" cy="120" r="2.6" fill="url(#gold-${sfx})"/>
+    <circle cx="308" cy="121" r="2.3" fill="url(#gold-${sfx})"/>
+    <path d="M 232 112 L 226 95" stroke="url(#silver-${sfx})" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="225" cy="91" r="4.4" fill="url(#silver-${sfx})" stroke="#534AB7" stroke-width="1"/>
+    <path d="M 328 112 L 334 95" stroke="url(#silver-${sfx})" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="335" cy="91" r="4.4" fill="url(#silver-${sfx})" stroke="#534AB7" stroke-width="1"/>
+    <path d="M 257 110 L 257 89" stroke="url(#silver-${sfx})" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="257" cy="85" r="4" fill="url(#silver-${sfx})" stroke="#534AB7" stroke-width="1"/>
+    <path d="M 303 110 L 303 89" stroke="url(#silver-${sfx})" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="303" cy="85" r="4" fill="url(#silver-${sfx})" stroke="#534AB7" stroke-width="1"/>
+    <path d="M 280 108 L 280 84" stroke="url(#silver-${sfx})" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 280 70 L 286 80 L 280 90 L 274 80 Z" fill="url(#gold-${sfx})" stroke="#534AB7" stroke-width=".8" stroke-linejoin="round"/>
+  `
 
   const ribbon = `
-    <path d="M 150 534 L 96 524 L 114 557 L 96 590 L 150 580 Z" fill="#e9e7fa" stroke="#534AB7" stroke-width="1.4" stroke-linejoin="round"/>
-    <path d="M 410 534 L 464 524 L 446 557 L 464 590 L 410 580 Z" fill="#e9e7fa" stroke="#534AB7" stroke-width="1.4" stroke-linejoin="round"/>
-    <path d="M 150 532 Q 280 556 410 532 L 410 580 Q 280 604 150 580 Z" fill="#fbfbff" stroke="#534AB7" stroke-width="1.6" stroke-linejoin="round"/>
-    <path d="M 157 540 Q 280 562 403 540" fill="none" stroke="url(#gold-${sfx})" stroke-width=".9" opacity=".9"/>
-    <path d="M 157 572 Q 280 595 403 572" fill="none" stroke="url(#gold-${sfx})" stroke-width=".9" opacity=".9"/>
-    <text font-family="Manrope, sans-serif" font-weight="600" font-size="22" letter-spacing=".38em" fill="#534AB7">
+    <path d="M 170 542 L 122 530 L 134 558 L 120 584 L 172 572 Z" fill="#3a3480" stroke="#2f2a63" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M 390 542 L 458 530 L 446 558 L 460 584 L 388 572 Z" fill="#3a3480" stroke="#2f2a63" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M 150 532 L 96 522 L 116 557 L 96 592 L 150 580 Z" fill="url(#violetFill-${sfx})" stroke="url(#gold-${sfx})" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M 410 532 L 464 522 L 444 557 L 464 592 L 410 580 Z" fill="url(#violetFill-${sfx})" stroke="url(#gold-${sfx})" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M 108 533 L 116 557 L 108 580" fill="none" stroke="url(#gold-${sfx})" stroke-width=".7" opacity=".8"/>
+    <path d="M 452 533 L 444 557 L 452 580" fill="none" stroke="url(#gold-${sfx})" stroke-width=".7" opacity=".8"/>
+    <path d="M 150 530 Q 280 556 410 530 L 410 582 Q 280 608 150 582 Z" fill="#f6f4ff" stroke="url(#gold-${sfx})" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M 150 530 Q 280 556 410 530" fill="none" stroke="#534AB7" stroke-width=".8" opacity=".35"/>
+    <path d="M 158 538 Q 280 562 402 538" fill="none" stroke="url(#gold-${sfx})" stroke-width=".8" opacity=".9"/>
+    <path d="M 158 576 Q 280 600 402 576" fill="none" stroke="url(#gold-${sfx})" stroke-width=".8" opacity=".9"/>
+    <rect x="171.5" y="554" width="6" height="6" fill="url(#gold-${sfx})" transform="rotate(45 174.5 557)"/>
+    <rect x="383.5" y="554" width="6" height="6" fill="url(#gold-${sfx})" transform="rotate(45 386.5 557)"/>
+    <text font-family="Manrope, sans-serif" font-weight="700" font-size="21" letter-spacing=".34em" fill="#2f2a63">
       <textPath href="#rib-${sfx}" startOffset="50%" text-anchor="middle">НОТАРИУС</textPath>
     </text>
   `
@@ -161,6 +193,9 @@ function buildCrest(sfx: string): string {
       </linearGradient>
       <linearGradient id="gold-${sfx}" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0" stop-color="#efe2b6"/><stop offset="0.5" stop-color="#c8b27e"/><stop offset="1" stop-color="#a98f53"/>
+      </linearGradient>
+      <linearGradient id="leaf-${sfx}" x1="0" y1="0" x2="0.85" y2="1">
+        <stop offset="0" stop-color="#d6d1f6"/><stop offset="0.55" stop-color="#9a8fe0"/><stop offset="1" stop-color="#6a60c8"/>
       </linearGradient>
       <radialGradient id="bloom-${sfx}" cx="0.34" cy="0.3" r="0.7">
         <stop offset="0" stop-color="#ffffff" stop-opacity="0.85"/><stop offset="0.45" stop-color="#ffffff" stop-opacity="0.18"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
@@ -189,6 +224,7 @@ function buildCrest(sfx: string): string {
       <path d="${shieldD}" fill="none" stroke="url(#silver-${sfx})" stroke-width="2.5" class="s1"/>
       <path d="${shieldInnerD}" fill="none" stroke="url(#silver-${sfx})" stroke-width="1" class="s1" opacity=".85"/>
     </g>
+    <g class="s5">${crown}</g>
     <g class="s4">${ribbon}</g>
   </svg>`
 }
@@ -237,6 +273,8 @@ const CSS = `
 .s3 .stem{stroke-dasharray:480;stroke-dashoffset:480;animation:lvdraw 1.1s ease forwards 2.3s;}
 .s4{opacity:0;animation:lvribbon .9s cubic-bezier(.2,.7,.2,1) forwards 2.9s;}
 @keyframes lvribbon{0%{opacity:0;transform:translateY(14px);}100%{opacity:1;transform:translateY(0);}}
+.s5{opacity:0;transform-origin:280px 130px;animation:lvcrown .85s cubic-bezier(.2,.7,.2,1) forwards 2.55s;}
+@keyframes lvcrown{0%{opacity:0;transform:translateY(-12px) scale(.92);}100%{opacity:1;transform:translateY(0) scale(1);}}
 .fade-orn{opacity:0;animation:lvfadeorn 1.4s ease forwards 3.1s;}
 @keyframes lvfadeorn{0%{opacity:0;}100%{opacity:.9;}}
 .glow{transform-origin:center;animation:lvglow 6s ease-in-out infinite;animation-delay:3.3s;}
@@ -257,9 +295,9 @@ const CSS = `
   .lv-mono .monogram{max-width:300px;width:min(300px,82vw);}
 }
 @media (prefers-reduced-motion:reduce){
-  .lv-reveal,.s1,.s1soft,.s2 *,.s3,.s3 .stem,.s4,.fade-fill,.fade-orn,.glow,.sheen,.lv-bg svg{animation:none !important;}
+  .lv-reveal,.s1,.s1soft,.s2 *,.s3,.s3 .stem,.s4,.s5,.fade-fill,.fade-orn,.glow,.sheen,.lv-bg svg{animation:none !important;}
   .s1,.s2 *,.s3 .stem{stroke-dashoffset:0;}
-  .s1soft,.s3,.s4,.fade-fill{opacity:1;}
+  .s1soft,.s3,.s4,.s5,.fade-fill{opacity:1;transform:none;}
   .fade-orn{opacity:.9;}
   .glow{opacity:.45;}
   .lv-reveal{opacity:1;transform:none;}
