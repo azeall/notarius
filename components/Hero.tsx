@@ -38,18 +38,36 @@ const ART = `
         <path d="M134,-176 L134,-148 L106,-176 Z" fill="#e8c9a0" stroke="#3d2010" stroke-width="1.4" stroke-linejoin="round"/>
       </g>
 
-      <!-- шапка бланка: эмблема-весы и разделитель -->
+      <!-- шапка бланка: медальон с весами правосудия и орнаментальные разделители -->
       <g class="pop" style="--pl:0.72s;">
-        <line x1="-66" y1="-152" x2="-12" y2="-152" stroke="#c05c2e" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="50" y1="-152" x2="104" y2="-152" stroke="#c05c2e" stroke-width="1.5" stroke-linecap="round"/>
-        <circle cx="19" cy="-152" r="15" fill="#fbf6ea" stroke="#a84d23" stroke-width="1.5"/>
-        <circle cx="19" cy="-152" r="11" fill="none" stroke="#e8a07a" stroke-width="0.8"/>
-        <line x1="19" y1="-161" x2="19" y2="-145" stroke="#a84d23" stroke-width="1.3" stroke-linecap="round"/>
-        <line x1="9" y1="-158" x2="29" y2="-158" stroke="#a84d23" stroke-width="1.3" stroke-linecap="round"/>
-        <path d="M9,-158 l-3.4,6 h6.8 Z" fill="#c05c2e"/>
-        <path d="M29,-158 l-3.4,6 h6.8 Z" fill="#c05c2e"/>
-        <circle cx="19" cy="-144" r="2" fill="#a84d23"/>
-        <line x1="-66" y1="-135" x2="104" y2="-135" stroke="#3d2010" stroke-width="1" opacity="0.42"/>
+        <!-- фланкирующие линии с ромбами на концах -->
+        <line x1="-66" y1="-152" x2="1" y2="-152" stroke="#c05c2e" stroke-width="1.4" stroke-linecap="round"/>
+        <line x1="37" y1="-152" x2="104" y2="-152" stroke="#c05c2e" stroke-width="1.4" stroke-linecap="round"/>
+        <rect x="-69" y="-155" width="6" height="6" fill="#c05c2e" transform="rotate(45 -66 -152)"/>
+        <rect x="101" y="-155" width="6" height="6" fill="#c05c2e" transform="rotate(45 104 -152)"/>
+        <circle cx="1" cy="-152" r="1.5" fill="#a84d23"/>
+        <circle cx="37" cy="-152" r="1.5" fill="#a84d23"/>
+        <!-- медальон: внешнее кольцо, кольцо-насечки, внутренний ободок -->
+        <circle cx="19" cy="-152" r="15" fill="#fbf6ea" stroke="#a84d23" stroke-width="1.6"/>
+        <circle cx="19" cy="-152" r="15" fill="none" stroke="#7e3617" stroke-width="0.5" opacity="0.45"/>
+        <circle cx="19" cy="-152" r="12.4" fill="none" stroke="#e8a07a" stroke-width="0.7" stroke-dasharray="0.8 2.5"/>
+        <circle cx="19" cy="-152" r="10.4" fill="none" stroke="#c05c2e" stroke-width="0.7"/>
+        <!-- весы правосудия: коромысло, цепи, чаши, основание -->
+        <line x1="19" y1="-162" x2="19" y2="-146" stroke="#a84d23" stroke-width="1.4" stroke-linecap="round"/>
+        <circle cx="19" cy="-162.6" r="1.5" fill="#a84d23"/>
+        <line x1="9" y1="-159" x2="29" y2="-159" stroke="#a84d23" stroke-width="1.3" stroke-linecap="round"/>
+        <circle cx="9" cy="-159" r="1" fill="#a84d23"/>
+        <circle cx="29" cy="-159" r="1" fill="#a84d23"/>
+        <path d="M9,-159 L6.6,-151.6 M9,-159 L11.4,-151.6" stroke="#a84d23" stroke-width="0.55"/>
+        <path d="M5,-151.6 a4,2.4 0 0 0 8,0" fill="none" stroke="#c05c2e" stroke-width="1.1"/>
+        <path d="M29,-159 L26.6,-151.6 M29,-159 L31.4,-151.6" stroke="#a84d23" stroke-width="0.55"/>
+        <path d="M25,-151.6 a4,2.4 0 0 0 8,0" fill="none" stroke="#c05c2e" stroke-width="1.1"/>
+        <line x1="14" y1="-145.5" x2="24" y2="-145.5" stroke="#a84d23" stroke-width="1.6" stroke-linecap="round"/>
+        <!-- двойной разделитель с центральным ромбом -->
+        <line x1="-66" y1="-134" x2="-6" y2="-134" stroke="#3d2010" stroke-width="0.9" opacity="0.4"/>
+        <line x1="44" y1="-134" x2="104" y2="-134" stroke="#3d2010" stroke-width="0.9" opacity="0.4"/>
+        <rect x="16" y="-137" width="6" height="6" fill="none" stroke="#c05c2e" stroke-width="1" transform="rotate(45 19 -134)"/>
+        <line x1="-50" y1="-131" x2="88" y2="-131" stroke="#3d2010" stroke-width="0.55" opacity="0.22"/>
       </g>
 
       <line class="wstroke thin draw" pathLength="1" style="--dl:1.0s;--dd:0.8s;stroke:rgba(61,32,16,0.35);" x1="-92" y1="-176" x2="-92" y2="176"/>
@@ -63,8 +81,8 @@ const ART = `
       <line class="pop" style="--pl:1.6s;" x1="-66" y1="14" x2="64" y2="14" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
       <line class="pop" style="--pl:1.66s;" x1="-66" y1="36" x2="104" y2="36" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
       <line class="pop" style="--pl:1.72s;" x1="-66" y1="58" x2="92" y2="58" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
-      <path class="wstroke terra thin draw" pathLength="1" style="--dl:1.9s;--dd:1.15s;stroke-width:1.7;" d="M-58,120 C-70,103 -53,85 -40,98 C-30,107 -37,125 -24,118 C-16,114 -21,95 -10,100 C-1,104 -4,125 8,116 C16,110 11,97 22,100 C33,103 29,123 42,114 C52,107 47,97 60,100 C73,103 79,89 93,85 C101,82 107,89 111,80"/>
-      <path class="wstroke terra thin draw" pathLength="1" style="--dl:2.85s;--dd:0.6s;stroke-width:2.2;" d="M-56,133 C-6,147 65,145 113,126 C125,121 119,109 106,116"/>
+      <path class="wstroke terra thin draw" pathLength="1" style="--dl:1.9s;--dd:1.0s;stroke-width:1.7;" d="M-56,115 C-65,103 -52,91 -43,101 C-37,108 -46,120 -37,116 C-31,113 -35,103 -27,106 C-19,109 -25,121 -16,115 C-9,110 -14,102 -5,105 C4,108 7,120 18,105 C23,99 27,102 29,96"/>
+      <path class="wstroke terra thin draw" pathLength="1" style="--dl:2.75s;--dd:0.55s;stroke-width:2;" d="M-52,122 C-26,130 2,128 24,118 C32,114 28,107 20,112"/>
       <line class="pop" style="--pl:2.1s;" x1="-66" y1="118" x2="0" y2="118" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
 
       <g class="pop" style="--pl:2.25s;"><circle cx="-113" cy="-78" r="4.2" fill="#f5ede0" stroke="#3d2010" stroke-width="1.6"/></g>
