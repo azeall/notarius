@@ -112,14 +112,14 @@ const ART = `
       </g>
 
       <!-- ленты под печатью свисают за край листа -->
-      <g class="pop" style="--pl:4.9s;">
+      <g class="pop" style="--pl:2.5s;">
         <path d="M56,172 L42,224 L60,214 L66,176 Z" fill="#c05c2e" stroke="#7e3617" stroke-width="1" stroke-linejoin="round"/>
         <path d="M72,172 L92,220 L74,214 L66,176 Z" fill="#a84d23" stroke="#7e3617" stroke-width="1" stroke-linejoin="round"/>
         <path d="M59,176 L51,212" stroke="#fbe6d8" stroke-width="0.7" opacity="0.4"/>
       </g>
 
       <!-- сургучная печать конторы внизу, рядом с подписью (прижимается в конце) -->
-      <g class="seal" style="--sl:5.1s;" transform="translate(64,154)">
+      <g class="seal" style="--sl:2.7s;" transform="translate(64,154)">
         <ellipse cx="3" cy="6" rx="34" ry="30" fill="#3d2010" opacity="0.14"/>
         <path d="M0,-33 C13,-34 21,-27 26,-18 C34,-20 39,-13 37,-5 C43,-1 43,8 36,12 C39,22 31,31 22,29 C18,37 6,39 0,32 C-6,39 -18,37 -22,29 C-31,31 -39,22 -36,12 C-43,8 -43,-1 -37,-5 C-39,-13 -34,-20 -26,-18 C-21,-27 -13,-34 0,-33 Z" fill="#a84d23"/>
         <circle r="28" fill="#c05c2e"/>
