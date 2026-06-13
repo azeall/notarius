@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { ALL_SLOTS } from '@/lib/slots'
+import { notary } from '@/lib/data'
 import BookingModal from './BookingModal'
 
 const WD_SHORT = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
@@ -25,14 +26,18 @@ export default function SlotFinder() {
       const dow = d.getDay()
       if (dow !== 0 && dow !== 6) candidates.push(d)
     }
-    Promise.all(
-      candidates.map(d =>
-        fetch(`/api/appointments?date=${ymd(d)}`)
-          .then(r => r.json())
-          .then(j => ({ d, booked: Array.isArray(j.booked) ? (j.booked as string[]) : [] }))
-          .catch(() => ({ d, booked: [] as string[] })),
-      ),
-    ).then(res => {
+    // У каждого запроса свой таймаут — секция всегда наполняется,
+    // даже если API недоступен (тогда считаем все слоты свободными).
+    const fetchDay = (d: Date) => {
+      const ctrl = new AbortController()
+      const to = setTimeout(() => ctrl.abort(), 3500)
+      return fetch(`/api/appointments?date=${ymd(d)}`, { signal: ctrl.signal })
+        .then(r => r.json())
+        .then(j => ({ d, booked: Array.isArray(j.booked) ? (j.booked as string[]) : [] }))
+        .catch(() => ({ d, booked: [] as string[] }))
+        .finally(() => clearTimeout(to))
+    }
+    Promise.all(candidates.map(fetchDay)).then(res => {
       if (cancelled) return
       const nowMin = today.getHours() * 60 + today.getMinutes()
       const out: DayAvail[] = res.map(({ d, booked }) => {
@@ -95,7 +100,8 @@ export default function SlotFinder() {
 
         {days !== null && withFree.length === 0 && (
           <div className="rounded-3xl p-10 text-center bg-white reveal" style={{ border: '1px solid rgba(29,158,117,0.12)' }}>
-            <p className="m-0 text-[15px]" style={{ color: '#5d6e67' }}>На ближайшие дни запись заполнена. Позвоните — подберём время: <a href="#" className="font-semibold" style={{ color: '#1D9E75' }}>{''}</a></p>
+            <p className="m-0 mb-5 text-[15px]" style={{ color: '#5d6e67' }}>На ближайшие дни запись заполнена — подберём удобное время по телефону.</p>
+            <a href={notary.phoneHref} className="inline-flex items-center px-7 py-3 rounded-xl font-bold text-sm text-white no-underline transition-transform hover:-translate-y-0.5" style={{ background: '#1D9E75' }}>{notary.phone}</a>
           </div>
         )}
 
