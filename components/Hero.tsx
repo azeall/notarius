@@ -31,28 +31,48 @@ function laurelBranch(x0: number, y0: number, x1: number, y1: number, x2: number
     const dx = 2 * (1 - t) * (x1 - x0) + 2 * t * (x2 - x1), dy = 2 * (1 - t) * (y1 - y0) + 2 * t * (y2 - y1)
     const l = Math.hypot(dx, dy); return [dx / l, dy / l]
   }
-  // двойной стебель: плотная основа + золотая жилка поверх
-  let s = `<path class="stem" d="M ${x0} ${y0} Q ${x1} ${y1} ${x2} ${y2}" fill="none" stroke="#403988" stroke-width="3.2" stroke-linecap="round"/>`
-  s += `<path class="stem" d="M ${x0} ${y0} Q ${x1} ${y1} ${x2} ${y2}" fill="none" stroke="url(#gold-${sfx})" stroke-width="1.1" stroke-linecap="round" opacity=".85"/>`
-  const n = 14
+  // тройной стебель: тень + плотная основа + золотая жилка
+  let s = `<path class="stem" d="M ${x0} ${y0} Q ${x1} ${y1} ${x2} ${y2}" fill="none" stroke="#2f2a63" stroke-width="4.4" stroke-linecap="round" opacity=".55"/>`
+  s += `<path class="stem" d="M ${x0} ${y0} Q ${x1} ${y1} ${x2} ${y2}" fill="none" stroke="#403988" stroke-width="3.4" stroke-linecap="round"/>`
+  s += `<path class="stem" d="M ${x0} ${y0} Q ${x1} ${y1} ${x2} ${y2}" fill="none" stroke="url(#gold-${sfx})" stroke-width="1.2" stroke-linecap="round" opacity=".9"/>`
+  const n = 17
   for (let i = 0; i < n; i++) {
-    const t = 0.06 + (0.88 * i) / (n - 1)
+    const t = 0.05 + (0.9 * i) / (n - 1)
     const [px, py] = B(t), [tx, ty] = T(t)
     const side = (i % 2 ? 1 : -1) * flip
-    const ang = Math.atan2(ty, tx) + side * 0.72
-    const len = 44 - 18 * (i / (n - 1))
+    const ang = Math.atan2(ty, tx) + side * 0.7
+    const len = 54 - 24 * (i / (n - 1))
     const dx = Math.cos(ang), dy = Math.sin(ang)
     const pxp = -dy, pyp = dx
-    const w = len * 0.38
+    const w = len * 0.42
     const tipx = px + dx * len, tipy = py + dy * len
-    const c1x = px + dx * len * 0.42 + pxp * w, c1y = py + dy * len * 0.42 + pyp * w
-    const c2x = px + dx * len * 0.42 - pxp * w, c2y = py + dy * len * 0.42 - pyp * w
-    s += `<path d="M ${px.toFixed(1)} ${py.toFixed(1)} Q ${c1x.toFixed(1)} ${c1y.toFixed(1)} ${tipx.toFixed(1)} ${tipy.toFixed(1)} Q ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${px.toFixed(1)} ${py.toFixed(1)} Z" fill="url(#leaf-${sfx})" fill-opacity=".66" stroke="#534AB7" stroke-width="1.1" stroke-linejoin="round"/>`
-    s += `<line x1="${px.toFixed(1)}" y1="${py.toFixed(1)}" x2="${(px + dx * len * 0.8).toFixed(1)}" y2="${(py + dy * len * 0.8).toFixed(1)}" stroke="#534AB7" stroke-width=".7" opacity=".55"/>`
-    if (i % 3 === 2) {
-      s += `<circle cx="${(px - dx * 7).toFixed(1)}" cy="${(py - dy * 7).toFixed(1)}" r="2.7" fill="url(#gold-${sfx})"/>`
+    const c1x = px + dx * len * 0.4 + pxp * w, c1y = py + dy * len * 0.4 + pyp * w
+    const c2x = px + dx * len * 0.4 - pxp * w, c2y = py + dy * len * 0.4 - pyp * w
+    // лист с лёгким изгибом носика
+    s += `<path d="M ${px.toFixed(1)} ${py.toFixed(1)} Q ${c1x.toFixed(1)} ${c1y.toFixed(1)} ${tipx.toFixed(1)} ${tipy.toFixed(1)} Q ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${px.toFixed(1)} ${py.toFixed(1)} Z" fill="url(#leaf-${sfx})" fill-opacity=".7" stroke="#534AB7" stroke-width="1.15" stroke-linejoin="round"/>`
+    // центральная жилка
+    const mrx = px + dx * len * 0.82, mry = py + dy * len * 0.82
+    s += `<line x1="${px.toFixed(1)}" y1="${py.toFixed(1)}" x2="${mrx.toFixed(1)}" y2="${mry.toFixed(1)}" stroke="#3a3480" stroke-width=".8" opacity=".6"/>`
+    // боковые жилки «ёлочкой»
+    ;[0.3, 0.52, 0.72].forEach(f => {
+      const bx = px + dx * len * f, by = py + dy * len * f
+      const vlen = w * (1 - f) * 1.15
+      const va = ang + side * flip * 0.9
+      const vb = ang - side * flip * 0.9
+      s += `<line x1="${bx.toFixed(1)}" y1="${by.toFixed(1)}" x2="${(bx + Math.cos(va) * vlen).toFixed(1)}" y2="${(by + Math.sin(va) * vlen).toFixed(1)}" stroke="#534AB7" stroke-width=".5" opacity=".4"/>`
+      s += `<line x1="${bx.toFixed(1)}" y1="${by.toFixed(1)}" x2="${(bx + Math.cos(vb) * vlen).toFixed(1)}" y2="${(by + Math.sin(vb) * vlen).toFixed(1)}" stroke="#534AB7" stroke-width=".5" opacity=".4"/>`
+    })
+    // ягоды-друзы между нижними листьями
+    if (i % 2 === 1 && i < n - 4) {
+      const bxr = px - dx * 8, byr = py - dy * 8
+      s += `<circle cx="${bxr.toFixed(1)}" cy="${byr.toFixed(1)}" r="3" fill="url(#gold-${sfx})" stroke="#a98f53" stroke-width=".5"/>`
+      s += `<circle cx="${(bxr - 1).toFixed(1)}" cy="${(byr - 1).toFixed(1)}" r="1" fill="#fff4d6" opacity=".8"/>`
     }
   }
+  // бутон на острие ветви
+  const [bx, by] = B(0.97)
+  const [btx, bty] = T(0.97)
+  s += `<path d="M ${bx.toFixed(1)} ${by.toFixed(1)} q ${(btx * 10 - bty * 4).toFixed(1)} ${(bty * 10 + btx * 4).toFixed(1)} ${(btx * 16).toFixed(1)} ${(bty * 16).toFixed(1)} q ${(-btx * 6 + bty * 4).toFixed(1)} ${(-bty * 6 - btx * 4).toFixed(1)} ${(-btx * 16).toFixed(1)} ${(-bty * 16).toFixed(1)} Z" fill="url(#leaf-${sfx})" fill-opacity=".8" stroke="#534AB7" stroke-width="1"/>`
   return s
 }
 
@@ -95,7 +115,6 @@ function buildCrest(sfx: string): string {
     orn += `<path d="M ${x} ${y + sy * 46} L ${x} ${y} L ${x + sx * 46} ${y}" fill="none" stroke="#c0bfcc" stroke-width="1.2" opacity=".8"/>`
     orn += `<rect x="${x - 4}" y="${y - 4}" width="8" height="8" fill="none" stroke="#c8b27e" stroke-width="1" transform="rotate(45 ${x} ${y})"/>`
   })
-  orn += `<rect x="275" y="51" width="10" height="10" fill="none" stroke="#534AB7" stroke-width="1.2" transform="rotate(45 280 56)"/>`
   orn += `<rect x="275" y="635" width="10" height="10" fill="none" stroke="#534AB7" stroke-width="1.2" transform="rotate(45 280 640)"/>`
 
   const L = '#e9e7fa'
@@ -181,7 +200,7 @@ function buildCrest(sfx: string): string {
   `
 
   return `
-  <svg class="monogram" viewBox="0 0 560 660" role="img" aria-label="Герб нотариальной конторы: щит с весами правосудия, колонной закона и свитком, лавровые ветви, лента «НОТАРИУС»">
+  <svg class="monogram" viewBox="0 -52 560 712" role="img" aria-label="Герб нотариальной конторы: щит с весами правосудия, колонной закона и свитком, лавровые ветви, лента «НОТАРИУС»">
     <defs>
       <clipPath id="shieldClip-${sfx}"><path d="${shieldD}"/></clipPath>
       <path id="rib-${sfx}" d="M 150 564 Q 280 588 410 564" fill="none"/>
