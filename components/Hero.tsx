@@ -81,8 +81,9 @@ const ART = `
       <line class="pop" style="--pl:1.6s;" x1="-66" y1="14" x2="64" y2="14" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
       <line class="pop" style="--pl:1.66s;" x1="-66" y1="36" x2="104" y2="36" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
       <line class="pop" style="--pl:1.72s;" x1="-66" y1="58" x2="92" y2="58" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
-      <!-- круглая печать нотариуса вместо подписи (оттиск штампа) -->
-      <g class="seal" style="--sl:2.0s;" transform="translate(-10,106) rotate(-7)">
+      <!-- круглая печать нотариуса на месте подписи (внизу документа) -->
+      <text x="-66" y="100" font-family="Manrope, sans-serif" font-size="9" letter-spacing="1" fill="#3d2010" fill-opacity="0.5">Подпись и печать:</text>
+      <g class="seal" style="--sl:2.0s;" transform="translate(-8,140) rotate(-7)">
         <circle r="31" fill="none" stroke="#a84d23" stroke-width="2.6" stroke-opacity="0.82"/>
         <circle r="26.5" fill="none" stroke="#a84d23" stroke-width="1" stroke-opacity="0.7"/>
         <circle r="13" fill="none" stroke="#a84d23" stroke-width="0.9" stroke-opacity="0.6"/>
