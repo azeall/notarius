@@ -2,7 +2,7 @@ import { notary, motto } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 
 /**
- * Hero «Прошитый документ» — макет Claude Design (Нотариус - Hero v2).
+ * Hero «Прошитый документ» (v2) — макет Claude Design (Нотариус - Hero v2).
  * Стопка листов, верхний прошит терракотовым шнуром: стежки продеваются,
  * завязывается бант, хвосты уходят вниз к качающейся бирке-заверению.
  */
