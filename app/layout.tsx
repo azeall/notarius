@@ -9,7 +9,6 @@ import YandexMetrika from '@/components/YandexMetrika'
 import CookieNotice from '@/components/CookieNotice'
 import ScrollProgress from '@/components/ScrollProgress'
 import SmoothScroll from '@/components/SmoothScroll'
-import HeroCursor from '@/components/HeroCursor'
 import { notary, site } from '@/lib/data'
 
 const manrope = Manrope({
@@ -200,7 +199,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <ScrollProgress />
         <SmoothScroll />
-        <HeroCursor />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

@@ -38,6 +38,20 @@ const ART = `
         <path d="M134,-176 L134,-148 L106,-176 Z" fill="#e8c9a0" stroke="#3d2010" stroke-width="1.4" stroke-linejoin="round"/>
       </g>
 
+      <!-- шапка бланка: эмблема-весы и разделитель -->
+      <g class="pop" style="--pl:0.72s;">
+        <line x1="-66" y1="-152" x2="-12" y2="-152" stroke="#c05c2e" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="50" y1="-152" x2="104" y2="-152" stroke="#c05c2e" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="19" cy="-152" r="15" fill="#fbf6ea" stroke="#a84d23" stroke-width="1.5"/>
+        <circle cx="19" cy="-152" r="11" fill="none" stroke="#e8a07a" stroke-width="0.8"/>
+        <line x1="19" y1="-161" x2="19" y2="-145" stroke="#a84d23" stroke-width="1.3" stroke-linecap="round"/>
+        <line x1="9" y1="-158" x2="29" y2="-158" stroke="#a84d23" stroke-width="1.3" stroke-linecap="round"/>
+        <path d="M9,-158 l-3.4,6 h6.8 Z" fill="#c05c2e"/>
+        <path d="M29,-158 l-3.4,6 h6.8 Z" fill="#c05c2e"/>
+        <circle cx="19" cy="-144" r="2" fill="#a84d23"/>
+        <line x1="-66" y1="-135" x2="104" y2="-135" stroke="#3d2010" stroke-width="1" opacity="0.42"/>
+      </g>
+
       <line class="wstroke thin draw" pathLength="1" style="--dl:1.0s;--dd:0.8s;stroke:rgba(61,32,16,0.35);" x1="-92" y1="-176" x2="-92" y2="176"/>
 
       <line class="pop" style="--pl:1.2s;" x1="-66" y1="-130" x2="52" y2="-130" stroke="#c05c2e" stroke-width="3" stroke-linecap="round"/>
@@ -49,7 +63,8 @@ const ART = `
       <line class="pop" style="--pl:1.6s;" x1="-66" y1="14" x2="64" y2="14" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
       <line class="pop" style="--pl:1.66s;" x1="-66" y1="36" x2="104" y2="36" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
       <line class="pop" style="--pl:1.72s;" x1="-66" y1="58" x2="92" y2="58" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
-      <path class="wstroke terra thin draw" pathLength="1" style="--dl:1.9s;--dd:0.9s;" d="M22,116 C40,100 52,110 60,118 C70,128 84,120 98,108 M58,122 C76,124 92,120 106,114"/>
+      <path class="wstroke terra thin draw" pathLength="1" style="--dl:1.9s;--dd:1.15s;stroke-width:1.7;" d="M-58,120 C-70,103 -53,85 -40,98 C-30,107 -37,125 -24,118 C-16,114 -21,95 -10,100 C-1,104 -4,125 8,116 C16,110 11,97 22,100 C33,103 29,123 42,114 C52,107 47,97 60,100 C73,103 79,89 93,85 C101,82 107,89 111,80"/>
+      <path class="wstroke terra thin draw" pathLength="1" style="--dl:2.85s;--dd:0.6s;stroke-width:2.2;" d="M-56,133 C-6,147 65,145 113,126 C125,121 119,109 106,116"/>
       <line class="pop" style="--pl:2.1s;" x1="-66" y1="118" x2="0" y2="118" stroke="#e8c9a0" stroke-width="2.6" stroke-linecap="round"/>
 
       <g class="pop" style="--pl:2.25s;"><circle cx="-113" cy="-78" r="4.2" fill="#f5ede0" stroke="#3d2010" stroke-width="1.6"/></g>
@@ -76,6 +91,13 @@ const ART = `
             <path d="M2,24 C10,18 18,26 28,22" fill="none" stroke="#c05c2e" stroke-width="1.8" stroke-linecap="round"/>
           </g>
         </g>
+      </g>
+
+      <!-- ленты под печатью свисают за край листа -->
+      <g class="pop" style="--pl:4.9s;">
+        <path d="M56,150 L42,202 L60,192 L66,154 Z" fill="#c05c2e" stroke="#7e3617" stroke-width="1" stroke-linejoin="round"/>
+        <path d="M72,150 L92,198 L74,192 L66,154 Z" fill="#a84d23" stroke="#7e3617" stroke-width="1" stroke-linejoin="round"/>
+        <path d="M59,154 L51,190" stroke="#fbe6d8" stroke-width="0.7" opacity="0.4"/>
       </g>
 
       <!-- сургучная печать конторы (прижимается в конце) -->
@@ -107,10 +129,10 @@ const ART = `
 `
 
 const CSS = `
-.wm-hero{min-height:100vh;min-height:100svh;display:grid;grid-template-columns:1.05fr 0.95fr;align-items:center;gap:clamp(28px,5vw,80px);max-width:1440px;margin:0 auto;padding:clamp(28px,6vw,90px);position:relative;background:#f5ede0;}
+.wm-hero{min-height:100vh;min-height:100svh;display:grid;grid-template-columns:1fr 1.04fr;align-items:center;gap:clamp(24px,4vw,64px);max-width:1440px;margin:0 auto;padding:clamp(28px,6vw,90px);position:relative;background:#f5ede0;}
 .wm-text{max-width:620px;}
 .wm-art{position:relative;}
-.wm-art svg{display:block;width:100%;max-width:600px;height:auto;margin-inline:auto;}
+.wm-art svg{display:block;width:100%;max-width:660px;height:auto;margin-inline:auto;overflow:visible;}
 .wm-eyebrow{font-size:12px;font-weight:600;letter-spacing:0.24em;color:rgba(61,32,16,0.62);text-transform:uppercase;}
 .wm-eyebrow .dot{color:#c05c2e;}
 .wm-h1{font-family:var(--font-playfair),Georgia,serif;font-weight:600;font-size:clamp(40px,5.6vw,76px);line-height:1.06;margin-top:clamp(14px,2vw,22px);color:#3d2010;}
