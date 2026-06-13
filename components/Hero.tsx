@@ -78,8 +78,9 @@ function laurelBranch(x0: number, y0: number, x1: number, y1: number, x2: number
 
 function buildCrest(sfx: string): string {
   const cx = 280, cy = 330
-  const shieldD = 'M 130 130 L 430 130 L 430 300 C 430 392 368 446 280 482 C 192 446 130 392 130 300 Z'
-  const shieldInnerD = 'M 142 142 L 418 142 L 418 298 C 418 384 362 434 280 468 C 198 434 142 384 142 298 Z'
+  // щит опущен на 28px относительно короны/лавров/ленты — между короной и щитом появляется зазор
+  const shieldD = 'M 130 158 L 430 158 L 430 328 C 430 420 368 474 280 510 C 192 474 130 420 130 328 Z'
+  const shieldInnerD = 'M 142 170 L 418 170 L 418 326 C 418 412 362 462 280 496 C 198 462 142 412 142 326 Z'
 
   const rosettes: [number, number, number, number, string, number, number][] = [
     [222, 55, 58, 150, '#dedbf8', 0.5, 0.34],
@@ -231,12 +232,14 @@ function buildCrest(sfx: string): string {
     <g class="s3">${laurels}</g>
     <g clip-path="url(#shieldClip-${sfx})" filter="url(#soft-${sfx})" class="fade-fill">
       <path d="${shieldD}" fill="url(#violetFill-${sfx})"/>
-      <ellipse cx="280" cy="285" rx="130" ry="140" fill="#ffffff" opacity=".07"/>
-      ${gFill}
-      ${hatch}
-      <rect class="sheen" x="120" y="120" width="320" height="372" fill="url(#bloom-${sfx})"/>
+      <g transform="translate(0,28)">
+        <ellipse cx="280" cy="285" rx="130" ry="140" fill="#ffffff" opacity=".07"/>
+        ${gFill}
+        ${hatch}
+        <rect class="sheen" x="120" y="120" width="320" height="372" fill="url(#bloom-${sfx})"/>
+      </g>
     </g>
-    <g class="s2">${sym}</g>
+    <g class="s2" transform="translate(0,28)">${sym}</g>
     <g>
       <path d="${shieldD}" fill="none" stroke="url(#gold-${sfx})" stroke-width="9" class="s1soft"/>
       <path d="${shieldD}" fill="none" stroke="#3a3480" stroke-width="5.5" class="s1soft"/>
@@ -278,7 +281,8 @@ const CSS = `
 .lv-phone .lbl{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#8e89ad;}
 .lv-phone .num{font-family:var(--font-playfair),Georgia,serif;font-size:clamp(18px,2.1vw,24px);font-weight:500;color:#534AB7;letter-spacing:.01em;transition:color .3s ease;}
 .lv-phone:hover .num{color:#3a3480;}
-.lv-mono{position:relative;display:flex;align-items:center;justify-content:center;transform:translateY(40px);}
+.lv-textcol{align-self:start;}
+.lv-mono{position:relative;display:flex;align-items:center;justify-content:center;}
 .lv-mono .monogram{width:100%;max-width:560px;height:auto;overflow:visible;display:block;}
 .lv-reveal{opacity:1;animation:lvrise .95s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s);}
 @keyframes lvrise{0%{opacity:0;transform:translateY(26px);}100%{opacity:1;transform:translateY(0);}}
@@ -337,7 +341,7 @@ export default function Hero() {
       <div className="lv-veil" aria-hidden />
 
       <div className="lv-wrap">
-        <div>
+        <div className="lv-textcol">
           <span className="lv-kicker lv-reveal" style={{ ['--d' as string]: '.05s' }}>
             Нотариальная контора · Москва
           </span>
