@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Hero from '@/components/Hero'
 import FAQSearch from '@/components/FAQSearch'
+import BringChecklist from '@/components/BringChecklist'
+import DealTimeline from '@/components/DealTimeline'
 import BookingInline from '@/components/BookingInline'
 import BookingButton from '@/components/BookingButton'
 import CountUp from '@/components/CountUp'
@@ -118,6 +120,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Что взять с собой: интерактивный чек-лист (уникальная фича) ── */}
+      <BringChecklist />
+
       {/* ── О нотариусе: фото + текст ── */}
       <section className="py-20" style={{ background: '#efe4d1' }}>
         <div className="mx-auto px-5 sm:px-10 grid md:grid-cols-[0.4fr_0.6fr] gap-10 items-center" style={{ maxWidth: '1080px' }}>
@@ -150,6 +155,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Как проходит сделка: интерактивный таймлайн ── */}
+      <DealTimeline />
 
       {/* ── Отзывы: полароиды ── */}
       <section className="py-20 sm:py-24 overflow-hidden" style={{ background: '#f5ede0' }}>
