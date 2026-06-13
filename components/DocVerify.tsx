@@ -87,7 +87,10 @@ export default function DocVerify() {
         <div className="flex items-end justify-between mt-7">
           <div>
             <div className="h-2 w-20 rounded mb-1.5" style={{ background: '#dfe9e5' }} />
-            <svg width="92" height="26" viewBox="0 0 92 26"><path d="M4 18 C 18 4, 26 22, 38 12 S 60 4, 70 14 S 84 20, 90 12" fill="none" stroke="#2c2c2c" strokeWidth="1.6" opacity="0.7" /></svg>
+            <svg width="104" height="28" viewBox="0 0 104 28" fill="none" stroke="#2c2c2c" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4,21 C0,12 10,5 15,12 C18,16.5 13,23 18,20 C23,17 19,9 25,11 C30,12.5 27,21 34,18 C39,15.5 35,10 41,11 C47,12 44,20 51,17 C57,14.5 53,9 60,10 C66,11 64,18 71,15 C78,12 84,15 92,7" strokeWidth="1.5" opacity="0.78" />
+              <path d="M3,25 C24,28 64,27 94,20 C100,18.3 97,13.5 90,17" strokeWidth="1.9" opacity="0.62" />
+            </svg>
           </div>
           <div
             className="dv-anim flex items-center gap-1.5 rounded-full px-3.5 py-2"
