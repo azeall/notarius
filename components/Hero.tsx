@@ -131,6 +131,15 @@ function HeroBookingCard() {
             </select>
           </div>
           {date && isWeekendYMD(date) && <p className="text-xs m-0" style={{ color: '#c2410c' }}>Выходной — выберите будний день</p>}
+          {date && !isWeekendYMD(date) && freeSlots.length > 0 && (
+            <p className="text-xs m-0 flex items-center gap-1.5" style={{ color: '#1D9E75' }}>
+              <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ background: '#1D9E75' }} />
+              Свободно {freeSlots.length} {freeSlots.length === 1 ? 'окно' : freeSlots.length < 5 ? 'окна' : 'окон'} на эту дату
+            </p>
+          )}
+          {date && !isWeekendYMD(date) && freeSlots.length === 0 && (
+            <p className="text-xs m-0" style={{ color: '#c2410c' }}>На эту дату всё занято — выберите другой день</p>
+          )}
           <input required value={name} onChange={e => setName(e.target.value)} placeholder="Ваше имя" className={INPUT} style={INPUT_STYLE} />
           <input required value={phone} onChange={e => setPhone(e.target.value)} placeholder="+7 (000) 000-00-00" inputMode="tel" className={INPUT} style={INPUT_STYLE} />
 

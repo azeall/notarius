@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Hero from '@/components/Hero'
 import DocVerify from '@/components/DocVerify'
+import SlotFinder from '@/components/SlotFinder'
 import BookingButton from '@/components/BookingButton'
 import { notary, site } from '@/lib/data'
 
@@ -135,6 +136,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Поиск ближайшего свободного окна (уникальная фича) ── */}
+      <SlotFinder />
 
       {/* ── Отзывы: карточки с рейтингом ── */}
       <section className="py-20" style={{ background: '#e8f5f0' }}>
