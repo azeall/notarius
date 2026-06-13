@@ -26,8 +26,20 @@ export default function SlotFinder() {
       const dow = d.getDay()
       if (dow !== 0 && dow !== 6) candidates.push(d)
     }
-    // У каждого запроса свой таймаут — секция всегда наполняется,
-    // даже если API недоступен (тогда считаем все слоты свободными).
+    const nowMin = today.getHours() * 60 + today.getMinutes()
+    const computeFree = (d: Date, booked: string[]) => {
+      const set = new Set(booked)
+      let free = ALL_SLOTS.filter(s => !set.has(s))
+      if (ymd(d) === ymd(today)) {
+        free = free.filter(s => { const [h, m] = s.split(':').map(Number); return h * 60 + m > nowMin + 30 })
+      }
+      return free
+    }
+
+    // Сразу показываем окна (как все свободные), затем уточняем занятость из API.
+    // Так секция никогда не выглядит пустой, даже если API недоступен.
+    setDays(candidates.map(d => ({ date: d, key: ymd(d), free: computeFree(d, []) })))
+
     const fetchDay = (d: Date) => {
       const ctrl = new AbortController()
       const to = setTimeout(() => ctrl.abort(), 3500)
@@ -39,16 +51,7 @@ export default function SlotFinder() {
     }
     Promise.all(candidates.map(fetchDay)).then(res => {
       if (cancelled) return
-      const nowMin = today.getHours() * 60 + today.getMinutes()
-      const out: DayAvail[] = res.map(({ d, booked }) => {
-        const set = new Set(booked)
-        let free = ALL_SLOTS.filter(s => !set.has(s))
-        if (ymd(d) === ymd(today)) {
-          free = free.filter(s => { const [h, m] = s.split(':').map(Number); return h * 60 + m > nowMin + 30 })
-        }
-        return { date: d, key: ymd(d), free }
-      })
-      setDays(out)
+      setDays(res.map(({ d, booked }) => ({ date: d, key: ymd(d), free: computeFree(d, booked) })))
     })
     return () => { cancelled = true }
   }, [])
