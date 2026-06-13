@@ -163,7 +163,7 @@ export default function Hero() {
   const rest = nameParts.slice(1).join(' ')
 
   return (
-    <section className="relative overflow-hidden flex items-center" style={{ minHeight: '100dvh', background: '#ffffff' }}>
+    <section data-hero className="relative overflow-hidden flex items-center" style={{ minHeight: '100dvh', background: '#ffffff' }}>
       <style>{`
         @keyframes mintPulse { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.06); } }
         @media (prefers-reduced-motion: reduce) { .mint-orb { animation: none !important; } }
