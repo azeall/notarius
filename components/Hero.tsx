@@ -77,6 +77,25 @@ const ART = `
           </g>
         </g>
       </g>
+
+      <!-- сургучная печать конторы (прижимается в конце) -->
+      <g class="seal" style="--sl:5.1s;" transform="translate(64,132)">
+        <ellipse cx="3" cy="6" rx="34" ry="30" fill="#3d2010" opacity="0.14"/>
+        <path d="M0,-33 C13,-34 21,-27 26,-18 C34,-20 39,-13 37,-5 C43,-1 43,8 36,12 C39,22 31,31 22,29 C18,37 6,39 0,32 C-6,39 -18,37 -22,29 C-31,31 -39,22 -36,12 C-43,8 -43,-1 -37,-5 C-39,-13 -34,-20 -26,-18 C-21,-27 -13,-34 0,-33 Z" fill="#a84d23"/>
+        <circle r="28" fill="#c05c2e"/>
+        <circle r="28" fill="none" stroke="#7e3617" stroke-width="2" opacity="0.4"/>
+        <circle r="24" fill="none" stroke="#e8a07a" stroke-width="0.9" opacity="0.5"/>
+        <path id="wmSealRing" d="M-18,0 a18,18 0 1,1 36,0 a18,18 0 1,1 -36,0" fill="none"/>
+        <text font-family="Manrope, sans-serif" font-size="6.2" font-weight="700" letter-spacing="1.8" fill="#fbe6d8">
+          <textPath href="#wmSealRing" startOffset="0">НОТАРИУС · МОСКВА · </textPath>
+        </text>
+        <g stroke="#fbe6d8" stroke-width="1" stroke-linecap="round">
+          <line x1="0" y1="-9" x2="0" y2="9"/><line x1="-9" y1="0" x2="9" y2="0"/>
+          <line x1="-6.4" y1="-6.4" x2="6.4" y2="6.4"/><line x1="6.4" y1="-6.4" x2="-6.4" y2="6.4"/>
+        </g>
+        <circle r="4.2" fill="none" stroke="#fbe6d8" stroke-width="1.2"/>
+        <ellipse cx="-8" cy="-9" rx="13" ry="8" fill="#ffffff" opacity="0.15"/>
+      </g>
     </g>
   </g>
 
@@ -119,12 +138,14 @@ svg .pop, svg .floaty, svg .swing{transform-box:fill-box;transform-origin:center
   .swing{transform-box:view-box;transform-origin:var(--so);animation:wmswing 6.5s ease-in-out infinite;}
   .wglow{animation:wmglow 7s ease-in-out infinite;}
   .twinkle{transform-box:fill-box;transform-origin:center;opacity:0;animation:wmtwinkle 6s ease-in-out var(--tw,0s) infinite;}
+  .seal{transform-box:fill-box;transform-origin:center;opacity:0;animation:wmstamp 0.5s cubic-bezier(0.34,1.45,0.5,1) var(--sl,0s) forwards;}
 }
 @keyframes wmpop{from{opacity:0;transform:translateY(12px) scale(0.85);}to{opacity:1;transform:none;}}
 @keyframes wmfloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
 @keyframes wmswing{0%,100%{transform:rotate(2deg);}50%{transform:rotate(-2deg);}}
 @keyframes wmglow{0%,100%{opacity:0.55;}50%{opacity:0.85;}}
 @keyframes wmtwinkle{0%,18%,100%{opacity:0;transform:scale(0.2) rotate(45deg);}9%{opacity:0.9;transform:scale(1) rotate(45deg);}}
+@keyframes wmstamp{0%{opacity:0;transform:scale(1.55);}55%{opacity:1;}100%{opacity:1;transform:scale(1);}}
 @media (max-width: 940px){
   .wm-hero{grid-template-columns:1fr;gap:8px;padding:clamp(24px,6vw,48px);text-align:center;}
   .wm-text{max-width:560px;margin-inline:auto;}
