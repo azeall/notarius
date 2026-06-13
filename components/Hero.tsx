@@ -200,7 +200,7 @@ function buildCrest(sfx: string): string {
   `
 
   return `
-  <svg class="monogram" viewBox="0 -52 560 712" role="img" aria-label="Герб нотариальной конторы: щит с весами правосудия, колонной закона и свитком, лавровые ветви, лента «НОТАРИУС»">
+  <svg class="monogram" viewBox="0 -84 560 744" role="img" aria-label="Герб нотариальной конторы: щит с весами правосудия, колонной закона и свитком, лавровые ветви, лента «НОТАРИУС»">
     <defs>
       <clipPath id="shieldClip-${sfx}"><path d="${shieldD}"/></clipPath>
       <path id="rib-${sfx}" d="M 150 564 Q 280 588 410 564" fill="none"/>
