@@ -165,7 +165,7 @@ export default function Hero() {
   const rest = nameParts.slice(1).join(' ')
 
   return (
-    <section className="wm-hero">
+    <section className="wm-hero" data-hero>
       <style>{CSS}</style>
       <div className="wm-text">
         <p className="wm-eyebrow cas" style={{ ['--cl' as string]: '0.1s' }}>

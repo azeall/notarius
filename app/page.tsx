@@ -4,6 +4,7 @@ import Hero from '@/components/Hero'
 import FAQSearch from '@/components/FAQSearch'
 import BookingInline from '@/components/BookingInline'
 import BookingButton from '@/components/BookingButton'
+import CountUp from '@/components/CountUp'
 import { notary, site } from '@/lib/data'
 
 export const metadata: Metadata = {
@@ -32,6 +33,35 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+
+      {/* ── Счётчики на терракоте с волнистыми краями ── */}
+      <section className="relative" style={{ background: '#c05c2e' }}>
+        <svg className="block w-full" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden style={{ marginTop: '-1px' }}>
+          <path d="M0,38 C240,6 480,6 720,28 C960,50 1200,50 1440,22 L1440,0 L0,0 Z" fill="#f5ede0" />
+        </svg>
+        <div className="mx-auto px-5 sm:px-10 pt-2 pb-4" style={{ maxWidth: '1080px' }}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-6">
+            {[
+              { v: 15, s: ' лет', l: 'личной практики' },
+              { v: 5000, s: '+', l: 'оформленных документов' },
+              { v: 6, s: '', l: 'направлений услуг' },
+              { v: 100, s: '%', l: 'юридическая сила' },
+            ].map((st, i) => (
+              <div key={st.l} className="text-center reveal" data-reveal-delay={i * 90}>
+                <div className="font-serif font-medium leading-none mb-2" style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#fbf6ea' }}>
+                  <CountUp value={st.v} suffix={st.s} />
+                </div>
+                <div className="text-[11px] sm:text-xs tracking-[0.14em] uppercase" style={{ color: 'rgba(251,246,234,0.7)' }}>
+                  {st.l}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <svg className="block w-full" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden style={{ marginBottom: '-1px' }}>
+          <path d="M0,26 C240,54 480,54 720,30 C960,6 1200,6 1440,34 L1440,64 L0,64 Z" fill="#fdf8ef" />
+        </svg>
+      </section>
 
       {/* ── Услуги: тёплый зигзаг с нитью ── */}
       <section className="py-20 sm:py-28" style={{ background: '#fdf8ef' }}>
