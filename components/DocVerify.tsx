@@ -49,6 +49,13 @@ export default function DocVerify() {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-8px); }
         }
+        @keyframes stampPop {
+          0%, 56% { opacity: 0; transform: scale(1.6); }
+          66% { opacity: 0.85; transform: scale(0.92); }
+          72% { transform: scale(1); }
+          88% { opacity: 0.85; }
+          96%, 100% { opacity: 0; }
+        }
         .dv-anim { animation-duration: 5.5s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
         @media (prefers-reduced-motion: reduce) { .dv-anim { animation: none !important; opacity: 1 !important; } }
       `}</style>
@@ -86,10 +93,30 @@ export default function DocVerify() {
 
         <div className="flex items-end justify-between mt-7">
           <div>
-            <div className="h-2 w-20 rounded mb-1.5" style={{ background: '#dfe9e5' }} />
-            <svg width="104" height="28" viewBox="0 0 104 28" fill="none" stroke="#2c2c2c" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M8,20 C2,12 12,3 19,11 C24,17 16,24 23,21 C28,19 25,11 32,13 C39,15 34,24 42,19 C48,15 44,9 52,11 C60,13 64,22 75,9 C79,4 84,8 87,3" strokeWidth="1.5" opacity="0.78" />
-              <path d="M11,24 C34,28 60,27 84,19 C92,16.5 88,11 80,15" strokeWidth="1.9" opacity="0.6" />
+            <div className="h-2 w-20 rounded mb-2" style={{ background: '#dfe9e5' }} />
+            {/* круглая печать нотариуса на месте подписи */}
+            <svg
+              width="62" height="62" viewBox="0 0 70 70"
+              className="dv-anim" style={{ opacity: 0, animationName: 'stampPop' }}
+            >
+              <g transform="translate(35,35) rotate(-8)" fill="none" stroke="#1D9E75">
+                <circle r="31" strokeWidth="2.4" opacity="0.82" />
+                <circle r="26" strokeWidth="1" opacity="0.55" />
+                <path id="dvStampRing" d="M-20,0 a20,20 0 1,1 40,0 a20,20 0 1,1 -40,0" />
+                <text fontSize="6" fontWeight="700" letterSpacing="1.3" fill="#1D9E75" fillOpacity="0.85" stroke="none">
+                  <textPath href="#dvStampRing" startOffset="0">· НОТАРИУС · ГОРОД МОСКВА </textPath>
+                </text>
+                <g strokeWidth="1.6" opacity="0.85" strokeLinecap="round">
+                  <line x1="0" y1="-11" x2="0" y2="8" />
+                  <line x1="-10" y1="-7.5" x2="10" y2="-7.5" />
+                  <path d="M-10,-7.5 L-13.5,-0.5 M-10,-7.5 L-6.5,-0.5" strokeWidth="0.7" />
+                  <path d="M-14,-0.5 a4.5,2.6 0 0 0 9,0" strokeWidth="1.3" />
+                  <path d="M10,-7.5 L6.5,-0.5 M10,-7.5 L13.5,-0.5" strokeWidth="0.7" />
+                  <path d="M5,-0.5 a4.5,2.6 0 0 0 9,0" strokeWidth="1.3" />
+                  <line x1="-6" y1="8" x2="6" y2="8" strokeWidth="1.8" />
+                </g>
+                <circle cx="0" cy="-11.6" r="1.5" fill="#1D9E75" stroke="none" opacity="0.85" />
+              </g>
             </svg>
           </div>
           <div
