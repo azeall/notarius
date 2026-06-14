@@ -91,10 +91,10 @@ export default function FAQ() {
                   className="w-9 h-9 grid place-items-center flex-shrink-0 rounded-full transition-all duration-300"
                   style={{
                     border: '1px solid rgba(29,158,117,0.30)',
-                    color: '#1D9E75',
+                    color: 'rgb(var(--violet-rgb))',
                     transform: open === i ? 'rotate(180deg)' : 'rotate(0deg)',
                     background: open === i ? 'rgba(29,158,117,0.10)' : 'transparent',
-                    borderColor: open === i ? '#1D9E75' : 'rgba(29,158,117,0.30)',
+                    borderColor: open === i ? 'rgb(var(--violet-rgb))' : 'rgba(29,158,117,0.30)',
                   }}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

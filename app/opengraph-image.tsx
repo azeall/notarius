@@ -73,12 +73,12 @@ export default async function OpengraphImage() {
 
         {/* Name */}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', color: '#2c2c2c', fontSize: 84, fontWeight: 700, lineHeight: 1.05 }}>
+          <div style={{ display: 'flex', color: 'rgb(var(--text-rgb))', fontSize: 84, fontWeight: 700, lineHeight: 1.05 }}>
             {notary.name}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', marginTop: 20 }}>
-            <div style={{ width: 64, height: 2, background: '#1D9E75' }} />
-            <div style={{ display: 'flex', color: '#5d6e67', fontSize: 30, marginLeft: 20 }}>
+            <div style={{ width: 64, height: 2, background: 'rgb(var(--violet-rgb))' }} />
+            <div style={{ display: 'flex', color: 'rgb(var(--muted-rgb))', fontSize: 30, marginLeft: 20 }}>
               Нотариус города Москвы
             </div>
           </div>
@@ -86,7 +86,7 @@ export default async function OpengraphImage() {
 
         {/* Bottom row: services + phone */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', color: '#5d6e67', fontSize: 26 }}>
+          <div style={{ display: 'flex', color: 'rgb(var(--muted-rgb))', fontSize: 26 }}>
             Сделки · Наследство · Доверенности · Копии
           </div>
           <div style={{ display: 'flex', color: '#27b585', fontSize: 34, fontWeight: 700 }}>

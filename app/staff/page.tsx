@@ -102,7 +102,7 @@ export default async function StaffPage({
                   {items.map(a => (
                     <div
                       key={a.id}
-                      className="flex items-center justify-between bg-white rounded-2xl px-6 py-5 shadow-sm border border-gray-100 hover:border-gold/30 transition-colors"
+                      className="flex items-center justify-between bg-navy-card rounded-2xl px-6 py-5 shadow-sm border border-gray-100 hover:border-gold/30 transition-colors"
                     >
                       <div className="flex items-center gap-5">
                         <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">

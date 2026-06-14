@@ -4,7 +4,7 @@ export default function ContactCard() {
   return (
     <div
       style={{
-        background: '#ffffff',
+        background: 'rgb(var(--surface-rgb))',
         border: '1px solid rgba(29,158,117,0.15)',
         borderRadius: '12px',
         padding: '24px',
@@ -18,13 +18,13 @@ export default function ContactCard() {
       </h3>
       <div className="space-y-4">
         <div>
-          <p className="text-[10px] tracking-[0.22em] uppercase mb-1.5" style={{ color: '#7c8b85' }}>
+          <p className="text-[10px] tracking-[0.22em] uppercase mb-1.5" style={{ color: 'rgb(var(--muted-b-rgb))' }}>
             Адрес
           </p>
           <p className="text-[13px] text-cream font-medium leading-snug">{notary.address}</p>
         </div>
         <div>
-          <p className="text-[10px] tracking-[0.22em] uppercase mb-1.5" style={{ color: '#7c8b85' }}>
+          <p className="text-[10px] tracking-[0.22em] uppercase mb-1.5" style={{ color: 'rgb(var(--muted-b-rgb))' }}>
             Телефон
           </p>
           <a

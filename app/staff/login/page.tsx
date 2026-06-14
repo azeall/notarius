@@ -28,7 +28,7 @@ export default function StaffLogin() {
 
   return (
     <div className="min-h-screen bg-navy flex items-center justify-center px-4">
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-8 shadow-xl" style={{ width: '340px' }}>
+      <form onSubmit={handleSubmit} className="bg-navy-card rounded-2xl p-8 shadow-xl" style={{ width: '340px' }}>
 
         {/* Avatar icon */}
         <div className="flex justify-center mb-5">

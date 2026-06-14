@@ -168,7 +168,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
     let style: React.CSSProperties = { background: 'rgba(0,0,0,0.03)' }
     if (isBlocked && isInSelection) { cls = 'text-red-300 border border-red-500/40 line-through cursor-not-allowed'; style = { background: 'rgba(239,68,68,0.15)' } }
     else if (isBlocked) { cls = 'text-cream/20 line-through cursor-not-allowed border border-black/5'; style = { background: 'rgba(0,0,0,0.02)' } }
-    else if (isStart) { cls = 'text-white font-bold border border-gold'; style = { background: '#1D9E75' } }
+    else if (isStart) { cls = 'text-white font-bold border border-gold'; style = { background: 'rgb(var(--violet-rgb))' } }
     else if (isInSelection) { cls = 'text-cream border border-gold/50'; style = { background: 'rgba(29,158,117,0.28)' } }
     else if (isOwnOriginal) { cls = 'text-cream/60 border border-dashed'; style = { background: 'rgba(0,0,0,0.04)', borderColor: 'rgba(29,158,117,0.35)' } }
 
@@ -196,7 +196,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
       <div
         className="w-full min-w-0 rounded-2xl px-3 sm:px-5 py-3 sm:py-4 transition-colors"
         style={{
-          background: '#ffffff',
+          background: 'rgb(var(--surface-rgb))',
           border: '1px solid rgba(29,158,117,0.15)',
           opacity: dimmed ? 0.65 : 1,
         }}
@@ -307,7 +307,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
               value={newAssignee}
               onChange={e => setNewAssignee(e.target.value)}
               className="text-xs rounded-md px-2 py-1.5 text-cream focus:outline-none focus:border-gold"
-              style={{ background: '#ffffff', border: '1px solid rgba(29,158,117,0.25)' }}
+              style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(29,158,117,0.25)' }}
             >
               <option value="">Нотариус</option>
               {STAFF_LIST.map(s => (
@@ -329,7 +329,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
 
   // ────────────────────── EDIT ──────────────────────
   return (
-    <div className="w-full min-w-0 rounded-2xl px-3 sm:px-6 py-4 sm:py-5" style={{ background: '#ffffff', border: '2px solid rgba(29,158,117,0.40)' }}>
+    <div className="w-full min-w-0 rounded-2xl px-3 sm:px-6 py-4 sm:py-5" style={{ background: 'rgb(var(--surface-rgb))', border: '2px solid rgba(29,158,117,0.40)' }}>
       {/* Header row */}
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
@@ -356,7 +356,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
             value={date}
             onChange={e => setDate(e.target.value || a.date)}
             className="flex-1 rounded-md px-3 py-2 text-sm text-cream focus:outline-none focus:border-gold font-medium text-center"
-            style={{ background: '#ffffff', border: '1px solid rgba(29,158,117,0.20)', colorScheme: 'light' }}
+            style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(29,158,117,0.20)', colorScheme: 'light' }}
           />
           <button type="button" onClick={() => setDate(d => stepWeekday(d, +1))}
             className="w-9 h-9 flex items-center justify-center rounded-md text-cream/70 hover:text-gold transition-colors"
@@ -375,7 +375,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
           {DURATION_OPTIONS.map(d => (
             <button key={d} type="button" onClick={() => setDuration(d)}
               className={`py-2 rounded-md text-xs font-medium transition-colors ${duration === d ? 'text-white border border-gold' : 'text-cream/80 border'}`}
-              style={duration === d ? { background: '#1D9E75' } : { background: 'rgba(0,0,0,0.03)', borderColor: 'rgba(29,158,117,0.15)' }}>
+              style={duration === d ? { background: 'rgb(var(--violet-rgb))' } : { background: 'rgba(0,0,0,0.03)', borderColor: 'rgba(29,158,117,0.15)' }}>
               {fmtDurLabel(d)}
             </button>
           ))}
@@ -405,8 +405,8 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
           !selectionFits || selectionConflicts
             ? { background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.3)', color: '#fca5a5' }
             : changed
-              ? { background: 'rgba(29,158,117,0.10)', border: '1px solid rgba(29,158,117,0.3)', color: '#2c2c2c' }
-              : { background: 'rgba(0,0,0,0.03)', border: '1px solid rgba(29,158,117,0.15)', color: '#5d6e67' }
+              ? { background: 'rgba(29,158,117,0.10)', border: '1px solid rgba(29,158,117,0.3)', color: 'rgb(var(--text-rgb))' }
+              : { background: 'rgba(0,0,0,0.03)', border: '1px solid rgba(29,158,117,0.15)', color: 'rgb(var(--muted-rgb))' }
         }
       >
         {!selectionFits

@@ -84,7 +84,7 @@ export default function StaffAddForm({ staffName, onAdded }: { staffName: string
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
+    <form onSubmit={handleSubmit} className="bg-navy-card rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
       <h2 className="font-serif text-white text-xl font-bold mb-1">Добавить запись</h2>
       <p className="text-slate/80 text-xs mb-6">Сотрудник: {staffName}</p>
 

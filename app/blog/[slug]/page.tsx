@@ -84,7 +84,7 @@ function renderBlock(block: Block, i: number) {
         <div
           key={i}
           className="my-7 rounded-xl border-l-2 border-gold p-5 sm:p-6"
-          style={{ background: '#ffffff' }}
+          style={{ background: 'rgb(var(--surface-rgb))' }}
         >
           <p className="font-serif font-bold text-cream text-base mb-1.5 flex items-center gap-2">
             <svg className="w-4 h-4 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -205,7 +205,7 @@ export default async function ArticlePage({
                 key={a.slug}
                 href={`/blog/${a.slug}`}
                 className="group flex flex-col rounded-2xl p-6 transition-all hover:-translate-y-0.5"
-                style={{ background: '#ffffff', border: '1px solid rgba(29,158,117,0.15)' }}
+                style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(29,158,117,0.15)' }}
               >
                 <div className="flex items-center gap-3 mb-2 text-xs">
                   <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgba(29,158,117,0.12)' }}>
