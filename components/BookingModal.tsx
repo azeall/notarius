@@ -139,7 +139,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
       <div
         className="w-full max-w-lg max-h-[92vh] overflow-y-auto rounded-2xl shadow-2xl"
         style={{
-          background: '#ffffff',
+          background: 'rgb(var(--surface-rgb))',
           border: '1px solid rgba(29,158,117,0.30)',
           boxShadow: '0 24px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(29,158,117,0.10)',
         }}
@@ -169,7 +169,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   value={service}
                   onChange={e => { const svc = e.target.value; setService(svc); setDuration(defaultDurationForService(svc)) }}
                   className="w-full rounded-lg px-3 py-2.5 text-cream text-sm focus:outline-none"
-                  style={{ background: '#f2f8f5', border: '1px solid rgba(29,158,117,0.20)' }}
+                  style={{ background: 'rgb(var(--surface-3-rgb))', border: '1px solid rgba(29,158,117,0.20)' }}
                 >
                   <option value="">— Выберите услугу —</option>
                   {SERVICES.map(s => <option key={s} value={s}>{s}</option>)}
@@ -178,7 +178,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
 
               <div>
                 <label className="text-[10px] uppercase tracking-[0.24em] text-slate mb-2 block">Дата</label>
-                <div className="rounded-xl p-4" style={{ background: '#f2f8f5', border: '1px solid rgba(29,158,117,0.12)' }}>
+                <div className="rounded-xl p-4" style={{ background: 'rgb(var(--surface-3-rgb))', border: '1px solid rgba(29,158,117,0.12)' }}>
                   <div className="flex items-center justify-between mb-3">
                     <button onClick={prevMonth} className="text-slate hover:text-cream w-8 h-8 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors">‹</button>
                     <span className="text-cream text-sm font-medium">{MONTHS[month]} {year}</span>
@@ -206,7 +206,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                             ${wd && !past && !sel ? 'text-cream hover:bg-black/10' : ''}
                             ${(!wd || past) ? 'text-slate/30 cursor-not-allowed' : ''}
                           `}
-                          style={sel ? { background: '#1D9E75' } : {}}
+                          style={sel ? { background: 'rgb(var(--violet-rgb))' } : {}}
                         >
                           {d}
                         </button>
@@ -274,7 +274,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                 disabled={!service || !day || !time || !selectionFits || selectionConflicts}
                 onClick={() => setStep(2)}
                 className="w-full py-3 rounded-xl font-semibold text-sm disabled:opacity-30 hover:brightness-110 transition-all mt-2 text-white"
-                style={{ background: '#1D9E75' }}
+                style={{ background: 'rgb(var(--violet-rgb))' }}
               >
                 Далее →
               </button>
@@ -286,7 +286,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
             <div className="space-y-4">
               <div
                 className="rounded-xl p-4 text-sm space-y-1.5"
-                style={{ background: '#f2f8f5', border: '1px solid rgba(29,158,117,0.12)' }}
+                style={{ background: 'rgb(var(--surface-3-rgb))', border: '1px solid rgba(29,158,117,0.12)' }}
               >
                 <p className="text-slate">Услуга: <span className="text-cream">{service}</span></p>
                 <p className="text-slate">
@@ -303,7 +303,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   onChange={e => setName(e.target.value)}
                   placeholder="Иванов Иван Иванович"
                   className="w-full rounded-lg px-3 py-2.5 text-cream text-sm focus:outline-none placeholder-slate/40"
-                  style={{ background: '#f2f8f5', border: '1px solid rgba(29,158,117,0.20)' }}
+                  style={{ background: 'rgb(var(--surface-3-rgb))', border: '1px solid rgba(29,158,117,0.20)' }}
                 />
               </div>
               <div>
@@ -313,7 +313,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   onChange={e => setPhone(e.target.value)}
                   placeholder="+7 (999) 000-00-00"
                   className="w-full rounded-lg px-3 py-2.5 text-cream text-sm focus:outline-none placeholder-slate/40"
-                  style={{ background: '#f2f8f5', border: '1px solid rgba(29,158,117,0.20)' }}
+                  style={{ background: 'rgb(var(--surface-3-rgb))', border: '1px solid rgba(29,158,117,0.20)' }}
                 />
               </div>
               {/* Согласие на обработку персональных данных (152-ФЗ) */}
@@ -345,7 +345,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   disabled={loading || !consent}
                   onClick={submit}
                   className="flex-1 py-3 rounded-xl font-semibold text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110 transition-all text-white"
-                  style={{ background: '#1D9E75' }}
+                  style={{ background: 'rgb(var(--violet-rgb))' }}
                 >
                   {loading ? 'Отправка…' : 'Записаться'}
                 </button>
@@ -372,7 +372,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
               <button
                 onClick={onClose}
                 className="mt-2 px-8 py-3 rounded-xl font-semibold text-sm hover:brightness-110 transition-all text-white"
-                style={{ background: '#1D9E75' }}
+                style={{ background: 'rgb(var(--violet-rgb))' }}
               >
                 Закрыть
               </button>

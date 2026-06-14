@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Тёмная тема (графит + изумруд). Светлые значения = текущие цвета. ── */
+:root{
+  --bg-rgb:255 255 255; --surface-rgb:255 255 255; --surface-2-rgb:232 245 240; --surface-3-rgb:244 250 248; --surface-4-rgb:238 244 241; --surface-5-rgb:222 240 232;
+  --text-rgb:44 44 44; --muted-rgb:93 110 103; --muted-b-rgb:124 139 133; --muted-c-rgb:154 168 162;
+  --hair-rgb:223 233 229; --violet-rgb:29 158 117;
+  --header:rgba(222,240,232,0.82); --header-scrolled:rgba(232,245,240,0.92);
+}
+html.dark{
+  --bg-rgb:14 18 17; --surface-rgb:26 32 30; --surface-2-rgb:18 26 23; --surface-3-rgb:30 38 35; --surface-4-rgb:34 42 39; --surface-5-rgb:22 32 28;
+  --text-rgb:232 240 236; --muted-rgb:150 166 158; --muted-b-rgb:162 176 169; --muted-c-rgb:132 148 141;
+  --hair-rgb:56 68 62; --violet-rgb:39 197 149;
+  --header:rgba(14,18,17,0.82); --header-scrolled:rgba(26,32,30,0.92);
+  color-scheme:dark;
+}
+html.dark body{ background:rgb(var(--bg-rgb)) !important; }
+html{ transition:background-color .35s ease; }
+
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }

@@ -38,13 +38,13 @@ export default function HomePage() {
       <Marquee />
 
       {/* ── Услуги: bento-сетка ── */}
-      <section className="py-20 sm:py-28" style={{ background: '#e8f5f0' }}>
+      <section className="py-20 sm:py-28" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1180px' }}>
           <div className="flex items-end justify-between flex-wrap gap-6 mb-12 reveal">
-            <h2 className="font-sans font-extrabold m-0" style={{ fontSize: 'clamp(30px, 4vw, 48px)', letterSpacing: '-0.02em', color: '#2c2c2c' }}>
-              Услуги <span style={{ color: '#1D9E75' }}>конторы</span>
+            <h2 className="font-sans font-extrabold m-0" style={{ fontSize: 'clamp(30px, 4vw, 48px)', letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}>
+              Услуги <span style={{ color: 'rgb(var(--violet-rgb))' }}>конторы</span>
             </h2>
-            <Link href="/services" className="inline-flex items-center gap-2 font-semibold text-sm no-underline transition-opacity hover:opacity-70" style={{ color: '#1D9E75' }}>
+            <Link href="/services" className="inline-flex items-center gap-2 font-semibold text-sm no-underline transition-opacity hover:opacity-70" style={{ color: 'rgb(var(--violet-rgb))' }}>
               Все услуги
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
             </Link>
@@ -55,7 +55,7 @@ export default function HomePage() {
             <Link
               href="/services"
               className="sm:col-span-2 lg:row-span-2 group rounded-3xl p-8 flex flex-col justify-between no-underline transition-transform hover:-translate-y-1 reveal"
-              style={{ background: '#1D9E75', minHeight: '280px' }}
+              style={{ background: 'rgb(var(--violet-rgb))', minHeight: '280px' }}
             >
               <div className="w-12 h-12 rounded-xl grid place-items-center" style={{ background: 'rgba(255,255,255,0.16)' }}>
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">{ICON.sale}</svg>
@@ -82,15 +82,15 @@ export default function HomePage() {
               <Link
                 key={s.t}
                 href="/services"
-                className="group rounded-3xl p-6 bg-white no-underline transition-all hover:-translate-y-1 reveal"
+                className="group rounded-3xl p-6 bg-navy-card no-underline transition-all hover:-translate-y-1 reveal"
                 style={{ border: '1px solid rgba(29,158,117,0.12)' }}
                 data-reveal-delay={i * 60}
               >
-                <div className="w-11 h-11 rounded-xl grid place-items-center mb-5" style={{ background: '#e8f5f0', color: '#1D9E75' }}>
+                <div className="w-11 h-11 rounded-xl grid place-items-center mb-5" style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-rgb))' }}>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">{s.icon}</svg>
                 </div>
-                <h3 className="font-sans font-bold mb-1" style={{ fontSize: '17px', color: '#2c2c2c' }}>{s.t}</h3>
-                <p className="text-[13px] m-0" style={{ color: '#7c8b85' }}>{s.d}</p>
+                <h3 className="font-sans font-bold mb-1" style={{ fontSize: '17px', color: 'rgb(var(--text-rgb))' }}>{s.t}</h3>
+                <p className="text-[13px] m-0" style={{ color: 'rgb(var(--muted-b-rgb))' }}>{s.d}</p>
               </Link>
             ))}
 
@@ -107,15 +107,15 @@ export default function HomePage() {
       </section>
 
       {/* ── Проверка документов: анимация + текст ── */}
-      <section className="py-20 sm:py-28" style={{ background: '#ffffff' }}>
+      <section className="py-20 sm:py-28" style={{ background: 'rgb(var(--surface-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10 grid lg:grid-cols-2 gap-14 items-center" style={{ maxWidth: '1180px' }}>
           <div className="reveal">
             <div className="flex items-center gap-3 mb-5">
-              <span className="block w-10 h-[2px]" style={{ background: '#1D9E75' }} />
-              <span className="font-semibold text-[11px] tracking-[0.32em] uppercase" style={{ color: '#1D9E75' }}>Контроль качества</span>
+              <span className="block w-10 h-[2px]" style={{ background: 'rgb(var(--violet-rgb))' }} />
+              <span className="font-semibold text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-rgb))' }}>Контроль качества</span>
             </div>
-            <h2 className="font-sans font-extrabold mb-6" style={{ fontSize: 'clamp(28px, 3.6vw, 44px)', letterSpacing: '-0.02em', color: '#2c2c2c' }}>
-              Каждый документ<br />проходит <span style={{ color: '#1D9E75' }}>проверку</span>
+            <h2 className="font-sans font-extrabold mb-6" style={{ fontSize: 'clamp(28px, 3.6vw, 44px)', letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}>
+              Каждый документ<br />проходит <span style={{ color: 'rgb(var(--violet-rgb))' }}>проверку</span>
             </h2>
             <div className="space-y-5">
               {[
@@ -124,12 +124,12 @@ export default function HomePage() {
                 { t: 'Юридическая чистота текста', d: 'Каждая формулировка — по закону, без двусмысленностей' },
               ].map((p, i) => (
                 <div key={p.t} className="flex gap-4 reveal" data-reveal-delay={i * 90}>
-                  <span className="w-8 h-8 rounded-lg grid place-items-center flex-shrink-0 mt-0.5" style={{ background: '#e8f5f0', color: '#1D9E75' }}>
+                  <span className="w-8 h-8 rounded-lg grid place-items-center flex-shrink-0 mt-0.5" style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-rgb))' }}>
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                   </span>
                   <div>
-                    <h3 className="font-bold text-[16px] mb-1" style={{ color: '#2c2c2c' }}>{p.t}</h3>
-                    <p className="text-[14px] leading-relaxed m-0" style={{ color: '#7c8b85' }}>{p.d}</p>
+                    <h3 className="font-bold text-[16px] mb-1" style={{ color: 'rgb(var(--text-rgb))' }}>{p.t}</h3>
+                    <p className="text-[14px] leading-relaxed m-0" style={{ color: 'rgb(var(--muted-b-rgb))' }}>{p.d}</p>
                   </div>
                 </div>
               ))}
@@ -145,10 +145,10 @@ export default function HomePage() {
       <SlotFinder />
 
       {/* ── Отзывы: карточки с рейтингом ── */}
-      <section className="py-20" style={{ background: '#e8f5f0' }}>
+      <section className="py-20" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1180px' }}>
-          <h2 className="font-sans font-extrabold mb-10 reveal" style={{ fontSize: 'clamp(28px, 3.6vw, 44px)', letterSpacing: '-0.02em', color: '#2c2c2c' }}>
-            Что говорят <span style={{ color: '#1D9E75' }}>клиенты</span>
+          <h2 className="font-sans font-extrabold mb-10 reveal" style={{ fontSize: 'clamp(28px, 3.6vw, 44px)', letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}>
+            Что говорят <span style={{ color: 'rgb(var(--violet-rgb))' }}>клиенты</span>
           </h2>
           <div className="grid md:grid-cols-3 gap-5">
             {[
@@ -156,18 +156,18 @@ export default function HomePage() {
               { n: 'Светлана М.', s: 'доверенность', t: 'Очень удобно, что видно свободное время. Пришла к 12:00 — приняли ровно в 12:00. Никаких очередей.' },
               { n: 'Игорь Т.', s: 'завещание', t: 'Помогли сформулировать всё корректно, объяснили нюансы простым языком. Цена совпала с тарифом на сайте.' },
             ].map((r, i) => (
-              <figure key={r.n} className="m-0 rounded-3xl p-7 bg-white reveal" style={{ border: '1px solid rgba(29,158,117,0.12)' }} data-reveal-delay={i * 90}>
+              <figure key={r.n} className="m-0 rounded-3xl p-7 bg-navy-card reveal" style={{ border: '1px solid rgba(29,158,117,0.12)' }} data-reveal-delay={i * 90}>
                 <div className="flex gap-1 mb-4" aria-label="5 из 5">
                   {[...Array(5)].map((_, j) => (
                     <svg key={j} width="16" height="16" viewBox="0 0 24 24" fill="#1D9E75"><path d="M12 2l2.9 6.26 6.6.56-5 4.46 1.5 6.5L12 16.3 5.99 19.8l1.5-6.5-5-4.47 6.61-.56L12 2z" /></svg>
                   ))}
                 </div>
-                <blockquote className="m-0 mb-5 text-[14px] leading-relaxed" style={{ color: '#5d6e67' }}>{r.t}</blockquote>
+                <blockquote className="m-0 mb-5 text-[14px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))' }}>{r.t}</blockquote>
                 <figcaption className="flex items-center gap-3">
-                  <span className="w-9 h-9 rounded-full grid place-items-center font-bold text-sm text-white" style={{ background: '#1D9E75' }}>{r.n.charAt(0)}</span>
+                  <span className="w-9 h-9 rounded-full grid place-items-center font-bold text-sm text-white" style={{ background: 'rgb(var(--violet-rgb))' }}>{r.n.charAt(0)}</span>
                   <span>
-                    <span className="block font-bold text-[14px]" style={{ color: '#2c2c2c' }}>{r.n}</span>
-                    <span className="block text-[12px]" style={{ color: '#7c8b85' }}>{r.s}</span>
+                    <span className="block font-bold text-[14px]" style={{ color: 'rgb(var(--text-rgb))' }}>{r.n}</span>
+                    <span className="block text-[12px]" style={{ color: 'rgb(var(--muted-b-rgb))' }}>{r.s}</span>
                   </span>
                 </figcaption>
               </figure>
@@ -177,7 +177,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Карта с плавающей карточкой ── */}
-      <section className="py-20" style={{ background: '#ffffff' }}>
+      <section className="py-20" style={{ background: 'rgb(var(--surface-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1180px' }}>
           <div className="relative rounded-3xl overflow-hidden reveal" style={{ border: '1px solid rgba(29,158,117,0.15)', height: '440px' }}>
             <iframe
@@ -187,20 +187,20 @@ export default function HomePage() {
               title="Карта"
             />
             <div
-              className="absolute left-4 top-4 sm:left-8 sm:top-8 rounded-2xl p-6 bg-white max-w-[300px]"
+              className="absolute left-4 top-4 sm:left-8 sm:top-8 rounded-2xl p-6 bg-navy-card max-w-[300px]"
               style={{ boxShadow: '0 20px 50px rgba(0,0,0,0.18)', border: '1px solid rgba(29,158,117,0.15)' }}
             >
-              <h2 className="font-sans font-extrabold m-0 mb-3" style={{ fontSize: '19px', color: '#2c2c2c' }}>Наш офис</h2>
-              <p className="text-sm m-0 mb-2" style={{ color: '#5d6e67' }}>{notary.address}</p>
-              <p className="text-sm m-0 mb-3" style={{ color: '#5d6e67' }}>Пн–Пт 10:00–19:00</p>
-              <a href={notary.phoneHref} className="font-bold text-[15px] no-underline" style={{ color: '#1D9E75' }}>{notary.phone}</a>
+              <h2 className="font-sans font-extrabold m-0 mb-3" style={{ fontSize: '19px', color: 'rgb(var(--text-rgb))' }}>Наш офис</h2>
+              <p className="text-sm m-0 mb-2" style={{ color: 'rgb(var(--muted-rgb))' }}>{notary.address}</p>
+              <p className="text-sm m-0 mb-3" style={{ color: 'rgb(var(--muted-rgb))' }}>Пн–Пт 10:00–19:00</p>
+              <a href={notary.phoneHref} className="font-bold text-[15px] no-underline" style={{ color: 'rgb(var(--violet-rgb))' }}>{notary.phone}</a>
             </div>
           </div>
         </div>
       </section>
 
       {/* ── Гарантии: строка из 4 пунктов ── */}
-      <section className="py-16" style={{ background: '#ffffff', borderTop: '1px solid rgba(29,158,117,0.10)' }}>
+      <section className="py-16" style={{ background: 'rgb(var(--surface-rgb))', borderTop: '1px solid rgba(29,158,117,0.10)' }}>
         <div className="mx-auto px-5 sm:px-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-8" style={{ maxWidth: '1180px' }}>
           {[
             { t: 'Онлайн-запись 24/7', d: 'Выберите время сами — без звонков и ожидания' },
@@ -209,12 +209,12 @@ export default function HomePage() {
             { t: 'Электронная регистрация', d: 'Подача в Росреестр за 1 рабочий день' },
           ].map((g, i) => (
             <div key={g.t} className="flex gap-4 reveal" data-reveal-delay={i * 80}>
-              <span className="w-9 h-9 rounded-full grid place-items-center flex-shrink-0" style={{ background: '#e8f5f0', color: '#1D9E75' }}>
+              <span className="w-9 h-9 rounded-full grid place-items-center flex-shrink-0" style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-rgb))' }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               </span>
               <div>
-                <h3 className="font-bold text-[15px] mb-1" style={{ color: '#2c2c2c' }}>{g.t}</h3>
-                <p className="text-[13px] leading-relaxed m-0" style={{ color: '#7c8b85' }}>{g.d}</p>
+                <h3 className="font-bold text-[15px] mb-1" style={{ color: 'rgb(var(--text-rgb))' }}>{g.t}</h3>
+                <p className="text-[13px] leading-relaxed m-0" style={{ color: 'rgb(var(--muted-b-rgb))' }}>{g.d}</p>
               </div>
             </div>
           ))}
@@ -222,20 +222,20 @@ export default function HomePage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-20 text-center" style={{ background: '#e8f5f0' }}>
+      <section className="py-20 text-center" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
         <div className="mx-auto px-5" style={{ maxWidth: '640px' }}>
-          <h2 className="font-sans font-extrabold mb-3" style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', letterSpacing: '-0.02em', color: '#2c2c2c' }}>
-            Запись займёт <span style={{ color: '#1D9E75' }}>30 секунд</span>
+          <h2 className="font-sans font-extrabold mb-3" style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}>
+            Запись займёт <span style={{ color: 'rgb(var(--violet-rgb))' }}>30 секунд</span>
           </h2>
-          <p className="mb-8 text-[15px]" style={{ color: '#5d6e67' }}>
+          <p className="mb-8 text-[15px]" style={{ color: 'rgb(var(--muted-rgb))' }}>
             Выберите услугу, дату и время — остальное мы возьмём на себя
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <BookingButton />
             <a
               href={notary.phoneHref}
-              className="inline-flex items-center px-8 py-3 rounded-lg font-semibold text-sm no-underline bg-white transition-all hover:-translate-y-0.5"
-              style={{ border: '1px solid rgba(29,158,117,0.30)', color: '#2c2c2c' }}
+              className="inline-flex items-center px-8 py-3 rounded-lg font-semibold text-sm no-underline bg-navy-card transition-all hover:-translate-y-0.5"
+              style={{ border: '1px solid rgba(29,158,117,0.30)', color: 'rgb(var(--text-rgb))' }}
             >
               {notary.phone}
             </a>

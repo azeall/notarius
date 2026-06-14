@@ -46,7 +46,7 @@ function isWeekendYMD(ymd: string): boolean {
 }
 
 const INPUT = 'w-full rounded-xl px-3.5 py-2.5 text-sm focus:outline-none transition-colors'
-const INPUT_STYLE: React.CSSProperties = { background: '#f2f8f5', border: '1px solid rgba(29,158,117,0.20)', color: '#2c2c2c' }
+const INPUT_STYLE: React.CSSProperties = { background: 'rgb(var(--surface-3-rgb))', border: '1px solid rgba(29,158,117,0.20)', color: 'rgb(var(--text-rgb))' }
 
 /** Компактная форма записи прямо в hero — фича сайта. */
 function HeroBookingCard() {
@@ -94,28 +94,28 @@ function HeroBookingCard() {
 
   return (
     <div
-      className="relative rounded-3xl p-6 sm:p-7 bg-white w-full max-w-[440px] mx-auto"
+      className="relative rounded-3xl p-6 sm:p-7 bg-navy-card w-full max-w-[440px] mx-auto"
       style={{ border: '1px solid rgba(29,158,117,0.18)', boxShadow: '0 30px 70px rgba(29,158,117,0.16)' }}
     >
       <div className="flex items-center justify-between mb-5">
-        <h2 className="font-sans font-extrabold m-0" style={{ fontSize: '20px', color: '#2c2c2c', letterSpacing: '-0.01em' }}>
+        <h2 className="font-sans font-extrabold m-0" style={{ fontSize: '20px', color: 'rgb(var(--text-rgb))', letterSpacing: '-0.01em' }}>
           Запись на приём
         </h2>
-        <span className="text-[10px] font-bold tracking-wide uppercase rounded-full px-2.5 py-1" style={{ background: '#e8f5f0', color: '#1D9E75' }}>
+        <span className="text-[10px] font-bold tracking-wide uppercase rounded-full px-2.5 py-1" style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-rgb))' }}>
           ~30 секунд
         </span>
       </div>
 
       {done ? (
         <div className="text-center py-8">
-          <div className="w-14 h-14 rounded-full grid place-items-center mx-auto mb-4" style={{ background: '#e8f5f0' }}>
-            <svg className="w-7 h-7" style={{ color: '#1D9E75' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-14 h-14 rounded-full grid place-items-center mx-auto mb-4" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
+            <svg className="w-7 h-7" style={{ color: 'rgb(var(--violet-rgb))' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h3 className="font-sans font-bold mb-1" style={{ fontSize: '18px', color: '#2c2c2c' }}>Вы записаны!</h3>
-          <p className="text-sm m-0" style={{ color: '#5d6e67' }}>
-            {date} в <b style={{ color: '#1D9E75' }}>{time}</b>. Мы свяжемся для подтверждения.
+          <h3 className="font-sans font-bold mb-1" style={{ fontSize: '18px', color: 'rgb(var(--text-rgb))' }}>Вы записаны!</h3>
+          <p className="text-sm m-0" style={{ color: 'rgb(var(--muted-rgb))' }}>
+            {date} в <b style={{ color: 'rgb(var(--violet-rgb))' }}>{time}</b>. Мы свяжемся для подтверждения.
           </p>
         </div>
       ) : (
@@ -132,8 +132,8 @@ function HeroBookingCard() {
           </div>
           {date && isWeekendYMD(date) && <p className="text-xs m-0" style={{ color: '#c2410c' }}>Выходной — выберите будний день</p>}
           {date && !isWeekendYMD(date) && freeSlots.length > 0 && (
-            <p className="text-xs m-0 flex items-center gap-1.5" style={{ color: '#1D9E75' }}>
-              <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ background: '#1D9E75' }} />
+            <p className="text-xs m-0 flex items-center gap-1.5" style={{ color: 'rgb(var(--violet-rgb))' }}>
+              <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ background: 'rgb(var(--violet-rgb))' }} />
               Свободно {freeSlots.length} {freeSlots.length === 1 ? 'окно' : freeSlots.length < 5 ? 'окна' : 'окон'} на эту дату
             </p>
           )}
@@ -144,9 +144,9 @@ function HeroBookingCard() {
           <input required value={phone} onChange={e => setPhone(e.target.value)} placeholder="+7 (000) 000-00-00" inputMode="tel" className={INPUT} style={INPUT_STYLE} />
 
           <label className="flex items-start gap-2 cursor-pointer select-none pt-1">
-            <input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)} className="mt-0.5 w-4 h-4 cursor-pointer" style={{ accentColor: '#1D9E75' }} />
-            <span className="text-[11px] leading-snug" style={{ color: '#7c8b85' }}>
-              Согласен(а) на обработку персональных данных (<a href="/privacy" target="_blank" className="underline" style={{ color: '#1D9E75' }}>политика</a>)
+            <input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)} className="mt-0.5 w-4 h-4 cursor-pointer" style={{ accentColor: 'rgb(var(--violet-rgb))' }} />
+            <span className="text-[11px] leading-snug" style={{ color: 'rgb(var(--muted-b-rgb))' }}>
+              Согласен(а) на обработку персональных данных (<a href="/privacy" target="_blank" className="underline" style={{ color: 'rgb(var(--violet-rgb))' }}>политика</a>)
             </span>
           </label>
 
@@ -156,7 +156,7 @@ function HeroBookingCard() {
             type="submit"
             disabled={loading || !consent || !time}
             className="w-full font-bold py-3 rounded-xl text-sm text-white transition-all hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed"
-            style={{ background: '#1D9E75' }}
+            style={{ background: 'rgb(var(--violet-rgb))' }}
           >
             {loading ? 'Отправка…' : 'Записаться'}
           </button>
@@ -172,59 +172,59 @@ export default function Hero() {
   const rest = nameParts.slice(1).join(' ')
 
   return (
-    <section data-hero className="relative overflow-hidden flex items-center" style={{ minHeight: '100dvh', background: '#ffffff' }}>
+    <section data-hero className="relative overflow-hidden flex items-center" style={{ minHeight: '100dvh', background: 'rgb(var(--surface-rgb))' }}>
       <style>{`
         @keyframes mintPulse { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.06); } }
         @media (prefers-reduced-motion: reduce) { .mint-orb { animation: none !important; } }
       `}</style>
 
       {/* мятный клин + живые орбы */}
-      <div className="absolute top-0 right-0 hidden lg:block" style={{ width: '46%', height: '100%', background: '#e8f5f0', clipPath: 'polygon(20% 0, 100% 0, 100% 100%, 0 100%)' }} aria-hidden />
+      <div className="absolute top-0 right-0 hidden lg:block" style={{ width: '46%', height: '100%', background: 'rgb(var(--surface-2-rgb))', clipPath: 'polygon(20% 0, 100% 0, 100% 100%, 0 100%)' }} aria-hidden />
       <div className="mint-orb absolute rounded-full pointer-events-none" style={{ width: 300, height: 300, top: '8%', right: '4%', background: 'radial-gradient(circle, rgba(29,158,117,0.14), transparent 65%)', animation: 'mintPulse 9s ease-in-out infinite' }} aria-hidden />
       <div className="mint-orb absolute rounded-full pointer-events-none" style={{ width: 220, height: 220, bottom: '6%', left: '2%', background: 'radial-gradient(circle, rgba(29,158,117,0.10), transparent 65%)', animation: 'mintPulse 12s ease-in-out infinite' }} aria-hidden />
 
       <div className="relative w-full mx-auto px-5 sm:px-10 lg:px-16 py-16 lg:py-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center" style={{ maxWidth: '1320px' }}>
         <div>
           <div className="flex items-center gap-3 mb-8 animate-fade-in-up">
-            <span className="block w-10 h-[2px]" style={{ background: '#1D9E75' }} />
-            <span className="font-semibold text-[11px] tracking-[0.32em] uppercase" style={{ color: '#1D9E75' }}>
+            <span className="block w-10 h-[2px]" style={{ background: 'rgb(var(--violet-rgb))' }} />
+            <span className="font-semibold text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-rgb))' }}>
               Нотариус города Москвы
             </span>
           </div>
 
           <h1
             className="font-sans font-extrabold leading-[1.02] mb-7 animate-fade-in-up"
-            style={{ fontSize: 'clamp(40px, 6vw, 88px)', letterSpacing: '-0.03em', color: '#2c2c2c', animationDelay: '80ms' }}
+            style={{ fontSize: 'clamp(40px, 6vw, 88px)', letterSpacing: '-0.03em', color: 'rgb(var(--text-rgb))', animationDelay: '80ms' }}
           >
             {surname}
             <br />
-            <span style={{ color: '#1D9E75' }}>{rest}</span>
+            <span style={{ color: 'rgb(var(--violet-rgb))' }}>{rest}</span>
           </h1>
 
-          <p className="leading-relaxed mb-10 max-w-[500px] animate-fade-in-up" style={{ fontSize: '18px', lineHeight: '1.7', color: '#5d6e67', animationDelay: '160ms' }}>
+          <p className="leading-relaxed mb-10 max-w-[500px] animate-fade-in-up" style={{ fontSize: '18px', lineHeight: '1.7', color: 'rgb(var(--muted-rgb))', animationDelay: '160ms' }}>
             Современная нотариальная контора: онлайн-запись за 30 секунд,
             прозрачные тарифы и проверка каждого документа.
           </p>
 
           <div className="flex flex-wrap items-center gap-6 mb-14 animate-fade-in-up" style={{ animationDelay: '220ms' }}>
-            <a href={notary.phoneHref} className="inline-flex items-center gap-3 font-semibold text-[16px] no-underline transition-opacity hover:opacity-75" style={{ color: '#2c2c2c' }}>
-              <span className="w-11 h-11 rounded-full grid place-items-center" style={{ background: '#e8f5f0' }}>
+            <a href={notary.phoneHref} className="inline-flex items-center gap-3 font-semibold text-[16px] no-underline transition-opacity hover:opacity-75" style={{ color: 'rgb(var(--text-rgb))' }}>
+              <span className="w-11 h-11 rounded-full grid place-items-center" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" strokeWidth="1.8">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
               </span>
               {notary.phone}
             </a>
-            <span className="text-sm" style={{ color: '#7c8b85' }}>{notary.address}</span>
+            <span className="text-sm" style={{ color: 'rgb(var(--muted-b-rgb))' }}>{notary.address}</span>
           </div>
 
           <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-[600px] pt-8 animate-fade-in-up" style={{ borderTop: '2px solid #e8f5f0', animationDelay: '300ms' }}>
             {heroStats.map(s => (
               <div key={s.label}>
-                <div className="font-sans font-extrabold leading-none mb-2" style={{ fontSize: 'clamp(26px, 3.5vw, 42px)', color: '#1D9E75', letterSpacing: '-0.02em' }}>
+                <div className="font-sans font-extrabold leading-none mb-2" style={{ fontSize: 'clamp(26px, 3.5vw, 42px)', color: 'rgb(var(--violet-rgb))', letterSpacing: '-0.02em' }}>
                   <Counter value={s.value} suffix={s.suffix} />
                 </div>
-                <div className="text-[11px] sm:text-xs tracking-[0.16em] uppercase" style={{ color: '#7c8b85' }}>{s.label}</div>
+                <div className="text-[11px] sm:text-xs tracking-[0.16em] uppercase" style={{ color: 'rgb(var(--muted-b-rgb))' }}>{s.label}</div>
               </div>
             ))}
           </div>

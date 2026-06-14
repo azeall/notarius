@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
+import ThemeToggle from '@/components/ThemeToggle'
 
 const navLinks = [
   { href: '/',         label: 'Главная' },
@@ -30,7 +31,7 @@ export default function Header() {
       style={{
         backdropFilter: 'blur(14px)',
         WebkitBackdropFilter: 'blur(14px)',
-        background: scrolled ? 'rgba(232,245,240,0.92)' : 'rgba(222,240,232,0.82)',
+        background: scrolled ? 'var(--header-scrolled)' : 'var(--header)',
         borderBottom: '1px solid rgba(29,158,117,0.18)',
       }}
     >
@@ -97,6 +98,7 @@ export default function Header() {
 
         {/* CTA + hamburger */}
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <BookingButton size="sm" className="hidden md:inline-flex" />
           <button
             className="md:hidden flex flex-col gap-1.5 p-1.5 text-gold"
@@ -114,7 +116,7 @@ export default function Header() {
       {menuOpen && (
         <nav
           className="md:hidden px-5 pb-5 flex flex-col gap-0"
-          style={{ borderTop: '1px solid rgba(29,158,117,0.10)', background: 'rgba(232,245,240,0.96)' }}
+          style={{ borderTop: '1px solid rgba(29,158,117,0.10)', background: 'var(--header-scrolled)' }}
         >
           {navLinks.map(link => (
             <Link
