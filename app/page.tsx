@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Hero from '@/components/Hero'
+import Marquee from '@/components/Marquee'
 import CostCalculator from '@/components/CostCalculator'
 import BookingInline from '@/components/BookingInline'
 import BookingButton from '@/components/BookingButton'
@@ -39,6 +40,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+
+      {/* ── Бегущая строка услуг (кинетический акцент) ── */}
+      <Marquee />
 
       {/* ── Услуги: минималистичный нумерованный список ── */}
       <section className="py-20 sm:py-28" style={{ background: '#ffffff' }}>
