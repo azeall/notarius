@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Тёмная тема. Светлые значения переменных = текущие цвета (светлый режим
+   не меняется), .dark задаёт тёмные. Цвета самого герба НЕ трогаем. ── */
+:root{
+  --bg-rgb:244 243 253; --surface-rgb:255 255 255; --surface-2-rgb:236 234 251; --surface-3-rgb:248 247 254; --surface-4-rgb:218 214 243; --surface-5-rgb:228 225 247;
+  --text-rgb:38 34 61; --text-b-rgb:47 42 99; --text-c-rgb:58 52 128; --text-d-rgb:59 54 88; --text-e-rgb:91 86 119;
+  --muted-rgb:117 113 143; --muted-b-rgb:141 137 166; --muted-c-rgb:154 150 181; --muted-d-rgb:142 137 173; --muted-e-rgb:108 104 144; --muted-f-rgb:139 134 173;
+  --hair-rgb:192 191 204; --violet-rgb:83 74 183;
+  --header:rgba(228,225,247,0.82); --header-scrolled:rgba(236,234,251,0.92);
+}
+html.dark{
+  --bg-rgb:21 19 42; --surface-rgb:34 30 64; --surface-2-rgb:27 24 52; --surface-3-rgb:32 28 60; --surface-4-rgb:44 40 80; --surface-5-rgb:42 38 80;
+  --text-rgb:236 233 251; --text-b-rgb:231 227 251; --text-c-rgb:201 194 240; --text-d-rgb:216 212 240; --text-e-rgb:188 182 219;
+  --muted-rgb:168 163 203; --muted-b-rgb:157 152 189; --muted-c-rgb:143 138 176; --muted-d-rgb:163 158 198; --muted-e-rgb:179 174 210; --muted-f-rgb:159 154 193;
+  --hair-rgb:110 105 140; --violet-rgb:141 132 224;
+  --header:rgba(22,20,43,0.82); --header-scrolled:rgba(28,25,54,0.92);
+  color-scheme:dark;
+}
+html.dark body{ background:rgb(var(--bg-rgb)) !important; }
+html.dark .lv-veil{ background:radial-gradient(120% 120% at 78% 30%, rgba(21,19,42,0) 40%, rgba(21,19,42,.85) 78%, #15132a 100%) !important; }
+html{ transition:background-color .35s ease; }
+
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }

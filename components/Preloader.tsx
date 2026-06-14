@@ -6,7 +6,7 @@ export default function Preloader() {
     <div className="pl" aria-hidden>
       <div className="pl-seal"><span>{notary.name.trim().charAt(0)}</span></div>
       <style>{`
-        .pl{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:#f4f3fd;
+        .pl{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:rgb(var(--bg-rgb));
           animation:plOut .55s ease .95s forwards;}
         .pl-seal{width:94px;height:94px;border-radius:50%;display:grid;place-items:center;
           border:2px solid rgba(200,178,126,.6);box-shadow:inset 0 0 0 6px rgba(83,74,183,.08);
