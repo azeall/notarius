@@ -104,8 +104,8 @@ export default function ServicesGrid() {
               data-reveal-delay={i * 60}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLElement
-                el.style.borderLeftColor = '#c05c2e'
-                el.style.background = '#fdf8ef'
+                el.style.borderLeftColor = 'rgb(var(--violet-rgb))'
+                el.style.background = 'rgb(var(--surface-rgb))'
                 el.style.transform = 'translateX(2px)'
               }}
               onMouseLeave={e => {

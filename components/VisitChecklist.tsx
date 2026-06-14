@@ -70,9 +70,9 @@ export default function VisitChecklist() {
                 onClick={() => setActiveId(c.id)}
                 className="text-left whitespace-nowrap lg:whitespace-normal rounded-lg px-4 py-3 text-sm font-medium transition-all flex-shrink-0 lg:flex-shrink"
                 style={{
-                  background: isActive ? 'rgba(192,92,46,0.14)' : '#fdf8ef',
-                  color: isActive ? '#3d2010' : '#7d6a55',
-                  border: `1px solid ${isActive ? '#c05c2e' : 'rgba(192,92,46,0.12)'}`,
+                  background: isActive ? 'rgba(192,92,46,0.14)' : 'rgb(var(--surface-rgb))',
+                  color: isActive ? 'rgb(var(--text-rgb))' : 'rgb(var(--muted-rgb))',
+                  border: `1px solid ${isActive ? 'rgb(var(--violet-rgb))' : 'rgba(192,92,46,0.12)'}`,
                 }}
               >
                 {c.title}
@@ -83,7 +83,7 @@ export default function VisitChecklist() {
       </aside>
 
       {/* Checklist */}
-      <div data-checklist className="rounded-2xl p-6 sm:p-8" style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.15)' }}>
+      <div data-checklist className="rounded-2xl p-6 sm:p-8" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.15)' }}>
         <div className="flex items-start justify-between gap-4 mb-6 flex-wrap">
           <div>
             <h2 className="font-serif text-2xl font-bold text-cream mb-1">{active.title}</h2>
@@ -121,7 +121,7 @@ export default function VisitChecklist() {
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${progress}%`,
-                background: progress === 100 ? '#4f9d7a' : '#c05c2e',
+                background: progress === 100 ? '#4f9d7a' : 'rgb(var(--violet-rgb))',
               }}
             />
           </div>
@@ -167,7 +167,7 @@ export default function VisitChecklist() {
                       <span
                         className="text-sm font-medium transition-colors"
                         style={{
-                          color: isChecked ? '#94816b' : '#3d2010',
+                          color: isChecked ? 'rgb(var(--muted-b-rgb))' : 'rgb(var(--text-rgb))',
                           textDecoration: isChecked ? 'line-through' : 'none',
                         }}
                       >

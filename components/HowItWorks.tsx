@@ -62,7 +62,7 @@ export default function HowItWorks() {
               <div className="flex items-center gap-4 mb-6">
                 <div
                   className="w-14 h-14 grid place-items-center flex-shrink-0"
-                  style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.18)', borderRadius: '12px' }}
+                  style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.18)', borderRadius: '12px' }}
                 >
                   <span className="font-serif text-gold text-lg font-bold">{step.n}</span>
                 </div>

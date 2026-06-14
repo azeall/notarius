@@ -17,7 +17,7 @@ const PHOTOS = [
 
 export default function LegalPhotos() {
   return (
-    <section className="bg-white px-4 py-6">
+    <section className="bg-navy-card px-4 py-6">
       <div className="max-w-6xl mx-auto">
 
         {/* Asymmetric 2/3 + 1/3 grid */}

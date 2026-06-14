@@ -134,7 +134,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl p-5 space-y-3" style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.15)' }}>
+              <div className="rounded-2xl p-5 space-y-3" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.15)' }}>
                 <p className="text-xs uppercase tracking-widest text-gold/70 font-semibold">Членство</p>
                 <div className="flex items-start gap-2 text-sm text-slate">
                   <span className="w-1.5 h-1.5 rounded-full bg-gold mt-2 flex-shrink-0" />
@@ -147,7 +147,7 @@ export default function AboutPage() {
               </div>
 
               {/* Реквизиты и проверка */}
-              <div className="rounded-2xl p-5 space-y-3" style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.15)' }}>
+              <div className="rounded-2xl p-5 space-y-3" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.15)' }}>
                 <p className="text-xs uppercase tracking-widest text-gold/70 font-semibold">Реквизиты и проверка</p>
                 <dl className="space-y-2.5 text-sm">
                   {notary.registryNumber && (
@@ -205,7 +205,7 @@ export default function AboutPage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {VALUES.map(v => (
-              <div key={v.title} className="rounded-2xl p-6 transition-all hover:-translate-y-0.5" style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.15)' }}>
+              <div key={v.title} className="rounded-2xl p-6 transition-all hover:-translate-y-0.5" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.15)' }}>
                 <div className="w-10 h-10 rounded-lg grid place-items-center mb-4 text-gold" style={{ background: 'rgba(192,92,46,0.10)' }}>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     {v.icon}

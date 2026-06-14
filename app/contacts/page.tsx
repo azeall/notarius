@@ -47,7 +47,7 @@ export default function ContactsPage() {
                 <a
                   href={notary.phoneHref}
                   className="flex items-center gap-4 rounded-2xl px-6 py-5 transition-all hover:-translate-y-0.5 group"
-                  style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.20)' }}
+                  style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.20)' }}
                 >
                   <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0 text-gold" style={{ background: 'rgba(192,92,46,0.12)' }}>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,7 +64,7 @@ export default function ContactsPage() {
                   href={`https://wa.me/${notary.phone.replace(/\D/g, '')}`}
                   target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-4 rounded-2xl px-6 py-5 transition-all hover:-translate-y-0.5 group"
-                  style={{ background: '#fdf8ef', border: '1px solid rgba(79,157,122,0.30)' }}
+                  style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(79,157,122,0.30)' }}
                 >
                   <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0" style={{ background: 'rgba(79,157,122,0.15)', color: '#6fbf99' }}>
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -81,7 +81,7 @@ export default function ContactsPage() {
                   href={n.telegramHref ?? `https://t.me/+${notary.phone.replace(/\D/g, '')}`}
                   target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-4 rounded-2xl px-6 py-5 transition-all hover:-translate-y-0.5 group"
-                  style={{ background: '#fdf8ef', border: '1px solid rgba(96,165,250,0.30)' }}
+                  style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(96,165,250,0.30)' }}
                 >
                   <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0" style={{ background: 'rgba(96,165,250,0.15)', color: '#7fb3f5' }}>
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -94,7 +94,7 @@ export default function ContactsPage() {
                   </div>
                 </a>
 
-                <div className="flex items-center gap-4 rounded-2xl px-6 py-5" style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.15)' }}>
+                <div className="flex items-center gap-4 rounded-2xl px-6 py-5" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.15)' }}>
                   <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0 text-gold" style={{ background: 'rgba(192,92,46,0.10)' }}>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
@@ -127,7 +127,7 @@ export default function ContactsPage() {
               {/* Portrait placeholder */}
               <div
                 className="relative flex flex-col items-center justify-center text-center rounded-xl overflow-hidden"
-                style={{ padding: '32px 24px', background: '#fdf8ef', minHeight: '200px' }}
+                style={{ padding: '32px 24px', background: 'rgb(var(--surface-rgb))', minHeight: '200px' }}
               >
                 {/* Corner brackets */}
                 {[
@@ -154,14 +154,14 @@ export default function ContactsPage() {
 
                 <p
                   className="font-serif font-medium m-0 mb-1"
-                  style={{ fontSize: '17px', lineHeight: '1.2', color: '#c05c2e' }}
+                  style={{ fontSize: '17px', lineHeight: '1.2', color: 'rgb(var(--violet-rgb))' }}
                 >
                   {notary.name.split(' ')[0]}<br />
                   {notary.name.split(' ').slice(1).join(' ')}
                 </p>
                 <p
                   className="font-mono text-[10px] tracking-[0.20em] uppercase mb-0"
-                  style={{ color: '#94816b' }}
+                  style={{ color: 'rgb(var(--muted-b-rgb))' }}
                 >
                   Нотариус · Москва
                 </p>

@@ -104,7 +104,7 @@ export default function PricesPage() {
       <section className="bg-navy-dark">
         <div className="max-w-6xl mx-auto px-4 py-16 space-y-10">
           {PRICE_SECTIONS.map(section => (
-            <div key={section.title} className="rounded-2xl overflow-hidden" style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.15)' }}>
+            <div key={section.title} className="rounded-2xl overflow-hidden" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.15)' }}>
               <div className="px-6 py-4" style={{ borderBottom: '1px solid rgba(192,92,46,0.12)', background: 'rgba(192,92,46,0.05)' }}>
                 <h2 className="font-serif font-bold text-cream text-lg">{section.title}</h2>
                 {section.note && <p className="text-slate/70 text-xs mt-1">{section.note}</p>}

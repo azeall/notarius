@@ -51,7 +51,7 @@ export default function HomePage() {
               { v: 100, s: '%', l: 'юридическая сила' },
             ].map((st, i) => (
               <div key={st.l} className="text-center reveal" data-reveal-delay={i * 90}>
-                <div className="font-serif font-medium leading-none mb-2" style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#fbf6ea' }}>
+                <div className="font-serif font-medium leading-none mb-2" style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', color: 'rgb(var(--surface-4-rgb))' }}>
                   <CountUp value={st.v} suffix={st.s} />
                 </div>
                 <div className="text-[11px] sm:text-xs tracking-[0.14em] uppercase" style={{ color: 'rgba(251,246,234,0.7)' }}>

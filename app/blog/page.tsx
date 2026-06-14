@@ -80,7 +80,7 @@ export default function BlogPage() {
           <Link
             href={`/blog/${featured.slug}`}
             className="group block mb-8 rounded-2xl overflow-hidden transition-all hover:-translate-y-0.5"
-            style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.18)' }}
+            style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.18)' }}
           >
             <div className="grid md:grid-cols-[1.1fr_1fr]">
               <div className="p-8 md:p-10 flex flex-col justify-center">
@@ -102,7 +102,7 @@ export default function BlogPage() {
                 </span>
               </div>
               {/* Decorative panel */}
-              <div className="relative min-h-[200px] hidden md:block overflow-hidden" style={{ background: '#f5ede0' }}>
+              <div className="relative min-h-[200px] hidden md:block overflow-hidden" style={{ background: 'rgb(var(--bg-rgb))' }}>
                 <div
                   className="absolute inset-0"
                   style={{
@@ -127,7 +127,7 @@ export default function BlogPage() {
                 key={a.slug}
                 href={`/blog/${a.slug}`}
                 className="group flex flex-col rounded-2xl p-6 transition-all hover:-translate-y-0.5"
-                style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.15)' }}
+                style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.15)' }}
               >
                 <div className="flex items-center gap-3 mb-3 text-xs">
                   <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgba(192,92,46,0.12)' }}>
