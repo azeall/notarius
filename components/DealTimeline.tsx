@@ -19,18 +19,18 @@ export default function DealTimeline() {
   const last = STEPS.length - 1
 
   return (
-    <section className="py-20 sm:py-24" style={{ background: '#fdf8ef' }}>
+    <section className="py-20 sm:py-24" style={{ background: 'rgb(var(--surface-rgb))' }}>
       <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1000px' }}>
         <div className="text-center mb-14 reveal">
           <div className="inline-flex items-center gap-3.5 mb-4">
-            <span className="block w-6 h-px" style={{ background: '#c05c2e' }} />
+            <span className="block w-6 h-px" style={{ background: 'rgb(var(--violet-rgb))' }} />
             <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(192,92,46,0.75)' }}>Как всё проходит</span>
-            <span className="block w-6 h-px" style={{ background: '#c05c2e' }} />
+            <span className="block w-6 h-px" style={{ background: 'rgb(var(--violet-rgb))' }} />
           </div>
-          <h2 className="font-serif font-medium m-0" style={{ fontSize: 'clamp(32px, 4vw, 50px)', color: '#3d2010' }}>
-            Путь от заявки <em className="italic font-normal" style={{ color: '#c05c2e' }}>до документа</em>
+          <h2 className="font-serif font-medium m-0" style={{ fontSize: 'clamp(32px, 4vw, 50px)', color: 'rgb(var(--text-rgb))' }}>
+            Путь от заявки <em className="italic font-normal" style={{ color: 'rgb(var(--violet-rgb))' }}>до документа</em>
           </h2>
-          <p className="mt-3 text-[15px]" style={{ color: '#7d6a55' }}>Нажмите на шаг, чтобы узнать подробности</p>
+          <p className="mt-3 text-[15px]" style={{ color: 'rgb(var(--muted-rgb))' }}>Нажмите на шаг, чтобы узнать подробности</p>
         </div>
 
         {/* Шаги */}
@@ -38,7 +38,7 @@ export default function DealTimeline() {
           <span className="absolute left-0 right-0 top-[19px] h-0.5 rounded" style={{ background: 'rgba(192,92,46,0.18)' }} aria-hidden />
           <span
             className="absolute left-0 top-[19px] h-0.5 rounded"
-            style={{ background: '#c05c2e', width: `${(done ? 1 : active / last) * 100}%`, transition: 'width .4s cubic-bezier(0.2,0.7,0.2,1)' }}
+            style={{ background: 'rgb(var(--violet-rgb))', width: `${(done ? 1 : active / last) * 100}%`, transition: 'width .4s cubic-bezier(0.2,0.7,0.2,1)' }}
             aria-hidden
           />
           <div className="relative grid" style={{ gridTemplateColumns: `repeat(${STEPS.length}, 1fr)` }}>
@@ -50,15 +50,15 @@ export default function DealTimeline() {
                     className="grid place-items-center rounded-full font-mono text-sm font-bold transition-all"
                     style={{
                       width: 40, height: 40,
-                      background: reached ? '#c05c2e' : '#fdf8ef',
-                      color: reached ? '#fff' : '#b39b82',
-                      border: `2px solid ${reached ? '#c05c2e' : 'rgba(192,92,46,0.3)'}`,
+                      background: reached ? 'rgb(var(--violet-rgb))' : 'rgb(var(--surface-rgb))',
+                      color: reached ? '#fff' : 'rgb(var(--muted-c-rgb))',
+                      border: `2px solid ${reached ? 'rgb(var(--violet-rgb))' : 'rgba(192,92,46,0.3)'}`,
                       boxShadow: !done && i === active ? '0 0 0 5px rgba(192,92,46,0.16)' : 'none',
                     }}
                   >
                     {done || i < active ? '✓' : i + 1}
                   </span>
-                  <span className="text-[11px] sm:text-[13px] font-semibold text-center px-1" style={{ color: i === active ? '#3d2010' : '#94816b' }}>{s.t}</span>
+                  <span className="text-[11px] sm:text-[13px] font-semibold text-center px-1" style={{ color: i === active ? 'rgb(var(--text-rgb))' : 'rgb(var(--muted-b-rgb))' }}>{s.t}</span>
                 </button>
               )
             })}
@@ -67,25 +67,25 @@ export default function DealTimeline() {
 
         {/* Детали активного шага */}
         {!done && (
-          <div key={active} className="dt-card rounded-2xl p-7 sm:p-9 grid sm:grid-cols-[auto_1fr] gap-6 items-start" style={{ background: '#f5ede0', border: '1px solid rgba(192,92,46,0.16)' }}>
+          <div key={active} className="dt-card rounded-2xl p-7 sm:p-9 grid sm:grid-cols-[auto_1fr] gap-6 items-start" style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgba(192,92,46,0.16)' }}>
             <div className="font-serif leading-none" style={{ fontSize: 'clamp(56px,9vw,84px)', color: 'rgba(192,92,46,0.22)' }}>0{active + 1}</div>
             <div>
               <div className="flex items-center gap-3 mb-3 flex-wrap">
-                <h3 className="font-serif m-0" style={{ fontSize: '26px', color: '#3d2010' }}>{cur.t}</h3>
-                <span className="text-[11px] font-semibold uppercase tracking-wider rounded-full px-3 py-1" style={{ background: 'rgba(192,92,46,0.12)', color: '#c05c2e' }}>{cur.meta}</span>
+                <h3 className="font-serif m-0" style={{ fontSize: '26px', color: 'rgb(var(--text-rgb))' }}>{cur.t}</h3>
+                <span className="text-[11px] font-semibold uppercase tracking-wider rounded-full px-3 py-1" style={{ background: 'rgba(192,92,46,0.12)', color: 'rgb(var(--violet-rgb))' }}>{cur.meta}</span>
               </div>
-              <p className="m-0 text-[15.5px] leading-relaxed" style={{ color: '#5d4a38' }}>{cur.d}</p>
+              <p className="m-0 text-[15.5px] leading-relaxed" style={{ color: 'rgb(var(--text-b-rgb))' }}>{cur.d}</p>
               <div className="flex gap-3 mt-6">
                 <button
                   onClick={() => setActive(a => Math.max(0, a - 1))}
                   disabled={active === 0}
                   className="rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors disabled:opacity-35"
-                  style={{ color: '#c05c2e', border: '1.5px solid rgba(192,92,46,0.25)' }}
+                  style={{ color: 'rgb(var(--violet-rgb))', border: '1.5px solid rgba(192,92,46,0.25)' }}
                 >← Назад</button>
                 <button
                   onClick={() => (active === last ? setDone(true) : setActive(a => a + 1))}
                   className="rounded-xl px-6 py-2.5 text-sm font-semibold text-white transition-all hover:brightness-110"
-                  style={{ background: '#c05c2e' }}
+                  style={{ background: 'rgb(var(--violet-rgb))' }}
                 >{active === last ? 'Готово ✓' : 'Дальше →'}</button>
               </div>
             </div>
@@ -94,14 +94,14 @@ export default function DealTimeline() {
 
         {/* Финал — путь пройден */}
         {done && (
-          <div className="dt-card rounded-2xl p-9 sm:p-12 text-center" style={{ background: '#f5ede0', border: '1px solid rgba(192,92,46,0.16)' }}>
-            <div className="w-16 h-16 rounded-full grid place-items-center mx-auto mb-5" style={{ background: '#c05c2e', boxShadow: '0 12px 30px rgba(192,92,46,0.35)' }}>
+          <div className="dt-card rounded-2xl p-9 sm:p-12 text-center" style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgba(192,92,46,0.16)' }}>
+            <div className="w-16 h-16 rounded-full grid place-items-center mx-auto mb-5" style={{ background: 'rgb(var(--violet-rgb))', boxShadow: '0 12px 30px rgba(192,92,46,0.35)' }}>
               <svg className="w-8 h-8" fill="none" stroke="#fff" strokeWidth={2.4} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
             </div>
-            <h3 className="font-serif m-0 mb-3" style={{ fontSize: 'clamp(26px,3.5vw,38px)', color: '#3d2010' }}>
-              Вы прошли <em className="italic font-normal" style={{ color: '#c05c2e' }}>весь путь</em>
+            <h3 className="font-serif m-0 mb-3" style={{ fontSize: 'clamp(26px,3.5vw,38px)', color: 'rgb(var(--text-rgb))' }}>
+              Вы прошли <em className="italic font-normal" style={{ color: 'rgb(var(--violet-rgb))' }}>весь путь</em>
             </h3>
-            <p className="m-0 mx-auto mb-7 text-[15.5px] leading-relaxed" style={{ color: '#5d4a38', maxWidth: '52ch' }}>
+            <p className="m-0 mx-auto mb-7 text-[15.5px] leading-relaxed" style={{ color: 'rgb(var(--text-b-rgb))', maxWidth: '52ch' }}>
               От заявки до готового документа — мы рядом на каждом шаге. Запишитесь, и пройдём его вместе с самого начала.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
@@ -109,7 +109,7 @@ export default function DealTimeline() {
               <button
                 onClick={() => { setDone(false); setActive(0) }}
                 className="rounded-xl px-6 py-3 text-sm font-semibold transition-colors"
-                style={{ color: '#c05c2e', border: '1.5px solid rgba(192,92,46,0.25)' }}
+                style={{ color: 'rgb(var(--violet-rgb))', border: '1.5px solid rgba(192,92,46,0.25)' }}
               >Пройти заново</button>
             </div>
           </div>

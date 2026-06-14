@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Тёмная тема (тёплая палитра). Светлые значения = текущие цвета. Документ-иллюстрация в hero не трогается. ── */
+:root{
+  --bg-rgb:245 237 224; --surface-rgb:253 248 239; --surface-2-rgb:239 228 209; --surface-3-rgb:249 242 228; --surface-4-rgb:251 246 234; --surface-5-rgb:233 220 198;
+  --text-rgb:61 32 16; --text-b-rgb:93 74 56; --text-c-rgb:61 32 16; --text-d-rgb:93 74 56; --text-e-rgb:93 74 56;
+  --muted-rgb:125 106 85; --muted-b-rgb:148 129 107; --muted-c-rgb:179 155 130; --muted-d-rgb:185 177 164; --muted-e-rgb:217 201 180; --muted-f-rgb:148 129 107;
+  --hair-rgb:218 201 180; --violet-rgb:192 92 46;
+  --header:rgba(245,237,224,0.82); --header-scrolled:rgba(253,248,239,0.92);
+}
+html.dark{
+  --bg-rgb:26 18 12; --surface-rgb:40 28 19; --surface-2-rgb:33 24 16; --surface-3-rgb:46 33 22; --surface-4-rgb:44 31 21; --surface-5-rgb:52 38 26;
+  --text-rgb:243 231 214; --text-b-rgb:226 211 190; --text-c-rgb:243 231 214; --text-d-rgb:226 211 190; --text-e-rgb:226 211 190;
+  --muted-rgb:190 172 150; --muted-b-rgb:172 154 132; --muted-c-rgb:152 134 114; --muted-d-rgb:142 130 114; --muted-e-rgb:124 108 90; --muted-f-rgb:172 154 132;
+  --hair-rgb:90 78 64; --violet-rgb:214 116 70;
+  --header:rgba(26,18,12,0.82); --header-scrolled:rgba(36,26,18,0.92);
+  color-scheme:dark;
+}
+html.dark body{ background:rgb(var(--bg-rgb)) !important; }
+html{ transition:background-color .35s ease; }
+
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }

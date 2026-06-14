@@ -27,17 +27,17 @@ export default function FAQSearch() {
   }, [query])
 
   return (
-    <section className="py-20 sm:py-24" style={{ background: '#efe4d1' }}>
+    <section className="py-20 sm:py-24" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
       <div className="mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1180px' }}>
         <div className="mb-8 reveal">
           <div className="inline-flex items-center gap-3.5 mb-4">
-            <span className="block w-6 h-px" style={{ background: '#c05c2e' }} />
+            <span className="block w-6 h-px" style={{ background: 'rgb(var(--violet-rgb))' }} />
             <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(192,92,46,0.75)' }}>
               Вопросы и ответы
             </span>
           </div>
-          <h2 className="font-serif font-medium m-0" style={{ fontSize: 'clamp(32px, 4vw, 48px)', color: '#3d2010' }}>
-            Частые <em className="italic font-normal" style={{ color: '#c05c2e' }}>вопросы</em>
+          <h2 className="font-serif font-medium m-0" style={{ fontSize: 'clamp(32px, 4vw, 48px)', color: 'rgb(var(--text-rgb))' }}>
+            Частые <em className="italic font-normal" style={{ color: 'rgb(var(--violet-rgb))' }}>вопросы</em>
           </h2>
         </div>
 
@@ -56,10 +56,10 @@ export default function FAQSearch() {
             onChange={e => setQuery(e.target.value)}
             placeholder="Поиск по вопросам…"
             className="w-full rounded-xl pl-11 pr-4 py-3.5 text-sm focus:outline-none"
-            style={{ background: '#fdf8ef', border: '1px solid rgba(192,92,46,0.25)', color: '#3d2010' }}
+            style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.25)', color: 'rgb(var(--text-rgb))' }}
           />
           {query && (
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs" style={{ color: '#7d6a55' }}>
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs" style={{ color: 'rgb(var(--muted-rgb))' }}>
               {filtered.length} из {FAQS.length}
             </span>
           )}
@@ -67,9 +67,9 @@ export default function FAQSearch() {
 
         {/* Аккордеон */}
         {filtered.length === 0 ? (
-          <p className="py-10 text-center" style={{ color: '#7d6a55' }}>
+          <p className="py-10 text-center" style={{ color: 'rgb(var(--muted-rgb))' }}>
             Ничего не найдено. Попробуйте другой запрос или{' '}
-            <a href="/contacts" className="underline underline-offset-2" style={{ color: '#c05c2e' }}>задайте вопрос нам напрямую</a>.
+            <a href="/contacts" className="underline underline-offset-2" style={{ color: 'rgb(var(--violet-rgb))' }}>задайте вопрос нам напрямую</a>.
           </p>
         ) : (
           <div className="max-w-[860px]">
@@ -89,14 +89,14 @@ export default function FAQSearch() {
                     style={{ background: 'none', border: 'none', cursor: 'pointer' }}
                     aria-expanded={isOpen}
                   >
-                    <span className="font-serif text-[17px] sm:text-[19px] leading-snug" style={{ color: isOpen ? '#c05c2e' : '#3d2010' }}>
+                    <span className="font-serif text-[17px] sm:text-[19px] leading-snug" style={{ color: isOpen ? 'rgb(var(--violet-rgb))' : 'rgb(var(--text-rgb))' }}>
                       {faq.q}
                     </span>
                     <span
                       className="w-8 h-8 grid place-items-center flex-shrink-0 rounded-full transition-transform duration-300"
                       style={{
                         border: '1px solid rgba(192,92,46,0.35)',
-                        color: '#c05c2e',
+                        color: 'rgb(var(--violet-rgb))',
                         transform: isOpen ? 'rotate(180deg)' : 'none',
                         background: isOpen ? 'rgba(192,92,46,0.08)' : 'transparent',
                       }}
@@ -107,7 +107,7 @@ export default function FAQSearch() {
                     </span>
                   </button>
                   <div className="overflow-hidden transition-all duration-300" style={{ maxHeight: isOpen ? '400px' : '0' }}>
-                    <p className="pb-5 text-[14px] sm:text-[15px] leading-relaxed m-0" style={{ color: '#7d6a55', maxWidth: '780px' }}>
+                    <p className="pb-5 text-[14px] sm:text-[15px] leading-relaxed m-0" style={{ color: 'rgb(var(--muted-rgb))', maxWidth: '780px' }}>
                       {faq.a}
                     </p>
                   </div>

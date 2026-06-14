@@ -57,7 +57,7 @@ export default function Footer() {
     <footer
       className="py-16 sm:py-20 pb-8"
       style={{
-        background: '#e9dcc6',
+        background: 'rgb(var(--surface-5-rgb))',
         borderTop: '1px solid rgba(192,92,46,0.12)',
       }}
     >
@@ -144,7 +144,7 @@ export default function Footer() {
               >
                 {org.icon}
               </span>
-              <span className="font-serif text-[13px] tracking-[0.02em]" style={{ color: '#94816b' }}>
+              <span className="font-serif text-[13px] tracking-[0.02em]" style={{ color: 'rgb(var(--muted-b-rgb))' }}>
                 {org.name}
               </span>
             </a>
@@ -154,7 +154,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div
           className="flex flex-col md:flex-row justify-between items-center gap-3 pt-6 text-[12px] text-center md:text-left"
-          style={{ color: '#94816b' }}
+          style={{ color: 'rgb(var(--muted-b-rgb))' }}
         >
           <p className="m-0">© {new Date().getFullYear()} {notary.name}. Все права защищены.</p>
           <div className="flex items-center gap-4">

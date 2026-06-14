@@ -70,18 +70,18 @@ export default function BringChecklist() {
   const pct = Math.round((doneCount / svc.bring.length) * 100)
 
   return (
-    <section className="py-20 sm:py-24" style={{ background: '#efe4d1' }}>
+    <section className="py-20 sm:py-24" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
       <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
         <div className="text-center mb-12 reveal">
           <div className="inline-flex items-center gap-3.5 mb-4">
-            <span className="block w-6 h-px" style={{ background: '#c05c2e' }} />
+            <span className="block w-6 h-px" style={{ background: 'rgb(var(--violet-rgb))' }} />
             <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(192,92,46,0.75)' }}>Памятка</span>
-            <span className="block w-6 h-px" style={{ background: '#c05c2e' }} />
+            <span className="block w-6 h-px" style={{ background: 'rgb(var(--violet-rgb))' }} />
           </div>
-          <h2 className="font-serif font-medium m-0" style={{ fontSize: 'clamp(32px, 4vw, 50px)', color: '#3d2010' }}>
-            Что взять <em className="italic font-normal" style={{ color: '#c05c2e' }}>с собой</em>
+          <h2 className="font-serif font-medium m-0" style={{ fontSize: 'clamp(32px, 4vw, 50px)', color: 'rgb(var(--text-rgb))' }}>
+            Что взять <em className="italic font-normal" style={{ color: 'rgb(var(--violet-rgb))' }}>с собой</em>
           </h2>
-          <p className="mt-3 text-[15px]" style={{ color: '#7d6a55' }}>Выберите услугу — отметьте, что уже собрали</p>
+          <p className="mt-3 text-[15px]" style={{ color: 'rgb(var(--muted-rgb))' }}>Выберите услугу — отметьте, что уже собрали</p>
         </div>
 
         <div className="grid md:grid-cols-[0.32fr_0.68fr] gap-6 reveal">
@@ -93,9 +93,9 @@ export default function BringChecklist() {
                 onClick={() => setActiveId(s.id)}
                 className="text-left rounded-xl px-4 py-3 text-sm font-medium whitespace-nowrap transition-all flex-shrink-0"
                 style={{
-                  background: s.id === activeId ? '#c05c2e' : '#fbf6ea',
-                  color: s.id === activeId ? '#fff' : '#5d4a38',
-                  border: `1px solid ${s.id === activeId ? '#c05c2e' : 'rgba(192,92,46,0.18)'}`,
+                  background: s.id === activeId ? 'rgb(var(--violet-rgb))' : 'rgb(var(--surface-4-rgb))',
+                  color: s.id === activeId ? '#fff' : 'rgb(var(--text-b-rgb))',
+                  border: `1px solid ${s.id === activeId ? 'rgb(var(--violet-rgb))' : 'rgba(192,92,46,0.18)'}`,
                 }}
               >
                 {s.label}
@@ -104,14 +104,14 @@ export default function BringChecklist() {
           </div>
 
           {/* Чек-лист */}
-          <div className="rounded-2xl p-6 sm:p-8 bg-white" style={{ border: '1px solid rgba(192,92,46,0.16)', boxShadow: '0 20px 50px rgba(61,32,16,0.10)' }}>
+          <div className="rounded-2xl p-6 sm:p-8 bg-navy-card" style={{ border: '1px solid rgba(192,92,46,0.16)', boxShadow: '0 20px 50px rgba(61,32,16,0.10)' }}>
             <div className="flex items-center justify-between mb-1">
-              <p className="text-xs font-semibold uppercase tracking-wider m-0" style={{ color: '#94816b' }}>Возьмите с собой</p>
-              <span className="font-mono text-xs" style={{ color: '#c05c2e' }}>собрано {doneCount}/{svc.bring.length}</span>
+              <p className="text-xs font-semibold uppercase tracking-wider m-0" style={{ color: 'rgb(var(--muted-b-rgb))' }}>Возьмите с собой</p>
+              <span className="font-mono text-xs" style={{ color: 'rgb(var(--violet-rgb))' }}>собрано {doneCount}/{svc.bring.length}</span>
             </div>
             {/* индикатор готовности */}
             <div className="h-1.5 rounded-full mb-5 mt-2 overflow-hidden" style={{ background: 'rgba(192,92,46,0.14)' }}>
-              <div className="h-full rounded-full" style={{ width: `${pct}%`, background: '#c05c2e', transition: 'width .4s cubic-bezier(0.2,0.7,0.2,1)' }} />
+              <div className="h-full rounded-full" style={{ width: `${pct}%`, background: 'rgb(var(--violet-rgb))', transition: 'width .4s cubic-bezier(0.2,0.7,0.2,1)' }} />
             </div>
 
             <ul key={svc.id} className="space-y-2.5 mb-7">
@@ -122,17 +122,17 @@ export default function BringChecklist() {
                     <button
                       onClick={() => setChecked(c => ({ ...c, [key(it)]: !on }))}
                       className="w-full flex items-start gap-3 text-left rounded-xl px-4 py-3 transition-colors"
-                      style={{ background: on ? 'rgba(192,92,46,0.07)' : '#faf5ec', border: '1px solid rgba(192,92,46,0.10)' }}
+                      style={{ background: on ? 'rgba(192,92,46,0.07)' : 'rgb(var(--surface-4-rgb))', border: '1px solid rgba(192,92,46,0.10)' }}
                     >
                       <span
                         className="grid place-items-center rounded-md flex-shrink-0 mt-0.5"
-                        style={{ width: 22, height: 22, background: on ? '#c05c2e' : '#fff', border: `1.5px solid ${on ? '#c05c2e' : '#d9c9b4'}`, color: '#fff', fontSize: 13 }}
+                        style={{ width: 22, height: 22, background: on ? 'rgb(var(--violet-rgb))' : '#fff', border: `1.5px solid ${on ? 'rgb(var(--violet-rgb))' : 'rgb(var(--muted-e-rgb))'}`, color: '#fff', fontSize: 13 }}
                       >
                         {on ? '✓' : ''}
                       </span>
                       <span>
-                        <span className="block text-[15px] font-medium" style={{ color: '#3d2010', textDecoration: on ? 'line-through' : 'none', opacity: on ? 0.6 : 1 }}>{it.label}</span>
-                        {it.note && <span className="block text-[12px] mt-0.5" style={{ color: '#94816b' }}>{it.note}</span>}
+                        <span className="block text-[15px] font-medium" style={{ color: 'rgb(var(--text-rgb))', textDecoration: on ? 'line-through' : 'none', opacity: on ? 0.6 : 1 }}>{it.label}</span>
+                        {it.note && <span className="block text-[12px] mt-0.5" style={{ color: 'rgb(var(--muted-b-rgb))' }}>{it.note}</span>}
                       </span>
                     </button>
                   </li>
@@ -140,11 +140,11 @@ export default function BringChecklist() {
               })}
             </ul>
 
-            <div className="rounded-xl p-5" style={{ background: '#f5ede0', border: '1px dashed rgba(192,92,46,0.3)' }}>
-              <p className="text-[11px] tracking-[0.18em] uppercase m-0 mb-3" style={{ color: '#c05c2e' }}>Нотариус берёт на себя</p>
+            <div className="rounded-xl p-5" style={{ background: 'rgb(var(--bg-rgb))', border: '1px dashed rgba(192,92,46,0.3)' }}>
+              <p className="text-[11px] tracking-[0.18em] uppercase m-0 mb-3" style={{ color: 'rgb(var(--violet-rgb))' }}>Нотариус берёт на себя</p>
               <ul className="space-y-2 m-0">
                 {svc.notary.map(n => (
-                  <li key={n} className="flex items-start gap-2.5 text-[14px]" style={{ color: '#5d4a38' }}>
+                  <li key={n} className="flex items-start gap-2.5 text-[14px]" style={{ color: 'rgb(var(--text-b-rgb))' }}>
                     <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="#c05c2e" strokeWidth={2.2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                     {n}
                   </li>

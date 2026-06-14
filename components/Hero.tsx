@@ -151,17 +151,17 @@ const ART = `
 `
 
 const CSS = `
-.wm-hero{min-height:100vh;min-height:100svh;display:grid;grid-template-columns:1fr 1.04fr;align-items:center;gap:clamp(24px,4vw,64px);max-width:1440px;margin:0 auto;padding:clamp(28px,6vw,90px);position:relative;background:#f5ede0;}
+.wm-hero{min-height:100vh;min-height:100svh;display:grid;grid-template-columns:1fr 1.04fr;align-items:center;gap:clamp(24px,4vw,64px);max-width:1440px;margin:0 auto;padding:clamp(28px,6vw,90px);position:relative;background:rgb(var(--bg-rgb));}
 .wm-text{max-width:620px;}
 .wm-art{position:relative;}
 .wm-art svg{display:block;width:100%;max-width:660px;height:auto;margin-inline:auto;overflow:visible;}
-.wm-eyebrow{font-size:12px;font-weight:600;letter-spacing:0.24em;color:rgba(61,32,16,0.62);text-transform:uppercase;}
+.wm-eyebrow{font-size:12px;font-weight:600;letter-spacing:0.24em;color:rgb(var(--text-rgb) / 0.62);text-transform:uppercase;}
 .wm-eyebrow .dot{color:#c05c2e;}
-.wm-h1{font-family:var(--font-playfair),Georgia,serif;font-weight:600;font-size:clamp(40px,5.6vw,76px);line-height:1.06;margin-top:clamp(14px,2vw,22px);color:#3d2010;}
+.wm-h1{font-family:var(--font-playfair),Georgia,serif;font-weight:600;font-size:clamp(40px,5.6vw,76px);line-height:1.06;margin-top:clamp(14px,2vw,22px);color:rgb(var(--text-rgb));}
 .wm-motto{font-family:var(--font-playfair),Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(20px,2.1vw,28px);color:#c05c2e;margin-top:clamp(12px,1.6vw,18px);}
-.wm-desc{font-size:clamp(15px,1.25vw,17.5px);line-height:1.65;color:rgba(61,32,16,0.78);margin-top:clamp(18px,2.2vw,26px);max-width:50ch;}
+.wm-desc{font-size:clamp(15px,1.25vw,17.5px);line-height:1.65;color:rgb(var(--text-rgb) / 0.78);margin-top:clamp(18px,2.2vw,26px);max-width:50ch;}
 .wm-cta{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(16px,2vw,28px);margin-top:clamp(24px,3vw,38px);}
-.wm-phone{font-weight:700;font-size:17px;color:#3d2010;text-decoration:none;border-bottom:2px solid rgba(192,92,46,0);transition:border-color 0.25s ease;white-space:nowrap;}
+.wm-phone{font-weight:700;font-size:17px;color:rgb(var(--text-rgb));text-decoration:none;border-bottom:2px solid rgba(192,92,46,0);transition:border-color 0.25s ease;white-space:nowrap;}
 .wm-phone:hover{border-color:#c05c2e;}
 @media (prefers-reduced-motion: no-preference){
   .cas{opacity:0;animation:wmrise 0.8s cubic-bezier(0.2,0.7,0.2,1) var(--cl,0s) forwards;}
