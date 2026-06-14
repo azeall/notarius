@@ -83,7 +83,7 @@ export default function FAQ() {
               >
                 <span
                   className="font-serif text-cream text-[17px] sm:text-[20px] leading-snug"
-                  style={{ color: open === i ? '#6f66d6' : '#26223d', transition: 'color .2s' }}
+                  style={{ color: open === i ? '#6f66d6' : 'rgb(var(--text-rgb))', transition: 'color .2s' }}
                 >
                   {faq.q}
                 </span>
@@ -91,10 +91,10 @@ export default function FAQ() {
                   className="w-9 h-9 grid place-items-center flex-shrink-0 rounded-full transition-all duration-300"
                   style={{
                     border: '1px solid rgba(83,74,183,0.30)',
-                    color: '#534AB7',
+                    color: 'rgb(var(--violet-rgb))',
                     transform: open === i ? 'rotate(180deg)' : 'rotate(0deg)',
                     background: open === i ? 'rgba(83,74,183,0.10)' : 'transparent',
-                    borderColor: open === i ? '#534AB7' : 'rgba(83,74,183,0.30)',
+                    borderColor: open === i ? 'rgb(var(--violet-rgb))' : 'rgba(83,74,183,0.30)',
                   }}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

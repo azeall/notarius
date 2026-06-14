@@ -4,7 +4,7 @@ export default function WorkingHours() {
   return (
     <div
       style={{
-        background: '#ffffff',
+        background: 'rgb(var(--surface-rgb))',
         border: '1px solid rgba(83,74,183,0.15)',
         borderRadius: '12px',
         padding: '24px',
@@ -25,7 +25,7 @@ export default function WorkingHours() {
               className="last:border-0"
             >
               <td className="py-2.5 text-[13px] text-cream font-medium pr-4">{day}</td>
-              <td className="py-2.5 text-[13px] text-right" style={{ color: '#75718f' }}>
+              <td className="py-2.5 text-[13px] text-right" style={{ color: 'rgb(var(--muted-rgb))' }}>
                 {hours}
               </td>
             </tr>

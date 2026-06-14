@@ -21,7 +21,7 @@ function Stars({ n }: { n: number }) {
     <div className="flex gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
         <svg key={i} width="12" height="12" viewBox="0 0 24 24"
-          fill={i < n ? '#534AB7' : 'none'} stroke="#534AB7" strokeWidth="2">
+          fill={i < n ? 'rgb(var(--violet-rgb))' : 'none'} stroke="#534AB7" strokeWidth="2">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
         </svg>
       ))}
@@ -65,7 +65,7 @@ export default function ReviewsSection() {
   }
 
   return (
-    <section className="relative py-20 sm:py-[120px]" style={{ background: '#eceafb' }}>
+    <section className="relative py-20 sm:py-[120px]" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
       <div className="relative mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1340px' }}>
 
         {/* Header */}
@@ -108,7 +108,7 @@ export default function ReviewsSection() {
             ) : (
               <div
                 className="w-full h-full flex flex-col items-center justify-center gap-4"
-                style={{ background: '#ffffff' }}
+                style={{ background: 'rgb(var(--surface-rgb))' }}
               >
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(83,74,183,0.4)" strokeWidth="1.4">
                   <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
@@ -147,7 +147,7 @@ export default function ReviewsSection() {
                     className="w-9 h-9 rounded-full grid place-items-center transition-all"
                     style={{
                       border: '1px solid rgba(83,74,183,0.25)',
-                      color: (dir === -1 ? canLeft : canRight) ? '#534AB7' : 'rgba(83,74,183,0.25)',
+                      color: (dir === -1 ? canLeft : canRight) ? 'rgb(var(--violet-rgb))' : 'rgba(83,74,183,0.25)',
                       background: (dir === -1 ? canLeft : canRight) ? 'rgba(83,74,183,0.08)' : 'transparent',
                     }}
                   >
@@ -201,7 +201,7 @@ export default function ReviewsSection() {
             <div className="flex items-center gap-3 pt-3" style={{ borderTop: '1px solid rgba(83,74,183,0.10)' }}>
               <span className="font-serif text-gold text-2xl leading-none">5.0</span>
               <Stars n={5} />
-              <span className="text-[12px]" style={{ color: '#8d89a6' }}>средняя оценка · отзывы клиентов</span>
+              <span className="text-[12px]" style={{ color: 'rgb(var(--muted-b-rgb))' }}>средняя оценка · отзывы клиентов</span>
             </div>
           </div>
         </div>

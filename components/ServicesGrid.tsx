@@ -104,7 +104,7 @@ export default function ServicesGrid() {
               data-reveal-delay={i * 60}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLElement
-                el.style.borderLeftColor = '#534AB7'
+                el.style.borderLeftColor = 'rgb(var(--violet-rgb))'
                 el.style.background = '#ffffff'
                 el.style.transform = 'translateX(2px)'
               }}

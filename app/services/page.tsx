@@ -318,7 +318,7 @@ export default function ServicesPage() {
           <Link
             href="/visit"
             className="group flex items-center gap-4 sm:gap-5 mb-8 rounded-2xl p-5 sm:p-6 transition-all overflow-hidden relative hover:-translate-y-0.5"
-            style={{ background: '#ffffff', border: '1px solid rgba(83,74,183,0.25)' }}
+            style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(83,74,183,0.25)' }}
           >
             <span className="w-12 h-12 rounded-xl bg-gold/15 grid place-items-center flex-shrink-0 text-gold">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -342,7 +342,7 @@ export default function ServicesPage() {
               <div
                 key={s.title}
                 className="rounded-2xl p-6 transition-all group flex flex-col hover:-translate-y-0.5"
-                style={{ background: '#ffffff', border: '1px solid rgba(83,74,183,0.15)' }}
+                style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(83,74,183,0.15)' }}
               >
                 <div className="flex items-start gap-4 mb-4">
                   <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0 transition-colors text-gold" style={{ background: 'rgba(83,74,183,0.10)' }}>

@@ -56,7 +56,7 @@ export default function CredentialsSection() {
   return (
     <section
       className="relative py-20 sm:py-[120px] overflow-hidden"
-      style={{ background: '#eceafb' }}
+      style={{ background: 'rgb(var(--surface-2-rgb))' }}
     >
       {/* Gold grid */}
       <div
@@ -115,7 +115,7 @@ export default function CredentialsSection() {
               className="relative reveal border border-gold/15 rounded-[14px] transition-all duration-300 hover:border-gold/40 hover:-translate-y-0.5"
               style={{
                 padding: '22px',
-                background: '#ffffff',
+                background: 'rgb(var(--surface-rgb))',
               }}
               data-reveal-delay={i * 100}
             >

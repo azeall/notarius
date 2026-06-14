@@ -71,8 +71,8 @@ export default function VisitChecklist() {
                 className="text-left whitespace-nowrap lg:whitespace-normal rounded-lg px-4 py-3 text-sm font-medium transition-all flex-shrink-0 lg:flex-shrink"
                 style={{
                   background: isActive ? 'rgba(83,74,183,0.14)' : '#ffffff',
-                  color: isActive ? '#26223d' : '#75718f',
-                  border: `1px solid ${isActive ? '#534AB7' : 'rgba(83,74,183,0.12)'}`,
+                  color: isActive ? 'rgb(var(--text-rgb))' : 'rgb(var(--muted-rgb))',
+                  border: `1px solid ${isActive ? 'rgb(var(--violet-rgb))' : 'rgba(83,74,183,0.12)'}`,
                 }}
               >
                 {c.title}
@@ -83,7 +83,7 @@ export default function VisitChecklist() {
       </aside>
 
       {/* Checklist */}
-      <div data-checklist className="rounded-2xl p-6 sm:p-8" style={{ background: '#ffffff', border: '1px solid rgba(83,74,183,0.15)' }}>
+      <div data-checklist className="rounded-2xl p-6 sm:p-8" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(83,74,183,0.15)' }}>
         <div className="flex items-start justify-between gap-4 mb-6 flex-wrap">
           <div>
             <h2 className="font-serif text-2xl font-bold text-cream mb-1">{active.title}</h2>
@@ -121,7 +121,7 @@ export default function VisitChecklist() {
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${progress}%`,
-                background: progress === 100 ? '#4f9d7a' : '#534AB7',
+                background: progress === 100 ? '#4f9d7a' : 'rgb(var(--violet-rgb))',
               }}
             />
           </div>
@@ -167,7 +167,7 @@ export default function VisitChecklist() {
                       <span
                         className="text-sm font-medium transition-colors"
                         style={{
-                          color: isChecked ? '#8d89a6' : '#26223d',
+                          color: isChecked ? 'rgb(var(--muted-b-rgb))' : 'rgb(var(--text-rgb))',
                           textDecoration: isChecked ? 'line-through' : 'none',
                         }}
                       >

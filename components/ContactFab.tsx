@@ -15,7 +15,7 @@ export default function ContactFab() {
   const [open, setOpen] = useState(false)
 
   const items = [
-    { label: notary.phone, href: notary.phoneHref, bg: '#534AB7', icon: ICON.ph },
+    { label: notary.phone, href: notary.phoneHref, bg: 'rgb(var(--violet-rgb))', icon: ICON.ph },
     { label: 'WhatsApp', href: wa, bg: '#25D366', icon: ICON.wa },
     { label: 'Telegram', href: notary.telegramHref, bg: '#229ED9', icon: ICON.tg },
   ]

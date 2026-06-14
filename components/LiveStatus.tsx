@@ -120,10 +120,10 @@ export default function LiveStatus() {
               {status.isOpen ? 'Открыто сейчас' : 'Закрыто'}
             </span>
             {status.isOpen && status.closesIn && (
-              <span style={{ color: '#8d89a6' }}> · закрывается {status.closesIn}</span>
+              <span style={{ color: 'rgb(var(--muted-b-rgb))' }}> · закрывается {status.closesIn}</span>
             )}
             {!status.isOpen && status.opensAt && (
-              <span style={{ color: '#8d89a6' }}> · откроется {status.opensAt}</span>
+              <span style={{ color: 'rgb(var(--muted-b-rgb))' }}> · откроется {status.opensAt}</span>
             )}
           </span>
         </div>
