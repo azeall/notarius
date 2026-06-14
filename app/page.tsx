@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Hero from '@/components/Hero'
+import Marquee from '@/components/Marquee'
 import DocVerify from '@/components/DocVerify'
 import SlotFinder from '@/components/SlotFinder'
 import BookingButton from '@/components/BookingButton'
@@ -32,6 +33,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+
+      {/* ── Бегущая строка услуг (кинетический акцент) ── */}
+      <Marquee />
 
       {/* ── Услуги: bento-сетка ── */}
       <section className="py-20 sm:py-28" style={{ background: '#e8f5f0' }}>
