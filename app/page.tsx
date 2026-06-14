@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Hero from '@/components/Hero'
+import Marquee from '@/components/Marquee'
 import FAQSearch from '@/components/FAQSearch'
 import BringChecklist from '@/components/BringChecklist'
 import DealTimeline from '@/components/DealTimeline'
@@ -195,6 +196,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Бегущая строка услуг (кинетический акцент) ── */}
+      <Marquee />
 
       {/* ── FAQ с live-поиском (уникальная фича) ── */}
       <FAQSearch />

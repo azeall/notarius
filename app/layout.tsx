@@ -9,6 +9,8 @@ import YandexMetrika from '@/components/YandexMetrika'
 import CookieNotice from '@/components/CookieNotice'
 import ScrollProgress from '@/components/ScrollProgress'
 import SmoothScroll from '@/components/SmoothScroll'
+import ContactFab from '@/components/ContactFab'
+import Preloader from '@/components/Preloader'
 import { notary, site } from '@/lib/data'
 
 const manrope = Manrope({
@@ -197,11 +199,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${manrope.variable} ${playfair.variable} ${jetbrains.variable} font-sans bg-navy text-cream flex flex-col min-h-screen`}
       >
+        <Preloader />
         <ScrollProgress />
         <SmoothScroll />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <ContactFab />
         <RevealObserver />
         <CookieNotice />
         <Suspense><YandexMetrika /></Suspense>
