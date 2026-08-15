@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import RevealObserver from '@/components/RevealObserver'
 import { Suspense } from 'react'
 import YandexMetrika from '@/components/YandexMetrika'
+import NotaryBotWidget from '@/components/NotaryBotWidget'
 import CookieNotice from '@/components/CookieNotice'
 import { notary, site } from '@/lib/data'
 
@@ -201,6 +202,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <RevealObserver />
         <CookieNotice />
         <Suspense><YandexMetrika /></Suspense>
+        <NotaryBotWidget />
       </body>
     </html>
   )

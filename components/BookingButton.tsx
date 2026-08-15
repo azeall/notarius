@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import BookingModal from './BookingModal'
+import { notarybotEnabled, openNotarybot } from '@/lib/notarybot'
 
 const BASE_CLASS =
   'booking-cta relative inline-flex items-center justify-center ' +
@@ -33,10 +34,18 @@ export default function BookingButton({
 }) {
   const [open, setOpen] = useState(false)
 
+  // Основной путь — виджет сервиса заявок: он показывает перечень документов
+  // и принимает сканы. Старый модал остаётся запасным на случай, если скрипт
+  // виджета не загрузился, чтобы кнопка никогда не оказалась мёртвой.
+  const handleClick = () => {
+    if (notarybotEnabled && openNotarybot()) return
+    setOpen(true)
+  }
+
   return (
     <>
       <button
-        onClick={() => setOpen(true)}
+        onClick={handleClick}
         className={`${BASE_CLASS} ${SIZE[size]} ${className}`}
         style={{ ...PREMIUM_STYLE, ...style }}
       >
