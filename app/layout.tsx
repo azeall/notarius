@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import RevealObserver from '@/components/RevealObserver'
 import { Suspense } from 'react'
 import YandexMetrika from '@/components/YandexMetrika'
+import NotaryBotWidget from '@/components/NotaryBotWidget'
 import { notary, site } from '@/lib/data'
 
 const manrope = Manrope({
@@ -199,6 +200,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <RevealObserver />
         <Suspense><YandexMetrika /></Suspense>
+        <NotaryBotWidget />
       </body>
     </html>
   )
