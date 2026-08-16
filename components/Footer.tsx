@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { notary } from '@/lib/data'
+import { notarybotSlug, notarybotUrl } from '@/lib/notarybot'
 
 const footerLinks = {
   'Услуги': [
@@ -159,9 +160,17 @@ export default function Footer() {
           <p className="m-0">© {new Date().getFullYear()} {notary.name}. Все права защищены.</p>
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="hover:text-slate transition-colors no-underline">Политика конфиденциальности</Link>
-            <Link href="/admin" className="text-white/10 hover:text-white/30 transition-colors text-xs" title="Управление">
+            {/* Ведёт в панель сервиса заявок, а не в старую админку сайта:
+                заявки, услуги и расписание живут там. */}
+            <a
+              href={`${notarybotUrl}/staff/${notarybotSlug}/login`}
+              target="_blank"
+              rel="noopener"
+              className="text-white/10 hover:text-white/30 transition-colors text-xs no-underline"
+              title="Панель сотрудников"
+            >
               ⚙
-            </Link>
+            </a>
           </div>
         </div>
       </div>
