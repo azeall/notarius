@@ -11,7 +11,7 @@
  * РїРµСЂРµСЃС‚Р°Р» РѕС‚РєСЂС‹РІР°С‚СЊСЃСЏ, Р·Р°РјРµРЅРёС‚Рµ DEMO_FALLBACK_URL РЅР° С‚РµРєСѓС‰РёР№ Р°РґСЂРµСЃ С‚СѓРЅРЅРµР»СЏ
  * Р»РёР±Рѕ Р·Р°РґР°Р№С‚Рµ РїРµСЂРµРјРµРЅРЅСѓСЋ РѕРєСЂСѓР¶РµРЅРёСЏ.
  */
-const DEMO_FALLBACK_URL = 'https://9af1d66ae78bff.lhr.life'
+const DEMO_FALLBACK_URL = 'https://f3aa7a7f35166a.lhr.life'
 const DEMO_FALLBACK_SLUG = 'demo'
 
 export const notarybotUrl = (
