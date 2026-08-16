@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
-import BookingModal from './BookingModal'
-import { notarybotEnabled, openNotarybot } from '@/lib/notarybot'
+import { notary } from '@/lib/data'
+import { openNotarybot } from '@/lib/notarybot'
 
 const BASE_CLASS =
   'booking-cta relative inline-flex items-center justify-center ' +
@@ -32,14 +32,17 @@ export default function BookingButton({
   style?: React.CSSProperties
   size?: 'sm' | 'md'
 }) {
-  const [open, setOpen] = useState(false)
+  const [unavailable, setUnavailable] = useState(false)
 
-  // Основной путь — виджет сервиса заявок: он показывает перечень документов
-  // и принимает сканы. Старый модал остаётся запасным на случай, если скрипт
-  // виджета не загрузился, чтобы кнопка никогда не оказалась мёртвой.
+  // Запись идёт только через сервис заявок: он показывает перечень документов
+  // и принимает сканы. Если скрипт виджета не загрузился, честно говорим об этом
+  // и даём телефон — тупиковой кнопки быть не должно.
   const handleClick = () => {
-    if (notarybotEnabled && openNotarybot()) return
-    setOpen(true)
+    if (openNotarybot()) {
+      setUnavailable(false)
+      return
+    }
+    setUnavailable(true)
   }
 
   return (
@@ -51,7 +54,15 @@ export default function BookingButton({
       >
         Записаться на приём
       </button>
-      {open && <BookingModal onClose={() => setOpen(false)} />}
+
+      {unavailable && (
+        <p className="mt-3 text-[12px] leading-relaxed text-slate">
+          Онлайн-запись сейчас недоступна. Позвоните нам:{' '}
+          <a href={`tel:${notary.phoneE164}`} className="text-gold no-underline">
+            {notary.phone}
+          </a>
+        </p>
+      )}
     </>
   )
 }

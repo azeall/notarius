@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import BookingModal from './BookingModal'
+import { openNotarybot } from '@/lib/notarybot'
 import { MORNING_SLOTS, AFTERNOON_SLOTS } from '@/lib/slots'
 
 const MSK_OFFSET = 3
@@ -84,7 +84,6 @@ function nextSlots(msk: Date, count: number): NearSlot[] {
 export default function LiveStatus() {
   const [status, setStatus] = useState<StatusInfo | null>(null)
   const [slots, setSlots] = useState<NearSlot[]>([])
-  const [modal, setModal] = useState<{ date: Date; time: string } | null>(null)
 
   useEffect(() => {
     function refresh() {
@@ -98,10 +97,6 @@ export default function LiveStatus() {
   }, [])
 
   if (!status) return null
-
-  const initialDate = modal
-    ? { year: modal.date.getFullYear(), month: modal.date.getMonth(), day: modal.date.getDate() }
-    : undefined
 
   return (
     <>
@@ -132,7 +127,7 @@ export default function LiveStatus() {
             {slots.map((s) => (
               <button
                 key={s.label}
-                onClick={() => setModal({ date: s.date, time: s.slot })}
+                onClick={() => openNotarybot()}
                 className="text-[11px] tracking-[0.06em] px-3 py-1.5 rounded transition-all"
                 style={{ border: '1px solid rgba(184,154,90,0.25)', color: '#c5a84a', background: 'rgba(184,154,90,0.06)' }}
                 onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = 'rgba(184,154,90,0.14)'; b.style.borderColor = 'rgba(184,154,90,0.5)' }}
@@ -144,9 +139,6 @@ export default function LiveStatus() {
           </div>
         )}
       </div>
-      {modal && (
-        <BookingModal onClose={() => setModal(null)} initialDate={initialDate} initialTime={modal.time} />
-      )}
     </>
   )
 }
