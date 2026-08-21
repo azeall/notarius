@@ -11,7 +11,7 @@
  * перестал открываться, замените DEMO_FALLBACK_URL на текущий адрес туннеля
  * либо задайте переменную окружения.
  */
-const DEMO_FALLBACK_URL = 'https://db2291aa4e60c7.lhr.life'
+const DEMO_FALLBACK_URL = 'https://201.34.133.70.sslip.io'
 const DEMO_FALLBACK_SLUG = 'demo'
 
 export const notarybotUrl = (
