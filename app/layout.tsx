@@ -7,6 +7,7 @@ import RevealObserver from '@/components/RevealObserver'
 import { Suspense } from 'react'
 import YandexMetrika from '@/components/YandexMetrika'
 import CookieNotice from '@/components/CookieNotice'
+import DemoRibbon from '@/components/DemoRibbon'
 import ScrollProgress from '@/components/ScrollProgress'
 import SmoothScroll from '@/components/SmoothScroll'
 import ContactFab from '@/components/ContactFab'
@@ -202,6 +203,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${manrope.variable} ${playfair.variable} ${jetbrains.variable} font-sans bg-navy text-cream flex flex-col min-h-screen`}
       >
+        <DemoRibbon />
         <Preloader />
         <ScrollProgress />
         <SmoothScroll />
