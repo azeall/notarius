@@ -5,22 +5,22 @@
 export const notary = {
   name: 'Иванова Мария Сергеевна',
   title: 'Нотариус города Москвы',
-  address: 'ул. Примерная, д. 1, Москва',
+  address: 'ул. Тверская, 18к1, Москва',
   addressParts: {
-    streetAddress: 'ул. Примерная, д. 1',
+    streetAddress: 'ул. Тверская, 18к1',
     addressLocality: 'Москва',
     postalCode: '125009',                  // Почтовый индекс
     addressCountry: 'RU',
     addressRegion: 'Москва',
   },
   geo: { latitude: 55.751, longitude: 37.618 }, // Координаты офиса
-  phone: '+7 (000) 000-00-00',
-  phoneHref: 'tel:+70000000000',
-  phoneE164: '+70000000000',
+  phone: '+7 (495) 000-00-00',
+  phoneHref: 'tel:+74950000000',
+  phoneE164: '+74950000000',
   email: 'priem@example.ru',              // Email
   foundingDate: '2020-01-01',             // Дата начала деятельности (для разметки)
   practiceSince: '2011',
-  license: '№ 77/000-н/77',
+  license: '№ 77/318-н',
   registryNumber: '77/1201-н/77',                     // Реестровый номер нотариуса (пусто — не показывать)
   insuranceSum: '5 000 000 ₽',            // Страховая сумма проф. ответственности
   fnpVerifyUrl: 'https://notariat.ru/ru-ru/help/probate-cases/',  // Ссылка на проверку в реестре ФНП
