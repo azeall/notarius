@@ -10,7 +10,7 @@ import BookingInline from '@/components/BookingInline'
 import BookingButton from '@/components/BookingButton'
 import CountUp from '@/components/CountUp'
 import LegalPhotos from '@/components/LegalPhotos'
-import { notary, site, photos, reviews } from '@/lib/data'
+import { notary, site, photos, reviews, documentsDone } from '@/lib/data'
 
 export const metadata: Metadata = {
   title: 'Нотариус в Москве · Тёплый приём, надёжный результат',
@@ -47,8 +47,14 @@ export default function HomePage() {
         <div className="mx-auto px-5 sm:px-10 pt-2 pb-4" style={{ maxWidth: '1080px' }}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-6">
             {[
-              { v: 15, s: ' лет', l: 'личной практики' },
-              { v: 5000, s: '+', l: 'оформленных документов' },
+              // Стаж считается от года начала практики, а не вписан рукой:
+              // число в разметке через год устаревает, а править его никто не придёт.
+              ...(notary.practiceSince
+                ? [{ v: new Date().getFullYear() - Number(notary.practiceSince), s: ' лет', l: 'личной практики' }]
+                : []),
+              ...(documentsDone > 0
+                ? [{ v: documentsDone, s: '+', l: 'оформленных документов' }]
+                : []),
               { v: 6, s: '', l: 'направлений услуг' },
               { v: 100, s: '%', l: 'юридическая сила' },
             ].map((st, i) => (
