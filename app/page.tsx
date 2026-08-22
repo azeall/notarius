@@ -8,6 +8,7 @@ import FAQ from '@/components/FAQ'
 import BookingButton from '@/components/BookingButton'
 import { notary, site } from '@/lib/data'
 import ReviewsSection from '@/components/ReviewsSection'
+import LegalPhotos from '@/components/LegalPhotos'
 
 export const metadata: Metadata = {
   title: 'Нотариус в Москве · Запись на приём онлайн',
@@ -36,6 +37,8 @@ export default function HomePage() {
       <ServicesGrid />
 
       <HowItWorks />
+
+      <LegalPhotos />
 
       {/* ── Map / Contacts section ── */}
       <section className="relative py-20 sm:py-[120px]" style={{ background: '#0a1628' }}>
