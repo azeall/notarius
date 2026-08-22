@@ -6,6 +6,7 @@ import CostCalculator from '@/components/CostCalculator'
 import BookingInline from '@/components/BookingInline'
 import BookingButton from '@/components/BookingButton'
 import CountUp from '@/components/CountUp'
+import LegalPhotos from '@/components/LegalPhotos'
 import { notary, site } from '@/lib/data'
 
 export const metadata: Metadata = {
@@ -145,6 +146,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <LegalPhotos />
 
       {/* ── Гильош-разделитель ── */}
       <div className="reveal" style={{ background: 'rgb(var(--bg-rgb))' }} aria-hidden>
