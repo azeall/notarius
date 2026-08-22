@@ -6,7 +6,7 @@ import DocVerify from '@/components/DocVerify'
 import SlotFinder from '@/components/SlotFinder'
 import BookingButton from '@/components/BookingButton'
 import LegalPhotos from '@/components/LegalPhotos'
-import { notary, site } from '@/lib/data'
+import { notary, site, reviews } from '@/lib/data'
 
 export const metadata: Metadata = {
   title: 'Нотариус в Москве · Онлайн-запись за 30 секунд',
@@ -148,29 +148,26 @@ export default function HomePage() {
       <LegalPhotos />
 
       {/* ── Отзывы: карточки с рейтингом ── */}
+      {reviews.length > 0 && (
       <section className="py-20" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1180px' }}>
           <h2 className="font-sans font-extrabold mb-10 reveal" style={{ fontSize: 'clamp(28px, 3.6vw, 44px)', letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}>
             Что говорят <span style={{ color: 'rgb(var(--violet-rgb))' }}>клиенты</span>
           </h2>
           <div className="grid md:grid-cols-3 gap-5">
-            {[
-              { n: 'Алексей Р.', s: 'купля-продажа', t: 'Записался онлайн вечером, утром уже был на приёме. Сделку оформили за час, документы ушли в Росреестр в тот же день.' },
-              { n: 'Светлана М.', s: 'доверенность', t: 'Очень удобно, что видно свободное время. Пришла к 12:00 — приняли ровно в 12:00. Никаких очередей.' },
-              { n: 'Игорь Т.', s: 'завещание', t: 'Помогли сформулировать всё корректно, объяснили нюансы простым языком. Цена совпала с тарифом на сайте.' },
-            ].map((r, i) => (
-              <figure key={r.n} className="m-0 rounded-3xl p-7 bg-navy-card reveal" style={{ border: '1px solid rgba(29,158,117,0.12)' }} data-reveal-delay={i * 90}>
+            {reviews.slice(0, 3).map((r, i) => (
+              <figure key={r.name} className="m-0 rounded-3xl p-7 bg-navy-card reveal" style={{ border: '1px solid rgba(29,158,117,0.12)' }} data-reveal-delay={i * 90}>
                 <div className="flex gap-1 mb-4" aria-label="5 из 5">
                   {[...Array(5)].map((_, j) => (
                     <svg key={j} width="16" height="16" viewBox="0 0 24 24" fill="#1D9E75"><path d="M12 2l2.9 6.26 6.6.56-5 4.46 1.5 6.5L12 16.3 5.99 19.8l1.5-6.5-5-4.47 6.61-.56L12 2z" /></svg>
                   ))}
                 </div>
-                <blockquote className="m-0 mb-5 text-[14px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))' }}>{r.t}</blockquote>
+                <blockquote className="m-0 mb-5 text-[14px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))' }}>{r.text}</blockquote>
                 <figcaption className="flex items-center gap-3">
-                  <span className="w-9 h-9 rounded-full grid place-items-center font-bold text-sm text-white" style={{ background: 'rgb(var(--violet-rgb))' }}>{r.n.charAt(0)}</span>
+                  <span className="w-9 h-9 rounded-full grid place-items-center font-bold text-sm text-white" style={{ background: 'rgb(var(--violet-rgb))' }}>{r.name.charAt(0)}</span>
                   <span>
-                    <span className="block font-bold text-[14px]" style={{ color: 'rgb(var(--text-rgb))' }}>{r.n}</span>
-                    <span className="block text-[12px]" style={{ color: 'rgb(var(--muted-b-rgb))' }}>{r.s}</span>
+                    <span className="block font-bold text-[14px]" style={{ color: 'rgb(var(--text-rgb))' }}>{r.name}</span>
+                    <span className="block text-[12px]" style={{ color: 'rgb(var(--muted-b-rgb))' }}>{r.service}</span>
                   </span>
                 </figcaption>
               </figure>
@@ -178,6 +175,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ── Карта с плавающей карточкой ── */}
       <section className="py-20" style={{ background: 'rgb(var(--surface-rgb))' }}>
