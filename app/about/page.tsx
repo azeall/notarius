@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
+import Portrait from '@/components/Portrait'
 
 export const metadata: Metadata = {
   title: 'О нотариусе',
@@ -108,11 +109,7 @@ export default function AboutPage() {
             {/* Sidebar */}
             <div className="space-y-5">
               <div className="bg-navy-card text-cream rounded-2xl p-6" style={{ border: '1px solid rgba(192,92,46,0.18)' }}>
-                <div className="w-20 h-20 rounded-full bg-black/10 border-2 border-gold/40 flex items-center justify-center mx-auto mb-4">
-                  <span className="font-serif text-2xl font-bold text-gold">
-                    {notary.name.charAt(0)}
-                  </span>
-                </div>
+                <Portrait size={80} fallbackClass="bg-black/10" />
                 <div className="text-center mb-5">
                   <p className="font-serif font-bold text-lg">{notary.name}</p>
                   <p className="text-gold text-sm mt-1">{notary.title}</p>

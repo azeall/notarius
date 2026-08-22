@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import Hero from '@/components/Hero'
 import Marquee from '@/components/Marquee'
 import FAQSearch from '@/components/FAQSearch'
@@ -8,7 +9,8 @@ import DealTimeline from '@/components/DealTimeline'
 import BookingInline from '@/components/BookingInline'
 import BookingButton from '@/components/BookingButton'
 import CountUp from '@/components/CountUp'
-import { notary, site } from '@/lib/data'
+import LegalPhotos from '@/components/LegalPhotos'
+import { notary, site, photos } from '@/lib/data'
 
 export const metadata: Metadata = {
   title: 'Нотариус в Москве · Тёплый приём, надёжный результат',
@@ -128,10 +130,20 @@ export default function HomePage() {
       <section className="py-20" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10 grid md:grid-cols-[0.4fr_0.6fr] gap-10 items-center" style={{ maxWidth: '1080px' }}>
           <div
-            className="relative rounded-2xl mx-auto flex items-center justify-center reveal"
+            className="relative rounded-2xl mx-auto flex items-center justify-center overflow-hidden reveal"
             style={{ width: 'min(280px, 70vw)', aspectRatio: '3/4', background: 'rgb(var(--muted-d-rgb))', border: '1px solid rgba(61,32,16,0.15)' }}
           >
-            <p className="font-mono text-[10px] tracking-[0.16em] uppercase" style={{ color: 'rgba(61,32,16,0.45)' }}>[ фото ]</p>
+            {photos.portrait ? (
+              <Image
+                src={photos.portrait}
+                alt={`${notary.name} — ${notary.title}`}
+                fill
+                sizes="(max-width: 768px) 70vw, 280px"
+                className="object-cover"
+              />
+            ) : (
+              <p className="font-mono text-[10px] tracking-[0.16em] uppercase" style={{ color: 'rgba(61,32,16,0.45)' }}>[ фото ]</p>
+            )}
           </div>
           <div className="reveal">
             <h2 className="font-serif font-medium mb-5" style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', color: 'rgb(var(--text-rgb))' }}>
@@ -156,6 +168,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <LegalPhotos />
 
       {/* ── Как проходит сделка: интерактивный таймлайн ── */}
       <DealTimeline />

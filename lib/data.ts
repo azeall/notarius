@@ -42,14 +42,44 @@ export const notary = {
   ],
 } as const
 
+// ─────────────────────────────────────────────
+//  Постоянный адрес сайта
+//
+//  Отсюда берутся canonical, sitemap и разметка для поисковиков. Адрес
+//  обязан быть постоянным: пока он пуст, страницы уезжают на адрес
+//  конкретной сборки (notarius-abc123-...vercel.app), который живёт до
+//  следующего деплоя. Поисковик по такому адресу ничего не закрепит.
+//
+//  Появился домен нотариуса — впишите его сюда, и больше ничего править
+//  не нужно.
+// ─────────────────────────────────────────────
+
+export const siteUrl: string = 'https://notarius-warm.vercel.app'
+
+// Идентификатор организации в Яндекс.Картах — отсюда подтягиваются отзывы.
+// Взять из адреса карточки: yandex.ru/maps/org/…/<цифры>/
+// Пусто — блок отзывов не показывается.
+export const yandexOrgId: string = ''
+
+// Фотографии. Пусто — вместо портрета выводится буква фамилии, а блок
+// со снимками конторы не выводится вовсе. Файлы кладутся в public/.
+export const photos: {
+  portrait: string
+  office: { src: string; alt: string }[]
+} = {
+  portrait: '',
+  office: [],
+}
+
 function resolveSiteUrl(): string {
+  if (siteUrl) return siteUrl.replace(/\/$/, '')
   const explicit = process.env.NEXT_PUBLIC_SITE_URL
   if (explicit) return explicit.replace(/\/$/, '')
   const vercelProd = process.env.VERCEL_PROJECT_PRODUCTION_URL
   if (vercelProd) return `https://${vercelProd}`.replace(/\/$/, '')
-  const vercelUrl = process.env.VERCEL_URL
-  if (vercelUrl) return `https://${vercelUrl}`.replace(/\/$/, '')
-  return 'https://notarius.ru'            // Домен сайта
+  // VERCEL_URL намеренно не используем: он свой у каждой сборки, и canonical
+  // с ним указывает на адрес, которого завтра не будет.
+  return 'https://notarius.ru'
 }
 
 export const site = {
