@@ -10,7 +10,7 @@ import BookingInline from '@/components/BookingInline'
 import BookingButton from '@/components/BookingButton'
 import CountUp from '@/components/CountUp'
 import LegalPhotos from '@/components/LegalPhotos'
-import { notary, site, photos } from '@/lib/data'
+import { notary, site, photos, reviews } from '@/lib/data'
 
 export const metadata: Metadata = {
   title: 'Нотариус в Москве · Тёплый приём, надёжный результат',
@@ -175,6 +175,7 @@ export default function HomePage() {
       <DealTimeline />
 
       {/* ── Отзывы: полароиды ── */}
+      {reviews.length > 0 && (
       <section className="py-20 sm:py-24 overflow-hidden" style={{ background: 'rgb(var(--bg-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
           <div className="text-center mb-14 reveal">
@@ -188,28 +189,25 @@ export default function HomePage() {
             </h2>
           </div>
           <div className="grid sm:grid-cols-3 gap-8 sm:gap-6">
-            {[
-              { n: 'Ольга К.', s: 'наследство', t: 'Думали, утонем в бумагах — Анна Владимировна разложила всё по полочкам и сама запросила половину документов.', r: '-3deg' },
-              { n: 'Дмитрий С.', s: 'доверенность', t: 'Приняли точно в назначенное время, доверенность сделали за полчаса. Очень душевная контора.', r: '2deg' },
-              { n: 'Марина В.', s: 'купля-продажа', t: 'Сделку провели за один визит, всё объяснили простым языком. Спасибо за спокойствие!', r: '-1.5deg' },
-            ].map((r, i) => (
+            {reviews.slice(0, 3).map((r, i) => (
               <figure
-                key={r.n}
+                key={r.name}
                 className="m-0 p-5 pb-7 bg-navy-card reveal transition-transform hover:scale-[1.03] hover:rotate-0"
-                style={{ transform: `rotate(${r.r})`, boxShadow: '0 16px 40px rgba(61,32,16,0.16)', borderRadius: '6px', transitionDuration: '300ms' }}
+                style={{ transform: `rotate(${['-3deg', '2deg', '-1.5deg'][i % 3]})`, boxShadow: '0 16px 40px rgba(61,32,16,0.16)', borderRadius: '6px', transitionDuration: '300ms' }}
                 data-reveal-delay={i * 100}
               >
                 <div className="h-2 w-16 mx-auto -mt-8 mb-5 rounded-sm" style={{ background: 'rgba(232,201,160,0.9)', boxShadow: '0 2px 6px rgba(61,32,16,0.15)' }} aria-hidden />
-                <blockquote className="m-0 mb-4 text-[14px] leading-relaxed" style={{ color: 'rgb(var(--text-b-rgb))' }}>{r.t}</blockquote>
+                <blockquote className="m-0 mb-4 text-[14px] leading-relaxed" style={{ color: 'rgb(var(--text-b-rgb))' }}>{r.text}</blockquote>
                 <figcaption className="font-serif italic text-[15px]" style={{ color: 'rgb(var(--violet-rgb))' }}>
-                  — {r.n}
-                  <span className="block not-italic font-sans text-[11px] mt-0.5" style={{ color: 'rgb(var(--muted-b-rgb))' }}>{r.s}</span>
+                  — {r.name}
+                  <span className="block not-italic font-sans text-[11px] mt-0.5" style={{ color: 'rgb(var(--muted-b-rgb))' }}>{r.service}</span>
                 </figcaption>
               </figure>
             ))}
           </div>
         </div>
       </section>
+      )}
 
       {/* ── Бегущая строка услуг (кинетический акцент) ── */}
       <Marquee />
