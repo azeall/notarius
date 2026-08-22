@@ -1,8 +1,11 @@
 ﻿'use client'
 import { useRef, useState } from 'react'
+import { yandexOrgId } from '@/lib/data'
 
-// ─── Вставьте ID организации с Яндекс Карт (число из URL) ───
-const YANDEX_ORG_ID = ''
+// Заводится в lib/data.ts вместе с остальными сведениями о нотариусе:
+// иначе при заведении второго сайта про него забывают, и посетитель
+// видит отзывы чужой конторы.
+const YANDEX_ORG_ID = yandexOrgId
 
 interface Review {
   author: string

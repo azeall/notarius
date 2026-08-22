@@ -5,6 +5,7 @@ import Marquee from '@/components/Marquee'
 import DocVerify from '@/components/DocVerify'
 import SlotFinder from '@/components/SlotFinder'
 import BookingButton from '@/components/BookingButton'
+import LegalPhotos from '@/components/LegalPhotos'
 import { notary, site } from '@/lib/data'
 
 export const metadata: Metadata = {
@@ -143,6 +144,8 @@ export default function HomePage() {
 
       {/* ── Поиск ближайшего свободного окна (уникальная фича) ── */}
       <SlotFinder />
+
+      <LegalPhotos />
 
       {/* ── Отзывы: карточки с рейтингом ── */}
       <section className="py-20" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
