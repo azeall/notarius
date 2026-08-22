@@ -10,7 +10,8 @@ import BookingInline from '@/components/BookingInline'
 import BookingButton from '@/components/BookingButton'
 import CountUp from '@/components/CountUp'
 import LegalPhotos from '@/components/LegalPhotos'
-import { notary, site, photos, reviews, documentsDone } from '@/lib/data'
+import { notary, site, photos, documentsDone } from '@/lib/data'
+import { reviews } from '@/lib/reviews'
 
 export const metadata: Metadata = {
   title: 'Нотариус в Москве · Тёплый приём, надёжный результат',
