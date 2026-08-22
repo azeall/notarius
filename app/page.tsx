@@ -7,7 +7,7 @@ import BookingInline from '@/components/BookingInline'
 import BookingButton from '@/components/BookingButton'
 import CountUp from '@/components/CountUp'
 import LegalPhotos from '@/components/LegalPhotos'
-import { notary, site } from '@/lib/data'
+import { notary, site, reviews } from '@/lib/data'
 
 export const metadata: Metadata = {
   title: 'Нотариус в Москве · Запись на приём онлайн',
@@ -163,31 +163,29 @@ export default function HomePage() {
       </div>
 
       {/* ── Отзывы: крупная цитата + малые ── */}
+      {reviews.length > 0 && (
       <section className="py-20 sm:py-24" style={{ background: 'rgb(var(--bg-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10 grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center" style={{ maxWidth: '1080px' }}>
           <div className="reveal">
             <span className="font-serif block leading-none mb-4" style={{ fontSize: '90px', color: 'rgba(83,74,183,0.18)' }}>«</span>
             <blockquote className="font-serif italic m-0 mb-6" style={{ fontSize: 'clamp(22px, 2.6vw, 30px)', lineHeight: '1.45', color: 'rgb(var(--text-rgb))' }}>
-              Оформляли наследство — думали, утонем в бумагах. Елена Викторовна разложила всё по полочкам
-              и сама запросила половину документов. Спокойно и по-человечески.
+              {reviews[0].text}
             </blockquote>
             <p className="m-0 text-sm" style={{ color: 'rgb(var(--muted-rgb))' }}>
-              <span className="font-semibold" style={{ color: 'rgb(var(--violet-rgb))' }}>Ольга К.</span> · оформление наследства
+              <span className="font-semibold" style={{ color: 'rgb(var(--violet-rgb))' }}>{reviews[0].name}</span> · {reviews[0].service}
             </p>
           </div>
           <div className="space-y-4">
-            {[
-              { n: 'Дмитрий С.', s: 'доверенность', t: 'Записался онлайн, приняли точно в назначенное время. Доверенность сделали за полчаса.' },
-              { n: 'Марина В.', s: 'купля-продажа', t: 'Сделку с квартирой провели за один визит, документы в Росреестр ушли в тот же день.' },
-            ].map((r, i) => (
-              <figure key={r.n} className="m-0 rounded-2xl p-6 bg-navy-card reveal" style={{ border: '1px solid rgba(83,74,183,0.14)' }} data-reveal-delay={i * 100}>
-                <blockquote className="m-0 mb-3 text-[14px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))' }}>{r.t}</blockquote>
-                <figcaption className="text-[13px]"><span className="font-semibold" style={{ color: 'rgb(var(--violet-rgb))' }}>{r.n}</span> <span style={{ color: 'rgb(var(--muted-b-rgb))' }}>· {r.s}</span></figcaption>
+            {reviews.slice(1, 3).map((r, i) => (
+              <figure key={r.name} className="m-0 rounded-2xl p-6 bg-navy-card reveal" style={{ border: '1px solid rgba(83,74,183,0.14)' }} data-reveal-delay={i * 100}>
+                <blockquote className="m-0 mb-3 text-[14px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))' }}>{r.text}</blockquote>
+                <figcaption className="text-[13px]"><span className="font-semibold" style={{ color: 'rgb(var(--violet-rgb))' }}>{r.name}</span> <span style={{ color: 'rgb(var(--muted-b-rgb))' }}>· {r.service}</span></figcaption>
               </figure>
             ))}
           </div>
         </div>
       </section>
+      )}
 
       {/* ── Карта и контакты ── */}
       <section className="py-20" style={{ background: 'rgb(var(--surface-rgb))' }}>
