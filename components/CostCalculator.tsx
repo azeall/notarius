@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { calcServices } from '@/lib/data'
+import { calcServices } from '@/lib/prices'
 import BookingButton from '@/components/BookingButton'
 
 function fmt(n: number): string {

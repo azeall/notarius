@@ -66,13 +66,8 @@ export const yandexOrgId: string = ''
 // Сколько документов оформлено — число для полосы счётчиков.
 // Это утверждение о делах нотариуса, а не оформление: его называет он сам.
 // 0 — счётчик не показывается.
-export const documentsDone: number = 0
+export const documentsDone: number = 5000
 
-// Отзывы клиентов — только настоящие, с их согласия.
-// Выдуманный отзыв на сайте нотариуса — это недостоверная реклама,
-// и отвечать за неё придётся ему, а не тому, кто делал сайт.
-// Пусто — блок отзывов не выводится.
-export const reviews: { name: string; service: string; text: string }[] = []
 
 // Фотографии. Пусто — вместо портрета выводится буква фамилии, а блок
 // со снимками конторы не выводится вовсе. Файлы кладутся в public/.
@@ -114,24 +109,3 @@ export const site = {
   ],
   locale: 'ru_RU',
 } as const
-
-// ─── Калькулятор стоимости услуг (тарифы-заглушки) ───
-export interface CalcService {
-  id: string
-  label: string
-  tariff?: number        // фикс. нотариальный тариф, ₽
-  tariffPercent?: number // % от суммы сделки
-  uptx?: number          // УПТХ, ₽
-  perPage?: number       // ₽ за страницу
-  needsSum?: boolean
-  needsPages?: boolean
-}
-
-export const calcServices: CalcService[] = [
-  { id: 'will', label: 'Завещание', tariff: 100, uptx: 2400 },
-  { id: 'poa', label: 'Доверенность', tariff: 500, uptx: 2000 },
-  { id: 'sale', label: 'Купля-продажа', tariffPercent: 0.5, uptx: 8000, needsSum: true },
-  { id: 'consent', label: 'Согласие супруга', tariff: 500, uptx: 1500 },
-  { id: 'copy', label: 'Заверение копий', perPage: 90, needsPages: true },
-  { id: 'translate', label: 'Перевод документов', tariff: 100, perPage: 900, needsPages: true },
-]
