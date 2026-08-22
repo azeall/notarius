@@ -8,6 +8,7 @@ import { Suspense } from 'react'
 import YandexMetrika from '@/components/YandexMetrika'
 import NotaryBotWidget from '@/components/NotaryBotWidget'
 import CookieNotice from '@/components/CookieNotice'
+import DemoRibbon from '@/components/DemoRibbon'
 import { notary, site } from '@/lib/data'
 
 const manrope = Manrope({
@@ -196,6 +197,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${manrope.variable} ${playfair.variable} ${jetbrains.variable} font-sans bg-navy text-cream flex flex-col min-h-screen`}
       >
+        <DemoRibbon />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
