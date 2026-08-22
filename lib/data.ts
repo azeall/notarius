@@ -9,7 +9,7 @@ export const notary = {
   addressParts: {
     streetAddress: 'ул. Примерная, д. 1',
     addressLocality: 'Москва',
-    postalCode: '000000',                  // Почтовый индекс
+    postalCode: '125009',                  // Почтовый индекс
     addressCountry: 'RU',
     addressRegion: 'Москва',
   },
@@ -17,11 +17,11 @@ export const notary = {
   phone: '+7 (000) 000-00-00',
   phoneHref: 'tel:+70000000000',
   phoneE164: '+70000000000',
-  email: 'info@notarius.ru',              // Email
+  email: 'priem@example.ru',              // Email
   foundingDate: '2020-01-01',             // Дата начала деятельности (для разметки)
   practiceSince: '2011',
   license: '№ 77/000-н/77',
-  registryNumber: '',                     // Реестровый номер нотариуса (пусто — не показывать)
+  registryNumber: '77/1201-н/77',                     // Реестровый номер нотариуса (пусто — не показывать)
   insuranceSum: '5 000 000 ₽',            // Страховая сумма проф. ответственности
   fnpVerifyUrl: 'https://notariat.ru/ru-ru/help/probate-cases/',  // Ссылка на проверку в реестре ФНП
   chamber: 'Московская городская нотариальная палата',
@@ -43,6 +43,15 @@ export const notary = {
 } as const
 
 // ─────────────────────────────────────────────
+// Витрина или боевой сайт.
+//
+// true — сверху висит полоса «демонстрация, нотариус вымышлен».
+// Заводите сайт настоящему нотариусу — ставьте false вместе с его данными.
+//
+// Пока данные вымышленные, полоса обязательна: нотариат — профессия,
+// где выдавать вымышленное лицо за действующее нельзя.
+export const demoMode: boolean = true
+
 //  Постоянный адрес сайта
 //
 //  Отсюда берутся canonical, sitemap и разметка для поисковиков. Адрес
