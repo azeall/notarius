@@ -1,23 +1,23 @@
 ﻿'use client'
 import { useRef, useState } from 'react'
 import { yandexOrgId } from '@/lib/data'
+import { reviews } from '@/lib/reviews'
 
 // Заводится в lib/data.ts вместе с остальными сведениями о нотариусе:
 // иначе при заведении второго сайта про него забывают, и посетитель
 // видит отзывы чужой конторы.
 const YANDEX_ORG_ID = yandexOrgId
 
-interface Review {
-  author: string
-  date: string
-  text: string
-  rating: number
-  platform: 'Яндекс' | '2ГИС' | 'Google'
-}
-
-// ─── Вставьте реальные отзывы клиентов ───────────────────────
-// platform: 'Google' | 'Яндекс' | '2ГИС'
-const OTHER_REVIEWS: Review[] = []
+// Отзывы живут в lib/reviews.ts — там же, где остальные сведения о конторе.
+// Здесь они только раскладываются по карточке: площадка и оценка необязательны,
+// потому что в других оформлениях их не показывают.
+const OTHER_REVIEWS = reviews.map((r) => ({
+  author: r.name,
+  date: r.date ?? r.service,
+  text: r.text,
+  rating: r.rating ?? 5,
+  platform: r.platform ?? 'Яндекс',
+}))
 
 function Stars({ n }: { n: number }) {
   return (

@@ -6,7 +6,8 @@ import DocVerify from '@/components/DocVerify'
 import SlotFinder from '@/components/SlotFinder'
 import BookingButton from '@/components/BookingButton'
 import LegalPhotos from '@/components/LegalPhotos'
-import { notary, site, reviews } from '@/lib/data'
+import { notary, site } from '@/lib/data'
+import { reviews } from '@/lib/reviews'
 
 export const metadata: Metadata = {
   title: 'Нотариус в Москве · Онлайн-запись за 30 секунд',
