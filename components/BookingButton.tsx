@@ -1,7 +1,7 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { notary } from '@/lib/data'
-import { openNotarybot } from '@/lib/notarybot'
+import { onNotarybotUnavailable, openNotarybot } from '@/lib/notarybot'
 
 const BASE_CLASS =
   'booking-cta relative inline-flex items-center justify-center ' +
@@ -33,6 +33,12 @@ export default function BookingButton({
   size?: 'sm' | 'md'
 }) {
   const [unavailable, setUnavailable] = useState(false)
+
+  // Второй способ узнать о недоступности виджета — сообщение от скрипта.
+  // Проверки при нажатии мало: скрипт может загрузиться и открыть окно,
+  // в котором виджет так и не появится. Именно так и было, когда имя сервиса
+  // резали провайдеры: посетитель видел ошибку браузера поверх сайта нотариуса.
+  useEffect(() => onNotarybotUnavailable(() => setUnavailable(true)), [])
 
   // Запись идёт только через сервис заявок: он показывает перечень документов
   // и принимает сканы. Если скрипт виджета не загрузился, честно говорим об этом

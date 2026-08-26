@@ -33,3 +33,20 @@ export function openNotarybot(): boolean {
   api.open()
   return true
 }
+
+/**
+ * Подписаться на сообщение «виджет не открылся».
+ *
+ * Мало проверить, что скрипт загрузился: он может загрузиться, открыть окно
+ * и упереться в недоступную страницу виджета — посетитель увидит ошибку
+ * браузера поверх сайта. Узнать об этом из самого iframe нельзя, домены разные,
+ * поэтому скрипт ждёт от виджета приветствия и по таймауту присылает это
+ * событие. Тогда сайту есть что показать взамен: телефон конторы.
+ *
+ * Возвращает функцию отписки.
+ */
+export function onNotarybotUnavailable(handler: () => void): () => void {
+  if (typeof document === 'undefined') return () => {}
+  document.addEventListener('notarybot:unavailable', handler)
+  return () => document.removeEventListener('notarybot:unavailable', handler)
+}
