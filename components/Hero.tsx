@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 
@@ -168,19 +169,26 @@ const CSS = `
 @keyframes lvdrift{0%{transform:translate(-50%,-50%) rotate(0deg) scale(1);}50%{transform:translate(-50%,-50%) rotate(180deg) scale(1.06);}100%{transform:translate(-50%,-50%) rotate(360deg) scale(1);}}
 .lv-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 120% at 78% 30%, rgba(244,243,253,0) 40%, rgba(244,243,253,.85) 78%, rgb(var(--bg-rgb)) 100%);}
 .lv-wrap{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;display:grid;align-items:center;gap:clamp(28px,5vw,72px);grid-template-columns:1.05fr .95fr;}
-.lv-kicker{display:inline-flex;align-items:center;gap:14px;font-size:clamp(10px,1.1vw,12px);font-weight:600;letter-spacing:.42em;text-transform:uppercase;color:rgb(var(--muted-d-rgb));margin-bottom:clamp(22px,3vw,34px);}
+.lv-kicker{display:inline-flex;align-items:center;gap:14px;font-size:clamp(11px,1.1vw,13px);font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:rgb(var(--muted-d-rgb));margin-bottom:clamp(22px,3vw,34px);}
 .lv-kicker::before{content:"";width:clamp(26px,4vw,52px);height:1px;background:linear-gradient(90deg,#c0bfcc,transparent);}
 .lv-name{font-family:var(--font-playfair),Georgia,serif;font-weight:600;color:#2f2a63;line-height:.98;letter-spacing:-.01em;}
 .lv-name .sur{display:block;font-size:clamp(46px,8vw,104px);background:linear-gradient(176deg,#4a4296 0%, #534AB7 55%, #6a60c8 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
 .lv-name .given{display:block;font-size:clamp(24px,4vw,48px);font-weight:500;font-style:italic;color:rgb(var(--text-c-rgb));margin-top:.12em;letter-spacing:.005em;}
 .lv-role{font-family:var(--font-playfair),Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(16px,2vw,22px);color:rgb(var(--muted-e-rgb));margin-top:clamp(16px,2.2vw,22px);display:flex;align-items:center;gap:12px;}
 .lv-role::before{content:"";width:7px;height:7px;border:1px solid #c0bfcc;transform:rotate(45deg);flex:none;}
-.lv-desc{font-size:clamp(14px,1.25vw,17px);font-weight:400;line-height:1.7;color:rgb(var(--muted-e-rgb));max-width:46ch;margin-top:clamp(20px,2.6vw,28px);}
+.lv-desc{font-size:clamp(16px,1.35vw,19px);font-weight:400;line-height:1.65;color:rgb(var(--muted-e-rgb));max-width:44ch;margin-top:clamp(20px,2.6vw,28px);}
 .lv-actions{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(18px,2.6vw,32px);margin-top:clamp(30px,4vw,44px);}
 .lv-phone{display:flex;flex-direction:column;gap:3px;text-decoration:none;}
-.lv-phone .lbl{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:rgb(var(--muted-d-rgb));}
+.lv-phone .lbl{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgb(var(--muted-d-rgb));}
 .lv-phone .num{font-family:var(--font-playfair),Georgia,serif;font-size:clamp(18px,2.1vw,24px);font-weight:500;color:#534AB7;letter-spacing:.01em;transition:color .3s ease;}
 .lv-phone:hover .num{color:rgb(var(--text-c-rgb));}
+.lv-btn2{display:inline-flex;align-items:center;gap:10px;padding:17px 26px;border-radius:4px;
+  border:1px solid rgba(83,74,183,.4);color:rgb(var(--violet-rgb));background:transparent;
+  font-size:15px;font-weight:600;letter-spacing:.02em;text-decoration:none;white-space:nowrap;
+  transition:background-color .25s ease,border-color .25s ease,transform .25s cubic-bezier(.2,.7,.2,1);}
+.lv-btn2:hover{background:rgba(83,74,183,.08);border-color:rgba(83,74,183,.7);transform:translateY(-2px);}
+.lv-btn2:active{transform:translateY(0);}
+.lv-btn2 svg{width:15px;height:15px;flex:none;}
 .lv-textcol{align-self:start;}
 .lv-mono{position:relative;display:flex;align-items:center;justify-content:center;}
 .lv-mono .monogram{width:100%;max-width:560px;height:auto;overflow:visible;display:block;}
@@ -214,7 +222,7 @@ const CSS = `
   .lv-hero{padding:96px 22px 56px;}
   .lv-kicker{letter-spacing:.3em;gap:10px;}
   .lv-actions{gap:20px;}
-  .lv-actions .lv-btn{width:100%;}
+  .lv-actions .lv-btn,.lv-actions .lv-btn2{width:100%;justify-content:center;}
   .lv-mono .monogram{max-width:360px;width:min(360px,92vw);}
 }
 @media (prefers-reduced-motion:reduce){
@@ -251,12 +259,20 @@ export default function Hero() {
           </h1>
           <p className="lv-role lv-reveal" style={{ ['--d' as string]: '.5s' }}>нотариус города Москвы</p>
           <p className="lv-desc lv-reveal" style={{ ['--d' as string]: '.64s' }}>
-            Удостоверение сделок, наследственные дела, доверенности и согласия.
-            Безупречная точность, конфиденциальность и внимание к каждому обращению —
-            многолетняя нотариальная практика в самом сердце столицы.
+            Сделки с недвижимостью, наследство, доверенности и согласия.
+            Приём по записи, {notary.address.split(',').slice(-1)[0].trim()}, пн–пт с 10:00 до 19:00.
           </p>
           <div className="lv-actions lv-reveal" style={{ ['--d' as string]: '.82s' }}>
             <BookingButton />
+            {/* Вторая кнопка ведёт к перечню документов. Первый вопрос человека
+                перед визитом — «что с собой взять», и до этой правки ответ
+                лежал в меню под словом «Подготовка». */}
+            <Link className="lv-btn2" href="/visit">
+              Какие нужны документы
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
             <a className="lv-phone" href={notary.phoneHref}>
               <span className="lbl">Телефон конторы</span>
               <span className="num">{notary.phone}</span>

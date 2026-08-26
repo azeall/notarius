@@ -1,155 +1,162 @@
-'use client'
 import Link from 'next/link'
+import { notary, demoMode } from '@/lib/data'
 
-const CREDS = [
-  {
-    icon: (
-      <svg width="22" height="24" viewBox="0 0 22 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-        <path d="M11 1.5 2 4.5v7c0 5.5 3.8 9.8 9 11.5 5.2-1.7 9-6 9-11.5v-7L11 1.5Z" />
-        <path d="m7 11.5 3 3 5-5.5" strokeWidth="1.6" />
-      </svg>
-    ),
-    code: 'Минюст РФ',
-    title: 'Назначение нотариусом',
-    meta: 'Приказ Министерства юстиции РФ',
-    badge: 'Действующее',
-  },
-  {
-    icon: (
-      <svg width="22" height="24" viewBox="0 0 22 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-        <path d="M11 1.5 2 4.5v7c0 5.5 3.8 9.8 9 11.5 5.2-1.7 9-6 9-11.5v-7L11 1.5Z" />
-        <path d="M11 7v9M7 11h8M6 14h4M12 14h4" strokeWidth="1.3" />
-      </svg>
-    ),
-    code: 'МГНП',
-    title: 'Член Московской палаты',
-    meta: 'Московская городская нотариальная палата',
-    badge: 'Активное',
-  },
-  {
-    icon: (
-      <svg width="22" height="24" viewBox="0 0 22 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-        <circle cx="11" cy="8" r="4.5" />
-        <path d="M3.5 22c1.5-4 4.3-6 7.5-6s6 2 7.5 6" />
-      </svg>
-    ),
-    code: 'Высшее юридическое',
-    title: 'Диплом юридического факультета',
-    meta: 'Квалификация: юрист',
-    badge: 'Верифицировано',
-  },
-  {
-    icon: (
-      <svg width="22" height="24" viewBox="0 0 22 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-        <rect x="3" y="4" width="16" height="16" rx="2" />
-        <path d="M7 4v16M15 4v16M3 12h16" strokeWidth="1.2" />
-      </svg>
-    ),
-    code: 'Страховая сумма',
-    title: 'Проф. ответственность',
-    meta: '5\u00A0000\u00A0000 ₽ · ВСК',
-    badge: 'Полис действует',
-  },
-]
+/**
+ * Блок доверия: чем подтверждены полномочия нотариуса.
+ *
+ * Это единственное, чего нет ни на одном из сайтов, откуда взято оформление.
+ * Дизайнерским витринам доверие не нужно — им нужно впечатление. Человеку,
+ * который несёт сюда документы на квартиру, нужно ровно обратное: номер,
+ * палата, страховка и ссылка на реестр, где всё это можно перепроверить.
+ *
+ * Каждое поле берётся из lib/data.ts и пропадает, если поле пустое: у одной
+ * конторы нет реестрового номера, у другой не указана страховая сумма, и
+ * дыра в вёрстке хуже, чем строка меньше.
+ *
+ * Раскладка — не четыре одинаковые карточки, а ряды с линейками: карточка
+ * здесь ничего не сообщает об иерархии, а линейка читается как строка
+ * документа, что этому блоку и нужно.
+ */
+
+type Row = { label: string; value: string; note?: string }
 
 export default function CredentialsSection() {
+  const years = notary.practiceSince
+    ? new Date().getFullYear() - Number(notary.practiceSince)
+    : 0
+
+  const rows: Row[] = [
+    {
+      label: 'Лицензия',
+      value: notary.license,
+      note: 'Приказ Министерства юстиции Российской Федерации',
+    },
+    ...(notary.registryNumber
+      ? [{
+          label: 'Реестровый номер',
+          value: notary.registryNumber,
+          note: 'По нему нотариуса находят в реестре Федеральной нотариальной палаты',
+        }]
+      : []),
+    {
+      label: 'Нотариальная палата',
+      value: notary.chamber,
+      note: 'Членство действующее',
+    },
+    ...(notary.insuranceSum
+      ? [{
+          label: 'Страхование ответственности',
+          value: notary.insuranceSum,
+          note: 'Ошибка нотариуса возмещается из страховой суммы, а не из кармана клиента',
+        }]
+      : []),
+    ...(years > 0
+      ? [{
+          label: 'Практика',
+          value: `с ${notary.practiceSince} года`,
+          note: `${years} лет непрерывной нотариальной деятельности`,
+        }]
+      : []),
+  ]
+
   return (
     <section
-      className="relative py-20 sm:py-[120px] overflow-hidden"
+      className="py-20 sm:py-28"
       style={{ background: 'rgb(var(--surface-2-rgb))' }}
+      aria-labelledby="creds-title"
     >
-      {/* Gold grid */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(83,74,183,0.05) 1px, transparent 1px),' +
-            'linear-gradient(90deg, rgba(83,74,183,0.05) 1px, transparent 1px)',
-          backgroundSize: '64px 64px',
-          maskImage: 'radial-gradient(ellipse 100% 80% at 50% 50%, black 30%, transparent 85%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 100% 80% at 50% 50%, black 30%, transparent 85%)',
-        }}
-        aria-hidden
-      />
-
-      <div className="relative mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1340px' }}>
-        {/* Header */}
-        <div className="flex items-end justify-between gap-10 mb-16 flex-wrap reveal">
-          <div>
-            <div className="inline-flex items-center gap-3.5 mb-5">
-              <span className="block w-6 h-px bg-gold flex-shrink-0" />
-              <span
-                className="text-[11px] tracking-[0.32em] uppercase"
-                style={{ color: 'rgba(83,74,183,0.70)' }}
-              >
-                Документы и членство
-              </span>
-            </div>
-            <h2
-              className="font-serif font-medium text-cream m-0"
-              style={{ fontSize: 'clamp(36px, 4vw, 54px)', lineHeight: '1.08', letterSpacing: '-0.01em' }}
+        className="mx-auto px-5 sm:px-10 grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-start"
+        style={{ maxWidth: '1080px' }}
+      >
+        <div className="reveal lg:sticky lg:top-28">
+          <div className="inline-flex items-center gap-3.5 mb-4">
+            <span className="block w-6 h-px" style={{ background: 'rgb(var(--violet-rgb))' }} />
+            <span
+              className="text-[12px] tracking-[0.24em] uppercase"
+              style={{ color: 'rgb(var(--violet-rgb))' }}
             >
-              Подтверждённые{' '}
-              <em className="italic font-normal text-gold">
-                полномочия
-              </em>
-            </h2>
+              Полномочия
+            </span>
           </div>
-          <Link
-            href="/about"
-            className="inline-flex items-center gap-2.5 text-[12px] tracking-[0.22em] uppercase text-gold no-underline pb-1 transition-colors hover:text-gold-light flex-shrink-0"
-            style={{ borderBottom: '1px solid rgba(83,74,183,0.30)' }}
+          <h2
+            id="creds-title"
+            className="font-serif font-medium m-0 mb-5"
+            style={{ fontSize: 'clamp(30px, 3.6vw, 46px)', lineHeight: 1.1, color: 'rgb(var(--text-rgb))' }}
           >
-            О нотариусе
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            Всё, что можно{' '}
+            <em className="italic font-normal" style={{ color: 'rgb(var(--violet-rgb))' }}>
+              проверить
+            </em>
+          </h2>
+          <p
+            className="m-0 mb-7"
+            style={{ fontSize: '16px', lineHeight: 1.65, color: 'rgb(var(--muted-rgb))', maxWidth: '38ch' }}
+          >
+            Нотариуса назначает государство, и его полномочия подтверждаются
+            публично. Ниже — данные, по которым это можно сделать самостоятельно,
+            не выходя с этой страницы.
+          </p>
+          <a
+            href={notary.fnpVerifyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 text-[14px] font-semibold no-underline pb-1 transition-opacity hover:opacity-70"
+            style={{ color: 'rgb(var(--violet-rgb))', borderBottom: '1px solid rgba(83,74,183,0.35)' }}
+          >
+            Проверить в реестре ФНП
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5h5v5M19 5l-8 8M18 14v5H5V6h5" />
             </svg>
-          </Link>
+          </a>
         </div>
 
-        {/* 4 credential cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[18px]">
-          {CREDS.map((c, i) => (
+        <dl className="m-0">
+          {rows.map((r, i) => (
             <div
-              key={c.code}
-              className="relative reveal border border-gold/15 rounded-[14px] transition-all duration-300 hover:border-gold/40 hover:-translate-y-0.5"
+              key={r.label}
+              className="grid sm:grid-cols-[190px_1fr] gap-1.5 sm:gap-8 py-6 reveal"
               style={{
-                padding: '22px',
-                background: 'rgb(var(--surface-rgb))',
+                borderTop: '1px solid rgba(83,74,183,0.16)',
+                ...(i === rows.length - 1 ? { borderBottom: '1px solid rgba(83,74,183,0.16)' } : {}),
               }}
-              data-reveal-delay={i * 100}
+              data-reveal-delay={i * 70}
             >
-              <div
-                className="w-10 h-10 grid place-items-center text-gold mb-3.5"
-                style={{ background: 'radial-gradient(circle, rgba(83,74,183,0.18), transparent 70%)' }}
+              <dt
+                className="text-[12px] tracking-[0.18em] uppercase leading-relaxed"
+                style={{ color: 'rgb(var(--muted-rgb))' }}
               >
-                {c.icon}
-              </div>
-              <div
-                className="font-mono text-[10px] tracking-[0.18em] uppercase mb-1.5"
-                style={{ color: 'rgba(83,74,183,0.70)' }}
-              >
-                {c.code}
-              </div>
-              <h4
-                className="font-serif font-medium text-cream m-0 mb-2"
-                style={{ fontSize: '17px', lineHeight: '1.25' }}
-              >
-                {c.title}
-              </h4>
-              <div className="text-[12px] text-slate mb-3 font-mono">{c.meta}</div>
-              <div
-                className="inline-flex items-center gap-1.5 text-[9px] tracking-[0.18em] uppercase font-semibold font-mono"
-                style={{ color: '#4ade80' }}
-              >
-                <svg width="8" height="8" viewBox="0 0 10 10" fill="none" aria-hidden>
-                  <path d="M2 5l2.5 2.5 3.5-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-                {c.badge}
-              </div>
+                {r.label}
+              </dt>
+              <dd className="m-0">
+                <p
+                  className="font-serif m-0 mb-1.5 nums"
+                  style={{ fontSize: 'clamp(19px, 2vw, 23px)', lineHeight: 1.25, color: 'rgb(var(--text-rgb))' }}
+                >
+                  {r.value}
+                </p>
+                {r.note && (
+                  <p className="m-0 text-[14px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))' }}>
+                    {r.note}
+                  </p>
+                )}
+              </dd>
             </div>
           ))}
-        </div>
+
+          {demoMode && (
+            /* Пока витрина работает на вымышленном нотариусе, блок обязан сам
+               сказать об этом. Номер лицензии выглядит убедительно именно
+               потому, что так и задумано, — и без оговорки это уже не макет. */
+            <p
+              className="mt-5 mb-0 text-[13px] leading-relaxed"
+              style={{ color: 'rgb(var(--muted-rgb))' }}
+            >
+              Данные в этом блоке — демонстрационные. На сайте действующей конторы
+              здесь стоят её настоящие номер лицензии, реестровый номер и полис.
+            </p>
+          )}
+        </dl>
       </div>
     </section>
   )

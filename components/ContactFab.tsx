@@ -74,7 +74,7 @@ export default function ContactFab() {
           box-shadow:0 12px 30px rgba(83,74,183,.45);display:grid;place-items:center;
           transition:transform .25s cubic-bezier(.2,.7,.2,1);}
         .cf-main::after{content:"";position:absolute;inset:0;border-radius:50%;
-          border:2px solid rgba(200,178,126,.65);animation:cfpulse 2.4s ease-out infinite;}
+          border:2px solid rgba(83,74,183,.55);animation:cfpulse 2.4s ease-out infinite;}
         .cf-main:hover{transform:scale(1.06);}
         .cf-active{transform:rotate(90deg);}
         .cf-active::after{display:none;}

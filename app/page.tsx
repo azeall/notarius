@@ -7,6 +7,7 @@ import BookingInline from '@/components/BookingInline'
 import BookingButton from '@/components/BookingButton'
 import CountUp from '@/components/CountUp'
 import LegalPhotos from '@/components/LegalPhotos'
+import CredentialsSection from '@/components/CredentialsSection'
 import { notary, site, documentsDone } from '@/lib/data'
 import { reviews } from '@/lib/reviews'
 
@@ -53,7 +54,7 @@ export default function HomePage() {
             <div>
               <div className="inline-flex items-center gap-3.5 mb-4">
                 <span className="block w-6 h-px" style={{ background: 'rgb(var(--violet-rgb))' }} />
-                <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(83,74,183,0.75)' }}>Услуги</span>
+                <span className="text-[12px] tracking-[0.24em] uppercase" style={{ color: 'rgb(var(--violet-rgb))' }}>Услуги</span>
               </div>
               <h2 className="font-serif font-medium m-0" style={{ fontSize: 'clamp(32px, 4vw, 50px)', color: 'rgb(var(--text-rgb))' }}>
                 Чем мы <em className="italic font-normal" style={{ color: 'rgb(var(--violet-rgb))' }}>поможем</em>
@@ -61,7 +62,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/services"
-              className="inline-flex items-center gap-2.5 text-[12px] tracking-[0.22em] uppercase no-underline pb-1 transition-opacity hover:opacity-70"
+              className="inline-flex items-center gap-2.5 text-[13px] tracking-[0.16em] uppercase no-underline pb-1 transition-opacity hover:opacity-70"
               style={{ color: 'rgb(var(--violet-rgb))', borderBottom: '1px solid rgba(83,74,183,0.30)' }}
             >
               Все услуги
@@ -84,7 +85,7 @@ export default function HomePage() {
                 <span className="font-serif text-[20px] sm:text-[24px] transition-colors group-hover:text-[#534AB7]" style={{ color: 'rgb(var(--text-rgb))' }}>
                   {s.title}
                 </span>
-                <span className="hidden sm:block text-[14px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))' }}>
+                <span className="hidden sm:block text-[15px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))' }}>
                   {s.text}
                 </span>
                 <span className="hidden sm:grid w-6 h-6 rounded-full place-items-center transition-all opacity-0 group-hover:opacity-100" style={{ background: 'rgba(83,74,183,0.10)', color: 'rgb(var(--violet-rgb))' }}>
@@ -113,10 +114,10 @@ export default function HomePage() {
               { v: 100, s: '%', l: 'юридическая сила' },
             ].map((st, i) => (
               <div key={st.l} className="text-center reveal" data-reveal-delay={i * 90}>
-                <div className="font-serif font-medium leading-none mb-2" style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#ffffff' }}>
+                <div className="font-serif font-medium leading-none mb-2 nums" style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#ffffff' }}>
                   <CountUp value={st.v} suffix={st.s} />
                 </div>
-                <div className="text-[11px] sm:text-xs tracking-[0.16em] uppercase" style={{ color: 'rgba(255,255,255,0.65)' }}>
+                <div className="text-[12px] sm:text-[13px] tracking-[0.12em] uppercase" style={{ color: 'rgba(255,255,255,0.78)' }}>
                   {st.l}
                 </div>
               </div>
@@ -147,12 +148,14 @@ export default function HomePage() {
                   <span className="hidden sm:block absolute top-5 left-12 right-0 h-px" style={{ background: 'rgba(83,74,183,0.15)' }} aria-hidden />
                 )}
                 <h3 className="font-serif text-xl mb-2" style={{ color: 'rgb(var(--text-rgb))' }}>{s.t}</h3>
-                <p className="text-sm leading-relaxed m-0" style={{ color: 'rgb(var(--muted-rgb))' }}>{s.d}</p>
+                <p className="text-[15px] leading-relaxed m-0" style={{ color: 'rgb(var(--muted-rgb))' }}>{s.d}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      <CredentialsSection />
 
       <LegalPhotos />
 
@@ -178,15 +181,15 @@ export default function HomePage() {
             <blockquote className="font-serif italic m-0 mb-6" style={{ fontSize: 'clamp(22px, 2.6vw, 30px)', lineHeight: '1.45', color: 'rgb(var(--text-rgb))' }}>
               {reviews[0].text}
             </blockquote>
-            <p className="m-0 text-sm" style={{ color: 'rgb(var(--muted-rgb))' }}>
+            <p className="m-0 text-[15px]" style={{ color: 'rgb(var(--muted-rgb))' }}>
               <span className="font-semibold" style={{ color: 'rgb(var(--violet-rgb))' }}>{reviews[0].name}</span> · {reviews[0].service}
             </p>
           </div>
           <div className="space-y-4">
             {reviews.slice(1, 3).map((r, i) => (
               <figure key={r.name} className="m-0 rounded-2xl p-6 bg-navy-card reveal" style={{ border: '1px solid rgba(83,74,183,0.14)' }} data-reveal-delay={i * 100}>
-                <blockquote className="m-0 mb-3 text-[14px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))' }}>{r.text}</blockquote>
-                <figcaption className="text-[13px]"><span className="font-semibold" style={{ color: 'rgb(var(--violet-rgb))' }}>{r.name}</span> <span style={{ color: 'rgb(var(--muted-b-rgb))' }}>· {r.service}</span></figcaption>
+                <blockquote className="m-0 mb-3 text-[15px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))' }}>{r.text}</blockquote>
+                <figcaption className="text-[14px]"><span className="font-semibold" style={{ color: 'rgb(var(--violet-rgb))' }}>{r.name}</span> <span style={{ color: 'rgb(var(--muted-b-rgb))' }}>· {r.service}</span></figcaption>
               </figure>
             ))}
           </div>
@@ -206,10 +209,10 @@ export default function HomePage() {
               { k: 'Email', v: notary.email, href: `mailto:${notary.email}` },
             ].map(row => (
               <div key={row.k} className="py-3.5" style={{ borderTop: '1px solid rgba(83,74,183,0.10)' }}>
-                <p className="text-[10px] tracking-[0.22em] uppercase m-0 mb-1" style={{ color: 'rgb(var(--violet-rgb))' }}>{row.k}</p>
+                <p className="text-[12px] tracking-[0.16em] uppercase m-0 mb-1.5" style={{ color: 'rgb(var(--violet-rgb))' }}>{row.k}</p>
                 {row.href
-                  ? <a href={row.href} className="text-[15px] no-underline transition-opacity hover:opacity-70" style={{ color: 'rgb(var(--text-rgb))' }}>{row.v}</a>
-                  : <p className="text-[15px] m-0" style={{ color: 'rgb(var(--text-rgb))', whiteSpace: 'pre-line' }}>{row.v}</p>}
+                  ? <a href={row.href} className="text-[16px] no-underline transition-opacity hover:opacity-70" style={{ color: 'rgb(var(--text-rgb))' }}>{row.v}</a>
+                  : <p className="text-[16px] m-0" style={{ color: 'rgb(var(--text-rgb))', whiteSpace: 'pre-line' }}>{row.v}</p>}
               </div>
             ))}
           </div>
@@ -233,7 +236,7 @@ export default function HomePage() {
           <h2 className="font-serif font-medium mb-3" style={{ fontSize: 'clamp(26px, 3vw, 36px)', color: 'rgb(var(--text-rgb))' }}>
             Остались вопросы?
           </h2>
-          <p className="mb-7 text-[15px]" style={{ color: 'rgb(var(--muted-rgb))' }}>
+          <p className="mb-7 text-[16px]" style={{ color: 'rgb(var(--muted-rgb))' }}>
             Позвоните — подскажем по документам и подберём удобное время
           </p>
           <div className="flex flex-wrap gap-3 justify-center">

@@ -7,8 +7,11 @@
 :root{
   --bg-rgb:244 243 253; --surface-rgb:255 255 255; --surface-2-rgb:236 234 251; --surface-3-rgb:248 247 254; --surface-4-rgb:218 214 243; --surface-5-rgb:228 225 247;
   --text-rgb:38 34 61; --text-b-rgb:47 42 99; --text-c-rgb:58 52 128; --text-d-rgb:59 54 88; --text-e-rgb:91 86 119;
-  --muted-rgb:117 113 143; --muted-b-rgb:141 137 166; --muted-c-rgb:154 150 181; --muted-d-rgb:142 137 173; --muted-e-rgb:108 104 144; --muted-f-rgb:139 134 173;
-  --hair-rgb:192 191 204; --violet-rgb:83 74 183;
+  /* Приглушённые тона сведены к трём уровням и подняты по контрасту: прежние
+     #8D89A6/#9A96B5 давали 3.0–3.4:1 на белом и не проходили AA, а читать
+     их приходится тем, кто пришёл разбираться с наследством. */
+  --muted-rgb:107 103 134; --muted-b-rgb:110 106 137; --muted-c-rgb:110 106 137; --muted-d-rgb:110 106 137; --muted-e-rgb:99 95 130; --muted-f-rgb:110 106 137;
+  --hair-rgb:142 138 166; --violet-rgb:83 74 183;
   --header:rgba(228,225,247,0.82); --header-scrolled:rgba(236,234,251,0.92);
 }
 html.dark{
@@ -58,30 +61,38 @@ html{ transition:background-color .35s ease; }
   .animate-scroll-line {
     animation: scroll-line 2.6s ease-in-out infinite;
   }
-  /* OUT-состояние (скрытие при уходе) — медленнее */
+  /* Появление при входе в кадр. Одностороннее: раньше блок прятался обратно,
+     стоило увести его за нижний край, и при возврате вверх страница гасла
+     кусками — на сайте, куда приходят перечитать список документов, это
+     читается как поломка, а не как приём. */
   .reveal {
     opacity: 0;
-    transform: translateY(44px);
-    transition: opacity 1.25s ease, transform 1.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(28px);
     will-change: opacity, transform;
   }
-  /* IN-состояние (проявление при входе) — заметнее, но плавно */
   .reveal.in {
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .booking-cta {
     position: relative;
   }
+  /* Тень кнопки записи — фиолетовая. Золотая подсветка под фиолетовой
+     кнопкой была вторым акцентом и грязнила цвет на hover. */
   .booking-cta:hover {
-    box-shadow: 0 18px 50px -10px rgba(200,160,60,0.75) !important;
-    filter: brightness(1.08) saturate(1.05);
+    box-shadow: 0 18px 50px -10px rgba(83,74,183,0.55) !important;
+    filter: brightness(1.06);
   }
   .booking-cta:active {
     filter: brightness(0.96);
+    transform: translateY(1px);
   }
+
+  /* Цифры в ценах, счётчиках и калькуляторе — моноширинные по ширине знака,
+     иначе колонки сумм пляшут при пересчёте. */
+  .nums { font-variant-numeric: tabular-nums; }
 }
 
 @layer base {
@@ -94,6 +105,20 @@ html{ transition:background-color .35s ease; }
 
   img, iframe, svg, video { max-width: 100%; }
 
+  /* Видимый фокус для клавиатуры. Формы в админке гасили outline у себя,
+     а на публичных страницах его не было вовсе — пройти сайт с клавиатуры
+     было нельзя. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--violet-rgb));
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  /* Заголовки не оставляют одинокое слово на последней строке,
+     абзацы не оставляют висячую строку. */
+  h1, h2, h3, h4 { text-wrap: balance; }
+  p, li, blockquote { text-wrap: pretty; }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .animate-fade-in-up,
@@ -101,6 +126,27 @@ html{ transition:background-color .35s ease; }
     .reveal { opacity: 1; transform: none; transition: none; }
     .animate-pulse-dot { animation: none; }
   }
+}
+
+/* Ссылка в обход шапки: не видна мышью, всплывает по Tab первой на странице. */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -120%);
+  z-index: 300;
+  padding: 12px 22px;
+  border-radius: 0 0 10px 10px;
+  background: rgb(var(--violet-rgb));
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+.skip-link:focus-visible {
+  transform: translate(-50%, 0);
+  outline-offset: -4px;
 }
 
 /* Печать: на экране памятка скрыта, при печати показываем только её */

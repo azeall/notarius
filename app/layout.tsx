@@ -11,7 +11,6 @@ import DemoRibbon from '@/components/DemoRibbon'
 import ScrollProgress from '@/components/ScrollProgress'
 import SmoothScroll from '@/components/SmoothScroll'
 import ContactFab from '@/components/ContactFab'
-import Preloader from '@/components/Preloader'
 import { notary, site } from '@/lib/data'
 
 const manrope = Manrope({
@@ -203,12 +202,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${manrope.variable} ${playfair.variable} ${jetbrains.variable} font-sans bg-navy text-cream flex flex-col min-h-screen`}
       >
+        {/* Прелоадер убран намеренно: он держал экран фиолетовой заглушкой почти
+            секунду до первой отрисовки. На сайте, куда заходят посмотреть адрес
+            и телефон, это чистая задержка — красивая ровно один раз. */}
+        <a className="skip-link" href="#main">Перейти к содержимому</a>
         <DemoRibbon />
-        <Preloader />
         <ScrollProgress />
         <SmoothScroll />
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="main" className="flex-1">{children}</main>
         <Footer />
         <ContactFab />
         <RevealObserver />

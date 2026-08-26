@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
@@ -18,6 +19,15 @@ const navLinks = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  // usePathname вне роутера отдаёт null — так шапка и падала в тестах.
+  // В приложении такого не бывает, но ронять всю шапку из-за подсветки
+  // пункта меню незачем.
+  const pathname = usePathname() ?? '/'
+
+  // Текущий раздел подсвечивается. Раньше подсветки не было вообще: на любой
+  // из семи страниц меню выглядело одинаково, и человек не понимал, где он.
+  const isCurrent = (href: string) =>
+    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href + '/')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -35,7 +45,18 @@ export default function Header() {
         borderBottom: '1px solid rgba(83,74,183,0.18)',
       }}
     >
-      {/* Gold hairline */}
+      <style>{`
+        .hd-link{color:rgb(var(--muted-rgb));}
+        .hd-link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+          background:rgb(var(--violet-rgb));transform:scaleX(0);transform-origin:right;
+          transition:transform .25s cubic-bezier(.2,.7,.2,1);}
+        .hd-link:hover{color:rgb(var(--text-rgb));}
+        .hd-link:hover::after{transform:scaleX(1);transform-origin:left;}
+        .hd-link[data-current]{color:rgb(var(--violet-rgb));font-weight:600;}
+        .hd-link[data-current]::after{transform:scaleX(1);}
+      `}</style>
+
+      {/* Волосяная линия под шапкой */}
       <div
         className="absolute left-0 right-0 bottom-0 h-px"
         style={{ background: 'linear-gradient(90deg, transparent, rgba(83,74,183,0.55), transparent)' }}
@@ -70,8 +91,8 @@ export default function Header() {
               {notary.name}
             </span>
             <span
-              className="font-sans text-[9px] tracking-[0.22em] sm:tracking-[0.28em] uppercase mt-0.5 truncate"
-              style={{ color: 'rgba(83,74,183,0.70)' }}
+              className="font-sans text-[11px] tracking-[0.16em] sm:tracking-[0.20em] uppercase mt-0.5 truncate"
+              style={{ color: 'rgb(var(--violet-rgb))' }}
             >
               Нотариус · Москва
             </span>
@@ -79,21 +100,21 @@ export default function Header() {
         </Link>
 
         {/* Nav links */}
-        <nav className="hidden md:flex items-center gap-5 lg:gap-[28px]">
-          {navLinks.map(link => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="relative py-1.5 text-[11px] tracking-[0.20em] uppercase text-slate hover:text-cream transition-colors duration-200 no-underline group"
-            >
-              {link.label}
-              <span
-                className="absolute bottom-0 left-0 h-px bg-gold transition-all duration-300"
-                style={{ width: 0 }}
-                data-underline
-              />
-            </Link>
-          ))}
+        <nav className="hidden md:flex items-center gap-5 lg:gap-[26px]" aria-label="Основная навигация">
+          {navLinks.map(link => {
+            const current = isCurrent(link.href)
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={current ? 'page' : undefined}
+                className="hd-link relative py-1.5 text-[13px] tracking-[0.10em] uppercase transition-colors duration-200 no-underline"
+                data-current={current ? '' : undefined}
+              >
+                {link.label}
+              </Link>
+            )
+          })}
         </nav>
 
         {/* CTA + hamburger */}
@@ -103,7 +124,8 @@ export default function Header() {
           <button
             className="md:hidden flex flex-col gap-1.5 p-1.5 text-gold"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Открыть меню"
+            aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
+            aria-expanded={menuOpen}
           >
             <span className="block w-6 h-0.5 bg-current" />
             <span className="block w-6 h-0.5 bg-current" />
@@ -118,17 +140,25 @@ export default function Header() {
           className="md:hidden px-5 pb-5 flex flex-col gap-0"
           style={{ borderTop: '1px solid rgba(83,74,183,0.10)', background: 'var(--header-scrolled)' }}
         >
-          {navLinks.map(link => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="py-3.5 text-[11px] tracking-[0.20em] uppercase text-slate hover:text-gold transition-colors no-underline border-b"
-              style={{ borderColor: 'rgba(83,74,183,0.08)' }}
-              onClick={() => setMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map(link => {
+            const current = isCurrent(link.href)
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={current ? 'page' : undefined}
+                className="py-4 text-[15px] tracking-[0.02em] transition-colors no-underline border-b"
+                style={{
+                  borderColor: 'rgba(83,74,183,0.10)',
+                  color: current ? 'rgb(var(--violet-rgb))' : 'rgb(var(--text-rgb))',
+                  fontWeight: current ? 600 : 500,
+                }}
+                onClick={() => setMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            )
+          })}
           <div className="pt-4">
             <BookingButton className="w-full" />
           </div>
