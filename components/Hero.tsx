@@ -2,23 +2,26 @@ import Link from 'next/link'
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 import LiveStatus from '@/components/LiveStatus'
+import InkField from '@/components/InkField'
+import HeroTicker from '@/components/HeroTicker'
 
 /**
- * Первый экран — индекс конторы.
+ * Первый экран варианта lavender.
  *
- * Что здесь было раньше: медальон с гильош-гравировкой и весами правосудия,
- * 560 пикселей по правой половине экрана. Он был честно сделан — рисовался
- * процедурно из имени нотариуса, — но оставался украшением: ничего не
- * сообщал, ничего не открывал, и стоял одинаковый на всех четырёх сайтах.
+ * Что было и чем не годилось. Экран открывался фамилией в 134 пикселя, а под
+ * ней шёл перечень услуг. Замечание было точным: «огромные буквы и ничего не
+ * понятно». Фамилия — ответ на вопрос, которого пришедший не задавал. Он не
+ * знает эту контору; он пришёл выяснить, туда ли попал и что тут можно
+ * сделать. Имя нотариуса важно, но вторым ходом, а не первым.
  *
- * Что здесь теперь: строка состояния конторы (открыта ли она сейчас и когда
- * ближайшее свободное окно) и крупный перечень услуг, который одновременно
- * служит навигацией. Ход взят у лучших работ awwwards последнего года —
- * Sharplink и Storey Architecture: смелость там не в количестве украшений, а
- * в их отсутствии. Два цвета, крупный набор, и всё, что видно, работает.
+ * Что теперь. Первым читается, что здесь происходит: удостоверяют сделки,
+ * оформляют наследство, заверяют документы. Дальше — чья это контора и где.
+ * Дальше — перечень, он же навигация. Кегль остался крупным, но крупным
+ * стало осмысленное.
  *
- * Ни одной картинки и ни одного декоративного SVG: на бумаге держат
- * линейка, кегль и воздух.
+ * Отличие от warm сохранено намеренно. Там тёмная глина и краска терракотой,
+ * здесь светлая бумага и чернила тёмным по светлому: то же средство,
+ * обратная полярность. Один сайт не спутать с другим.
  */
 
 const INDEX = [
@@ -30,138 +33,155 @@ const INDEX = [
 ]
 
 const CSS = `
-.hr{position:relative;background:rgb(var(--bg-rgb));
-  padding:clamp(104px,13vh,140px) 0 clamp(56px,8vh,88px);}
+.lv{position:relative;background:rgb(var(--bg-rgb));overflow:hidden;
+  padding:clamp(100px,12vh,140px) 0 clamp(40px,6vh,64px);}
+/* Завеса: чернила видны, но текст всегда впереди. */
+.lv-veil{position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(56% 44% at 22% 42%, rgb(var(--bg-rgb) / .80) 0%, rgb(var(--bg-rgb) / 0) 100%),
+    linear-gradient(180deg, rgb(var(--bg-rgb) / .30) 0%, rgb(var(--bg-rgb) / .10) 46%, rgb(var(--bg-rgb) / .78) 100%);}
+.lv-in{position:relative;z-index:1;}
 
-/* Верхняя строка: состояние конторы прямо сейчас. */
-.hr-top{padding-bottom:18px;border-bottom:1px solid rgb(var(--rule-rgb));
-  margin-bottom:clamp(30px,4.4vw,54px);}
+.lv-tag{margin:0 0 clamp(16px,2.2vw,24px);font-family:var(--font-mono),monospace;
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgb(var(--violet-rgb));}
 
-.hr-head{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(24px,4vw,64px);
-  align-items:end;margin-bottom:clamp(40px,6vw,84px);}
+/* Главное — что здесь делают, а не чья фамилия. */
+.lv-lead{margin:0;font-family:var(--font-display),Georgia,serif;font-weight:600;
+  font-size:clamp(34px,5.4vw,76px);line-height:1.02;letter-spacing:-.028em;
+  color:rgb(var(--text-rgb));max-width:19ch;}
+.lv-lead .ac{color:rgb(var(--violet-rgb));}
 
-.hr-name{margin:0;font-family:var(--font-display),Georgia,serif;font-weight:600;
-  color:rgb(var(--text-rgb));line-height:.9;letter-spacing:-.03em;}
-.hr-sur{display:block;font-size:clamp(54px,10.5vw,148px);}
-.hr-given{display:block;font-size:clamp(20px,2.8vw,36px);font-weight:400;
-  color:rgb(var(--muted-e-rgb));letter-spacing:-.01em;margin-top:.34em;}
+.lv-row{display:grid;grid-template-columns:1.5fr .5fr;gap:clamp(24px,4vw,56px);
+  align-items:end;margin-top:clamp(28px,4vw,48px);
+  padding-top:clamp(22px,3vw,32px);border-top:1px solid rgb(var(--rule-rgb));}
 
-.hr-aside{padding-bottom:.6em;}
-.hr-role{margin:0 0 14px;font-size:13px;font-weight:500;letter-spacing:.2em;
-  text-transform:uppercase;color:rgb(var(--violet-rgb));}
-.hr-desc{margin:0;font-size:clamp(15px,1.15vw,17px);line-height:1.6;
-  color:rgb(var(--muted-e-rgb));max-width:38ch;}
+.lv-who{margin:0;font-family:var(--font-display),Georgia,serif;font-weight:500;
+  font-size:clamp(20px,2.3vw,30px);line-height:1.14;letter-spacing:-.012em;
+  color:rgb(var(--text-rgb));}
+.lv-where{margin:8px 0 0;font-size:clamp(15px,1.1vw,17px);line-height:1.6;
+  color:rgb(var(--muted-rgb));max-width:40ch;}
 
-.hr-cta{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(14px,2vw,22px);
-  margin-bottom:clamp(48px,7vw,96px);}
-.hr-phone{display:flex;flex-direction:column;gap:4px;text-decoration:none;margin-left:auto;text-align:right;}
-.hr-phone .lbl{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgb(var(--muted-rgb));}
-.hr-phone .num{font-family:var(--font-display),Georgia,serif;font-size:clamp(19px,2vw,24px);
+.lv-card{border:1px solid rgb(var(--rule-rgb));background:rgb(var(--surface-rgb));
+  padding:clamp(16px,1.8vw,22px);}
+.lv-card-t{margin:0 0 12px;font-family:var(--font-mono),monospace;font-size:11px;
+  letter-spacing:.18em;text-transform:uppercase;color:rgb(var(--muted-rgb));}
+
+.lv-cta{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(14px,2vw,20px);
+  margin-top:clamp(26px,3.6vw,40px);}
+.lv-phone{display:flex;flex-direction:column;gap:4px;text-decoration:none;margin-left:auto;text-align:right;}
+.lv-phone .lbl{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgb(var(--muted-rgb));}
+.lv-phone .num{font-family:var(--font-display),Georgia,serif;font-size:clamp(19px,2vw,24px);
   font-weight:500;color:rgb(var(--text-rgb));transition:color .3s ease;}
-.hr-phone:hover .num{color:rgb(var(--violet-rgb));}
+.lv-phone:hover .num{color:rgb(var(--violet-rgb));}
 
-/* Перечень услуг. Он же навигация: строка целиком — ссылка. */
-.hr-idx{list-style:none;margin:0;padding:0;border-top:1px solid rgb(var(--rule-rgb));}
-.hr-row{position:relative;display:block;text-decoration:none;overflow:hidden;
+/* Перечень — он же навигация. Строка целиком ссылка. */
+.lv-idx{list-style:none;margin:clamp(30px,4vw,48px) 0 0;padding:0;
+  border-top:1px solid rgb(var(--rule-rgb));}
+.lv-row-a{position:relative;display:block;text-decoration:none;overflow:hidden;
   border-bottom:1px solid rgb(var(--rule-rgb));}
-/* Заливка выезжает слева и уносит за собой цвет текста. */
-.hr-row::before{content:'';position:absolute;inset:0;background:rgb(var(--text-rgb));
+.lv-row-a::before{content:'';position:absolute;inset:0;background:rgb(var(--text-rgb));
   transform:scaleX(0);transform-origin:left center;
   transition:transform .5s cubic-bezier(.22,.8,.24,1);}
-.hr-row:hover::before,.hr-row:focus-visible::before{transform:scaleX(1);}
-.hr-line{position:relative;z-index:1;display:grid;
-  grid-template-columns:clamp(44px,5vw,72px) 1fr auto;align-items:baseline;
-  gap:clamp(12px,2.4vw,32px);padding:clamp(16px,2.2vw,26px) 0;
+.lv-row-a:hover::before,.lv-row-a:focus-visible::before{transform:scaleX(1);}
+.lv-line{position:relative;z-index:1;display:grid;
+  grid-template-columns:clamp(40px,4.4vw,62px) 1fr auto;align-items:baseline;
+  gap:clamp(12px,2.2vw,28px);padding:clamp(13px,1.7vw,20px) 0;
   transition:padding-left .5s cubic-bezier(.22,.8,.24,1);}
-.hr-row:hover .hr-line,.hr-row:focus-visible .hr-line{padding-left:clamp(14px,2vw,28px);}
-.hr-n{font-family:var(--font-mono),monospace;font-size:12px;color:rgb(var(--violet-rgb));
-  transition:color .35s ease;}
-.hr-t{font-family:var(--font-display),Georgia,serif;font-weight:500;
-  font-size:clamp(24px,4.2vw,54px);line-height:1.02;letter-spacing:-.02em;
+.lv-row-a:hover .lv-line,.lv-row-a:focus-visible .lv-line{padding-left:clamp(12px,1.8vw,24px);}
+.lv-n{font-family:var(--font-mono),monospace;font-size:12px;color:rgb(var(--violet-rgb));transition:color .35s ease;}
+.lv-t{font-family:var(--font-display),Georgia,serif;font-weight:500;
+  font-size:clamp(20px,3vw,38px);line-height:1.05;letter-spacing:-.018em;
   color:rgb(var(--text-rgb));transition:color .35s ease;}
-.hr-d{font-size:14px;color:rgb(var(--muted-rgb));text-align:right;
-  transition:color .35s ease;white-space:nowrap;}
-.hr-row:hover .hr-t,.hr-row:hover .hr-d,.hr-row:hover .hr-n,
-.hr-row:focus-visible .hr-t,.hr-row:focus-visible .hr-d,.hr-row:focus-visible .hr-n{
-  color:rgb(var(--bg-rgb));}
+.lv-d{font-size:14px;color:rgb(var(--muted-rgb));text-align:right;white-space:nowrap;transition:color .35s ease;}
+.lv-row-a:hover .lv-t,.lv-row-a:hover .lv-d,.lv-row-a:hover .lv-n,
+.lv-row-a:focus-visible .lv-t,.lv-row-a:focus-visible .lv-d,.lv-row-a:focus-visible .lv-n{color:rgb(var(--bg-rgb));}
 
 @media (max-width:980px){
-  .hr-head{grid-template-columns:1fr;align-items:start;gap:26px;}
-  .hr-aside{padding-bottom:0;}
-  .hr-desc{max-width:46ch;}
-  .hr-phone{margin-left:0;text-align:left;}
-  .hr-d{display:none;}
-  .hr-line{grid-template-columns:clamp(38px,7vw,56px) 1fr;}
+  .lv-row{grid-template-columns:1fr;align-items:start;gap:24px;}
+  .lv-phone{margin-left:0;text-align:left;}
+  .lv-d{display:none;}
+  .lv-line{grid-template-columns:clamp(34px,6vw,50px) 1fr;}
 }
 @media (max-width:430px){
-  .hr{padding:92px 0 48px;}
-  .hr-cta .lv-btn,.hr-cta .lv-btn2{width:100%;justify-content:center;}
+  .lv{padding:88px 0 40px;}
+  .lv-cta .lv-btn,.lv-cta .lv-btn2{width:100%;justify-content:center;}
 }
 @media (prefers-reduced-motion:reduce){
-  .hr-row::before{transition:none;}
-  .hr-line{transition:none;}
-  .hr-row:hover .hr-line{padding-left:0;}
+  .lv-row-a::before,.lv-line{transition:none;}
+  .lv-row-a:hover .lv-line{padding-left:0;}
 }
 `
 
+/** Строчная только первая буква: toLowerCase() на весь титул превращал
+ *  «нотариус города Москвы» в «москвы». */
+function lowerFirst(s: string): string {
+  return s ? s[0].toLowerCase() + s.slice(1) : s
+}
+
 export default function Hero() {
-  const parts = notary.name.trim().split(/\s+/)
-  const surname = parts[0] ?? notary.name
-  const rest = parts.slice(1).join(' ')
+  const city = notary.addressParts.addressLocality
 
   return (
-    <section className="hr" data-hero>
+    <section className="lv" data-hero>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
+      <InkField />
+      <div className="lv-veil" aria-hidden />
 
-      <div className="wrap">
-        <div className="hr-top">
-          <LiveStatus />
-        </div>
+      <div className="wrap lv-in">
+        <p className="lv-tag" data-tag>[ Нотариальная контора · {city} ]</p>
 
-        <div className="hr-head">
-          <h1 className="hr-name">
-            <span className="hr-sur">{surname}</span>
-            <span className="hr-given">{rest}</span>
-          </h1>
-          <div className="hr-aside">
-            <p className="hr-role">{notary.title}</p>
-            <p className="hr-desc">
-              Приём по записи на {notary.addressParts.streetAddress}.
-              Разберём вашу ситуацию и назовём точный перечень документов заранее.
+        <h1 className="lv-lead">
+          Удостоверяем сделки, оформляем наследство и <span className="ac">заверяем документы</span>
+        </h1>
+
+        <div className="lv-row">
+          <div>
+            <p className="lv-who">{notary.name} — {lowerFirst(notary.title)}</p>
+            <p className="lv-where">
+              Приём по записи на {notary.addressParts.streetAddress}. Разберём вашу
+              ситуацию и назовём точный перечень документов заранее.
             </p>
-          </div>
-        </div>
 
-        <div className="hr-cta">
-          <BookingButton />
-          {/* Второй вопрос после «сколько стоит» — «что с собой взять». */}
-          <Link className="lv-btn2" href="/visit">
-            Какие нужны документы
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
-            </svg>
-          </Link>
-          <a className="hr-phone" href={notary.phoneHref}>
-            <span className="lbl">Телефон конторы</span>
-            <span className="num">{notary.phone}</span>
-          </a>
+            <div className="lv-cta">
+              <BookingButton />
+              {/* Второй вопрос после «сколько стоит» — «что с собой взять». */}
+              <Link className="lv-btn2" href="/visit">
+                Какие нужны документы
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </Link>
+              <a className="lv-phone" href={notary.phoneHref}>
+                <span className="lbl">Телефон конторы</span>
+                <span className="num">{notary.phone}</span>
+              </a>
+            </div>
+          </div>
+
+          <aside className="lv-card">
+            <p className="lv-card-t">Контора сейчас</p>
+            <LiveStatus />
+          </aside>
         </div>
 
         <nav aria-label="Направления работы конторы">
-          <ul className="hr-idx">
+          <ul className="lv-idx">
             {INDEX.map(row => (
               <li key={row.n}>
-                <Link className="hr-row" href="/services">
-                  <span className="hr-line">
-                    <span className="hr-n">{row.n}</span>
-                    <span className="hr-t">{row.t}</span>
-                    <span className="hr-d">{row.d}</span>
+                <Link className="lv-row-a" href="/services">
+                  <span className="lv-line">
+                    <span className="lv-n">{row.n}</span>
+                    <span className="lv-t">{row.t}</span>
+                    <span className="lv-d">{row.d}</span>
                   </span>
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
+
+        <HeroTicker />
       </div>
     </section>
   )

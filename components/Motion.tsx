@@ -30,8 +30,20 @@ export default function Motion() {
   const pathname = usePathname()
 
   useEffect(() => {
+    // matchMedia есть не везде — в jsdom его нет. Без него не прячем ничего:
+    // статичная и полностью видимая страница всегда лучше пустой.
+    if (typeof window.matchMedia !== 'function') {
+      document.querySelectorAll('.sd').forEach(el => el.classList.add('in'))
+      return
+    }
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)')
     const wide = window.matchMedia('(min-width: 900px)')
+
+    // На десктопе хореографию ведёт GSAP (ScrollScenes). Здесь остаётся
+    // только то, что нужно телефонам: проявления и читаемая раскладка.
+    // Иначе оба драйвера писали бы в одни и те же элементы.
+    const heavy = !window.matchMedia('(max-width: 899px)').matches
+      && !window.matchMedia('(pointer: coarse)').matches
 
     if (reduce.matches) {
       document.documentElement.classList.remove('motion')
@@ -65,9 +77,24 @@ export default function Motion() {
     // и тем самым отменяла проявление при прокрутке, ради которого всё
     // и затевалось.
     const safety = window.setTimeout(() => {
-      if (observerAlive) return
-      sd.forEach(el => el.classList.add('in'))
+      if (!observerAlive) sd.forEach(el => el.classList.add('in'))
     }, 2000)
+
+    // Последний рубеж. Что бы ни пошло не так — чужой инлайновый стиль,
+    // не сработавший триггер, ошибка в другом скрипте — через две с
+    // половиной секунды всё, что ещё невидимо, показывается. Пустая
+    // страница недопустима ни при каких обстоятельствах: именно так
+    // выглядела эта после закрепления первого экрана.
+    const lastResort = window.setTimeout(() => {
+      document.querySelectorAll<HTMLElement>('.sd').forEach(el => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.05) {
+          el.classList.add('in')
+          el.style.opacity = ''
+          el.style.transform = ''
+          el.style.visibility = ''
+        }
+      })
+    }, 2500)
 
     // ── Сцены и счётчики ───────────────────────────────────────────────
     const scenes = Array.from(document.querySelectorAll<HTMLElement>('[data-scene]'))
@@ -78,7 +105,7 @@ export default function Motion() {
     // карточки там просто лягут одна на другую.
     const applySceneMode = () => {
       scenes.forEach(s => {
-        if (wide.matches) s.setAttribute('data-scene', 'on')
+        if (wide.matches && !heavy) s.setAttribute('data-scene', 'on')
         else {
           s.removeAttribute('data-scene')
           s.setAttribute('data-scene-off', '')
@@ -98,7 +125,7 @@ export default function Motion() {
     }
 
     const paint = () => {
-      if (wide.matches) {
+      if (wide.matches && !heavy) {
         scenes.forEach(scene => {
           const p = progressOf(scene, 1)
           scene.style.setProperty('--p', String(p))
@@ -110,6 +137,7 @@ export default function Motion() {
         })
       }
 
+      if (heavy) return
       counters.forEach(c => {
         const r = c.getBoundingClientRect()
         const vh = window.innerHeight || 1
@@ -151,6 +179,7 @@ export default function Motion() {
     return () => {
       cancelAnimationFrame(raf)
       window.clearTimeout(safety)
+      window.clearTimeout(lastResort)
       io.disconnect()
       wide.removeEventListener('change', applySceneMode)
     }

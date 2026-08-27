@@ -4,20 +4,31 @@ import Hero from '@/components/Hero'
 import { notary } from '@/lib/data'
 
 describe('Hero', () => {
-  it('displays notary name as heading', () => {
+  // Заголовок первого экрана — то, чем занимается контора, а не фамилия.
+  // Прежде здесь стояло имя в 134 пикселя: ответ на вопрос, которого
+  // пришедший не задавал. Проверяем именно этот порядок, он и есть замысел.
+  it('gives the heading to what the office does', () => {
     render(<Hero />)
-    const surname = notary.name.trim().split(/\s+/)[0]
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(surname)
+    const h1 = screen.getByRole('heading', { level: 1 })
+    expect(h1).toHaveTextContent(/удостоверяем сделки/i)
+    expect(h1).not.toHaveTextContent(notary.name)
   })
 
-  // Запись — кнопка, открывающая форму, а не ссылка на /contacts:
-  // отправлять человека листать отдельную страницу ради формы незачем.
+  it('shows the notary name below the lead', () => {
+    render(<Hero />)
+    expect(screen.getByText(new RegExp(notary.name))).toBeInTheDocument()
+  })
+
+  it('keeps the city title capitalised', () => {
+    render(<Hero />)
+    expect(screen.getByText(/нотариус города Москвы/)).toBeInTheDocument()
+  })
+
   it('opens booking from the hero', () => {
     render(<Hero />)
     expect(screen.getByRole('button', { name: /записаться/i })).toBeInTheDocument()
   })
 
-  // Второй вопрос после «сколько стоит» — «что с собой взять».
   it('links to the document checklist', () => {
     render(<Hero />)
     expect(screen.getByRole('link', { name: /какие нужны документы/i })).toHaveAttribute('href', '/visit')
@@ -25,9 +36,6 @@ describe('Hero', () => {
 
   it('shows the office phone', () => {
     render(<Hero />)
-    // Номер ищется по тексту, а не по доступному имени ссылки: в имя попадает
-    // ещё и подпись «Телефон конторы», а сам номер полон скобок и плюсов,
-    // которые в регулярном выражении пришлось бы экранировать вручную.
     expect(screen.getByText(notary.phone).closest('a')).toHaveAttribute('href', notary.phoneHref)
   })
 })

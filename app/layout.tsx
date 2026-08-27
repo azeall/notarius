@@ -5,6 +5,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import RevealObserver from '@/components/RevealObserver'
 import Motion from '@/components/Motion'
+import ScrollScenes from '@/components/ScrollScenes'
 import { Suspense } from 'react'
 import YandexMetrika from '@/components/YandexMetrika'
 import CookieNotice from '@/components/CookieNotice'
@@ -230,6 +231,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ContactFab />
         <RevealObserver />
         <Motion />
+        <ScrollScenes />
         <CookieNotice />
         <Suspense><YandexMetrika /></Suspense>
       </body>
