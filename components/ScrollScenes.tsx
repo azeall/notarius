@@ -46,51 +46,33 @@ export default function ScrollScenes() {
       document.documentElement.classList.add('gsap-on')
 
       const ctx = gsap.context(() => {
-        // ── Первый экран закрепляется ──
+        // ── Первый экран НЕ закрепляется ──
         //
-        // У образца заголовок стоит на месте три экрана прокрутки, а за ним
-        // сменяются кадры. Здесь то же: экран висит, чернила за ним
-        // перестраиваются, подпись сверху меняется, а сам заголовок никуда
-        // не уезжает — человек читает его столько, сколько нужно.
+        // Закрепление отсюда убрано, и вот почему. У образца экран висит,
+        // пока за ним сменяются кадры: там всё время есть на что смотреть.
+        // Здесь же во время закрепления содержимое гасилось в ноль, а холст
+        // оставался на весь экран — и человек прокручивал два экрана чистой
+        // кляксы. Приём без содержания превращается в стену.
         //
-        // Прогресс кладём в data-атрибут: шейдер читает его оттуда и
-        // перестраивает поле. Так GSAP и WebGL согласованы одним числом, а
-        // не двумя независимыми расчётами.
+        // Осталось только смещение с разной скоростью: заголовок уходит
+        // чуть быстрее карточки. Ничего не гаснет и ничего не залипает.
         const hero = document.querySelector<HTMLElement>('[data-hero]')
-        const tag = hero?.querySelector<HTMLElement>('[data-tag]')
-        const TAGS = [
-          '[ ' + (document.querySelector('[data-tag]')?.textContent || '').replace(/[\[\]\s]*$|^[\[\]\s]*/g, '') + ' ]',
-          '[ Приём по записи · без очередей ]',
-          '[ Полномочия подтверждены · реестр ФНП ]',
-        ]
         if (hero) {
           hero.setAttribute('data-progress', '0')
           ScrollTrigger.create({
             trigger: hero,
             start: 'top top',
-            end: () => '+=' + window.innerHeight * 1.1,
-            pin: true,
-            pinSpacing: true,
+            end: 'bottom top',
             scrub: 0.4,
-            invalidateOnRefresh: true,
-            onUpdate: self => {
-              hero.setAttribute('data-progress', self.progress.toFixed(4))
-              if (tag) {
-                const i = Math.min(TAGS.length - 1, Math.floor(self.progress * TAGS.length))
-                if (tag.textContent !== TAGS[i]) tag.textContent = TAGS[i]
-              }
-            },
+            onUpdate: self => hero.setAttribute('data-progress', self.progress.toFixed(4)),
           })
-
-          // Пока экран закреплён, содержимое медленно всплывает и гаснет —
-          // иначе закрепление читалось бы зависанием, а не приёмом.
           gsap.to('.lv-lead', {
-            yPercent: -22, opacity: 0.06, ease: 'none',
-            scrollTrigger: { trigger: hero, start: 'top top', end: () => '+=' + window.innerHeight * 1.1, scrub: 0.4 },
+            yPercent: -10, ease: 'none',
+            scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.5 },
           })
-          gsap.to('.lv-row, .lv-idx, .hticker', {
-            yPercent: -14, opacity: 0, ease: 'none',
-            scrollTrigger: { trigger: hero, start: 'top top', end: () => '+=' + window.innerHeight * 0.8, scrub: 0.4 },
+          gsap.to('.lv-card', {
+            yPercent: -22, ease: 'none',
+            scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.5 },
           })
         }
 
@@ -149,16 +131,24 @@ export default function ScrollScenes() {
         //
         // Владелец .sd ровно один: Motion.tsx, на всех устройствах.
 
-        // ── Счётчики досчитывают по прогрессу, а не по таймеру ──
+        // ── Счётчики ──
+        //
+        // Досчитывают ОДИН раз при входе в кадр и остаются на настоящем
+        // значении. Раньше они были привязаны к положению страницы, и это
+        // была не стилистическая, а фактическая ошибка: остановившись
+        // посреди прокрутки, человек читал «46% юридическая сила» и «7 лет
+        // практики». На сайте нотариуса показывать недосчитанное число как
+        // факт нельзя — это уже не оформление, а неверные сведения.
         document.querySelectorAll<HTMLElement>('.cnt').forEach(c => {
           const target = Number(c.dataset.target || 0)
           const out = c.querySelector<HTMLElement>('.cnt-anim')
           if (!out) return
           const box = { v: 0 }
           gsap.to(box, {
-            v: target, ease: 'none',
-            scrollTrigger: { trigger: c, start: 'top 92%', end: 'top 45%', scrub: 0.4 },
+            v: target, duration: 1.1, ease: 'power2.out',
+            scrollTrigger: { trigger: c, start: 'top 88%', once: true },
             onUpdate: () => { out.textContent = Math.round(box.v).toLocaleString('ru-RU') },
+            onComplete: () => { out.textContent = target.toLocaleString('ru-RU') },
           })
         })
       })

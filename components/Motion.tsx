@@ -141,10 +141,23 @@ export default function Motion() {
       counters.forEach(c => {
         const r = c.getBoundingClientRect()
         const vh = window.innerHeight || 1
-        const p = Math.max(0, Math.min(1, (vh - r.top) / (vh * 0.55)))
         const target = Number(c.dataset.target || 0)
         const anim = c.querySelector<HTMLElement>('.cnt-anim')
-        if (anim) anim.textContent = Math.round(target * p).toLocaleString('ru-RU')
+        if (!anim) return
+        // Один раз: досчитал — и держит настоящее значение. Привязка к
+        // положению страницы давала «46% юридическая сила» на полпути.
+        if (c.dataset.done === '1') return
+        if (r.top > vh * 0.88) return
+        c.dataset.done = '1'
+        const t0 = performance.now()
+        const step = () => {
+          const k = Math.min(1, (performance.now() - t0) / 900)
+          const e = 1 - Math.pow(1 - k, 3)
+          anim.textContent = Math.round(target * e).toLocaleString('ru-RU')
+          if (k < 1) requestAnimationFrame(step)
+          else anim.textContent = target.toLocaleString('ru-RU')
+        }
+        requestAnimationFrame(step)
       })
     }
 
