@@ -318,7 +318,7 @@ export default function ServicesPage() {
           <Link
             href="/visit"
             className="group flex items-center gap-4 sm:gap-5 mb-8 rounded-2xl p-5 sm:p-6 transition-all overflow-hidden relative hover:-translate-y-0.5"
-            style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(83,74,183,0.25)' }}
+            style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.25)' }}
           >
             <span className="w-12 h-12 rounded-xl bg-gold/15 grid place-items-center flex-shrink-0 text-gold">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -342,10 +342,10 @@ export default function ServicesPage() {
               <div
                 key={s.title}
                 className="rounded-2xl p-6 transition-all group flex flex-col hover:-translate-y-0.5"
-                style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(83,74,183,0.15)' }}
+                style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}
               >
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0 transition-colors text-gold" style={{ background: 'rgba(83,74,183,0.10)' }}>
+                  <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0 transition-colors text-gold" style={{ background: 'rgb(var(--violet-rgb) / 0.10)' }}>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       {s.icon}
                     </svg>
@@ -367,7 +367,7 @@ export default function ServicesPage() {
                 </ul>
 
                 {/* Documents accordion */}
-                <details className="group/details mt-auto pt-4" style={{ borderTop: '1px solid rgba(83,74,183,0.12)' }}>
+                <details className="group/details mt-auto pt-4" style={{ borderTop: '1px solid rgb(var(--violet-rgb) / 0.12)' }}>
                   <summary className="flex items-center gap-2 cursor-pointer select-none text-sm font-semibold text-cream/80 hover:text-cream list-none transition-colors">
                     <svg
                       className="w-4 h-4 flex-shrink-0 text-gold transition-transform duration-200 group-open/details:rotate-90"
@@ -413,16 +413,16 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-navy border-t" style={{ borderColor: 'rgba(83,74,183,0.12)' }}>
+      <section className="bg-navy border-t" style={{ borderColor: 'rgb(var(--violet-rgb) / 0.12)' }}>
         <div className="max-w-3xl mx-auto px-4 py-14 text-center">
           <h2 className="font-serif text-2xl font-bold text-cream mb-3">Не нашли нужную услугу?</h2>
           <p className="text-slate mb-6 text-sm">Свяжитесь с нами — мы проконсультируем и поможем с любым нотариальным вопросом</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <BookingButton />
-            <Link href="/visit" className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm" style={{ borderColor: 'rgba(83,74,183,0.35)' }}>
+            <Link href="/visit" className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm" style={{ borderColor: 'rgb(var(--violet-rgb) / 0.35)' }}>
               Подготовка к визиту →
             </Link>
-            <Link href="/prices" className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm" style={{ borderColor: 'rgba(83,74,183,0.35)' }}>
+            <Link href="/prices" className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm" style={{ borderColor: 'rgb(var(--violet-rgb) / 0.35)' }}>
               Тарифы и цены →
             </Link>
           </div>

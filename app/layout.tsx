@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Manrope, Playfair_Display, JetBrains_Mono } from 'next/font/google'
+import { Lora, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -13,21 +13,35 @@ import SmoothScroll from '@/components/SmoothScroll'
 import ContactFab from '@/components/ContactFab'
 import { notary, site } from '@/lib/data'
 
-const manrope = Manrope({
+/* Шрифты.
+ *
+ * Было: Playfair Display + Manrope. Playfair — дидона с тонкими соединениями:
+ * на приглашении она к месту, в заголовке про наследственное дело выглядит
+ * нарядно и мелко сыплется на экране. Manrope — геометрический гротеск из
+ * стартап-набора, у нотариуса читается как чужая форма одежды.
+ *
+ * Стало: Lora в заголовках — антиква с каплевидными засечками, спокойная и
+ * плотная, хорошо держит кириллицу в крупном кегле. IBM Plex Sans в
+ * интерфейсе — гротеск с инженерной, а не рекламной интонацией, и с одной
+ * из лучших кириллиц среди бесплатных. Mono берём из того же семейства,
+ * чтобы номера и подписи не выпадали из набора. */
+const plexSans = IBM_Plex_Sans({
   subsets: ['latin', 'cyrillic'],
-  variable: '--font-manrope',
+  weight: ['400', '500', '600'],
+  variable: '--font-sans',
   display: 'swap',
 })
 
-const playfair = Playfair_Display({
+const lora = Lora({
   subsets: ['latin', 'cyrillic'],
-  variable: '--font-playfair',
+  variable: '--font-display',
   display: 'swap',
 })
 
-const jetbrains = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-jetbrains',
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500'],
+  variable: '--font-mono',
   display: 'swap',
 })
 
@@ -97,7 +111,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'rgb(var(--bg-rgb))' },
-    { media: '(prefers-color-scheme: dark)', color: '#14122b' },
+    { media: '(prefers-color-scheme: dark)', color: '#16151C' },
   ],
   colorScheme: 'light',
   width: 'device-width',
@@ -200,7 +214,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body
-        className={`${manrope.variable} ${playfair.variable} ${jetbrains.variable} font-sans bg-navy text-cream flex flex-col min-h-screen`}
+        className={`${plexSans.variable} ${lora.variable} ${plexMono.variable} font-sans bg-navy text-cream flex flex-col min-h-screen`}
       >
         {/* Прелоадер убран намеренно: он держал экран фиолетовой заглушкой почти
             секунду до первой отрисовки. На сайте, куда заходят посмотреть адрес

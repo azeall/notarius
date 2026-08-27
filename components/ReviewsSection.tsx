@@ -24,7 +24,7 @@ function Stars({ n }: { n: number }) {
     <div className="flex gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
         <svg key={i} width="12" height="12" viewBox="0 0 24 24"
-          fill={i < n ? 'rgb(var(--violet-rgb))' : 'none'} stroke="#534AB7" strokeWidth="2">
+          fill={i < n ? 'rgb(var(--violet-rgb))' : 'none'} stroke="rgb(var(--violet-rgb))" strokeWidth="2">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
         </svg>
       ))}
@@ -76,7 +76,7 @@ export default function ReviewsSection() {
           <div>
             <div className="inline-flex items-center gap-3.5 mb-5">
               <span className="block w-6 h-px bg-gold flex-shrink-0" />
-              <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(83,74,183,0.70)' }}>
+              <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}>
                 Отзывы клиентов
               </span>
             </div>
@@ -96,7 +96,7 @@ export default function ReviewsSection() {
           {/* Yandex widget */}
           <div
             className="rounded-2xl overflow-hidden flex-shrink-0"
-            style={{ border: '1px solid rgba(83,74,183,0.15)', height: '520px', width: '460px', maxWidth: '100%' }}
+            style={{ border: '1px solid rgb(var(--violet-rgb) / 0.15)', height: '520px', width: '460px', maxWidth: '100%' }}
           >
             {YANDEX_ORG_ID ? (
               <iframe
@@ -113,11 +113,11 @@ export default function ReviewsSection() {
                 className="w-full h-full flex flex-col items-center justify-center gap-4"
                 style={{ background: 'rgb(var(--surface-rgb))' }}
               >
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(83,74,183,0.4)" strokeWidth="1.4">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgb(var(--violet-rgb) / 0.4)" strokeWidth="1.4">
                   <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
                   <circle cx="12" cy="9" r="2.5"/>
                 </svg>
-                <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-center" style={{ color: 'rgba(83,74,183,0.40)' }}>
+                <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-center" style={{ color: 'rgb(var(--violet-rgb) / 0.40)' }}>
                   Яндекс Карты<br/>скоро будут здесь
                 </p>
               </div>
@@ -130,7 +130,7 @@ export default function ReviewsSection() {
             {/* Label + arrows */}
             <div className="flex items-center justify-between gap-4">
               <div>
-                <div className="text-[11px] tracking-[0.26em] uppercase mb-2" style={{ color: 'rgba(83,74,183,0.60)' }}>
+                <div className="text-[11px] tracking-[0.26em] uppercase mb-2" style={{ color: 'rgb(var(--violet-rgb) / 0.60)' }}>
                   Отзывы клиентов
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
@@ -149,9 +149,9 @@ export default function ReviewsSection() {
                     onClick={() => scroll(dir as 1 | -1)}
                     className="w-9 h-9 rounded-full grid place-items-center transition-all"
                     style={{
-                      border: '1px solid rgba(83,74,183,0.25)',
-                      color: (dir === -1 ? canLeft : canRight) ? 'rgb(var(--violet-rgb))' : 'rgba(83,74,183,0.25)',
-                      background: (dir === -1 ? canLeft : canRight) ? 'rgba(83,74,183,0.08)' : 'transparent',
+                      border: '1px solid rgb(var(--violet-rgb) / 0.25)',
+                      color: (dir === -1 ? canLeft : canRight) ? 'rgb(var(--violet-rgb))' : 'rgb(var(--violet-rgb) / 0.25)',
+                      background: (dir === -1 ? canLeft : canRight) ? 'rgb(var(--violet-rgb) / 0.08)' : 'transparent',
                     }}
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -176,14 +176,14 @@ export default function ReviewsSection() {
                   style={{
                     width: '284px',
                     scrollSnapAlign: 'start',
-                    border: '1px solid rgba(83,74,183,0.15)',
-                    background: 'rgba(83,74,183,0.04)',
+                    border: '1px solid rgb(var(--violet-rgb) / 0.15)',
+                    background: 'rgb(var(--violet-rgb) / 0.04)',
                   }}
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <div className="font-medium text-cream text-[14px]">{r.author}</div>
-                      <div className="text-[11px] mt-0.5" style={{ color: 'rgba(83,74,183,0.55)' }}>{r.date}</div>
+                      <div className="text-[11px] mt-0.5" style={{ color: 'rgb(var(--violet-rgb) / 0.55)' }}>{r.date}</div>
                     </div>
                     <span
                       className="text-[10px] tracking-[0.06em] px-2 py-0.5 rounded-full flex-shrink-0 font-medium"
@@ -201,7 +201,7 @@ export default function ReviewsSection() {
             </div>
 
             {/* Aggregate rating */}
-            <div className="flex items-center gap-3 pt-3" style={{ borderTop: '1px solid rgba(83,74,183,0.10)' }}>
+            <div className="flex items-center gap-3 pt-3" style={{ borderTop: '1px solid rgb(var(--violet-rgb) / 0.10)' }}>
               <span className="font-serif text-gold text-2xl leading-none">5.0</span>
               <Stars n={5} />
               <span className="text-[12px]" style={{ color: 'rgb(var(--muted-b-rgb))' }}>средняя оценка · отзывы клиентов</span>

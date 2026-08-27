@@ -102,7 +102,7 @@ export default function CredentialsSection() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 text-[14px] font-semibold no-underline pb-1 transition-opacity hover:opacity-70"
-            style={{ color: 'rgb(var(--violet-rgb))', borderBottom: '1px solid rgba(83,74,183,0.35)' }}
+            style={{ color: 'rgb(var(--violet-rgb))', borderBottom: '1px solid rgb(var(--violet-rgb) / 0.35)' }}
           >
             Проверить в реестре ФНП
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
@@ -117,8 +117,8 @@ export default function CredentialsSection() {
               key={r.label}
               className="grid sm:grid-cols-[190px_1fr] gap-1.5 sm:gap-8 py-6 reveal"
               style={{
-                borderTop: '1px solid rgba(83,74,183,0.16)',
-                ...(i === rows.length - 1 ? { borderBottom: '1px solid rgba(83,74,183,0.16)' } : {}),
+                borderTop: '1px solid rgb(var(--violet-rgb) / 0.16)',
+                ...(i === rows.length - 1 ? { borderBottom: '1px solid rgb(var(--violet-rgb) / 0.16)' } : {}),
               }}
               data-reveal-delay={i * 70}
             >

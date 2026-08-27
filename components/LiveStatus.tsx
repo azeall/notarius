@@ -110,7 +110,7 @@ export default function LiveStatus() {
           <span
             className="w-2 h-2 rounded-full flex-shrink-0"
             style={{
-              background: status.isOpen ? '#4ade80' : '#f87171',
+              background: status.isOpen ? 'rgb(var(--ok-rgb))' : '#f87171',
               boxShadow: `0 0 8px ${status.isOpen ? 'rgba(74,222,128,0.7)' : 'rgba(248,113,113,0.5)'}`,
               animation: status.isOpen ? 'pulse-dot 2s infinite' : 'none',
             }}
@@ -134,9 +134,9 @@ export default function LiveStatus() {
                 key={s.label}
                 onClick={() => setModal({ date: s.date, time: s.slot })}
                 className="text-[11px] tracking-[0.06em] px-3 py-1.5 rounded transition-all"
-                style={{ border: '1px solid rgba(83,74,183,0.25)', color: '#c5a84a', background: 'rgba(83,74,183,0.06)' }}
-                onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = 'rgba(83,74,183,0.14)'; b.style.borderColor = 'rgba(83,74,183,0.5)' }}
-                onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = 'rgba(83,74,183,0.06)'; b.style.borderColor = 'rgba(83,74,183,0.25)' }}
+                style={{ border: '1px solid rgb(var(--violet-rgb) / 0.25)', color: '#c5a84a', background: 'rgb(var(--violet-rgb) / 0.06)' }}
+                onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = 'rgb(var(--violet-rgb) / 0.14)'; b.style.borderColor = 'rgb(var(--violet-rgb) / 0.5)' }}
+                onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = 'rgb(var(--violet-rgb) / 0.06)'; b.style.borderColor = 'rgb(var(--violet-rgb) / 0.25)' }}
               >
                 {s.label}
               </button>

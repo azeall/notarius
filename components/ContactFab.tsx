@@ -66,15 +66,15 @@ export default function ContactFab() {
         .cf-ico{width:24px;height:24px;display:block;}
         .cf-main .cf-ico{width:26px;height:26px;}
         .cf-tip{position:absolute;right:62px;top:50%;transform:translateY(-50%);
-          background:#2f2a63;color:#fff;font-size:12px;font-weight:600;white-space:nowrap;
+          background:rgb(var(--text-rgb));color:#fff;font-size:12px;font-weight:600;white-space:nowrap;
           padding:6px 11px;border-radius:8px;opacity:0;transition:opacity .2s;pointer-events:none;}
         .cf-item:hover .cf-tip{opacity:1;}
         .cf-main{position:relative;width:60px;height:60px;border-radius:50%;border:none;cursor:pointer;color:#fff;
-          background:linear-gradient(135deg,#6f64d4,#534AB7);
-          box-shadow:0 12px 30px rgba(83,74,183,.45);display:grid;place-items:center;
+          background:linear-gradient(135deg,rgb(var(--accent-2-rgb)),rgb(var(--violet-rgb)));
+          box-shadow:0 12px 30px rgb(var(--violet-rgb) / .45);display:grid;place-items:center;
           transition:transform .25s cubic-bezier(.2,.7,.2,1);}
         .cf-main::after{content:"";position:absolute;inset:0;border-radius:50%;
-          border:2px solid rgba(83,74,183,.55);animation:cfpulse 2.4s ease-out infinite;}
+          border:2px solid rgb(var(--violet-rgb) / .55);animation:cfpulse 2.4s ease-out infinite;}
         .cf-main:hover{transform:scale(1.06);}
         .cf-active{transform:rotate(90deg);}
         .cf-active::after{display:none;}

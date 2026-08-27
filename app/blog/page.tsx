@@ -80,12 +80,12 @@ export default function BlogPage() {
           <Link
             href={`/blog/${featured.slug}`}
             className="group block mb-8 rounded-2xl overflow-hidden transition-all hover:-translate-y-0.5"
-            style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(83,74,183,0.18)' }}
+            style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.18)' }}
           >
             <div className="grid md:grid-cols-[1.1fr_1fr]">
               <div className="p-8 md:p-10 flex flex-col justify-center">
                 <div className="flex items-center gap-3 mb-4 text-xs">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgba(83,74,183,0.12)' }}>
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgb(var(--violet-rgb) / 0.12)' }}>
                     {featured.category}
                   </span>
                   <span className="text-slate">{featured.readingTime} мин чтения</span>
@@ -107,8 +107,8 @@ export default function BlogPage() {
                   className="absolute inset-0"
                   style={{
                     backgroundImage:
-                      'linear-gradient(rgba(83,74,183,0.10) 1px, transparent 1px),' +
-                      'linear-gradient(90deg, rgba(83,74,183,0.10) 1px, transparent 1px)',
+                      'linear-gradient(rgb(var(--violet-rgb) / 0.10) 1px, transparent 1px),' +
+                      'linear-gradient(90deg, rgb(var(--violet-rgb) / 0.10) 1px, transparent 1px)',
                     backgroundSize: '40px 40px',
                   }}
                   aria-hidden
@@ -127,10 +127,10 @@ export default function BlogPage() {
                 key={a.slug}
                 href={`/blog/${a.slug}`}
                 className="group flex flex-col rounded-2xl p-6 transition-all hover:-translate-y-0.5"
-                style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(83,74,183,0.15)' }}
+                style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}
               >
                 <div className="flex items-center gap-3 mb-3 text-xs">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgba(83,74,183,0.12)' }}>
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgb(var(--violet-rgb) / 0.12)' }}>
                     {a.category}
                   </span>
                   <span className="text-slate">{a.readingTime} мин</span>

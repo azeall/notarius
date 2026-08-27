@@ -140,15 +140,15 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
         className="w-full max-w-lg max-h-[92vh] overflow-y-auto rounded-2xl shadow-2xl"
         style={{
           background: 'rgb(var(--surface-rgb))',
-          border: '1px solid rgba(83,74,183,0.30)',
-          boxShadow: '0 24px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(83,74,183,0.10)',
+          border: '1px solid rgb(var(--violet-rgb) / 0.30)',
+          boxShadow: '0 24px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgb(var(--violet-rgb) / 0.10)',
         }}
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
         <div
           className="flex items-center justify-between px-5 sm:px-6 pt-5 pb-4"
-          style={{ borderBottom: '1px solid rgba(83,74,183,0.12)' }}
+          style={{ borderBottom: '1px solid rgb(var(--violet-rgb) / 0.12)' }}
         >
           <h2 className="font-serif text-lg sm:text-xl text-cream font-medium">Запись на приём</h2>
           <button
@@ -169,7 +169,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   value={service}
                   onChange={e => { const svc = e.target.value; setService(svc); setDuration(defaultDurationForService(svc)) }}
                   className="w-full rounded-lg px-3 py-2.5 text-cream text-sm focus:outline-none"
-                  style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgba(83,74,183,0.20)' }}
+                  style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.20)' }}
                 >
                   <option value="">— Выберите услугу —</option>
                   {SERVICES.map(s => <option key={s} value={s}>{s}</option>)}
@@ -178,7 +178,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
 
               <div>
                 <label className="text-[10px] uppercase tracking-[0.24em] text-slate mb-2 block">Дата</label>
-                <div className="rounded-xl p-4" style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgba(83,74,183,0.12)' }}>
+                <div className="rounded-xl p-4" style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.12)' }}>
                   <div className="flex items-center justify-between mb-3">
                     <button onClick={prevMonth} className="text-slate hover:text-cream w-8 h-8 flex items-center justify-center rounded-lg hover:bg-black/5 transition-colors">‹</button>
                     <span className="text-cream text-sm font-medium">{MONTHS[month]} {year}</span>
@@ -286,7 +286,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
             <div className="space-y-4">
               <div
                 className="rounded-xl p-4 text-sm space-y-1.5"
-                style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgba(83,74,183,0.12)' }}
+                style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.12)' }}
               >
                 <p className="text-slate">Услуга: <span className="text-cream">{service}</span></p>
                 <p className="text-slate">
@@ -303,7 +303,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   onChange={e => setName(e.target.value)}
                   placeholder="Иванов Иван Иванович"
                   className="w-full rounded-lg px-3 py-2.5 text-cream text-sm focus:outline-none placeholder-slate/40"
-                  style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgba(83,74,183,0.20)' }}
+                  style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.20)' }}
                 />
               </div>
               <div>
@@ -313,7 +313,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   onChange={e => setPhone(e.target.value)}
                   placeholder="+7 (999) 000-00-00"
                   className="w-full rounded-lg px-3 py-2.5 text-cream text-sm focus:outline-none placeholder-slate/40"
-                  style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgba(83,74,183,0.20)' }}
+                  style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.20)' }}
                 />
               </div>
               {/* Согласие на обработку персональных данных (152-ФЗ) */}
@@ -322,7 +322,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   type="checkbox"
                   checked={consent}
                   onChange={e => setConsent(e.target.checked)}
-                  className="mt-0.5 w-4 h-4 flex-shrink-0 accent-[#534AB7] cursor-pointer"
+                  className="mt-0.5 w-4 h-4 flex-shrink-0 accent-[rgb(var(--violet-rgb))] cursor-pointer"
                 />
                 <span className="text-[12px] text-slate leading-snug">
                   Я согласен(а) на обработку персональных данных и принимаю{' '}
@@ -337,7 +337,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                 <button
                   onClick={() => setStep(1)}
                   className="flex-1 py-3 rounded-xl text-slate text-sm hover:text-cream transition-colors"
-                  style={{ border: '1px solid rgba(83,74,183,0.20)' }}
+                  style={{ border: '1px solid rgb(var(--violet-rgb) / 0.20)' }}
                 >
                   ← Назад
                 </button>
@@ -358,7 +358,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
             <div className="text-center py-8 space-y-4">
               <div
                 className="w-16 h-16 rounded-full flex items-center justify-center mx-auto"
-                style={{ background: 'rgba(83,74,183,0.10)', border: '1px solid rgba(83,74,183,0.30)' }}
+                style={{ background: 'rgb(var(--violet-rgb) / 0.10)', border: '1px solid rgb(var(--violet-rgb) / 0.30)' }}
               >
                 <span className="text-gold text-2xl">✓</span>
               </div>

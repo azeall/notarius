@@ -74,70 +74,61 @@ function buildSeal(sfx: string): string {
 
   // Две гильош-дорожки: частые лепестки, как в гравюре на бланках.
   // Пара 240/12 даёт 19 лепестков, 240/15 — 15; вместе получается плетение.
-  // Точек хватает 900 и 700: отклонение от кривой меньше трети пикселя.
   const laceOuter = guilloche(cx, cy, 240, 12, 26, 146, 900)
   const laceInner = guilloche(cx, cy, 240, 15, 20, 108, 700)
 
-  const gold = `url(#gold-${sfx})`
-  const violet = '#534AB7'
-  const pale = '#cdc7f3'
+  // Оттиск одноцветный. Золото на тёмно-синем поле делало из печати брошь:
+  // предмет, который носят, а не которым заверяют. Здесь она положена на
+  // бумагу и набрана одной краской — так печать и выглядит на документе.
+  const ink = 'rgb(var(--violet-rgb))'
 
   const scales = `
-    <g fill="none" stroke="${gold}" stroke-width="3.2" stroke-linecap="round">
+    <g fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round">
       <line x1="${cx}" y1="228" x2="${cx}" y2="326"/>
       <line x1="${cx - 78}" y1="250" x2="${cx + 78}" y2="250"/>
       <line x1="${cx - 34}" y1="326" x2="${cx + 34}" y2="326"/>
-    </g>
-    <g fill="none" stroke="${pale}" stroke-width="1.6">
       <line x1="${cx - 78}" y1="252" x2="${cx - 78}" y2="276"/>
       <line x1="${cx + 78}" y1="252" x2="${cx + 78}" y2="276"/>
-      <path d="M ${cx - 108} 276 Q ${cx - 78} 300 ${cx - 48} 276 Z" fill="rgba(205,199,243,.16)"/>
-      <path d="M ${cx + 48} 276 Q ${cx + 78} 300 ${cx + 108} 276 Z" fill="rgba(205,199,243,.16)"/>
     </g>
-    <circle cx="${cx}" cy="250" r="7.5" fill="#241f57" stroke="${gold}" stroke-width="2.6"/>
-    <circle cx="${cx}" cy="222" r="5" fill="${gold}"/>`
+    <g fill="none" stroke="${ink}" stroke-width="1.6" opacity=".75">
+      <path d="M ${cx - 108} 276 Q ${cx - 78} 300 ${cx - 48} 276 Z"/>
+      <path d="M ${cx + 48} 276 Q ${cx + 78} 300 ${cx + 108} 276 Z"/>
+    </g>
+    <circle cx="${cx}" cy="250" r="7" fill="rgb(var(--bg-rgb))" stroke="${ink}" stroke-width="2.4"/>
+    <circle cx="${cx}" cy="222" r="4.5" fill="${ink}"/>`
 
-  // Ромбы-разделители на концах кольца с надписью
   const diamond = (x: number, y: number) =>
-    `<rect x="${x - 5}" y="${y - 5}" width="10" height="10" fill="none" stroke="${gold}" stroke-width="1.4" transform="rotate(45 ${x} ${y})"/>`
+    `<rect x="${x - 5}" y="${y - 5}" width="10" height="10" fill="none" stroke="${ink}" stroke-width="1.4" transform="rotate(45 ${x} ${y})"/>`
 
   return `
-  <svg class="monogram" viewBox="0 0 560 560" role="img" aria-label="Медальон нотариальной конторы: ${name}, весы правосудия в центре">
+  <svg class="monogram" viewBox="0 0 560 560" role="img" aria-label="Оттиск нотариальной конторы: ${name}, весы правосудия в центре">
     <defs>
-      <linearGradient id="gold-${sfx}" gradientUnits="userSpaceOnUse" x1="60" y1="60" x2="500" y2="500">
-        <stop offset="0" stop-color="#efe2b6"/><stop offset="0.5" stop-color="#c8b27e"/><stop offset="1" stop-color="#a98f53"/>
-      </linearGradient>
-      <radialGradient id="field-${sfx}" cx="0.42" cy="0.36" r="0.75">
-        <stop offset="0" stop-color="#3a3480"/><stop offset="1" stop-color="#241f57"/>
-      </radialGradient>
       <path id="ringTop-${sfx}" d="${ringPath(cx, cy, 214, true)}" fill="none"/>
       <path id="ringBottom-${sfx}" d="${ringPath(cx, cy, 202, false)}" fill="none"/>
     </defs>
 
-    <circle cx="${cx}" cy="${cy}" r="248" fill="url(#field-${sfx})"/>
+    <circle class="s1" cx="${cx}" cy="${cy}" r="248" fill="none" stroke="${ink}" stroke-width="2.4"/>
 
-    <circle class="s1" cx="${cx}" cy="${cy}" r="248" fill="none" stroke="${gold}" stroke-width="3"/>
-
-    <g class="s1soft">
-      <circle cx="${cx}" cy="${cy}" r="238" fill="none" stroke="${violet}" stroke-width="1.2" opacity=".9"/>
-      <circle cx="${cx}" cy="${cy}" r="182" fill="none" stroke="${violet}" stroke-width="1.6" opacity=".9"/>
-      <circle cx="${cx}" cy="${cy}" r="175" fill="none" stroke="${gold}" stroke-width="0.9" opacity=".75"/>
+    <g class="s1soft" opacity=".8">
+      <circle cx="${cx}" cy="${cy}" r="238" fill="none" stroke="${ink}" stroke-width="1"/>
+      <circle cx="${cx}" cy="${cy}" r="182" fill="none" stroke="${ink}" stroke-width="1.4"/>
+      <circle cx="${cx}" cy="${cy}" r="175" fill="none" stroke="${ink}" stroke-width="0.7" opacity=".6"/>
       ${diamond(cx - 210, cy)}
       ${diamond(cx + 210, cy)}
     </g>
 
     <g class="fade-fill">
-      <path d="${laceOuter}" fill="none" stroke="${pale}" stroke-width="0.55" opacity=".34"/>
-      <path d="${laceInner}" fill="none" stroke="#dedbf8" stroke-width="0.45" opacity=".22"/>
+      <path d="${laceOuter}" fill="none" stroke="${ink}" stroke-width="0.5" opacity=".30"/>
+      <path d="${laceInner}" fill="none" stroke="${ink}" stroke-width="0.45" opacity=".20"/>
     </g>
 
     <g class="s3">${scales}</g>
 
-    <g class="s4" fill="#e9e7fa" font-family="Manrope, sans-serif" font-weight="600">
-      <text font-size="27" letter-spacing=".1em">
+    <g class="s4" fill="${ink}" font-family="var(--font-sans), sans-serif" font-weight="500">
+      <text font-size="26" letter-spacing=".1em">
         <textPath href="#ringTop-${sfx}" startOffset="50%" text-anchor="middle" textLength="600" lengthAdjust="spacing">${name}</textPath>
       </text>
-      <text font-size="21" letter-spacing=".16em" fill="#c8b27e">
+      <text font-size="20" letter-spacing=".16em" opacity=".72">
         <textPath href="#ringBottom-${sfx}" startOffset="50%" text-anchor="middle" textLength="470" lengthAdjust="spacing">${title}</textPath>
       </text>
     </g>
@@ -157,80 +148,118 @@ function buildBackground(): string {
     [200, 40, 110, 550, 340],
   ]
   rings.forEach((r, idx) => {
-    p += `<path d="${guilloche(cx, cy, r[0], r[1], r[2], r[3], r[4])}" fill="none" stroke="#534AB7" stroke-width="${idx % 2 ? 0.6 : 0.5}" opacity="${idx % 2 ? 0.10 : 0.07}"/>`
+    // Водяной знак, а не узор: на бумаге гильош должен угадываться,
+    // а не соревноваться с текстом за внимание.
+    p += `<path d="${guilloche(cx, cy, r[0], r[1], r[2], r[3], r[4])}" fill="none" stroke="rgb(var(--violet-rgb))" stroke-width="${idx % 2 ? 0.6 : 0.5}" opacity="${idx % 2 ? 0.055 : 0.04}"/>`
   })
   return `<svg viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid slice">${p}</svg>`
 }
 
 const CSS = `
-.lv-hero{position:relative;z-index:2;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:120px clamp(22px,6vw,96px) 80px;background:rgb(var(--bg-rgb));overflow:hidden;}
+/* Первый экран.
+ *
+ * Было: имя фиолетовым градиентом по центру левой колонки и медальон
+ * во всю правую — композиция витрины, где главный герой оформление.
+ *
+ * Стало: строгая сетка и типографика (образец — Kononenko Architectural
+ * Bureau), а печать убрана в карточку с реквизитами. Украшение стало
+ * сведением: рядом с оттиском стоят лицензия и реестровый номер, и правая
+ * колонка теперь что-то сообщает, а не просто занимает место. */
+.lv-hero{position:relative;z-index:2;min-height:100svh;display:flex;align-items:center;
+  padding:clamp(110px,14vh,150px) clamp(22px,6vw,96px) clamp(64px,9vh,96px);
+  background:rgb(var(--bg-rgb));overflow:hidden;}
 .lv-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
-.lv-bg svg{position:absolute;top:50%;left:50%;width:160vmax;height:160vmax;transform:translate(-50%,-50%);transform-origin:center;animation:lvdrift 160s linear infinite;opacity:.5;}
-@keyframes lvdrift{0%{transform:translate(-50%,-50%) rotate(0deg) scale(1);}50%{transform:translate(-50%,-50%) rotate(180deg) scale(1.06);}100%{transform:translate(-50%,-50%) rotate(360deg) scale(1);}}
-.lv-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 120% at 78% 30%, rgba(244,243,253,0) 40%, rgba(244,243,253,.85) 78%, rgb(var(--bg-rgb)) 100%);}
-.lv-wrap{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;display:grid;align-items:center;gap:clamp(28px,5vw,72px);grid-template-columns:1.05fr .95fr;}
-.lv-kicker{display:inline-flex;align-items:center;gap:14px;font-size:clamp(11px,1.1vw,13px);font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:rgb(var(--muted-d-rgb));margin-bottom:clamp(22px,3vw,34px);}
-.lv-kicker::before{content:"";width:clamp(26px,4vw,52px);height:1px;background:linear-gradient(90deg,#c0bfcc,transparent);}
-.lv-name{font-family:var(--font-playfair),Georgia,serif;font-weight:600;color:#2f2a63;line-height:.98;letter-spacing:-.01em;}
-.lv-name .sur{display:block;font-size:clamp(46px,8vw,104px);background:linear-gradient(176deg,#4a4296 0%, #534AB7 55%, #6a60c8 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.lv-name .given{display:block;font-size:clamp(24px,4vw,48px);font-weight:500;font-style:italic;color:rgb(var(--text-c-rgb));margin-top:.12em;letter-spacing:.005em;}
-.lv-role{font-family:var(--font-playfair),Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(16px,2vw,22px);color:rgb(var(--muted-e-rgb));margin-top:clamp(16px,2.2vw,22px);display:flex;align-items:center;gap:12px;}
-.lv-role::before{content:"";width:7px;height:7px;border:1px solid #c0bfcc;transform:rotate(45deg);flex:none;}
-.lv-desc{font-size:clamp(16px,1.35vw,19px);font-weight:400;line-height:1.65;color:rgb(var(--muted-e-rgb));max-width:44ch;margin-top:clamp(20px,2.6vw,28px);}
-.lv-actions{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(18px,2.6vw,32px);margin-top:clamp(30px,4vw,44px);}
-.lv-phone{display:flex;flex-direction:column;gap:3px;text-decoration:none;}
-.lv-phone .lbl{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgb(var(--muted-d-rgb));}
-.lv-phone .num{font-family:var(--font-playfair),Georgia,serif;font-size:clamp(18px,2.1vw,24px);font-weight:500;color:#534AB7;letter-spacing:.01em;transition:color .3s ease;}
-.lv-phone:hover .num{color:rgb(var(--text-c-rgb));}
-.lv-btn2{display:inline-flex;align-items:center;gap:10px;padding:17px 26px;border-radius:4px;
-  border:1px solid rgba(83,74,183,.4);color:rgb(var(--violet-rgb));background:transparent;
-  font-size:15px;font-weight:600;letter-spacing:.02em;text-decoration:none;white-space:nowrap;
-  transition:background-color .25s ease,border-color .25s ease,transform .25s cubic-bezier(.2,.7,.2,1);}
-.lv-btn2:hover{background:rgba(83,74,183,.08);border-color:rgba(83,74,183,.7);transform:translateY(-2px);}
-.lv-btn2:active{transform:translateY(0);}
-.lv-btn2 svg{width:15px;height:15px;flex:none;}
-.lv-textcol{align-self:start;}
-.lv-mono{position:relative;display:flex;align-items:center;justify-content:center;}
-.lv-mono .monogram{width:100%;max-width:560px;height:auto;overflow:visible;display:block;}
-.lv-reveal{opacity:1;animation:lvrise .95s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s);}
-@keyframes lvrise{0%{opacity:0;transform:translateY(26px);}100%{opacity:1;transform:translateY(0);}}
-.s1{stroke-dasharray:2600;stroke-dashoffset:2600;animation:lvdraw 1.5s cubic-bezier(.55,.1,.2,1) forwards .3s;}
+.lv-bg svg{position:absolute;top:50%;left:50%;width:170vmax;height:170vmax;transform:translate(-50%,-50%);transform-origin:center;animation:lvdrift 220s linear infinite;opacity:.85;}
+@keyframes lvdrift{0%{transform:translate(-50%,-50%) rotate(0deg) scale(1);}50%{transform:translate(-50%,-50%) rotate(180deg) scale(1.05);}100%{transform:translate(-50%,-50%) rotate(360deg) scale(1);}}
+.lv-veil{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 120% at 76% 34%, rgb(var(--bg-rgb) / 0) 38%, rgb(var(--bg-rgb) / .82) 74%, rgb(var(--bg-rgb)) 100%);}
+
+.lv-wrap{position:relative;z-index:2;width:100%;max-width:1240px;margin:0 auto;
+  display:grid;align-items:center;gap:clamp(40px,5vw,80px);grid-template-columns:1.15fr .85fr;}
+
+/* Верхняя линейка с округом — задаёт левый край всей сетке. */
+.lv-kicker{display:flex;align-items:center;gap:16px;font-size:13px;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;color:rgb(var(--muted-rgb));
+  padding-bottom:18px;margin-bottom:clamp(26px,3.4vw,38px);
+  border-bottom:1px solid rgb(var(--rule-rgb));}
+.lv-kicker .dot{width:5px;height:5px;background:rgb(var(--violet-rgb));flex:none;transform:rotate(45deg);}
+.lv-kicker .sp{margin-left:auto;font-size:12px;letter-spacing:.14em;color:rgb(var(--muted-rgb));}
+
+.lv-name{font-family:var(--font-display),Georgia,serif;font-weight:600;
+  color:rgb(var(--text-rgb));line-height:.94;letter-spacing:-.022em;margin:0;}
+.lv-name .sur{display:block;font-size:clamp(50px,8.4vw,112px);}
+.lv-name .given{display:block;font-size:clamp(23px,3.4vw,42px);font-weight:400;
+  color:rgb(var(--muted-e-rgb));margin-top:.18em;letter-spacing:-.005em;}
+
+.lv-role{font-size:clamp(13px,1.2vw,15px);font-weight:500;letter-spacing:.2em;
+  text-transform:uppercase;color:rgb(var(--violet-rgb));margin-top:clamp(20px,2.6vw,28px);}
+
+.lv-desc{font-size:clamp(16px,1.3vw,19px);font-weight:400;line-height:1.6;
+  color:rgb(var(--muted-e-rgb));max-width:42ch;margin-top:clamp(16px,2vw,22px);}
+
+.lv-actions{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(16px,2.2vw,26px);margin-top:clamp(30px,4vw,44px);}
+.lv-phone{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+.lv-phone .lbl{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgb(var(--muted-rgb));}
+.lv-phone .num{font-family:var(--font-display),Georgia,serif;font-size:clamp(19px,2vw,23px);
+  font-weight:500;color:rgb(var(--text-rgb));letter-spacing:.01em;transition:color .3s ease;
+  border-bottom:1px solid transparent;}
+.lv-phone:hover .num{color:rgb(var(--violet-rgb));border-bottom-color:rgb(var(--violet-rgb) / .45);}
+
+.lv-textcol{align-self:center;}
+
+/* Правая колонка — карточка-бланк: оттиск и под ним реквизиты. */
+.lv-card{position:relative;background:rgb(var(--surface-rgb));
+  border:1px solid rgb(var(--rule-rgb));padding:clamp(26px,3vw,38px);}
+.lv-card::before,.lv-card::after{content:"";position:absolute;width:10px;height:10px;}
+.lv-card::before{top:-1px;left:-1px;border-top:2px solid rgb(var(--violet-rgb));border-left:2px solid rgb(var(--violet-rgb));}
+.lv-card::after{bottom:-1px;right:-1px;border-bottom:2px solid rgb(var(--violet-rgb));border-right:2px solid rgb(var(--violet-rgb));}
+.lv-card .monogram{width:100%;max-width:330px;margin:0 auto;height:auto;overflow:visible;display:block;}
+.lv-facts{margin:clamp(22px,2.6vw,30px) 0 0;padding:0;list-style:none;}
+.lv-facts li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:11px 0;border-top:1px solid rgb(var(--rule-rgb));}
+.lv-facts dt,.lv-facts .k{font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:rgb(var(--muted-rgb));white-space:nowrap;}
+.lv-facts .v{font-family:var(--font-mono),monospace;font-size:13px;color:rgb(var(--text-rgb));
+  text-align:right;font-variant-numeric:tabular-nums;}
+
+/* Подсказка «листайте» — тонкая, у нижнего края левой колонки. */
+.lv-scroll{display:flex;align-items:center;gap:12px;margin-top:clamp(34px,5vh,56px);
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgb(var(--muted-rgb));}
+.lv-scroll .bar{width:56px;height:1px;background:rgb(var(--rule-rgb));position:relative;overflow:hidden;}
+.lv-scroll .bar::after{content:"";position:absolute;inset:0;background:rgb(var(--violet-rgb));
+  animation:lvscan 2.8s cubic-bezier(.6,0,.4,1) infinite;}
+@keyframes lvscan{0%{transform:translateX(-100%);}60%,100%{transform:translateX(100%);}}
+
+.lv-reveal{opacity:1;animation:lvrise .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s);}
+@keyframes lvrise{0%{opacity:0;transform:translateY(22px);}100%{opacity:1;transform:translateY(0);}}
+.s1{stroke-dasharray:1560;stroke-dashoffset:1560;animation:lvdraw 1.6s cubic-bezier(.55,.1,.2,1) forwards .35s;}
 @keyframes lvdraw{to{stroke-dashoffset:0;}}
-.s1soft{opacity:0;animation:lvfadefill .9s ease forwards 1.15s;}
-.fade-fill{opacity:0;animation:lvfadefill 1.4s ease forwards;animation-delay:1.05s;}
+.s1soft{opacity:0;animation:lvfadefill .9s ease forwards 1.2s;}
+.fade-fill{opacity:0;animation:lvfadefill 1.4s ease forwards 1.1s;}
 @keyframes lvfadefill{to{opacity:1;}}
-.s2 *{stroke-dasharray:760;stroke-dashoffset:760;animation:lvdraw 1.25s cubic-bezier(.55,.1,.2,1) forwards 1.6s;}
-.s3{opacity:0;animation:lvfadefill .9s ease forwards 2.3s;}
-.s3 .stem{stroke-dasharray:480;stroke-dashoffset:480;animation:lvdraw 1.1s ease forwards 2.3s;}
-.s4{opacity:0;animation:lvribbon .9s cubic-bezier(.2,.7,.2,1) forwards 2.9s;}
-@keyframes lvribbon{0%{opacity:0;transform:translateY(14px);}100%{opacity:1;transform:translateY(0);}}
-.s5{opacity:0;transform-origin:280px 130px;animation:lvcrown .85s cubic-bezier(.2,.7,.2,1) forwards 2.55s;}
-@keyframes lvcrown{0%{opacity:0;transform:translateY(-12px) scale(.92);}100%{opacity:1;transform:translateY(0) scale(1);}}
-.fade-orn{opacity:0;animation:lvfadeorn 1.4s ease forwards 3.1s;}
-@keyframes lvfadeorn{0%{opacity:0;}100%{opacity:.9;}}
-.glow{transform-origin:center;animation:lvglow 6s ease-in-out infinite;animation-delay:3.3s;}
-@keyframes lvglow{0%,100%{opacity:.32;}50%{opacity:.6;}}
-.sheen{animation:lvsheen 9s ease-in-out infinite;animation-delay:3.6s;transform-origin:center;}
-@keyframes lvsheen{0%,100%{opacity:.18;transform:translate(0,0);}50%{opacity:.4;transform:translate(8px,-6px);}}
-@media (max-width:880px){
-  .lv-hero{padding:104px clamp(22px,7vw,48px) 64px;}
-  .lv-wrap{grid-template-columns:1fr;}
-  .lv-mono{order:-1;max-width:480px;margin:0 auto;transform:none;}
-  .lv-mono .monogram{max-width:440px;}
+.s3{opacity:0;animation:lvfadefill .9s ease forwards 1.7s;}
+.s4{opacity:0;animation:lvribbon .9s cubic-bezier(.2,.7,.2,1) forwards 2.1s;}
+@keyframes lvribbon{0%{opacity:0;transform:translateY(10px);}100%{opacity:1;transform:translateY(0);}}
+
+@media (max-width:980px){
+  .lv-wrap{grid-template-columns:1fr;gap:44px;}
+  .lv-card{max-width:460px;}
+  .lv-scroll{display:none;}
 }
 @media (max-width:430px){
   .lv-hero{padding:96px 22px 56px;}
-  .lv-kicker{letter-spacing:.3em;gap:10px;}
-  .lv-actions{gap:20px;}
+  .lv-kicker{letter-spacing:.16em;gap:10px;font-size:12px;}
+  .lv-kicker .sp{display:none;}
+  .lv-actions{gap:16px;}
   .lv-actions .lv-btn,.lv-actions .lv-btn2{width:100%;justify-content:center;}
-  .lv-mono .monogram{max-width:360px;width:min(360px,92vw);}
+  .lv-card{padding:22px;}
+  .lv-facts li{flex-direction:column;align-items:flex-start;gap:3px;}
+  .lv-facts .v{text-align:left;}
 }
 @media (prefers-reduced-motion:reduce){
-  .lv-reveal,.s1,.s1soft,.s2 *,.s3,.s3 .stem,.s4,.s5,.fade-fill,.fade-orn,.glow,.sheen,.lv-bg svg{animation:none !important;}
-  .s1,.s2 *,.s3 .stem{stroke-dashoffset:0;}
-  .s1soft,.s3,.s4,.s5,.fade-fill{opacity:1;transform:none;}
-  .fade-orn{opacity:.9;}
-  .glow{opacity:.45;}
+  .lv-reveal,.s1,.s1soft,.s3,.s4,.fade-fill,.lv-bg svg,.lv-scroll .bar::after{animation:none !important;}
+  .s1{stroke-dashoffset:0;}
+  .s1soft,.s3,.s4,.fade-fill{opacity:1;transform:none;}
   .lv-reveal{opacity:1;transform:none;}
 }
 `
@@ -241,6 +270,15 @@ export default function Hero() {
   const rest = nameParts.slice(1).join(' ')
   const crest = buildSeal('1')
   const bg = buildBackground()
+  const city = notary.addressParts.addressLocality
+
+  // Реквизиты под оттиском. Пустое поле пропускается: не у каждой конторы
+  // заполнены оба номера, а прочерк в бланке хуже, чем строка меньше.
+  const facts = [
+    { k: 'Лицензия', v: notary.license },
+    ...(notary.registryNumber ? [{ k: 'Реестр', v: notary.registryNumber }] : []),
+    ...(notary.practiceSince ? [{ k: 'Практика', v: 'с ' + notary.practiceSince }] : []),
+  ]
 
   return (
     <section className="lv-hero" data-hero>
@@ -250,27 +288,33 @@ export default function Hero() {
 
       <div className="lv-wrap">
         <div className="lv-textcol">
-          <span className="lv-kicker lv-reveal" style={{ ['--d' as string]: '.05s' }}>
-            Нотариальная контора · Москва
-          </span>
+          <div className="lv-kicker lv-reveal" style={{ ['--d' as string]: '.05s' }}>
+            <span className="dot" aria-hidden />
+            Нотариальная контора
+            <span className="sp">{city}</span>
+          </div>
+
           <h1 className="lv-name">
-            <span className="sur lv-reveal" style={{ ['--d' as string]: '.18s' }}>{surname}</span>
-            <span className="given lv-reveal" style={{ ['--d' as string]: '.34s' }}>{rest}</span>
+            <span className="sur lv-reveal" style={{ ['--d' as string]: '.16s' }}>{surname}</span>
+            <span className="given lv-reveal" style={{ ['--d' as string]: '.28s' }}>{rest}</span>
           </h1>
-          <p className="lv-role lv-reveal" style={{ ['--d' as string]: '.5s' }}>нотариус города Москвы</p>
-          <p className="lv-desc lv-reveal" style={{ ['--d' as string]: '.64s' }}>
+
+          <p className="lv-role lv-reveal" style={{ ['--d' as string]: '.4s' }}>{notary.title}</p>
+
+          <p className="lv-desc lv-reveal" style={{ ['--d' as string]: '.5s' }}>
             Сделки с недвижимостью, наследство, доверенности и согласия.
-            Приём по записи, {notary.address.split(',').slice(-1)[0].trim()}, пн–пт с 10:00 до 19:00.
+            Приём по записи, пн–пт с 10:00 до 19:00.
           </p>
-          <div className="lv-actions lv-reveal" style={{ ['--d' as string]: '.82s' }}>
+
+          <div className="lv-actions lv-reveal" style={{ ['--d' as string]: '.62s' }}>
             <BookingButton />
             {/* Вторая кнопка ведёт к перечню документов. Первый вопрос человека
                 перед визитом — «что с собой взять», и до этой правки ответ
                 лежал в меню под словом «Подготовка». */}
             <Link className="lv-btn2" href="/visit">
               Какие нужны документы
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </Link>
             <a className="lv-phone" href={notary.phoneHref}>
@@ -278,8 +322,24 @@ export default function Hero() {
               <span className="num">{notary.phone}</span>
             </a>
           </div>
+
+          <div className="lv-scroll lv-reveal" style={{ ['--d' as string]: '.9s' }} aria-hidden>
+            <span className="bar" />
+            Листайте
+          </div>
         </div>
-        <div className="lv-mono" dangerouslySetInnerHTML={{ __html: crest }} />
+
+        <div className="lv-card lv-reveal" style={{ ['--d' as string]: '.34s' }}>
+          <div dangerouslySetInnerHTML={{ __html: crest }} />
+          <ul className="lv-facts">
+            {facts.map(f => (
+              <li key={f.k}>
+                <span className="k">{f.k}</span>
+                <span className="v">{f.v}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   )

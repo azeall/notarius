@@ -58,7 +58,7 @@ export default function Footer() {
       className="py-16 sm:py-20 pb-8"
       style={{
         background: 'rgb(var(--surface-5-rgb))',
-        borderTop: '1px solid rgba(83,74,183,0.12)',
+        borderTop: '1px solid rgb(var(--violet-rgb) / 0.12)',
       }}
     >
       <div className="mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1340px' }}>
@@ -66,7 +66,7 @@ export default function Footer() {
         <div
           className="grid gap-8 sm:gap-10 md:gap-12 pb-10 sm:pb-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr]"
           style={{
-            borderBottom: '1px solid rgba(83,74,183,0.08)',
+            borderBottom: '1px solid rgb(var(--violet-rgb) / 0.08)',
           }}
         >
           {/* Brand column */}
@@ -74,7 +74,7 @@ export default function Footer() {
             <div className="flex items-center gap-3.5 mb-5">
               <div
                 className="relative w-10 h-10 grid place-items-center text-gold font-serif text-xl flex-shrink-0"
-                style={{ border: '1px solid #534AB7' }}
+                style={{ border: '1px solid rgb(var(--violet-rgb))' }}
               >
                 {notary.name.charAt(0)}
               </div>
@@ -82,7 +82,7 @@ export default function Footer() {
                 <span className="font-serif text-cream text-base">{notary.name}</span>
                 <span
                   className="font-sans text-[9px] tracking-[0.28em] uppercase mt-0.5"
-                  style={{ color: 'rgba(83,74,183,0.70)' }}
+                  style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}
                 >
                   Нотариус · Москва
                 </span>
@@ -124,7 +124,7 @@ export default function Footer() {
         {/* Official orgs strip */}
         <div
           className="flex flex-wrap gap-x-6 sm:gap-x-10 gap-y-5 items-center py-6 sm:py-8"
-          style={{ borderBottom: '1px solid rgba(83,74,183,0.08)' }}
+          style={{ borderBottom: '1px solid rgb(var(--violet-rgb) / 0.08)' }}
         >
           {ORGS.map(org => (
             <a
@@ -138,8 +138,8 @@ export default function Footer() {
               <span
                 className="w-9 h-9 rounded-full flex-shrink-0 grid place-items-center text-gold flex-shrink-0"
                 style={{
-                  border: '1px solid rgba(83,74,183,0.35)',
-                  background: 'rgba(83,74,183,0.06)',
+                  border: '1px solid rgb(var(--violet-rgb) / 0.35)',
+                  background: 'rgb(var(--violet-rgb) / 0.06)',
                 }}
               >
                 {org.icon}

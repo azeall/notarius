@@ -25,9 +25,9 @@ export default function ThemeToggle({ className = '' }: { className?: string }) 
       </svg>
       <style>{`
         .tt{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
-          color:var(--violet);background:transparent;border:1px solid rgba(83,74,183,0.28);
+          color:var(--violet);background:transparent;border:1px solid rgb(var(--violet-rgb) / 0.28);
           transition:background .2s,transform .2s,color .2s;}
-        .tt:hover{background:rgba(83,74,183,0.10);transform:translateY(-1px);}
+        .tt:hover{background:rgb(var(--violet-rgb) / 0.10);transform:translateY(-1px);}
         .tt-ico{width:19px;height:19px;}
       `}</style>
     </button>

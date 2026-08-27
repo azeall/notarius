@@ -44,24 +44,24 @@ export default function PricesPage() {
       <section className="bg-navy-dark">
         <div className="max-w-6xl mx-auto px-4 py-16 space-y-10">
           {priceSections.map(section => (
-            <div key={section.title} className="rounded-2xl overflow-hidden" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(83,74,183,0.15)' }}>
-              <div className="px-6 py-4" style={{ borderBottom: '1px solid rgba(83,74,183,0.12)', background: 'rgba(83,74,183,0.05)' }}>
+            <div key={section.title} className="rounded-2xl overflow-hidden" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
+              <div className="px-6 py-4" style={{ borderBottom: '1px solid rgb(var(--violet-rgb) / 0.12)', background: 'rgb(var(--violet-rgb) / 0.05)' }}>
                 <h2 className="font-serif font-bold text-cream text-lg">{section.title}</h2>
                 {section.note && <p className="text-slate/70 text-xs mt-1">{section.note}</p>}
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr style={{ borderBottom: '1px solid rgba(83,74,183,0.12)' }}>
-                      <th className="text-left px-6 py-3 font-medium text-xs uppercase tracking-wider w-1/2" style={{ color: 'rgba(83,74,183,0.70)' }}>Действие</th>
-                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(83,74,183,0.70)' }}>Тариф</th>
-                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(83,74,183,0.70)' }}>УПТХ</th>
-                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(83,74,183,0.70)' }}>Итого</th>
+                    <tr style={{ borderBottom: '1px solid rgb(var(--violet-rgb) / 0.12)' }}>
+                      <th className="text-left px-6 py-3 font-medium text-xs uppercase tracking-wider w-1/2" style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}>Действие</th>
+                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}>Тариф</th>
+                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}>УПТХ</th>
+                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}>Итого</th>
                     </tr>
                   </thead>
                   <tbody>
                     {section.rows.map((row, i) => (
-                      <tr key={i} className="transition-colors hover:bg-black/[0.03]" style={{ borderBottom: '1px solid rgba(83,74,183,0.07)' }}>
+                      <tr key={i} className="transition-colors hover:bg-black/[0.03]" style={{ borderBottom: '1px solid rgb(var(--violet-rgb) / 0.07)' }}>
                         <td className="px-6 py-3.5 text-cream font-medium">{row.name}</td>
                         <td className="px-4 py-3.5 text-slate">{row.tariff}</td>
                         <td className="px-4 py-3.5 text-slate">{row.uptx}</td>

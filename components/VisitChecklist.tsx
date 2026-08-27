@@ -70,9 +70,9 @@ export default function VisitChecklist() {
                 onClick={() => setActiveId(c.id)}
                 className="text-left whitespace-nowrap lg:whitespace-normal rounded-lg px-4 py-3 text-sm font-medium transition-all flex-shrink-0 lg:flex-shrink"
                 style={{
-                  background: isActive ? 'rgba(83,74,183,0.14)' : '#ffffff',
+                  background: isActive ? 'rgb(var(--violet-rgb) / 0.14)' : '#ffffff',
                   color: isActive ? 'rgb(var(--text-rgb))' : 'rgb(var(--muted-rgb))',
-                  border: `1px solid ${isActive ? 'rgb(var(--violet-rgb))' : 'rgba(83,74,183,0.12)'}`,
+                  border: `1px solid ${isActive ? 'rgb(var(--violet-rgb))' : 'rgb(var(--violet-rgb) / 0.12)'}`,
                 }}
               >
                 {c.title}
@@ -83,7 +83,7 @@ export default function VisitChecklist() {
       </aside>
 
       {/* Checklist */}
-      <div data-checklist className="rounded-2xl p-6 sm:p-8" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(83,74,183,0.15)' }}>
+      <div data-checklist className="rounded-2xl p-6 sm:p-8" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
         <div className="flex items-start justify-between gap-4 mb-6 flex-wrap">
           <div>
             <h2 className="font-serif text-2xl font-bold text-cream mb-1">{active.title}</h2>
@@ -103,7 +103,7 @@ export default function VisitChecklist() {
             <button
               onClick={resetActive}
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate rounded-lg px-3 py-2 hover:text-cream transition-all"
-              style={{ border: '1px solid rgba(83,74,183,0.18)' }}
+              style={{ border: '1px solid rgb(var(--violet-rgb) / 0.18)' }}
             >
               Сбросить
             </button>
@@ -121,7 +121,7 @@ export default function VisitChecklist() {
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${progress}%`,
-                background: progress === 100 ? '#4f9d7a' : 'rgb(var(--violet-rgb))',
+                background: progress === 100 ? 'rgb(var(--ok-rgb))' : 'rgb(var(--violet-rgb))',
               }}
             />
           </div>
@@ -146,14 +146,14 @@ export default function VisitChecklist() {
                   className="w-full flex items-start gap-3.5 text-left rounded-xl p-3.5 transition-all border"
                   style={{
                     background: isChecked ? 'rgba(79,157,122,0.10)' : 'rgba(0,0,0,0.02)',
-                    borderColor: isChecked ? 'rgba(79,157,122,0.40)' : 'rgba(83,74,183,0.12)',
+                    borderColor: isChecked ? 'rgba(79,157,122,0.40)' : 'rgb(var(--violet-rgb) / 0.12)',
                   }}
                 >
                   <span
                     className="mt-0.5 w-5 h-5 rounded-md flex-shrink-0 grid place-items-center transition-all"
                     style={{
-                      background: isChecked ? '#4f9d7a' : 'transparent',
-                      border: `1.5px solid ${isChecked ? '#4f9d7a' : 'rgba(83,74,183,0.35)'}`,
+                      background: isChecked ? 'rgb(var(--ok-rgb))' : 'transparent',
+                      border: `1.5px solid ${isChecked ? 'rgb(var(--ok-rgb))' : 'rgb(var(--violet-rgb) / 0.35)'}`,
                     }}
                   >
                     {isChecked && (
@@ -174,7 +174,7 @@ export default function VisitChecklist() {
                         {item.label}
                       </span>
                       {item.optional && (
-                        <span className="text-[10px] uppercase tracking-wide font-semibold text-slate rounded px-1.5 py-0.5" style={{ border: '1px solid rgba(83,74,183,0.20)' }}>
+                        <span className="text-[10px] uppercase tracking-wide font-semibold text-slate rounded px-1.5 py-0.5" style={{ border: '1px solid rgb(var(--violet-rgb) / 0.20)' }}>
                           не для всех
                         </span>
                       )}
@@ -203,7 +203,7 @@ export default function VisitChecklist() {
           <div className="print-sheet">
             <div style={{ fontFamily: 'Georgia, "Times New Roman", serif', color: '#111', lineHeight: 1.5 }}>
               {/* Шапка */}
-              <div style={{ borderBottom: '2px solid #534AB7', paddingBottom: 14, marginBottom: 22 }}>
+              <div style={{ borderBottom: '2px solid rgb(var(--violet-rgb))', paddingBottom: 14, marginBottom: 22 }}>
                 <div style={{ fontSize: 11, letterSpacing: 2, textTransform: 'uppercase', color: '#8a6d2f', marginBottom: 4 }}>
                   Памятка к визиту · {notary.title}
                 </div>

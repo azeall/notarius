@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      // Имена классов оставлены прежними (navy/gold/cream/slate): их сотни в
+      // вёрстке, и переименование ради красоты названия ничего бы не дало.
+      // Значения теперь ведут на токены новой палитры — бумага и графит.
       colors: {
         navy: 'rgb(var(--bg-rgb) / <alpha-value>)',
         'navy-dark': 'rgb(var(--surface-2-rgb) / <alpha-value>)',
@@ -16,18 +19,19 @@ const config: Config = {
         'navy-card': 'rgb(var(--surface-rgb) / <alpha-value>)',
         'navy-card-2': 'rgb(var(--surface-3-rgb) / <alpha-value>)',
         gold: 'rgb(var(--violet-rgb) / <alpha-value>)',
-        'gold-light': '#6f66d6',
+        'gold-light': 'rgb(var(--accent-2-rgb) / <alpha-value>)',
         cream: 'rgb(var(--text-rgb) / <alpha-value>)',
         slate: 'rgb(var(--muted-rgb) / <alpha-value>)',
-        offwhite: '#f5f5f5',
-        // Функциональный акцент «проверено / успех» — приглушённый изумруд
-        emerald: '#4f9d7a',
-        'emerald-light': '#6fbf99',
+        offwhite: 'rgb(var(--surface-3-rgb) / <alpha-value>)',
+        rule: 'rgb(var(--hair-rgb) / <alpha-value>)',
+        // Функциональный акцент «проверено / успех» — приглушённый мох
+        emerald: 'rgb(var(--ok-rgb) / <alpha-value>)',
+        'emerald-light': 'rgb(var(--ok-2-rgb) / <alpha-value>)',
       },
       fontFamily: {
-        serif: ['var(--font-playfair)', 'Georgia', 'serif'],
-        sans: ['var(--font-manrope)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-jetbrains)', 'ui-monospace', 'monospace'],
+        serif: ['var(--font-display)', 'Georgia', 'serif'],
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'monospace'],
       },
     },
   },

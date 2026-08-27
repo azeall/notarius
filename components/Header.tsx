@@ -42,26 +42,19 @@ export default function Header() {
         backdropFilter: 'blur(14px)',
         WebkitBackdropFilter: 'blur(14px)',
         background: scrolled ? 'var(--header-scrolled)' : 'var(--header)',
-        borderBottom: '1px solid rgba(83,74,183,0.18)',
+        borderBottom: '1px solid rgb(var(--rule-rgb))',
       }}
     >
       <style>{`
         .hd-link{color:rgb(var(--muted-rgb));}
-        .hd-link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+        .hd-link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
           background:rgb(var(--violet-rgb));transform:scaleX(0);transform-origin:right;
-          transition:transform .25s cubic-bezier(.2,.7,.2,1);}
+          transition:transform .3s cubic-bezier(.6,0,.3,1);}
         .hd-link:hover{color:rgb(var(--text-rgb));}
         .hd-link:hover::after{transform:scaleX(1);transform-origin:left;}
-        .hd-link[data-current]{color:rgb(var(--violet-rgb));font-weight:600;}
+        .hd-link[data-current]{color:rgb(var(--violet-rgb));font-weight:500;}
         .hd-link[data-current]::after{transform:scaleX(1);}
       `}</style>
-
-      {/* Волосяная линия под шапкой */}
-      <div
-        className="absolute left-0 right-0 bottom-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(83,74,183,0.55), transparent)' }}
-        aria-hidden
-      />
 
       <div
         className="mx-auto flex items-center justify-between gap-3 sm:gap-6 px-5 sm:px-8 md:px-10 py-4 md:py-[18px]"
@@ -70,29 +63,29 @@ export default function Header() {
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 no-underline group min-w-0">
           <div
-            className="relative w-10 h-10 grid place-items-center flex-shrink-0 text-gold font-serif text-xl"
-            style={{ border: '1px solid #534AB7' }}
+            className="relative w-10 h-10 grid place-items-center flex-shrink-0 font-serif text-lg"
+            style={{ border: '1px solid rgb(var(--text-rgb))', color: 'rgb(var(--text-rgb))' }}
           >
             {/* Corner decorations */}
             <span
               className="absolute top-0 left-0 w-1.5 h-1.5"
-              style={{ borderTop: '1px solid #534AB7', borderLeft: '1px solid #534AB7' }}
+              style={{ borderTop: '2px solid rgb(var(--violet-rgb))', borderLeft: '2px solid rgb(var(--violet-rgb))' }}
               aria-hidden
             />
             <span
               className="absolute bottom-0 right-0 w-1.5 h-1.5"
-              style={{ borderBottom: '1px solid #534AB7', borderRight: '1px solid #534AB7' }}
+              style={{ borderBottom: '2px solid rgb(var(--violet-rgb))', borderRight: '2px solid rgb(var(--violet-rgb))' }}
               aria-hidden
             />
             {notary.name.trim().charAt(0)}
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="font-serif text-sm sm:text-base text-cream group-hover:text-gold transition-colors truncate">
+            <span className="font-serif text-[15px] sm:text-[17px] text-cream transition-colors truncate" style={{ letterSpacing: '-0.01em' }}>
               {notary.name}
             </span>
             <span
-              className="font-sans text-[11px] tracking-[0.16em] sm:tracking-[0.20em] uppercase mt-0.5 truncate"
-              style={{ color: 'rgb(var(--violet-rgb))' }}
+              className="font-sans text-[10px] tracking-[0.20em] uppercase mt-1 truncate"
+              style={{ color: 'rgb(var(--muted-rgb))' }}
             >
               Нотариус · Москва
             </span>
@@ -108,7 +101,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 aria-current={current ? 'page' : undefined}
-                className="hd-link relative py-1.5 text-[13px] tracking-[0.10em] uppercase transition-colors duration-200 no-underline"
+                className="hd-link relative py-1.5 text-[14px] transition-colors duration-200 no-underline"
                 data-current={current ? '' : undefined}
               >
                 {link.label}
@@ -122,7 +115,7 @@ export default function Header() {
           <ThemeToggle />
           <BookingButton size="sm" className="hidden md:inline-flex" />
           <button
-            className="md:hidden flex flex-col gap-1.5 p-1.5 text-gold"
+            className="md:hidden flex flex-col gap-1.5 p-1.5 text-cream"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
             aria-expanded={menuOpen}
@@ -138,7 +131,7 @@ export default function Header() {
       {menuOpen && (
         <nav
           className="md:hidden px-5 pb-5 flex flex-col gap-0"
-          style={{ borderTop: '1px solid rgba(83,74,183,0.10)', background: 'var(--header-scrolled)' }}
+          style={{ borderTop: '1px solid rgb(var(--violet-rgb) / 0.10)', background: 'var(--header-scrolled)' }}
         >
           {navLinks.map(link => {
             const current = isCurrent(link.href)
@@ -149,7 +142,7 @@ export default function Header() {
                 aria-current={current ? 'page' : undefined}
                 className="py-4 text-[15px] tracking-[0.02em] transition-colors no-underline border-b"
                 style={{
-                  borderColor: 'rgba(83,74,183,0.10)',
+                  borderColor: 'rgb(var(--violet-rgb) / 0.10)',
                   color: current ? 'rgb(var(--violet-rgb))' : 'rgb(var(--text-rgb))',
                   fontWeight: current ? 600 : 500,
                 }}

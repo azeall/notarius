@@ -69,7 +69,7 @@ export default function CostCalculator() {
   const parts = useMemo<Part[]>(() => {
     const p: Part[] = []
     if (svc.tariff) p.push({ label: 'Нотариальный тариф', value: svc.tariff, color: 'rgb(var(--violet-rgb))' })
-    if (svc.tariffPercent) p.push({ label: `Тариф ${svc.tariffPercent}% от суммы`, value: Math.round((sum * svc.tariffPercent) / 100), color: '#6f64d4' })
+    if (svc.tariffPercent) p.push({ label: `Тариф ${svc.tariffPercent}% от суммы`, value: Math.round((sum * svc.tariffPercent) / 100), color: 'rgb(var(--accent-2-rgb))' })
     if (svc.uptx) p.push({ label: 'УПТХ (правовая и техническая работа)', value: svc.uptx, color: '#9a8fe0' })
     if (svc.perPage) p.push({ label: `${pages} стр. × ${svc.perPage} ₽`, value: pages * svc.perPage, color: '#c8b27e' })
     return p
@@ -89,10 +89,10 @@ export default function CostCalculator() {
         <div className="mb-9 reveal">
           <div className="inline-flex items-center gap-3.5 mb-4">
             <span className="block w-6 h-px" style={{ background: 'rgb(var(--violet-rgb))' }} />
-            <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(83,74,183,0.75)' }}>Калькулятор</span>
+            <span className="text-[12px] tracking-[0.22em] uppercase" style={{ color: 'rgb(var(--muted-rgb))' }}>Калькулятор</span>
           </div>
           <h2 className="font-serif font-medium m-0" style={{ fontSize: 'clamp(32px, 4vw, 48px)', color: 'rgb(var(--text-rgb))' }}>
-            Рассчитайте стоимость <em className="italic font-normal" style={{ color: 'rgb(var(--violet-rgb))' }}>за три шага</em>
+            Рассчитайте стоимость <span style={{ color: 'rgb(var(--violet-rgb))' }}>за три шага</span>
           </h2>
         </div>
 
@@ -101,7 +101,7 @@ export default function CostCalculator() {
           {STEPS.map((s, i) => (
             <div key={s} className="flex items-center gap-2 sm:gap-4 flex-1 last:flex-none">
               <button onClick={() => i <= step && setStep(i)} disabled={i > step} className="flex items-center gap-2.5" style={{ cursor: i <= step ? 'pointer' : 'default' }}>
-                <span className="grid place-items-center rounded-full font-mono text-sm font-bold transition-all" style={{ width: 34, height: 34, background: i <= step ? 'rgb(var(--violet-rgb))' : 'rgb(var(--surface-4-rgb))', color: i <= step ? '#fff' : 'rgb(var(--muted-f-rgb))', boxShadow: i === step ? '0 0 0 5px rgba(83,74,183,0.16)' : 'none' }}>
+                <span className="grid place-items-center rounded-full font-mono text-sm font-bold transition-all" style={{ width: 34, height: 34, background: i <= step ? 'rgb(var(--violet-rgb))' : 'rgb(var(--surface-4-rgb))', color: i <= step ? '#fff' : 'rgb(var(--muted-f-rgb))', boxShadow: 'none' }}>
                   {i < step ? '✓' : i + 1}
                 </span>
                 <span className="text-sm font-semibold hidden sm:block" style={{ color: i <= step ? 'rgb(var(--text-rgb))' : 'rgb(var(--muted-c-rgb))' }}>{s}</span>
@@ -111,7 +111,7 @@ export default function CostCalculator() {
           ))}
         </div>
 
-        <div className="rounded-2xl p-6 sm:p-9 bg-navy-card reveal" style={{ border: '1px solid rgba(83,74,183,0.15)', boxShadow: '0 24px 60px rgba(83,74,183,0.10)' }}>
+        <div className="rounded-none p-6 sm:p-9 bg-navy-card reveal" style={{ border: '1px solid rgb(var(--rule-rgb))' }}>
 
           {/* ШАГ 1 */}
           {step === 0 && (
@@ -119,14 +119,14 @@ export default function CostCalculator() {
               <p className="text-xs font-semibold uppercase tracking-wider mb-4" style={{ color: 'rgb(var(--muted-rgb))' }}>Выберите услугу</p>
               <div className="grid sm:grid-cols-3 gap-2.5 mb-8">
                 {calcServices.map(s => (
-                  <button key={s.id} onClick={() => setActiveId(s.id)} className="text-left rounded-xl px-4 py-4 text-sm font-medium transition-all"
-                    style={{ background: s.id === activeId ? 'rgba(83,74,183,0.10)' : 'rgb(var(--surface-3-rgb))', color: s.id === activeId ? 'rgb(var(--violet-rgb))' : 'rgb(var(--text-rgb))', border: `1.5px solid ${s.id === activeId ? 'rgb(var(--violet-rgb))' : 'rgba(83,74,183,0.12)'}` }}>
+                  <button key={s.id} onClick={() => setActiveId(s.id)} className="text-left rounded-none px-4 py-4 text-sm font-medium transition-all"
+                    style={{ background: s.id === activeId ? 'rgb(var(--violet-rgb) / 0.10)' : 'rgb(var(--surface-3-rgb))', color: s.id === activeId ? 'rgb(var(--violet-rgb))' : 'rgb(var(--text-rgb))', border: `1.5px solid ${s.id === activeId ? 'rgb(var(--violet-rgb))' : 'rgb(var(--violet-rgb) / 0.12)'}` }}>
                     {s.label}
                   </button>
                 ))}
               </div>
               <div className="flex justify-end">
-                <button onClick={next} className="rounded-xl px-7 py-3.5 text-sm font-semibold text-white transition-all hover:brightness-110" style={{ background: 'rgb(var(--violet-rgb))' }}>Далее →</button>
+                <button onClick={next} className="rounded-none px-7 py-3.5 text-sm font-semibold text-white transition-all hover:brightness-110" style={{ background: 'rgb(var(--violet-rgb))' }}>Далее →</button>
               </div>
             </div>
           )}
@@ -160,22 +160,22 @@ export default function CostCalculator() {
               )}
 
               {!hasParams && (
-                <p className="text-sm mb-6 rounded-xl px-4 py-3" style={{ background: 'rgb(var(--surface-3-rgb))', color: 'rgb(var(--muted-rgb))' }}>
+                <p className="text-sm mb-6 rounded-none px-4 py-3" style={{ background: 'rgb(var(--surface-3-rgb))', color: 'rgb(var(--muted-rgb))' }}>
                   Для этой услуги стоимость фиксированная — смотрите состав ниже.
                 </p>
               )}
 
               {/* Состав стоимости (живая визуализация) */}
-              <div className="rounded-xl p-5 mb-8" style={{ background: 'rgb(var(--surface-3-rgb))', border: '1px solid rgba(83,74,183,0.10)' }}>
+              <div className="rounded-none p-5 mb-8" style={{ background: 'rgb(var(--surface-3-rgb))', border: '1px solid rgb(var(--rule-rgb))' }}>
                 <p className="text-[11px] font-semibold uppercase tracking-wider mb-3" style={{ color: 'rgb(var(--muted-rgb))' }}>Из чего складывается</p>
                 <Composition parts={parts} total={total} />
               </div>
 
               <div className="flex items-center justify-between gap-4">
-                <button onClick={back} className="rounded-xl px-6 py-3.5 text-sm font-semibold transition-colors" style={{ color: 'rgb(var(--violet-rgb))', border: '1.5px solid rgba(83,74,183,0.25)' }}>← Назад</button>
+                <button onClick={back} className="rounded-none px-6 py-3.5 text-sm font-semibold transition-colors" style={{ color: 'rgb(var(--violet-rgb))', border: '1.5px solid rgb(var(--violet-rgb) / 0.25)' }}>← Назад</button>
                 <div className="flex items-center gap-4">
                   <span className="text-sm" style={{ color: 'rgb(var(--muted-rgb))' }}>Итого ≈ <b className="font-mono" style={{ color: 'rgb(var(--text-rgb))' }}>{fmt(total)}</b></span>
-                  <button onClick={next} className="rounded-xl px-7 py-3.5 text-sm font-semibold text-white transition-all hover:brightness-110" style={{ background: 'rgb(var(--violet-rgb))' }}>Рассчитать →</button>
+                  <button onClick={next} className="rounded-none px-7 py-3.5 text-sm font-semibold text-white transition-all hover:brightness-110" style={{ background: 'rgb(var(--violet-rgb))' }}>Рассчитать →</button>
                 </div>
               </div>
             </div>
@@ -188,7 +188,7 @@ export default function CostCalculator() {
                 <p className="text-xs font-semibold uppercase tracking-wider mb-4" style={{ color: 'rgb(var(--muted-rgb))' }}>Расчёт · {svc.label}</p>
                 <ul className="space-y-2.5 mb-6">
                   {parts.map(p => (
-                    <li key={p.label} className="flex items-baseline justify-between gap-4 text-sm py-2" style={{ color: 'rgb(var(--text-d-rgb))', borderBottom: '1px dashed rgba(83,74,183,0.15)' }}>
+                    <li key={p.label} className="flex items-baseline justify-between gap-4 text-sm py-2" style={{ color: 'rgb(var(--text-d-rgb))', borderBottom: '1px solid rgb(var(--rule-rgb))' }}>
                       <span className="flex items-center gap-2"><span className="inline-block w-2.5 h-2.5 rounded-sm" style={{ background: p.color }} />{p.label}</span>
                       <span className="font-mono whitespace-nowrap">{fmt(p.value)}</span>
                     </li>
@@ -196,12 +196,12 @@ export default function CostCalculator() {
                 </ul>
                 <Composition parts={parts} total={total} />
                 <div className="flex gap-3 mt-7">
-                  <button onClick={back} className="rounded-xl px-5 py-3 text-sm font-semibold transition-colors" style={{ color: 'rgb(var(--violet-rgb))', border: '1.5px solid rgba(83,74,183,0.25)' }}>← Изменить</button>
-                  <button onClick={reset} className="rounded-xl px-5 py-3 text-sm font-semibold transition-colors" style={{ color: 'rgb(var(--muted-rgb))' }}>Начать заново</button>
+                  <button onClick={back} className="rounded-none px-5 py-3 text-sm font-semibold transition-colors" style={{ color: 'rgb(var(--violet-rgb))', border: '1.5px solid rgb(var(--violet-rgb) / 0.25)' }}>← Изменить</button>
+                  <button onClick={reset} className="rounded-none px-5 py-3 text-sm font-semibold transition-colors" style={{ color: 'rgb(var(--muted-rgb))' }}>Начать заново</button>
                 </div>
               </div>
 
-              <div className="rounded-2xl p-7 flex flex-col" style={{ background: 'rgb(var(--violet-rgb))' }}>
+              <div className="rounded-none p-7 flex flex-col" style={{ background: 'rgb(var(--violet-rgb))' }}>
                 <p className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: 'rgba(255,255,255,0.7)' }}>Примерная стоимость</p>
                 <div className="font-serif font-bold text-white mb-2" style={{ fontSize: 'clamp(34px,5vw,46px)', lineHeight: 1 }}>{fmt(shownTotal)}</div>
                 <p className="text-[11px] leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.6)' }}>
@@ -215,10 +215,10 @@ export default function CostCalculator() {
       </div>
 
       <style>{`
-        .cc-range{-webkit-appearance:none;appearance:none;height:6px;border-radius:999px;background:linear-gradient(90deg,#534AB7,#8d84e0);outline:none;}
-        .cc-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid #534AB7;cursor:pointer;box-shadow:0 3px 8px rgba(83,74,183,0.35);transition:transform .15s;}
+        .cc-range{-webkit-appearance:none;appearance:none;height:6px;background:rgb(var(--rule-rgb));outline:none;}
+        .cc-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;background:rgb(var(--violet-rgb));border:none;cursor:pointer;transition:transform .15s;}
         .cc-range::-webkit-slider-thumb:active{transform:scale(1.15);}
-        .cc-range::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid #534AB7;cursor:pointer;box-shadow:0 3px 8px rgba(83,74,183,0.35);}
+        .cc-range::-moz-range-thumb{width:22px;height:22px;background:rgb(var(--violet-rgb));border:none;cursor:pointer;}
       `}</style>
     </section>
   )

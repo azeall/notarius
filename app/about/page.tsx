@@ -108,7 +108,7 @@ export default function AboutPage() {
 
             {/* Sidebar */}
             <div className="space-y-5">
-              <div className="bg-navy-card text-cream rounded-2xl p-6" style={{ border: '1px solid rgba(83,74,183,0.18)' }}>
+              <div className="bg-navy-card text-cream rounded-2xl p-6" style={{ border: '1px solid rgb(var(--violet-rgb) / 0.18)' }}>
                 <Portrait size={80} fallbackClass="bg-black/10" />
                 <div className="text-center mb-5">
                   <p className="font-serif font-bold text-lg">{notary.name}</p>
@@ -131,7 +131,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl p-5 space-y-3" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(83,74,183,0.15)' }}>
+              <div className="rounded-2xl p-5 space-y-3" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
                 <p className="text-xs uppercase tracking-widest text-gold/70 font-semibold">Членство</p>
                 <div className="flex items-start gap-2 text-sm text-slate">
                   <span className="w-1.5 h-1.5 rounded-full bg-gold mt-2 flex-shrink-0" />
@@ -144,7 +144,7 @@ export default function AboutPage() {
               </div>
 
               {/* Реквизиты и проверка */}
-              <div className="rounded-2xl p-5 space-y-3" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(83,74,183,0.15)' }}>
+              <div className="rounded-2xl p-5 space-y-3" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
                 <p className="text-xs uppercase tracking-widest text-gold/70 font-semibold">Реквизиты и проверка</p>
                 <dl className="space-y-2.5 text-sm">
                   {notary.registryNumber && (
@@ -177,7 +177,7 @@ export default function AboutPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-xs font-semibold mt-1 transition-colors"
-                  style={{ color: '#6fbf99' }}
+                  style={{ color: 'rgb(var(--ok-2-rgb))' }}
                 >
                   <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -194,7 +194,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="bg-navy-dark border-t" style={{ borderColor: 'rgba(83,74,183,0.12)' }}>
+      <section className="bg-navy-dark border-t" style={{ borderColor: 'rgb(var(--violet-rgb) / 0.12)' }}>
         <div className="max-w-6xl mx-auto px-4 py-16">
           <div className="mb-10">
             <p className="text-gold uppercase tracking-[0.18em] text-xs font-semibold mb-2">Наши принципы</p>
@@ -202,8 +202,8 @@ export default function AboutPage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {VALUES.map(v => (
-              <div key={v.title} className="rounded-2xl p-6 transition-all hover:-translate-y-0.5" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(83,74,183,0.15)' }}>
-                <div className="w-10 h-10 rounded-lg grid place-items-center mb-4 text-gold" style={{ background: 'rgba(83,74,183,0.10)' }}>
+              <div key={v.title} className="rounded-2xl p-6 transition-all hover:-translate-y-0.5" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
+                <div className="w-10 h-10 rounded-lg grid place-items-center mb-4 text-gold" style={{ background: 'rgb(var(--violet-rgb) / 0.10)' }}>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     {v.icon}
                   </svg>

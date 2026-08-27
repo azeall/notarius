@@ -39,7 +39,7 @@ export default function AdminSearch({ initial, staff }: { initial: string; staff
           onChange={e => setValue(e.target.value)}
           placeholder="Поиск по имени или телефону…"
           className="w-full rounded-xl pl-10 pr-4 py-3 text-sm text-cream placeholder:text-cream/30 focus:outline-none focus:border-gold transition-colors"
-          style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(83,74,183,0.18)' }}
+          style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.18)' }}
         />
       </div>
       {initial && (
@@ -47,7 +47,7 @@ export default function AdminSearch({ initial, staff }: { initial: string; staff
           type="button"
           onClick={clear}
           className="px-4 rounded-xl text-sm text-cream/60 hover:text-cream transition-colors"
-          style={{ border: '1px solid rgba(83,74,183,0.18)' }}
+          style={{ border: '1px solid rgb(var(--violet-rgb) / 0.18)' }}
         >
           Сброс
         </button>

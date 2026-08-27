@@ -27,7 +27,7 @@ export default function FAQ() {
         <div className="mb-10 sm:mb-16 reveal">
           <div className="inline-flex items-center gap-3.5 mb-5">
             <span className="block w-6 h-px bg-gold flex-shrink-0" />
-            <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(83,74,183,0.70)' }}>
+            <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}>
               Вопросы и ответы
             </span>
           </div>
@@ -45,8 +45,8 @@ export default function FAQ() {
               key={i}
               className="reveal"
               style={{
-                borderTop: '1px solid rgba(83,74,183,0.10)',
-                ...(i === faqs.length - 1 ? { borderBottom: '1px solid rgba(83,74,183,0.10)' } : {}),
+                borderTop: '1px solid rgb(var(--violet-rgb) / 0.10)',
+                ...(i === faqs.length - 1 ? { borderBottom: '1px solid rgb(var(--violet-rgb) / 0.10)' } : {}),
               }}
               data-reveal-delay={i * 80}
             >
@@ -58,18 +58,18 @@ export default function FAQ() {
               >
                 <span
                   className="font-serif text-cream text-[17px] sm:text-[20px] leading-snug"
-                  style={{ color: open === i ? '#6f66d6' : 'rgb(var(--text-rgb))', transition: 'color .2s' }}
+                  style={{ color: open === i ? 'rgb(var(--accent-2-rgb))' : 'rgb(var(--text-rgb))', transition: 'color .2s' }}
                 >
                   {faq.q}
                 </span>
                 <span
                   className="w-9 h-9 grid place-items-center flex-shrink-0 rounded-full transition-all duration-300"
                   style={{
-                    border: '1px solid rgba(83,74,183,0.30)',
+                    border: '1px solid rgb(var(--violet-rgb) / 0.30)',
                     color: 'rgb(var(--violet-rgb))',
                     transform: open === i ? 'rotate(180deg)' : 'rotate(0deg)',
-                    background: open === i ? 'rgba(83,74,183,0.10)' : 'transparent',
-                    borderColor: open === i ? 'rgb(var(--violet-rgb))' : 'rgba(83,74,183,0.30)',
+                    background: open === i ? 'rgb(var(--violet-rgb) / 0.10)' : 'transparent',
+                    borderColor: open === i ? 'rgb(var(--violet-rgb))' : 'rgb(var(--violet-rgb) / 0.30)',
                   }}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

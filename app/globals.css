@@ -5,25 +5,79 @@
 /* ── Тёмная тема. Светлые значения переменных = текущие цвета (светлый режим
    не меняется), .dark задаёт тёмные. Цвета самого герба НЕ трогаем. ── */
 :root{
-  --bg-rgb:244 243 253; --surface-rgb:255 255 255; --surface-2-rgb:236 234 251; --surface-3-rgb:248 247 254; --surface-4-rgb:218 214 243; --surface-5-rgb:228 225 247;
-  --text-rgb:38 34 61; --text-b-rgb:47 42 99; --text-c-rgb:58 52 128; --text-d-rgb:59 54 88; --text-e-rgb:91 86 119;
-  /* Приглушённые тона сведены к трём уровням и подняты по контрасту: прежние
-     #8D89A6/#9A96B5 давали 3.0–3.4:1 на белом и не проходили AA, а читать
-     их приходится тем, кто пришёл разбираться с наследством. */
-  --muted-rgb:107 103 134; --muted-b-rgb:110 106 137; --muted-c-rgb:110 106 137; --muted-d-rgb:110 106 137; --muted-e-rgb:99 95 130; --muted-f-rgb:110 106 137;
-  --hair-rgb:142 138 166; --violet-rgb:83 74 183;
-  --header:rgba(228,225,247,0.82); --header-scrolled:rgba(236,234,251,0.92);
+  /* ── Палитра ───────────────────────────────────────────────────────────
+     Было: холодная лаванда (#F4F3FD) с ярким фиолетовым #534AB7. Набор из
+     дизайнерской витрины — приятный глазу и совершенно нейтральный по
+     смыслу: так выглядит и студия, и приложение для медитации.
+
+     Стало: тёплая бумага и графит с одним глубоким акцентом. Бумага —
+     потому что нотариус работает с документом, и белизна экрана здесь
+     уместнее тёплая, чем синеватая. Графит вместо чёрного — чтобы крупный
+     текст не резал. Акцент один: #4B3F72, приглушённый индиго. Он остался
+     в фиолетовом семействе, иначе вариант перестал бы отличаться от
+     соседних (терракотовый warm, изумрудный modern), но потерял кислотность.
+
+     Имена переменных прежние: на них завязаны сотни мест в вёрстке.
+     ─────────────────────────────────────────────────────────────────── */
+
+  --bg-rgb:242 239 232;         /* #F2EFE8 бумага */
+  --surface-rgb:251 249 245;    /* #FBF9F5 приподнятая плоскость */
+  --surface-2-rgb:233 228 218;  /* #E9E4DA утопленная полоса */
+  --surface-3-rgb:247 244 238;  /* #F7F4EE */
+  --surface-4-rgb:223 216 203;  /* #DFD8CB */
+  --surface-5-rgb:237 232 222;  /* #EDE8DE подвал */
+
+  --text-rgb:25 24 34;          /* #191822 графит */
+  --text-b-rgb:35 33 46;
+  --text-c-rgb:75 63 114;       /* акцентный текст */
+  --text-d-rgb:51 49 63;
+  --text-e-rgb:74 71 87;
+
+  /* Приглушённый — один уровень. Шесть оттенков серого различались на
+     глаз только в макете, а в вёрстке давали шесть шансов промахнуться
+     мимо контраста. Значение выбрано по самой тёмной светлой плоскости
+     (#E9E4DA), а не по бумаге: на ней 4.75:1, на бумаге 5.24:1. */
+  --muted-rgb:101 97 112; --muted-b-rgb:101 97 112; --muted-c-rgb:101 97 112;
+  --muted-d-rgb:101 97 112; --muted-e-rgb:94 90 105; --muted-f-rgb:101 97 112;
+
+  --hair-rgb:139 130 113;       /* крупные декоративные цифры, 3.3:1 */
+  --rule-rgb:214 207 194;       /* тёплая волосяная линейка */
+  --violet-rgb:75 63 114;       /* #4B3F72 — единственный акцент */
+  --accent-2-rgb:106 91 150;    /* его светлая ступень */
+  --ok-rgb:74 106 82;           /* «проверено» — мох, не неон */
+  --ok-2-rgb:106 141 114;
+
+  --header:rgba(242,239,232,0.78); --header-scrolled:rgba(242,239,232,0.94);
 }
 html.dark{
-  --bg-rgb:21 19 42; --surface-rgb:34 30 64; --surface-2-rgb:27 24 52; --surface-3-rgb:32 28 60; --surface-4-rgb:44 40 80; --surface-5-rgb:42 38 80;
-  --text-rgb:236 233 251; --text-b-rgb:231 227 251; --text-c-rgb:201 194 240; --text-d-rgb:216 212 240; --text-e-rgb:188 182 219;
-  --muted-rgb:168 163 203; --muted-b-rgb:157 152 189; --muted-c-rgb:143 138 176; --muted-d-rgb:163 158 198; --muted-e-rgb:179 174 210; --muted-f-rgb:159 154 193;
-  --hair-rgb:110 105 140; --violet-rgb:141 132 224;
-  --header:rgba(22,20,43,0.82); --header-scrolled:rgba(28,25,54,0.92);
+  --bg-rgb:22 21 28;            /* #16151C */
+  --surface-rgb:30 29 38;       /* #1E1D26 */
+  --surface-2-rgb:18 17 24;
+  --surface-3-rgb:28 27 35;
+  --surface-4-rgb:42 40 52;
+  --surface-5-rgb:18 17 24;
+
+  --text-rgb:237 234 227;       /* #EDEAE3 тёплый светлый */
+  --text-b-rgb:237 234 227;
+  --text-c-rgb:180 167 220;
+  --text-d-rgb:207 202 193;
+  --text-e-rgb:190 185 176;
+
+  --muted-rgb:154 148 163; --muted-b-rgb:154 148 163; --muted-c-rgb:154 148 163;
+  --muted-d-rgb:154 148 163; --muted-e-rgb:168 162 176; --muted-f-rgb:154 148 163;
+
+  --hair-rgb:122 114 101;    /* светлее: на тёмной плоскости 106 99 88 давало 2.8:1 */
+  --rule-rgb:52 49 62;
+  --violet-rgb:169 155 214;     /* акцент осветляется, иначе тонет в фоне */
+  --accent-2-rgb:196 185 232;
+  --ok-rgb:122 163 130;
+  --ok-2-rgb:150 186 158;
+
+  --header:rgba(22,21,28,0.78); --header-scrolled:rgba(22,21,28,0.94);
   color-scheme:dark;
 }
 html.dark body{ background:rgb(var(--bg-rgb)) !important; }
-html.dark .lv-veil{ background:radial-gradient(120% 120% at 78% 30%, rgba(21,19,42,0) 40%, rgba(21,19,42,.85) 78%, #15132a 100%) !important; }
+html.dark .lv-veil{ background:radial-gradient(120% 120% at 76% 34%, rgba(22,21,28,0) 38%, rgba(22,21,28,.88) 74%, rgb(var(--bg-rgb)) 100%) !important; }
 html{ transition:background-color .35s ease; }
 
 @keyframes fade-in-up {
@@ -147,6 +201,59 @@ html{ transition:background-color .35s ease; }
 .skip-link:focus-visible {
   transform: translate(-50%, 0);
   outline-offset: -4px;
+}
+
+/* ── Повторяющиеся элементы нового оформления ─────────────────────────
+   Живут здесь, а не в компонентах: их используют и главная, и внутренние
+   страницы, а тег <style> внутри компонента доезжает только туда, где сам
+   компонент отрисован. ─────────────────────────────────────────────── */
+
+/* Вторичная кнопка: контур, на наведении заливается графитом.
+   Заливка вместо подсветки — потому что рядом стоит основная кнопка,
+   и две светящиеся кнопки не отличить одну от другой. */
+.lv-btn2{display:inline-flex;align-items:center;gap:10px;padding:16px 24px;border-radius:2px;
+  border:1px solid rgb(var(--text-rgb) / .28);color:rgb(var(--text-rgb));background:transparent;
+  font-size:15px;font-weight:500;letter-spacing:.01em;text-decoration:none;white-space:nowrap;
+  transition:background-color .3s ease,border-color .3s ease,color .3s ease,transform .15s ease;}
+.lv-btn2:hover{background:rgb(var(--text-rgb));border-color:rgb(var(--text-rgb));color:rgb(var(--bg-rgb));}
+.lv-btn2:active{transform:translateY(1px);}
+.lv-btn2 svg{width:15px;height:15px;flex:none;transition:transform .3s ease;}
+.lv-btn2:hover svg{transform:translateX(3px);}
+
+/* Ссылка «дальше»: подчёркивание уезжает вправо и возвращается слева. */
+.ln-more{position:relative;padding-bottom:3px;}
+.ln-more::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:currentColor;transform:scaleX(1);transform-origin:right;
+  transition:transform .3s cubic-bezier(.6,0,.3,1);}
+.ln-more:hover::after{transform:scaleX(0);}
+.ln-more svg{transition:transform .3s ease;}
+.ln-more:hover svg{transform:translateX(4px);}
+
+/* Строка услуги: на наведении уезжает вправо, стрелка проявляется. */
+.svc{transition:padding-left .35s cubic-bezier(.2,.7,.2,1);}
+.svc .svc-t{transition:color .25s ease;}
+.svc .svc-a{opacity:0;transform:translateX(-6px);
+  transition:opacity .3s ease,transform .3s cubic-bezier(.2,.7,.2,1);}
+.svc:hover{padding-left:12px;}
+.svc:hover .svc-t{color:rgb(var(--violet-rgb));}
+.svc:hover .svc-a{opacity:1;transform:translateX(0);}
+
+/* Стопка шагов: карточки залипают и наезжают одна на другую по мере
+   прокрутки. Липкость работает только там, где карточка ниже экрана —
+   иначе на коротком экране верхняя перекрыла бы весь текст. */
+.stack{display:flex;flex-direction:column;gap:18px;}
+.stack-card{position:relative;background:rgb(var(--surface-rgb));
+  border:1px solid rgb(var(--rule-rgb));padding:clamp(24px,3vw,38px);}
+.stack-n{position:absolute;top:clamp(24px,3vw,38px);right:clamp(24px,3vw,38px);
+  font-size:12px;color:rgb(var(--violet-rgb));letter-spacing:.06em;}
+@media (min-width:900px) and (min-height:680px){
+  .stack-card{position:sticky;}
+}
+@media (prefers-reduced-motion:reduce){
+  .stack-card{position:relative;}
+  .svc{transition:none;}
+  .svc:hover{padding-left:0;}
+  .svc .svc-a{opacity:1;transform:none;}
 }
 
 /* Печать: на экране памятка скрыта, при печати показываем только её */
