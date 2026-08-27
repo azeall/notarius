@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notary, motto } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 import LiveStatus from '@/components/LiveStatus'
+import EngravedField from '@/components/EngravedField'
 
 /**
  * Первый экран варианта warm.
@@ -21,14 +22,25 @@ import LiveStatus from '@/components/LiveStatus'
  * выделяется цветом само — так фраза любой длины получает акцент без
  * ручной разметки.
  *
- * Ни одной картинки: на тёмной глине держат кегль, линейка и воздух.
+ * Фон — не пустая заливка: во весь экран идёт живая гравюра (EngravedField),
+ * гильош на WebGL. Первая версия этого экрана была голой типографикой на
+ * ровном фоне, и рядом с работами, на которые равнялись, это выглядело не
+ * сдержанно, а недоделанно: у них экран занят плотным визуальным материалом,
+ * а сокращение — только в палитре. На телефонах гравюра не запускается.
  */
 
 const AREAS = ['Недвижимость', 'Наследство', 'Доверенности', 'Согласия', 'Копии и переводы']
 
 const CSS = `
-.wh{position:relative;background:rgb(var(--bg-rgb));
+.wh{position:relative;background:rgb(var(--bg-rgb));overflow:hidden;
   padding:clamp(104px,13vh,150px) 0 clamp(48px,7vh,72px);}
+/* Завеса поверх гравюры: к низу и к правому краю рисунок гаснет, иначе
+   тонкие линии спорят с текстом за внимание. */
+.wh-veil{position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(58% 46% at 26% 40%, rgb(var(--bg-rgb) / .82) 0%, rgb(var(--bg-rgb) / 0) 100%),
+    linear-gradient(180deg, rgb(var(--bg-rgb) / .18) 0%, rgb(var(--bg-rgb) / .60) 64%, rgb(var(--bg-rgb)) 100%);}
+.wh-in{position:relative;z-index:1;}
 
 /* Высказывание. Ради него всё и затевалось, поэтому кегль без оглядки. */
 .wh-claim{margin:0;font-family:var(--font-display),Georgia,serif;font-weight:600;
@@ -100,8 +112,10 @@ export default function Hero() {
   return (
     <section className="wh" data-hero>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
+      <EngravedField />
+      <div className="wh-veil" aria-hidden />
 
-      <div className="wrap">
+      <div className="wrap wh-in">
         <h1 className="wh-claim">
           {head}{head ? ' ' : ''}<span className="last">{last}</span>
         </h1>

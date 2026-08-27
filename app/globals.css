@@ -383,8 +383,6 @@ html{ transition:background-color .35s ease; }
   inset: 0;
   background: rgb(var(--violet-rgb));
   transform-origin: left center;
-  /* Задержку JS ставит на сам li; псевдоэлемент забирает её наследованием —
-     записать инлайновый стиль прямо в ::after нельзя. */
   animation-delay: inherit;
   animation-duration: 1s;
   animation-timing-function: linear;
@@ -394,6 +392,21 @@ html{ transition:background-color .35s ease; }
 .motion .scene[data-scene="on"] .scene-dots li:nth-child(1)::after { animation-name: dotA; }
 .motion .scene[data-scene="on"] .scene-dots li:nth-child(2)::after { animation-name: dotB; }
 .motion .scene[data-scene="on"] .scene-dots li:nth-child(3)::after { animation-name: dotC; }
+
+/* Когда сцены ведёт GSAP, он анимирует вложенный <i>, а не ::after:
+   до псевдоэлемента библиотека не дотянется. Кадровый вариант при этом
+   отключается, иначе два драйвера писали бы в одну полоску. */
+.gsap-on .scene-dots { display: flex; gap: 8px; list-style: none; margin: 18px 0 0; padding: 0; }
+.gsap-on .scene-dots li { width: 46px; height: 2px; background: rgb(var(--rule-rgb)); position: relative; overflow: hidden; }
+.gsap-on .scene-dots li::after { display: none; }
+.gsap-on .scene-dots li i { position: absolute; inset: 0; background: rgb(var(--violet-rgb)); display: block; }
+/* Сцену закрепляет ScrollTrigger — собственную высоту в 220vh снимаем,
+   иначе после раздела оставалась бы пустая простыня. */
+.gsap-on .scene[data-scene="on"] { height: auto; }
+.gsap-on .scene[data-scene="on"] .scene-inner { position: static; height: auto; }
+.gsap-on .scene[data-scene="on"] .scene-step { grid-area: 1 / 1; animation: none; }
+.gsap-on .scene[data-scene="on"] .scene-stage { display: grid; min-height: 220px; align-content: start; }
+
 @keyframes dotA { 0% { transform: scaleX(0); } 30% { transform: scaleX(1); } 100% { transform: scaleX(1); } }
 @keyframes dotB { 0% { transform: scaleX(0); } 34% { transform: scaleX(0); } 64% { transform: scaleX(1); } 100% { transform: scaleX(1); } }
 @keyframes dotC { 0% { transform: scaleX(0); } 66% { transform: scaleX(0); } 84% { transform: scaleX(1); } 100% { transform: scaleX(1); } }
