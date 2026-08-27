@@ -115,12 +115,11 @@ export default function CredentialsSection() {
           {rows.map((r, i) => (
             <div
               key={r.label}
-              className="grid sm:grid-cols-[190px_1fr] gap-1.5 sm:gap-8 py-6 reveal"
+              className={`grid sm:grid-cols-[190px_1fr] gap-1.5 sm:gap-8 py-6 sd sd-${Math.min(i + 1, 5)}`}
               style={{
                 borderTop: '1px solid rgb(var(--violet-rgb) / 0.16)',
                 ...(i === rows.length - 1 ? { borderBottom: '1px solid rgb(var(--violet-rgb) / 0.16)' } : {}),
               }}
-              data-reveal-delay={i * 70}
             >
               <dt
                 className="text-[12px] tracking-[0.18em] uppercase leading-relaxed"

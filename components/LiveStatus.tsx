@@ -81,23 +81,41 @@ function nextSlots(msk: Date, count: number): NearSlot[] {
   return results
 }
 
+const MONTHS = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+  'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+
+/**
+ * Строка состояния конторы: дата, открыто ли сейчас и ближайшие свободные
+ * окна, по которым можно записаться в один щелчок.
+ *
+ * Стоит на первом экране вместо прежнего медальона. Медальон был одинаковым
+ * украшением на всех четырёх сайтах и ничего не сообщал; эта строка меняется
+ * каждую минуту и отвечает на первый вопрос пришедшего — «вы сейчас
+ * работаете и когда к вам можно».
+ *
+ * Считается на клиенте после монтирования: время у посетителя своё, и
+ * отрисовать это на сервере значит разойтись с разметкой при гидратации.
+ * До первого расчёта места не занимает.
+ */
 export default function LiveStatus() {
   const [status, setStatus] = useState<StatusInfo | null>(null)
   const [slots, setSlots] = useState<NearSlot[]>([])
+  const [today, setToday] = useState('')
   const [modal, setModal] = useState<{ date: Date; time: string } | null>(null)
 
   useEffect(() => {
     function refresh() {
       const msk = getMsk()
       setStatus(computeStatus(msk))
-      setSlots(nextSlots(msk, 4))
+      setSlots(nextSlots(msk, 3))
+      setToday(`${msk.getDate()} ${MONTHS[msk.getMonth()]}`)
     }
     refresh()
     const t = setInterval(refresh, 60_000)
     return () => clearInterval(t)
   }, [])
 
-  if (!status) return null
+  if (!status) return <div className="ls" aria-hidden />
 
   const initialDate = modal
     ? { year: modal.date.getFullYear(), month: modal.date.getMonth(), day: modal.date.getDate() }
@@ -105,44 +123,49 @@ export default function LiveStatus() {
 
   return (
     <>
-      <div className="flex flex-col items-center md:items-start gap-3 mb-6 sm:mb-7">
-        <div className="flex items-center gap-2.5">
-          <span
-            className="w-2 h-2 rounded-full flex-shrink-0"
-            style={{
-              background: status.isOpen ? 'rgb(var(--ok-rgb))' : '#f87171',
-              boxShadow: `0 0 8px ${status.isOpen ? 'rgba(74,222,128,0.7)' : 'rgba(248,113,113,0.5)'}`,
-              animation: status.isOpen ? 'pulse-dot 2s infinite' : 'none',
-            }}
-          />
-          <span className="text-[13px] tracking-[0.04em]" style={{ color: '#c5bfb0' }}>
-            <span style={{ color: status.isOpen ? '#e6faf0' : '#fca5a5', fontWeight: 500 }}>
-              {status.isOpen ? 'Открыто сейчас' : 'Закрыто'}
-            </span>
-            {status.isOpen && status.closesIn && (
-              <span style={{ color: 'rgb(var(--muted-b-rgb))' }}> · закрывается {status.closesIn}</span>
-            )}
-            {!status.isOpen && status.opensAt && (
-              <span style={{ color: 'rgb(var(--muted-b-rgb))' }}> · откроется {status.opensAt}</span>
-            )}
-          </span>
-        </div>
+      <div className="ls">
+        <span className="ls-date">{today}</span>
+        <span className="ls-sep" aria-hidden />
+        <span className={`ls-state ${status.isOpen ? 'is-open' : ''}`}>
+          <span className="ls-dot" aria-hidden />
+          {status.isOpen ? 'Открыто' : 'Закрыто'}
+          {status.isOpen && status.closesIn && <span className="ls-tail"> · до закрытия {status.closesIn}</span>}
+          {!status.isOpen && status.opensAt && <span className="ls-tail"> · откроется {status.opensAt}</span>}
+        </span>
+
         {slots.length > 0 && (
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-            {slots.map((s) => (
-              <button
-                key={s.label}
-                onClick={() => setModal({ date: s.date, time: s.slot })}
-                className="text-[11px] tracking-[0.06em] px-3 py-1.5 rounded transition-all"
-                style={{ border: '1px solid rgb(var(--violet-rgb) / 0.25)', color: '#c5a84a', background: 'rgb(var(--violet-rgb) / 0.06)' }}
-                onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = 'rgb(var(--violet-rgb) / 0.14)'; b.style.borderColor = 'rgb(var(--violet-rgb) / 0.5)' }}
-                onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = 'rgb(var(--violet-rgb) / 0.06)'; b.style.borderColor = 'rgb(var(--violet-rgb) / 0.25)' }}
-              >
-                {s.label}
-              </button>
-            ))}
-          </div>
+          <>
+            <span className="ls-sep" aria-hidden />
+            <span className="ls-lbl">Ближайшая запись</span>
+            <span className="ls-slots">
+              {slots.map(s => (
+                <button key={s.label} className="ls-slot" onClick={() => setModal({ date: s.date, time: s.slot })}>
+                  {s.label}
+                </button>
+              ))}
+            </span>
+          </>
         )}
+
+        <style>{`
+          .ls{display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;min-height:26px;
+            font-size:13px;color:rgb(var(--muted-rgb));}
+          .ls-date{font-family:var(--font-mono),monospace;letter-spacing:.02em;}
+          .ls-sep{width:1px;height:13px;background:rgb(var(--rule-rgb));flex:none;}
+          .ls-state{display:inline-flex;align-items:center;gap:8px;color:rgb(var(--text-rgb));font-weight:500;}
+          .ls-dot{width:6px;height:6px;border-radius:50%;background:rgb(var(--muted-rgb));flex:none;}
+          .ls-state.is-open .ls-dot{background:rgb(var(--ok-rgb));animation:lsPulse 2.4s ease-in-out infinite;}
+          @keyframes lsPulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+          .ls-tail{color:rgb(var(--muted-rgb));font-weight:400;}
+          .ls-lbl{font-size:11px;letter-spacing:.18em;text-transform:uppercase;}
+          .ls-slots{display:inline-flex;flex-wrap:wrap;gap:6px;}
+          .ls-slot{font-family:var(--font-mono),monospace;font-size:12px;padding:5px 10px;
+            border:1px solid rgb(var(--rule-rgb));background:transparent;color:rgb(var(--text-rgb));
+            cursor:pointer;transition:background-color .25s ease,border-color .25s ease,color .25s ease;}
+          .ls-slot:hover{background:rgb(var(--text-rgb));border-color:rgb(var(--text-rgb));color:rgb(var(--bg-rgb));}
+          @media (prefers-reduced-motion:reduce){.ls-state.is-open .ls-dot{animation:none;}}
+          @media (max-width:640px){.ls-sep{display:none;}.ls-lbl{display:none;}}
+        `}</style>
       </div>
       {modal && (
         <BookingModal onClose={() => setModal(null)} initialDate={initialDate} initialTime={modal.time} />

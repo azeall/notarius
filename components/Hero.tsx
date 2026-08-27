@@ -1,345 +1,168 @@
 import Link from 'next/link'
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
+import LiveStatus from '@/components/LiveStatus'
 
 /**
- * Hero «Герб конторы» — макет Claude Design (Hero нотариус v2, вариант I).
- * Универсальный геральдический герб: щит с гильош-гравировкой, весы
- * правосудия на колонне закона, свиток, лавровые ветви, лента «НОТАРИУС».
- * Герб генерируется на сервере процедурно (гипотрохоиды).
+ * Первый экран — индекс конторы.
+ *
+ * Что здесь было раньше: медальон с гильош-гравировкой и весами правосудия,
+ * 560 пикселей по правой половине экрана. Он был честно сделан — рисовался
+ * процедурно из имени нотариуса, — но оставался украшением: ничего не
+ * сообщал, ничего не открывал, и стоял одинаковый на всех четырёх сайтах.
+ *
+ * Что здесь теперь: строка состояния конторы (открыта ли она сейчас и когда
+ * ближайшее свободное окно) и крупный перечень услуг, который одновременно
+ * служит навигацией. Ход взят у лучших работ awwwards последнего года —
+ * Sharplink и Storey Architecture: смелость там не в количестве украшений, а
+ * в их отсутствии. Два цвета, крупный набор, и всё, что видно, работает.
+ *
+ * Ни одной картинки и ни одного декоративного SVG: на бумаге держат
+ * линейка, кегль и воздух.
  */
 
-function gcd(a: number, b: number): number { return b ? gcd(b, a % b) : a }
-
-function guilloche(cx: number, cy: number, R: number, r: number, d: number, amp: number, detail?: number): string {
-  const g = gcd(R, r)
-  const turns = Math.max(1, r / g)
-  // detail задаётся там, где известно, каким размером кривая рисуется:
-  // 900 точек по умолчанию для мелкой розетки — заведомый перебор.
-  const steps = detail ?? Math.max(900, turns * 160)
-  const k = (R - r) / r
-
-  const xs: number[] = []
-  const ys: number[] = []
-  for (let i = 0; i <= steps; i++) {
-    const t = (i / steps) * Math.PI * 2 * turns
-    xs.push((amp * ((R - r) * Math.cos(t) + d * Math.cos(k * t))) / R)
-    ys.push((amp * ((R - r) * Math.sin(t) - d * Math.sin(k * t))) / R)
-  }
-
-  /* Кривая ставится по своей рамке, а не по началу координат.
-     У розетки с нечётным числом лепестков центр формулы и центр рисунка —
-     разные точки: при трёх лепестках рисунок уезжает вбок почти на треть
-     радиуса. В медальоне это сразу видно, поэтому сдвиг считаем всегда. */
-  const dx = cx - (Math.min(...xs) + Math.max(...xs)) / 2
-  const dy = cy - (Math.min(...ys) + Math.max(...ys)) / 2
-
-  let s = ''
-  for (let i = 0; i <= steps; i++) {
-    s += (i ? 'L' : 'M') + (xs[i] + dx).toFixed(2) + ' ' + (ys[i] + dy).toFixed(2) + ' '
-  }
-  return s + 'Z'
-}
-
-/* Медальон конторы.
- *
- * Раньше здесь был универсальный геральдический щит: шесть гильош-розеток,
- * две лавровые ветви с прожилками, корона, лента. Он весил 270 КБ разметки
- * и попадал в страницу дважды — в саму разметку и в данные Next.js, — из-за
- * чего главная отдавала 146 КБ против 19–29 у соседних сайтов. И при всём
- * труде он был одинаковый у любого нотариуса.
- *
- * Медальон складывается из notary.name и notary.title, поэтому у каждой
- * конторы получается свой, без единой правки в вёрстке.
- *
- * Государственный герб намеренно не рисуется. Настоящая нотариальная печать
- * несёт его по закону, и декоративная копия читалась бы как подделка оттиска.
- * Весы — знак ремесла, а не элемент печати.
- *
- * Надписи растянуты по кольцу через textLength: имена у нотариусов разной
- * длины, и без этого у одних текст не дотянет до низа кольца, а у других
- * уедет за него.
- */
-
-/** Дуга через верх (sweep 1) или через низ (sweep 0) — для надписей по кругу. */
-function ringPath(cx: number, cy: number, r: number, overTop: boolean): string {
-  return `M ${cx - r} ${cy} A ${r} ${r} 0 0 ${overTop ? 1 : 0} ${cx + r} ${cy}`
-}
-
-function buildSeal(sfx: string): string {
-  const cx = 280
-  const cy = 280
-  const name = notary.name.trim().toUpperCase()
-  const title = notary.title.trim().toUpperCase()
-
-  // Две гильош-дорожки: частые лепестки, как в гравюре на бланках.
-  // Пара 240/12 даёт 19 лепестков, 240/15 — 15; вместе получается плетение.
-  const laceOuter = guilloche(cx, cy, 240, 12, 26, 146, 900)
-  const laceInner = guilloche(cx, cy, 240, 15, 20, 108, 700)
-
-  // Оттиск одноцветный. Золото на тёмно-синем поле делало из печати брошь:
-  // предмет, который носят, а не которым заверяют. Здесь она положена на
-  // бумагу и набрана одной краской — так печать и выглядит на документе.
-  const ink = 'rgb(var(--violet-rgb))'
-
-  const scales = `
-    <g fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round">
-      <line x1="${cx}" y1="228" x2="${cx}" y2="326"/>
-      <line x1="${cx - 78}" y1="250" x2="${cx + 78}" y2="250"/>
-      <line x1="${cx - 34}" y1="326" x2="${cx + 34}" y2="326"/>
-      <line x1="${cx - 78}" y1="252" x2="${cx - 78}" y2="276"/>
-      <line x1="${cx + 78}" y1="252" x2="${cx + 78}" y2="276"/>
-    </g>
-    <g fill="none" stroke="${ink}" stroke-width="1.6" opacity=".75">
-      <path d="M ${cx - 108} 276 Q ${cx - 78} 300 ${cx - 48} 276 Z"/>
-      <path d="M ${cx + 48} 276 Q ${cx + 78} 300 ${cx + 108} 276 Z"/>
-    </g>
-    <circle cx="${cx}" cy="250" r="7" fill="rgb(var(--bg-rgb))" stroke="${ink}" stroke-width="2.4"/>
-    <circle cx="${cx}" cy="222" r="4.5" fill="${ink}"/>`
-
-  const diamond = (x: number, y: number) =>
-    `<rect x="${x - 5}" y="${y - 5}" width="10" height="10" fill="none" stroke="${ink}" stroke-width="1.4" transform="rotate(45 ${x} ${y})"/>`
-
-  return `
-  <svg class="monogram" viewBox="0 0 560 560" role="img" aria-label="Оттиск нотариальной конторы: ${name}, весы правосудия в центре">
-    <defs>
-      <path id="ringTop-${sfx}" d="${ringPath(cx, cy, 214, true)}" fill="none"/>
-      <path id="ringBottom-${sfx}" d="${ringPath(cx, cy, 202, false)}" fill="none"/>
-    </defs>
-
-    <circle class="s1" cx="${cx}" cy="${cy}" r="248" fill="none" stroke="${ink}" stroke-width="2.4"/>
-
-    <g class="s1soft" opacity=".8">
-      <circle cx="${cx}" cy="${cy}" r="238" fill="none" stroke="${ink}" stroke-width="1"/>
-      <circle cx="${cx}" cy="${cy}" r="182" fill="none" stroke="${ink}" stroke-width="1.4"/>
-      <circle cx="${cx}" cy="${cy}" r="175" fill="none" stroke="${ink}" stroke-width="0.7" opacity=".6"/>
-      ${diamond(cx - 210, cy)}
-      ${diamond(cx + 210, cy)}
-    </g>
-
-    <g class="fade-fill">
-      <path d="${laceOuter}" fill="none" stroke="${ink}" stroke-width="0.5" opacity=".30"/>
-      <path d="${laceInner}" fill="none" stroke="${ink}" stroke-width="0.45" opacity=".20"/>
-    </g>
-
-    <g class="s3">${scales}</g>
-
-    <g class="s4" fill="${ink}" font-family="var(--font-sans), sans-serif" font-weight="500">
-      <text font-size="26" letter-spacing=".1em">
-        <textPath href="#ringTop-${sfx}" startOffset="50%" text-anchor="middle" textLength="600" lengthAdjust="spacing">${name}</textPath>
-      </text>
-      <text font-size="20" letter-spacing=".16em" opacity=".72">
-        <textPath href="#ringBottom-${sfx}" startOffset="50%" text-anchor="middle" textLength="470" lengthAdjust="spacing">${title}</textPath>
-      </text>
-    </g>
-  </svg>`
-}
-
-function buildBackground(): string {
-  const cx = 600, cy = 600
-  let p = ''
-  // Пятое число — плотность точек. Подобрана замером: при ней ломаная
-  // отходит от кривой меньше чем на треть пикселя. Прежние 900 у всех колец
-  // были перебором и стоили около 30 КБ разметки на каждое.
-  const rings: [number, number, number, number, number][] = [
-    [260, 60, 80, 560, 600],
-    [230, 46, 96, 560, 260],
-    [300, 100, 70, 540, 150],
-    [200, 40, 110, 550, 340],
-  ]
-  rings.forEach((r, idx) => {
-    // Водяной знак, а не узор: на бумаге гильош должен угадываться,
-    // а не соревноваться с текстом за внимание.
-    p += `<path d="${guilloche(cx, cy, r[0], r[1], r[2], r[3], r[4])}" fill="none" stroke="rgb(var(--violet-rgb))" stroke-width="${idx % 2 ? 0.6 : 0.5}" opacity="${idx % 2 ? 0.055 : 0.04}"/>`
-  })
-  return `<svg viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid slice">${p}</svg>`
-}
+const INDEX = [
+  { n: '01', t: 'Сделки с недвижимостью', d: 'Купля-продажа, дарение, доли' },
+  { n: '02', t: 'Наследство', d: 'Завещания, вступление, свидетельства' },
+  { n: '03', t: 'Доверенности', d: 'Генеральные, на автомобиль, разовые' },
+  { n: '04', t: 'Согласия и договоры', d: 'Супругов, брачные, соглашения' },
+  { n: '05', t: 'Копии и переводы', d: 'Верность копий, подпись переводчика' },
+]
 
 const CSS = `
-/* Первый экран.
- *
- * Было: имя фиолетовым градиентом по центру левой колонки и медальон
- * во всю правую — композиция витрины, где главный герой оформление.
- *
- * Стало: строгая сетка и типографика (образец — Kononenko Architectural
- * Bureau), а печать убрана в карточку с реквизитами. Украшение стало
- * сведением: рядом с оттиском стоят лицензия и реестровый номер, и правая
- * колонка теперь что-то сообщает, а не просто занимает место. */
-.lv-hero{position:relative;z-index:2;min-height:100svh;display:flex;align-items:center;
-  padding:clamp(110px,14vh,150px) clamp(22px,6vw,96px) clamp(64px,9vh,96px);
-  background:rgb(var(--bg-rgb));overflow:hidden;}
-.lv-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
-.lv-bg svg{position:absolute;top:50%;left:50%;width:170vmax;height:170vmax;transform:translate(-50%,-50%);transform-origin:center;animation:lvdrift 220s linear infinite;opacity:.85;}
-@keyframes lvdrift{0%{transform:translate(-50%,-50%) rotate(0deg) scale(1);}50%{transform:translate(-50%,-50%) rotate(180deg) scale(1.05);}100%{transform:translate(-50%,-50%) rotate(360deg) scale(1);}}
-.lv-veil{position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(120% 120% at 76% 34%, rgb(var(--bg-rgb) / 0) 38%, rgb(var(--bg-rgb) / .82) 74%, rgb(var(--bg-rgb)) 100%);}
+.hr{position:relative;background:rgb(var(--bg-rgb));
+  padding:clamp(104px,13vh,140px) clamp(22px,6vw,96px) clamp(56px,8vh,88px);}
+.hr-in{max-width:1240px;margin:0 auto;}
 
-.lv-wrap{position:relative;z-index:2;width:100%;max-width:1240px;margin:0 auto;
-  display:grid;align-items:center;gap:clamp(40px,5vw,80px);grid-template-columns:1.15fr .85fr;}
+/* Верхняя строка: состояние конторы прямо сейчас. */
+.hr-top{padding-bottom:18px;border-bottom:1px solid rgb(var(--rule-rgb));
+  margin-bottom:clamp(30px,4.4vw,54px);}
 
-/* Верхняя линейка с округом — задаёт левый край всей сетке. */
-.lv-kicker{display:flex;align-items:center;gap:16px;font-size:13px;font-weight:500;
-  letter-spacing:.22em;text-transform:uppercase;color:rgb(var(--muted-rgb));
-  padding-bottom:18px;margin-bottom:clamp(26px,3.4vw,38px);
+.hr-head{display:grid;grid-template-columns:1.35fr .65fr;gap:clamp(24px,4vw,64px);
+  align-items:end;margin-bottom:clamp(40px,6vw,84px);}
+
+.hr-name{margin:0;font-family:var(--font-display),Georgia,serif;font-weight:600;
+  color:rgb(var(--text-rgb));line-height:.9;letter-spacing:-.03em;}
+.hr-sur{display:block;font-size:clamp(54px,10.5vw,148px);}
+.hr-given{display:block;font-size:clamp(20px,2.8vw,36px);font-weight:400;
+  color:rgb(var(--muted-e-rgb));letter-spacing:-.01em;margin-top:.24em;}
+
+.hr-aside{padding-bottom:.6em;}
+.hr-role{margin:0 0 14px;font-size:13px;font-weight:500;letter-spacing:.2em;
+  text-transform:uppercase;color:rgb(var(--violet-rgb));}
+.hr-desc{margin:0;font-size:clamp(15px,1.15vw,17px);line-height:1.6;
+  color:rgb(var(--muted-e-rgb));max-width:34ch;}
+
+.hr-cta{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(14px,2vw,22px);
+  margin-bottom:clamp(48px,7vw,96px);}
+.hr-phone{display:flex;flex-direction:column;gap:4px;text-decoration:none;margin-left:auto;text-align:right;}
+.hr-phone .lbl{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgb(var(--muted-rgb));}
+.hr-phone .num{font-family:var(--font-display),Georgia,serif;font-size:clamp(19px,2vw,24px);
+  font-weight:500;color:rgb(var(--text-rgb));transition:color .3s ease;}
+.hr-phone:hover .num{color:rgb(var(--violet-rgb));}
+
+/* Перечень услуг. Он же навигация: строка целиком — ссылка. */
+.hr-idx{list-style:none;margin:0;padding:0;border-top:1px solid rgb(var(--rule-rgb));}
+.hr-row{position:relative;display:block;text-decoration:none;overflow:hidden;
   border-bottom:1px solid rgb(var(--rule-rgb));}
-.lv-kicker .dot{width:5px;height:5px;background:rgb(var(--violet-rgb));flex:none;transform:rotate(45deg);}
-.lv-kicker .sp{margin-left:auto;font-size:12px;letter-spacing:.14em;color:rgb(var(--muted-rgb));}
-
-.lv-name{font-family:var(--font-display),Georgia,serif;font-weight:600;
-  color:rgb(var(--text-rgb));line-height:.94;letter-spacing:-.022em;margin:0;}
-.lv-name .sur{display:block;font-size:clamp(50px,8.4vw,112px);}
-.lv-name .given{display:block;font-size:clamp(23px,3.4vw,42px);font-weight:400;
-  color:rgb(var(--muted-e-rgb));margin-top:.18em;letter-spacing:-.005em;}
-
-.lv-role{font-size:clamp(13px,1.2vw,15px);font-weight:500;letter-spacing:.2em;
-  text-transform:uppercase;color:rgb(var(--violet-rgb));margin-top:clamp(20px,2.6vw,28px);}
-
-.lv-desc{font-size:clamp(16px,1.3vw,19px);font-weight:400;line-height:1.6;
-  color:rgb(var(--muted-e-rgb));max-width:42ch;margin-top:clamp(16px,2vw,22px);}
-
-.lv-actions{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(16px,2.2vw,26px);margin-top:clamp(30px,4vw,44px);}
-.lv-phone{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
-.lv-phone .lbl{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgb(var(--muted-rgb));}
-.lv-phone .num{font-family:var(--font-display),Georgia,serif;font-size:clamp(19px,2vw,23px);
-  font-weight:500;color:rgb(var(--text-rgb));letter-spacing:.01em;transition:color .3s ease;
-  border-bottom:1px solid transparent;}
-.lv-phone:hover .num{color:rgb(var(--violet-rgb));border-bottom-color:rgb(var(--violet-rgb) / .45);}
-
-.lv-textcol{align-self:center;}
-
-/* Правая колонка — карточка-бланк: оттиск и под ним реквизиты. */
-.lv-card{position:relative;background:rgb(var(--surface-rgb));
-  border:1px solid rgb(var(--rule-rgb));padding:clamp(26px,3vw,38px);}
-.lv-card::before,.lv-card::after{content:"";position:absolute;width:10px;height:10px;}
-.lv-card::before{top:-1px;left:-1px;border-top:2px solid rgb(var(--violet-rgb));border-left:2px solid rgb(var(--violet-rgb));}
-.lv-card::after{bottom:-1px;right:-1px;border-bottom:2px solid rgb(var(--violet-rgb));border-right:2px solid rgb(var(--violet-rgb));}
-.lv-card .monogram{width:100%;max-width:330px;margin:0 auto;height:auto;overflow:visible;display:block;}
-.lv-facts{margin:clamp(22px,2.6vw,30px) 0 0;padding:0;list-style:none;}
-.lv-facts li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
-  padding:11px 0;border-top:1px solid rgb(var(--rule-rgb));}
-.lv-facts dt,.lv-facts .k{font-size:11px;font-weight:500;letter-spacing:.16em;
-  text-transform:uppercase;color:rgb(var(--muted-rgb));white-space:nowrap;}
-.lv-facts .v{font-family:var(--font-mono),monospace;font-size:13px;color:rgb(var(--text-rgb));
-  text-align:right;font-variant-numeric:tabular-nums;}
-
-/* Подсказка «листайте» — тонкая, у нижнего края левой колонки. */
-.lv-scroll{display:flex;align-items:center;gap:12px;margin-top:clamp(34px,5vh,56px);
-  font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgb(var(--muted-rgb));}
-.lv-scroll .bar{width:56px;height:1px;background:rgb(var(--rule-rgb));position:relative;overflow:hidden;}
-.lv-scroll .bar::after{content:"";position:absolute;inset:0;background:rgb(var(--violet-rgb));
-  animation:lvscan 2.8s cubic-bezier(.6,0,.4,1) infinite;}
-@keyframes lvscan{0%{transform:translateX(-100%);}60%,100%{transform:translateX(100%);}}
-
-.lv-reveal{opacity:1;animation:lvrise .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s);}
-@keyframes lvrise{0%{opacity:0;transform:translateY(22px);}100%{opacity:1;transform:translateY(0);}}
-.s1{stroke-dasharray:1560;stroke-dashoffset:1560;animation:lvdraw 1.6s cubic-bezier(.55,.1,.2,1) forwards .35s;}
-@keyframes lvdraw{to{stroke-dashoffset:0;}}
-.s1soft{opacity:0;animation:lvfadefill .9s ease forwards 1.2s;}
-.fade-fill{opacity:0;animation:lvfadefill 1.4s ease forwards 1.1s;}
-@keyframes lvfadefill{to{opacity:1;}}
-.s3{opacity:0;animation:lvfadefill .9s ease forwards 1.7s;}
-.s4{opacity:0;animation:lvribbon .9s cubic-bezier(.2,.7,.2,1) forwards 2.1s;}
-@keyframes lvribbon{0%{opacity:0;transform:translateY(10px);}100%{opacity:1;transform:translateY(0);}}
+/* Заливка выезжает слева и уносит за собой цвет текста. */
+.hr-row::before{content:"";position:absolute;inset:0;background:rgb(var(--text-rgb));
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .5s cubic-bezier(.22,.8,.24,1);}
+.hr-row:hover::before,.hr-row:focus-visible::before{transform:scaleX(1);}
+.hr-line{position:relative;z-index:1;display:grid;
+  grid-template-columns:clamp(44px,5vw,72px) 1fr auto;align-items:baseline;
+  gap:clamp(12px,2.4vw,32px);padding:clamp(16px,2.2vw,26px) 0;
+  transition:padding-left .5s cubic-bezier(.22,.8,.24,1);}
+.hr-row:hover .hr-line,.hr-row:focus-visible .hr-line{padding-left:clamp(14px,2vw,28px);}
+.hr-n{font-family:var(--font-mono),monospace;font-size:12px;color:rgb(var(--violet-rgb));
+  transition:color .35s ease;}
+.hr-t{font-family:var(--font-display),Georgia,serif;font-weight:500;
+  font-size:clamp(24px,4.2vw,54px);line-height:1.02;letter-spacing:-.02em;
+  color:rgb(var(--text-rgb));transition:color .35s ease;}
+.hr-d{font-size:14px;color:rgb(var(--muted-rgb));text-align:right;
+  transition:color .35s ease;white-space:nowrap;}
+.hr-row:hover .hr-t,.hr-row:hover .hr-d,.hr-row:hover .hr-n,
+.hr-row:focus-visible .hr-t,.hr-row:focus-visible .hr-d,.hr-row:focus-visible .hr-n{
+  color:rgb(var(--bg-rgb));}
 
 @media (max-width:980px){
-  .lv-wrap{grid-template-columns:1fr;gap:44px;}
-  .lv-card{max-width:460px;}
-  .lv-scroll{display:none;}
+  .hr-head{grid-template-columns:1fr;align-items:start;gap:26px;}
+  .hr-aside{padding-bottom:0;}
+  .hr-desc{max-width:46ch;}
+  .hr-phone{margin-left:0;text-align:left;}
+  .hr-d{display:none;}
+  .hr-line{grid-template-columns:clamp(38px,7vw,56px) 1fr;}
 }
 @media (max-width:430px){
-  .lv-hero{padding:96px 22px 56px;}
-  .lv-kicker{letter-spacing:.16em;gap:10px;font-size:12px;}
-  .lv-kicker .sp{display:none;}
-  .lv-actions{gap:16px;}
-  .lv-actions .lv-btn,.lv-actions .lv-btn2{width:100%;justify-content:center;}
-  .lv-card{padding:22px;}
-  .lv-facts li{flex-direction:column;align-items:flex-start;gap:3px;}
-  .lv-facts .v{text-align:left;}
+  .hr{padding:92px 22px 48px;}
+  .hr-cta .lv-btn,.hr-cta .lv-btn2{width:100%;justify-content:center;}
 }
 @media (prefers-reduced-motion:reduce){
-  .lv-reveal,.s1,.s1soft,.s3,.s4,.fade-fill,.lv-bg svg,.lv-scroll .bar::after{animation:none !important;}
-  .s1{stroke-dashoffset:0;}
-  .s1soft,.s3,.s4,.fade-fill{opacity:1;transform:none;}
-  .lv-reveal{opacity:1;transform:none;}
+  .hr-row::before{transition:none;}
+  .hr-line{transition:none;}
+  .hr-row:hover .hr-line{padding-left:0;}
 }
 `
 
 export default function Hero() {
-  const nameParts = notary.name.trim().split(/\s+/)
-  const surname = nameParts[0] ?? notary.name
-  const rest = nameParts.slice(1).join(' ')
-  const crest = buildSeal('1')
-  const bg = buildBackground()
-  const city = notary.addressParts.addressLocality
-
-  // Реквизиты под оттиском. Пустое поле пропускается: не у каждой конторы
-  // заполнены оба номера, а прочерк в бланке хуже, чем строка меньше.
-  const facts = [
-    { k: 'Лицензия', v: notary.license },
-    ...(notary.registryNumber ? [{ k: 'Реестр', v: notary.registryNumber }] : []),
-    ...(notary.practiceSince ? [{ k: 'Практика', v: 'с ' + notary.practiceSince }] : []),
-  ]
+  const parts = notary.name.trim().split(/\s+/)
+  const surname = parts[0] ?? notary.name
+  const rest = parts.slice(1).join(' ')
 
   return (
-    <section className="lv-hero" data-hero>
+    <section className="hr" data-hero>
       <style>{CSS}</style>
-      <div className="lv-bg" dangerouslySetInnerHTML={{ __html: bg }} aria-hidden />
-      <div className="lv-veil" aria-hidden />
 
-      <div className="lv-wrap">
-        <div className="lv-textcol">
-          <div className="lv-kicker lv-reveal" style={{ ['--d' as string]: '.05s' }}>
-            <span className="dot" aria-hidden />
-            Нотариальная контора
-            <span className="sp">{city}</span>
-          </div>
+      <div className="hr-in">
+        <div className="hr-top">
+          <LiveStatus />
+        </div>
 
-          <h1 className="lv-name">
-            <span className="sur lv-reveal" style={{ ['--d' as string]: '.16s' }}>{surname}</span>
-            <span className="given lv-reveal" style={{ ['--d' as string]: '.28s' }}>{rest}</span>
+        <div className="hr-head">
+          <h1 className="hr-name">
+            <span className="hr-sur">{surname}</span>
+            <span className="hr-given">{rest}</span>
           </h1>
-
-          <p className="lv-role lv-reveal" style={{ ['--d' as string]: '.4s' }}>{notary.title}</p>
-
-          <p className="lv-desc lv-reveal" style={{ ['--d' as string]: '.5s' }}>
-            Сделки с недвижимостью, наследство, доверенности и согласия.
-            Приём по записи, пн–пт с 10:00 до 19:00.
-          </p>
-
-          <div className="lv-actions lv-reveal" style={{ ['--d' as string]: '.62s' }}>
-            <BookingButton />
-            {/* Вторая кнопка ведёт к перечню документов. Первый вопрос человека
-                перед визитом — «что с собой взять», и до этой правки ответ
-                лежал в меню под словом «Подготовка». */}
-            <Link className="lv-btn2" href="/visit">
-              Какие нужны документы
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </Link>
-            <a className="lv-phone" href={notary.phoneHref}>
-              <span className="lbl">Телефон конторы</span>
-              <span className="num">{notary.phone}</span>
-            </a>
-          </div>
-
-          <div className="lv-scroll lv-reveal" style={{ ['--d' as string]: '.9s' }} aria-hidden>
-            <span className="bar" />
-            Листайте
+          <div className="hr-aside">
+            <p className="hr-role">{notary.title}</p>
+            <p className="hr-desc">
+              Приём по записи на {notary.addressParts.streetAddress}.
+              Разберём вашу ситуацию и назовём точный перечень документов заранее.
+            </p>
           </div>
         </div>
 
-        <div className="lv-card lv-reveal" style={{ ['--d' as string]: '.34s' }}>
-          <div dangerouslySetInnerHTML={{ __html: crest }} />
-          <ul className="lv-facts">
-            {facts.map(f => (
-              <li key={f.k}>
-                <span className="k">{f.k}</span>
-                <span className="v">{f.v}</span>
+        <div className="hr-cta">
+          <BookingButton />
+          {/* Второй вопрос после «сколько стоит» — «что с собой взять». */}
+          <Link className="lv-btn2" href="/visit">
+            Какие нужны документы
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </Link>
+          <a className="hr-phone" href={notary.phoneHref}>
+            <span className="lbl">Телефон конторы</span>
+            <span className="num">{notary.phone}</span>
+          </a>
+        </div>
+
+        <nav aria-label="Направления работы конторы">
+          <ul className="hr-idx">
+            {INDEX.map(row => (
+              <li key={row.n}>
+                <Link className="hr-row" href="/services">
+                  <span className="hr-line">
+                    <span className="hr-n">{row.n}</span>
+                    <span className="hr-t">{row.t}</span>
+                    <span className="hr-d">{row.d}</span>
+                  </span>
+                </Link>
               </li>
             ))}
           </ul>
-        </div>
+        </nav>
       </div>
     </section>
   )

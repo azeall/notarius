@@ -256,6 +256,129 @@ html{ transition:background-color .35s ease; }
   .svc .svc-a{opacity:1;transform:none;}
 }
 
+/* ══ Анимации, привязанные к прокрутке ══════════════════════════════════
+   Прогресс анимации задаётся положением страницы, а не таймером: прокрутили
+   назад — отматывается назад. Это то, чем Alethia отличается от обычных
+   «проявлений по триггеру».
+
+   Всё лежит под @supports и включается только там, где браузер умеет
+   animation-timeline (Chrome/Edge 115+, Safari 26+; Firefox до сих пор за
+   флагом — около 17% посетителей). Базовое состояние вне @supports —
+   рабочее и видимое, поэтому у остальных ничего не пропадает и не ломается,
+   просто нет движения.
+
+   Внимание: класс .sd намеренно НЕ похож на .reveal. У .reveal базовое
+   состояние opacity:0, и если JS не отработает, содержимое останется
+   невидимым. У .sd базовое состояние — видно, а движение добавляется
+   сверху. Для блоков с реквизитами и лицензией это единственный
+   допустимый вариант.
+   ══════════════════════════════════════════════════════════════════════ */
+
+@property --n {
+  syntax: '<integer>';
+  initial-value: 0;
+  inherits: false;
+}
+
+/* Счётчик. Настоящее число всегда стоит в разметке — его видят поисковик и
+   скринридер. Анимированный двойник накладывается сверху и только там, где
+   поддерживается; он aria-hidden и в дерево доступности не попадает.
+   Прежний CountUp отдавал в серверном HTML ноль, и стаж нотариуса уходил
+   в выдачу как «0 лет». */
+.cnt { position: relative; display: inline-block; }
+.cnt-anim { display: none; }
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+
+    /* ── Общее проявление, привязанное к прокрутке ── */
+    .sd {
+      animation: sdIn linear both;
+      animation-timeline: view();
+      animation-range: entry 6% cover 24%;
+    }
+    @keyframes sdIn {
+      from { opacity: 0; transform: translateY(26px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* Ступенчатая задержка для списков: каждая следующая строка
+       догоняет предыдущую чуть позже по ходу прокрутки. */
+    .sd-1 { animation-range: entry 6%  cover 24%; }
+    .sd-2 { animation-range: entry 10% cover 28%; }
+    .sd-3 { animation-range: entry 14% cover 32%; }
+    .sd-4 { animation-range: entry 18% cover 36%; }
+    .sd-5 { animation-range: entry 22% cover 40%; }
+
+    /* ── Закреплённая сцена: раздел замирает, содержимое идёт внутри ── */
+    .scene { height: 300vh; view-timeline-name: --scene; view-timeline-axis: block; }
+    .scene-inner {
+      position: sticky;
+      top: 96px;
+      display: grid;
+      min-height: 340px;
+    }
+    /* Все шаги лежат в одной ячейке сетки и сменяют друг друга. */
+    .scene-step { grid-area: 1 / 1; animation: linear both; animation-timeline: --scene; }
+    .scene-step:nth-child(1) { animation-name: stepPass; animation-range: 0%  42%; }
+    .scene-step:nth-child(2) { animation-name: stepPass; animation-range: 30% 72%; }
+    .scene-step:nth-child(3) { animation-name: stepLast; animation-range: 60% 96%; }
+
+    @keyframes stepPass {
+      0%   { opacity: 0; transform: translateY(30px); }
+      16%  { opacity: 1; transform: none; }
+      70%  { opacity: 1; transform: none; }
+      100% { opacity: 0; transform: translateY(-24px); }
+    }
+    @keyframes stepLast {
+      0%   { opacity: 0; transform: translateY(30px); }
+      24%  { opacity: 1; transform: none; }
+      100% { opacity: 1; transform: none; }
+    }
+
+    /* Указатель хода сцены. */
+    .scene-rail { position: sticky; top: 96px; }
+    .scene-rail-fill {
+      transform-origin: top center;
+      animation: railGrow linear both;
+      animation-timeline: --scene;
+      animation-range: 0% 96%;
+    }
+    @keyframes railGrow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+    /* ── Счётчик считает по ходу прокрутки ── */
+    .cnt-anim {
+      display: inline;
+      counter-reset: num var(--n);
+      animation: cntUp linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 34%;
+    }
+    .cnt-anim::before { content: counter(num); }
+    /* Настоящее число убирается с глаз, но остаётся в разметке и в дереве
+       доступности. Именно клипом, а не visibility:hidden и не display:none:
+       те два выкидывают элемент из дерева, и скринридер вместо стажа
+       нотариуса не прочитал бы ничего. */
+    .cnt-real {
+      position: absolute;
+      width: 1px; height: 1px;
+      margin: -1px; padding: 0; border: 0;
+      clip-path: inset(50%);
+      overflow: hidden; white-space: nowrap;
+    }
+    @keyframes cntUp { from { --n: 0; } to { --n: var(--target); } }
+
+    /* ── Параллакс первого экрана ──
+       Имя и перечень уходят вверх с разной скоростью: имя быстрее, перечень
+       медленнее, отчего экран расслаивается по глубине. Сдвиг небольшой —
+       на бумаге глубина обозначается, а не изображается. */
+    .hr-head { animation: heroName linear both; animation-timeline: scroll(); animation-range: 0 90vh; }
+    @keyframes heroName { to { transform: translateY(-46px); } }
+    .hr-idx { animation: heroIdx linear both; animation-timeline: scroll(); animation-range: 0 90vh; }
+    @keyframes heroIdx { to { transform: translateY(-14px); } }
+  }
+}
+
 /* Печать: на экране памятка скрыта, при печати показываем только её */
 .print-sheet { display: none; }
 

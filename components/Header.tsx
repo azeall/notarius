@@ -64,19 +64,8 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 no-underline group min-w-0">
           <div
             className="relative w-10 h-10 grid place-items-center flex-shrink-0 font-serif text-lg"
-            style={{ border: '1px solid rgb(var(--text-rgb))', color: 'rgb(var(--text-rgb))' }}
+            style={{ background: 'rgb(var(--text-rgb))', color: 'rgb(var(--bg-rgb))' }}
           >
-            {/* Corner decorations */}
-            <span
-              className="absolute top-0 left-0 w-1.5 h-1.5"
-              style={{ borderTop: '2px solid rgb(var(--violet-rgb))', borderLeft: '2px solid rgb(var(--violet-rgb))' }}
-              aria-hidden
-            />
-            <span
-              className="absolute bottom-0 right-0 w-1.5 h-1.5"
-              style={{ borderBottom: '2px solid rgb(var(--violet-rgb))', borderRight: '2px solid rgb(var(--violet-rgb))' }}
-              aria-hidden
-            />
             {notary.name.trim().charAt(0)}
           </div>
           <div className="flex flex-col min-w-0">

@@ -1,10 +1,9 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import Hero from '@/components/Hero'
 import CostCalculator from '@/components/CostCalculator'
 import BookingInline from '@/components/BookingInline'
 import BookingButton from '@/components/BookingButton'
-import CountUp from '@/components/CountUp'
+import ScrollCount from '@/components/ScrollCount'
 import LegalPhotos from '@/components/LegalPhotos'
 import CredentialsSection from '@/components/CredentialsSection'
 import SectionMark from '@/components/SectionMark'
@@ -24,15 +23,6 @@ export const metadata: Metadata = {
     description: site.description,
   },
 }
-
-const SERVICES = [
-  { n: '01', title: 'Завещание', text: 'Составление и удостоверение завещаний любой сложности' },
-  { n: '02', title: 'Доверенность', text: 'Генеральные, на автомобиль, на представление интересов' },
-  { n: '03', title: 'Купля-продажа', text: 'Удостоверение сделок с недвижимостью и долями' },
-  { n: '04', title: 'Согласие супруга', text: 'Нотариальные согласия на совершение сделок' },
-  { n: '05', title: 'Заверение копий', text: 'Верность копий документов и выписок' },
-  { n: '06', title: 'Перевод документов', text: 'Свидетельствование подписи переводчика' },
-]
 
 const STEPS = [
   {
@@ -56,64 +46,6 @@ export default function HomePage() {
     <>
       <Hero />
 
-      {/* ── Услуги ── */}
-      <section className="py-20 sm:py-28" style={{ background: 'rgb(var(--surface-rgb))' }}>
-        <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
-          <div className="grid lg:grid-cols-[220px_1fr] gap-8 lg:gap-14 items-start">
-            <div className="reveal">
-              <SectionMark n="01">Услуги</SectionMark>
-            </div>
-
-            <div>
-              <div className="flex items-end justify-between flex-wrap gap-6 mb-10 reveal">
-                <h2
-                  className="font-serif font-medium m-0"
-                  style={{ fontSize: 'clamp(30px, 3.8vw, 48px)', lineHeight: 1.06, letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}
-                >
-                  Чем мы поможем
-                </h2>
-                <Link
-                  href="/services"
-                  className="ln-more inline-flex items-center gap-2.5 text-[14px] no-underline"
-                  style={{ color: 'rgb(var(--text-rgb))' }}
-                >
-                  Все услуги
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M5 12h14M13 6l6 6-6 6" /></svg>
-                </Link>
-              </div>
-
-              <div>
-                {SERVICES.map((s, i) => (
-                  <Link
-                    key={s.n}
-                    href="/services"
-                    className="svc group grid grid-cols-[42px_1fr] sm:grid-cols-[64px_220px_1fr_20px] items-baseline gap-4 sm:gap-8 py-6 no-underline reveal"
-                    style={{
-                      borderTop: '1px solid rgb(var(--rule-rgb))',
-                      ...(i === SERVICES.length - 1 ? { borderBottom: '1px solid rgb(var(--rule-rgb))' } : {}),
-                    }}
-                    data-reveal-delay={i * 60}
-                  >
-                    <span className="font-mono text-[13px] leading-none" style={{ color: 'rgb(var(--violet-rgb))' }}>
-                      {s.n}
-                    </span>
-                    <span className="svc-t font-serif text-[21px] sm:text-[26px]" style={{ color: 'rgb(var(--text-rgb))', letterSpacing: '-0.01em' }}>
-                      {s.title}
-                    </span>
-                    <span className="hidden sm:block text-[15px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))' }}>
-                      {s.text}
-                    </span>
-                    <span className="svc-a hidden sm:block" style={{ color: 'rgb(var(--violet-rgb))' }}>
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M5 12h14M13 6l6 6-6 6" /></svg>
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ── Полоса счётчиков: графитовая плашка, единственная тёмная на странице ── */}
       <section className="py-16 sm:py-20" style={{ background: 'rgb(var(--text-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
@@ -127,15 +59,14 @@ export default function HomePage() {
               ...(documentsDone > 0
                 ? [{ v: documentsDone, s: '+', l: 'оформленных документов' }]
                 : []),
-              { v: 6, s: '', l: 'направлений услуг' },
               { v: 100, s: '%', l: 'юридическая сила' },
             ].map((st, i) => (
-              <div key={st.l} className="reveal" data-reveal-delay={i * 90}>
+              <div key={st.l} className={`sd sd-${i + 1}`}>
                 <div
                   className="font-serif font-medium leading-none mb-3 nums"
                   style={{ fontSize: 'clamp(34px, 4.6vw, 54px)', color: 'rgb(var(--bg-rgb))', letterSpacing: '-0.02em' }}
                 >
-                  <CountUp value={st.v} suffix={st.s} />
+                  <ScrollCount value={st.v} suffix={st.s} />
                 </div>
                 <div className="text-[12px] tracking-[0.16em] uppercase" style={{ color: 'rgb(var(--bg-rgb) / 0.62)' }}>
                   {st.l}
@@ -155,7 +86,7 @@ export default function HomePage() {
         <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
           <div className="grid lg:grid-cols-[220px_1fr] gap-8 lg:gap-14 items-start">
             <div className="reveal">
-              <SectionMark n="02">Как проходит приём</SectionMark>
+              <SectionMark n="01">Как проходит приём</SectionMark>
             </div>
 
             <div>
@@ -166,28 +97,27 @@ export default function HomePage() {
                 Три шага, и ни одного лишнего
               </h2>
 
-              {/* Карточки залипают одна под другой: следующая наезжает на
-                  предыдущую, а не сменяет её. Порядок действий так читается
-                  как порядок, а не как три равноправные колонки. */}
-              <div className="stack">
-                {STEPS.map((s, i) => (
-                  <article
-                    key={s.t}
-                    className="stack-card"
-                    style={{ top: `calc(100px + ${i * 18}px)`, zIndex: i + 1 }}
-                  >
-                    <span className="stack-n font-mono">0{i + 1}</span>
-                    <h3
-                      className="font-serif m-0 mb-3"
-                      style={{ fontSize: 'clamp(21px, 2.4vw, 28px)', color: 'rgb(var(--text-rgb))', letterSpacing: '-0.01em' }}
-                    >
-                      {s.t}
-                    </h3>
-                    <p className="m-0 text-[16px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))', maxWidth: '54ch' }}>
-                      {s.d}
-                    </p>
-                  </article>
-                ))}
+              {/* Раздел замирает, а шаги проходят внутри него по мере
+                  прокрутки — порядок действий читается как порядок, а не как
+                  три равноправные колонки. Где animation-timeline не
+                  поддерживается, это остаётся обычным списком карточек. */}
+              <div className="scene">
+                <div className="scene-inner">
+                  {STEPS.map((s, i) => (
+                    <article key={s.t} className="scene-step stack-card">
+                      <span className="stack-n font-mono">0{i + 1}</span>
+                      <h3
+                        className="font-serif m-0 mb-3"
+                        style={{ fontSize: 'clamp(21px, 2.6vw, 30px)', color: 'rgb(var(--text-rgb))', letterSpacing: '-0.01em' }}
+                      >
+                        {s.t}
+                      </h3>
+                      <p className="m-0 text-[16px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))', maxWidth: '54ch' }}>
+                        {s.d}
+                      </p>
+                    </article>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -206,7 +136,7 @@ export default function HomePage() {
           <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
             <div className="grid lg:grid-cols-[220px_1fr] gap-8 lg:gap-14 items-start">
               <div className="reveal">
-                <SectionMark n="03">Отзывы</SectionMark>
+                <SectionMark n="02">Отзывы</SectionMark>
               </div>
 
               <div>
@@ -246,7 +176,7 @@ export default function HomePage() {
       {/* ── Карта и контакты ── */}
       <section className="py-20 sm:py-24" style={{ background: 'rgb(var(--surface-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
-          <div className="reveal"><SectionMark n="04">Как нас найти</SectionMark></div>
+          <div className="reveal"><SectionMark n="03">Как нас найти</SectionMark></div>
           <div className="grid md:grid-cols-[0.42fr_0.58fr] gap-8 items-stretch">
             <div className="reveal">
               {[
