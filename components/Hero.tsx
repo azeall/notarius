@@ -38,8 +38,8 @@ const CSS = `
 /* Завеса: чернила видны, но текст всегда впереди. */
 .lv-veil{position:absolute;inset:0;pointer-events:none;
   background:
-    radial-gradient(56% 44% at 22% 42%, rgb(var(--bg-rgb) / .80) 0%, rgb(var(--bg-rgb) / 0) 100%),
-    linear-gradient(180deg, rgb(var(--bg-rgb) / .30) 0%, rgb(var(--bg-rgb) / .10) 46%, rgb(var(--bg-rgb) / .78) 100%);}
+    radial-gradient(62% 50% at 20% 40%, rgb(var(--bg-rgb) / .90) 0%, rgb(var(--bg-rgb) / .30) 62%, rgb(var(--bg-rgb) / 0) 100%),
+    linear-gradient(180deg, rgb(var(--bg-rgb) / .34) 0%, rgb(var(--bg-rgb) / .12) 46%, rgb(var(--bg-rgb) / .80) 100%);}
 .lv-in{position:relative;z-index:1;}
 
 .lv-tag{margin:0 0 clamp(16px,2.2vw,24px);font-family:var(--font-mono),monospace;
