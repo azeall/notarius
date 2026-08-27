@@ -2,7 +2,8 @@ import Link from 'next/link'
 import { notary, motto } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 import LiveStatus from '@/components/LiveStatus'
-import EngravedField from '@/components/EngravedField'
+import InkField from '@/components/InkField'
+import HeroTicker from '@/components/HeroTicker'
 
 /**
  * Первый экран варианта warm.
@@ -33,16 +34,20 @@ const AREAS = ['Недвижимость', 'Наследство', 'Довере
 
 const CSS = `
 .wh{position:relative;background:rgb(var(--bg-rgb));overflow:hidden;
-  padding:clamp(104px,13vh,150px) 0 clamp(48px,7vh,72px);}
+  min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(104px,13vh,150px) 0 clamp(34px,5vh,52px);}
 /* Завеса поверх гравюры: к низу и к правому краю рисунок гаснет, иначе
    тонкие линии спорят с текстом за внимание. */
 .wh-veil{position:absolute;inset:0;pointer-events:none;
   background:
-    radial-gradient(58% 46% at 26% 40%, rgb(var(--bg-rgb) / .82) 0%, rgb(var(--bg-rgb) / 0) 100%),
-    linear-gradient(180deg, rgb(var(--bg-rgb) / .18) 0%, rgb(var(--bg-rgb) / .60) 64%, rgb(var(--bg-rgb)) 100%);}
+    radial-gradient(52% 42% at 24% 46%, rgb(var(--bg-rgb) / .72) 0%, rgb(var(--bg-rgb) / 0) 100%),
+    linear-gradient(180deg, rgb(var(--bg-rgb) / .34) 0%, rgb(var(--bg-rgb) / .12) 44%, rgb(var(--bg-rgb) / .72) 100%);}
 .wh-in{position:relative;z-index:1;}
 
 /* Высказывание. Ради него всё и затевалось, поэтому кегль без оглядки. */
+.wh-tag{margin:0 0 clamp(18px,2.4vw,28px);font-family:var(--font-mono),monospace;
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgb(var(--violet-rgb));}
 .wh-claim{margin:0;font-family:var(--font-display),Georgia,serif;font-weight:600;
   font-size:clamp(40px,7.4vw,108px);line-height:.98;letter-spacing:-.035em;
   color:rgb(var(--text-rgb));max-width:14ch;}
@@ -112,10 +117,12 @@ export default function Hero() {
   return (
     <section className="wh" data-hero>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
-      <EngravedField />
+      <InkField />
       <div className="wh-veil" aria-hidden />
 
       <div className="wrap wh-in">
+        <p className="wh-tag" data-tag>[ {notary.title} ]</p>
+
         <h1 className="wh-claim">
           {head}{head ? ' ' : ''}<span className="last">{last}</span>
         </h1>
@@ -150,6 +157,8 @@ export default function Hero() {
             <LiveStatus />
           </aside>
         </div>
+
+        <HeroTicker />
 
         <nav aria-label="Направления работы конторы">
           <ul className="wh-areas">

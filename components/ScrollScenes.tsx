@@ -46,16 +46,51 @@ export default function ScrollScenes() {
       document.documentElement.classList.add('gsap-on')
 
       const ctx = gsap.context(() => {
-        // ── Первый экран: заголовок и служебная карточка расходятся ──
-        const claim = document.querySelector('.wh-claim')
-        if (claim) {
-          gsap.to('.wh-claim', {
-            yPercent: -18, opacity: 0.25, ease: 'none',
-            scrollTrigger: { trigger: '.wh', start: 'top top', end: 'bottom top', scrub: 0.6 },
+        // ── Первый экран закрепляется ──
+        //
+        // У образца заголовок стоит на месте три экрана прокрутки, а за ним
+        // сменяются кадры. Здесь то же: экран висит, чернила за ним
+        // перестраиваются, подпись сверху меняется, а сам заголовок никуда
+        // не уезжает — человек читает его столько, сколько нужно.
+        //
+        // Прогресс кладём в data-атрибут: шейдер читает его оттуда и
+        // перестраивает поле. Так GSAP и WebGL согласованы одним числом, а
+        // не двумя независимыми расчётами.
+        const hero = document.querySelector<HTMLElement>('[data-hero]')
+        const tag = hero?.querySelector<HTMLElement>('[data-tag]')
+        const TAGS = [
+          '[ ' + (document.querySelector('[data-tag]')?.textContent || '').replace(/[\[\]\s]*$|^[\[\]\s]*/g, '') + ' ]',
+          '[ Приём по записи · без очередей ]',
+          '[ Реестр ФНП · полномочия подтверждены ]',
+        ]
+        if (hero) {
+          hero.setAttribute('data-progress', '0')
+          ScrollTrigger.create({
+            trigger: hero,
+            start: 'top top',
+            end: () => '+=' + window.innerHeight * 2.2,
+            pin: true,
+            pinSpacing: true,
+            scrub: 0.4,
+            invalidateOnRefresh: true,
+            onUpdate: self => {
+              hero.setAttribute('data-progress', self.progress.toFixed(4))
+              if (tag) {
+                const i = Math.min(TAGS.length - 1, Math.floor(self.progress * TAGS.length))
+                if (tag.textContent !== TAGS[i]) tag.textContent = TAGS[i]
+              }
+            },
           })
-          gsap.to('.wh-card', {
-            yPercent: -46, ease: 'none',
-            scrollTrigger: { trigger: '.wh', start: 'top top', end: 'bottom top', scrub: 0.6 },
+
+          // Пока экран закреплён, содержимое медленно всплывает и гаснет —
+          // иначе закрепление читалось бы зависанием, а не приёмом.
+          gsap.to('.wh-claim', {
+            yPercent: -22, opacity: 0.06, ease: 'none',
+            scrollTrigger: { trigger: hero, start: 'top top', end: () => '+=' + window.innerHeight * 2.2, scrub: 0.4 },
+          })
+          gsap.to('.wh-grid, .wh-areas, .hticker', {
+            yPercent: -14, opacity: 0, ease: 'none',
+            scrollTrigger: { trigger: hero, start: 'top top', end: () => '+=' + window.innerHeight * 1.5, scrub: 0.4 },
           })
         }
 
