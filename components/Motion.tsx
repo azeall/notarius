@@ -77,9 +77,24 @@ export default function Motion() {
     // и тем самым отменяла проявление при прокрутке, ради которого всё
     // и затевалось.
     const safety = window.setTimeout(() => {
-      if (observerAlive) return
-      sd.forEach(el => el.classList.add('in'))
+      if (!observerAlive) sd.forEach(el => el.classList.add('in'))
     }, 2000)
+
+    // Последний рубеж. Что бы ни пошло не так — чужой инлайновый стиль,
+    // не сработавший триггер, ошибка в другом скрипте — через две с
+    // половиной секунды всё, что ещё невидимо, показывается. Пустая
+    // страница недопустима ни при каких обстоятельствах: именно так
+    // выглядела эта после закрепления первого экрана.
+    const lastResort = window.setTimeout(() => {
+      document.querySelectorAll<HTMLElement>('.sd').forEach(el => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.05) {
+          el.classList.add('in')
+          el.style.opacity = ''
+          el.style.transform = ''
+          el.style.visibility = ''
+        }
+      })
+    }, 2500)
 
     // ── Сцены и счётчики ───────────────────────────────────────────────
     const scenes = Array.from(document.querySelectorAll<HTMLElement>('[data-scene]'))
@@ -164,6 +179,7 @@ export default function Motion() {
     return () => {
       cancelAnimationFrame(raf)
       window.clearTimeout(safety)
+      window.clearTimeout(lastResort)
       io.disconnect()
       wide.removeEventListener('change', applySceneMode)
     }

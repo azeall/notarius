@@ -68,7 +68,7 @@ export default function ScrollScenes() {
           ScrollTrigger.create({
             trigger: hero,
             start: 'top top',
-            end: () => '+=' + window.innerHeight * 2.2,
+            end: () => '+=' + window.innerHeight * 1.1,
             pin: true,
             pinSpacing: true,
             scrub: 0.4,
@@ -86,11 +86,11 @@ export default function ScrollScenes() {
           // иначе закрепление читалось бы зависанием, а не приёмом.
           gsap.to('.wh-claim', {
             yPercent: -22, opacity: 0.06, ease: 'none',
-            scrollTrigger: { trigger: hero, start: 'top top', end: () => '+=' + window.innerHeight * 2.2, scrub: 0.4 },
+            scrollTrigger: { trigger: hero, start: 'top top', end: () => '+=' + window.innerHeight * 1.1, scrub: 0.4 },
           })
           gsap.to('.wh-grid, .wh-areas, .hticker', {
             yPercent: -14, opacity: 0, ease: 'none',
-            scrollTrigger: { trigger: hero, start: 'top top', end: () => '+=' + window.innerHeight * 1.5, scrub: 0.4 },
+            scrollTrigger: { trigger: hero, start: 'top top', end: () => '+=' + window.innerHeight * 0.8, scrub: 0.4 },
           })
         }
 
@@ -138,13 +138,16 @@ export default function ScrollScenes() {
           })
         })
 
-        // ── Строки блока полномочий проявляются по ходу ──
-        gsap.utils.toArray<HTMLElement>('.sd').forEach(el => {
-          gsap.from(el, {
-            y: 26, opacity: 0, duration: 0.7, ease: 'power2.out',
-            scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-          })
-        })
+        // Блоки .sd намеренно НЕ трогаем.
+        //
+        // Здесь стоял gsap.from('.sd', {opacity: 0}), и это вешало
+        // инлайновый opacity:0 на каждый блок. Инлайн перебивает класс .in,
+        // который ставит IntersectionObserver, и если триггер не срабатывал —
+        // а после закрепления первого экрана позиции смещаются — блоки
+        // оставались невидимыми навсегда. Вся страница ниже героя была
+        // пустой. Два драйвера на одних элементах — всегда так и кончается.
+        //
+        // Владелец .sd ровно один: Motion.tsx, на всех устройствах.
 
         // ── Счётчики досчитывают по прогрессу, а не по таймеру ──
         document.querySelectorAll<HTMLElement>('.cnt').forEach(c => {
@@ -162,6 +165,11 @@ export default function ScrollScenes() {
 
       // Lenis двигает страницу сам и события scroll до window не доводит:
       // обновляем ScrollTrigger из кадрового цикла.
+      // Закрепление меняет высоту документа, а часть триггеров вычислила
+      // свои границы до этого. Без пересчёта они срабатывают не там.
+      ScrollTrigger.refresh()
+      window.addEventListener('load', () => ScrollTrigger.refresh())
+
       gsap.ticker.add(ScrollTrigger.update)
       const onResize = () => ScrollTrigger.refresh()
       window.addEventListener('resize', onResize)
