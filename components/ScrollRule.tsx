@@ -44,7 +44,7 @@ export default function ScrollRule() {
     <div ref={ref} className="sr-wrap" aria-hidden>
       <span className="sr-line" style={{ transform: `scaleX(${p})` }} />
       <span className="sr-mark" style={{ opacity: p > 0.92 ? 1 : 0 }} />
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .sr-wrap{position:relative;height:1px;max-width:1080px;margin:0 auto;
           background:rgb(var(--rule-rgb) / .55);}
         .sr-line{position:absolute;inset:0;background:rgb(var(--violet-rgb));
@@ -52,7 +52,7 @@ export default function ScrollRule() {
         .sr-mark{position:absolute;right:0;top:-3px;width:7px;height:7px;
           background:rgb(var(--violet-rgb));transform:rotate(45deg);
           transition:opacity .35s ease;}
-      `}</style>
+      ` }} />
     </div>
   )
 }

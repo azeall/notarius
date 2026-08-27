@@ -238,144 +238,127 @@ html{ transition:background-color .35s ease; }
 .svc:hover .svc-t{color:rgb(var(--violet-rgb));}
 .svc:hover .svc-a{opacity:1;transform:translateX(0);}
 
-/* Стопка шагов: карточки залипают и наезжают одна на другую по мере
-   прокрутки. Липкость работает только там, где карточка ниже экрана —
-   иначе на коротком экране верхняя перекрыла бы весь текст. */
-.stack{display:flex;flex-direction:column;gap:18px;}
+/* Карточка шага. */
 .stack-card{position:relative;background:rgb(var(--surface-rgb));
   border:1px solid rgb(var(--rule-rgb));padding:clamp(24px,3vw,38px);}
 .stack-n{position:absolute;top:clamp(24px,3vw,38px);right:clamp(24px,3vw,38px);
   font-size:12px;color:rgb(var(--violet-rgb));letter-spacing:.06em;}
-@media (min-width:900px) and (min-height:680px){
-  .stack-card{position:sticky;}
-}
 @media (prefers-reduced-motion:reduce){
-  .stack-card{position:relative;}
   .svc{transition:none;}
   .svc:hover{padding-left:0;}
   .svc .svc-a{opacity:1;transform:none;}
 }
 
-/* ══ Анимации, привязанные к прокрутке ══════════════════════════════════
-   Прогресс анимации задаётся положением страницы, а не таймером: прокрутили
-   назад — отматывается назад. Это то, чем Alethia отличается от обычных
-   «проявлений по триггеру».
+/* ══ Движение, привязанное к прокрутке ══════════════════════════════════
+   Ведёт его components/Motion.tsx, а не CSS animation-timeline.
 
-   Всё лежит под @supports и включается только там, где браузер умеет
-   animation-timeline (Chrome/Edge 115+, Safari 26+; Firefox до сих пор за
-   флагом — около 17% посетителей). Базовое состояние вне @supports —
-   рабочее и видимое, поэтому у остальных ничего не пропадает и не ломается,
-   просто нет движения.
+   Почему не CSS: animation-timeline умеют Chrome, Edge и Safari 26, а
+   Firefox держит за флагом. «Работает у меня» — не тот критерий, по
+   которому выбирают, увидит ли посетитель движение.
 
-   Внимание: класс .sd намеренно НЕ похож на .reveal. У .reveal базовое
-   состояние opacity:0, и если JS не отработает, содержимое останется
-   невидимым. У .sd базовое состояние — видно, а движение добавляется
-   сверху. Для блоков с реквизитами и лицензией это единственный
-   допустимый вариант.
+   Главное правило этого файла: НИЧТО не прячется без класса .motion на
+   <html>. Класс ставит JS после запуска. Не запустился, отключён,
+   упал — страница остаётся статичной и полностью читаемой. Прошлая
+   версия ставила три карточки в одну ячейку сетки безусловно, и когда
+   анимация не шла, три абзаца печатались один поверх другого.
    ══════════════════════════════════════════════════════════════════════ */
 
-@property --n {
-  syntax: '<integer>';
-  initial-value: 0;
-  inherits: false;
+/* ── Проявление блоков ──
+   Намеренно переход, а не ключевые кадры. У анимации с fill-mode:both
+   конечное состояние существует, только пока она проигрывается: не
+   проигралась — блок так и остался с opacity:0. У перехода конечное
+   состояние задано правилом, и оно верное даже если анимировать нечего.
+   Для страницы, где написан номер лицензии, это единственный правильный
+   выбор. */
+.motion .sd {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+  transition-delay: var(--d, 0s);
+  will-change: opacity, transform;
+}
+.motion .sd.in {
+  opacity: 1;
+  transform: none;
+}
+.sd-1 { --d: 0s; }
+.sd-2 { --d: .07s; }
+.sd-3 { --d: .14s; }
+.sd-4 { --d: .21s; }
+.sd-5 { --d: .28s; }
+
+/* ── Шаги приёма ──
+   Базово — обычная читаемая колонка с промежутками. Так это выглядит на
+   телефоне, при отключённом JS и при prefers-reduced-motion. */
+.scene-inner { display: flex; flex-direction: column; gap: 18px; }
+
+/* Режим закреплённой сцены включает JS, выставляя data-scene="on", и только
+   на широком экране. */
+.motion .scene[data-scene="on"] { height: 300vh; }
+.motion .scene[data-scene="on"] .scene-inner {
+  position: sticky;
+  top: 96px;
+  display: grid;
+  min-height: 340px;
+  gap: 0;
+}
+.motion .scene[data-scene="on"] .scene-step {
+  grid-area: 1 / 1;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+.motion .scene[data-scene="on"] .scene-step:nth-child(1) { animation-name: stepA; }
+.motion .scene[data-scene="on"] .scene-step:nth-child(2) { animation-name: stepB; }
+.motion .scene[data-scene="on"] .scene-step:nth-child(3) { animation-name: stepC; }
+
+/* Кадры расписаны на весь ход сцены (0..1), поэтому всем трём хватает
+   одной общей задержки, которую ставит JS. */
+@keyframes stepA {
+  0%   { opacity: 1; transform: none; }
+  30%  { opacity: 1; transform: none; }
+  42%  { opacity: 0; transform: translateY(-26px); }
+  100% { opacity: 0; transform: translateY(-26px); }
+}
+@keyframes stepB {
+  0%   { opacity: 0; transform: translateY(30px); }
+  32%  { opacity: 0; transform: translateY(30px); }
+  44%  { opacity: 1; transform: none; }
+  64%  { opacity: 1; transform: none; }
+  76%  { opacity: 0; transform: translateY(-26px); }
+  100% { opacity: 0; transform: translateY(-26px); }
+}
+@keyframes stepC {
+  0%   { opacity: 0; transform: translateY(30px); }
+  66%  { opacity: 0; transform: translateY(30px); }
+  78%  { opacity: 1; transform: none; }
+  100% { opacity: 1; transform: none; }
 }
 
-/* Счётчик. Настоящее число всегда стоит в разметке — его видят поисковик и
-   скринридер. Анимированный двойник накладывается сверху и только там, где
-   поддерживается; он aria-hidden и в дерево доступности не попадает.
-   Прежний CountUp отдавал в серверном HTML ноль, и стаж нотариуса уходил
-   в выдачу как «0 лет». */
+/* ── Счётчики ──
+   Настоящее число всегда в разметке: его видят поисковик и скринридер.
+   Двойник появляется только когда есть кому его вести. */
 .cnt { position: relative; display: inline-block; }
-.cnt-anim { display: none; }
+.cnt-anim, .cnt-suffix { display: none; }
+.motion .cnt-anim, .motion .cnt-suffix { display: inline; }
+.motion .cnt-real {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  clip-path: inset(50%);
+  overflow: hidden; white-space: nowrap;
+}
 
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-
-    /* ── Общее проявление, привязанное к прокрутке ── */
-    .sd {
-      animation: sdIn linear both;
-      animation-timeline: view();
-      animation-range: entry 6% cover 24%;
-    }
-    @keyframes sdIn {
-      from { opacity: 0; transform: translateY(26px); }
-      to   { opacity: 1; transform: none; }
-    }
-
-    /* Ступенчатая задержка для списков: каждая следующая строка
-       догоняет предыдущую чуть позже по ходу прокрутки. */
-    .sd-1 { animation-range: entry 6%  cover 24%; }
-    .sd-2 { animation-range: entry 10% cover 28%; }
-    .sd-3 { animation-range: entry 14% cover 32%; }
-    .sd-4 { animation-range: entry 18% cover 36%; }
-    .sd-5 { animation-range: entry 22% cover 40%; }
-
-    /* ── Закреплённая сцена: раздел замирает, содержимое идёт внутри ── */
-    .scene { height: 300vh; view-timeline-name: --scene; view-timeline-axis: block; }
-    .scene-inner {
-      position: sticky;
-      top: 96px;
-      display: grid;
-      min-height: 340px;
-    }
-    /* Все шаги лежат в одной ячейке сетки и сменяют друг друга. */
-    .scene-step { grid-area: 1 / 1; animation: linear both; animation-timeline: --scene; }
-    .scene-step:nth-child(1) { animation-name: stepPass; animation-range: 0%  42%; }
-    .scene-step:nth-child(2) { animation-name: stepPass; animation-range: 30% 72%; }
-    .scene-step:nth-child(3) { animation-name: stepLast; animation-range: 60% 96%; }
-
-    @keyframes stepPass {
-      0%   { opacity: 0; transform: translateY(30px); }
-      16%  { opacity: 1; transform: none; }
-      70%  { opacity: 1; transform: none; }
-      100% { opacity: 0; transform: translateY(-24px); }
-    }
-    @keyframes stepLast {
-      0%   { opacity: 0; transform: translateY(30px); }
-      24%  { opacity: 1; transform: none; }
-      100% { opacity: 1; transform: none; }
-    }
-
-    /* Указатель хода сцены. */
-    .scene-rail { position: sticky; top: 96px; }
-    .scene-rail-fill {
-      transform-origin: top center;
-      animation: railGrow linear both;
-      animation-timeline: --scene;
-      animation-range: 0% 96%;
-    }
-    @keyframes railGrow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-
-    /* ── Счётчик считает по ходу прокрутки ── */
-    .cnt-anim {
-      display: inline;
-      counter-reset: num var(--n);
-      animation: cntUp linear both;
-      animation-timeline: view();
-      animation-range: entry 10% cover 34%;
-    }
-    .cnt-anim::before { content: counter(num); }
-    /* Настоящее число убирается с глаз, но остаётся в разметке и в дереве
-       доступности. Именно клипом, а не visibility:hidden и не display:none:
-       те два выкидывают элемент из дерева, и скринридер вместо стажа
-       нотариуса не прочитал бы ничего. */
-    .cnt-real {
-      position: absolute;
-      width: 1px; height: 1px;
-      margin: -1px; padding: 0; border: 0;
-      clip-path: inset(50%);
-      overflow: hidden; white-space: nowrap;
-    }
-    @keyframes cntUp { from { --n: 0; } to { --n: var(--target); } }
-
-    /* ── Параллакс первого экрана ──
-       Имя и перечень уходят вверх с разной скоростью: имя быстрее, перечень
-       медленнее, отчего экран расслаивается по глубине. Сдвиг небольшой —
-       на бумаге глубина обозначается, а не изображается. */
+/* ── Параллакс первого экрана ──
+   Единственное место, где CSS-таймлайн уместен: это украшение, и если его
+   нет — не теряется ничего. Поэтому здесь @supports остаётся. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 900px) {
     .hr-head { animation: heroName linear both; animation-timeline: scroll(); animation-range: 0 90vh; }
-    @keyframes heroName { to { transform: translateY(-46px); } }
+    @keyframes heroName { to { transform: translateY(-40px); } }
     .hr-idx { animation: heroIdx linear both; animation-timeline: scroll(); animation-range: 0 90vh; }
-    @keyframes heroIdx { to { transform: translateY(-14px); } }
+    @keyframes heroIdx { to { transform: translateY(-12px); } }
   }
 }
 

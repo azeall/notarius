@@ -66,7 +66,7 @@ const CSS = `
 .hr-row{position:relative;display:block;text-decoration:none;overflow:hidden;
   border-bottom:1px solid rgb(var(--rule-rgb));}
 /* Заливка выезжает слева и уносит за собой цвет текста. */
-.hr-row::before{content:"";position:absolute;inset:0;background:rgb(var(--text-rgb));
+.hr-row::before{content:'';position:absolute;inset:0;background:rgb(var(--text-rgb));
   transform:scaleX(0);transform-origin:left center;
   transition:transform .5s cubic-bezier(.22,.8,.24,1);}
 .hr-row:hover::before,.hr-row:focus-visible::before{transform:scaleX(1);}
@@ -112,7 +112,7 @@ export default function Hero() {
 
   return (
     <section className="hr" data-hero>
-      <style>{CSS}</style>
+      <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
       <div className="hr-in">
         <div className="hr-top">

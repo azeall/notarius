@@ -52,7 +52,7 @@ export default function ContactFab() {
         </svg>
       </button>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .cf-wrap{position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(16px,3vw,28px);z-index:60;
           display:flex;flex-direction:column;align-items:center;gap:14px;}
         .cf-items{display:flex;flex-direction:column;align-items:center;gap:14px;}
@@ -73,14 +73,14 @@ export default function ContactFab() {
           background:linear-gradient(135deg,rgb(var(--accent-2-rgb)),rgb(var(--violet-rgb)));
           box-shadow:0 12px 30px rgb(var(--violet-rgb) / .45);display:grid;place-items:center;
           transition:transform .25s cubic-bezier(.2,.7,.2,1);}
-        .cf-main::after{content:"";position:absolute;inset:0;border-radius:50%;
+        .cf-main::after{content:'';position:absolute;inset:0;border-radius:50%;
           border:2px solid rgb(var(--violet-rgb) / .55);animation:cfpulse 2.4s ease-out infinite;}
         .cf-main:hover{transform:scale(1.06);}
         .cf-active{transform:rotate(90deg);}
         .cf-active::after{display:none;}
         @keyframes cfpulse{0%{transform:scale(1);opacity:.7}70%{transform:scale(1.45);opacity:0}100%{opacity:0}}
         @media (prefers-reduced-motion:reduce){.cf-main::after{animation:none;}}
-      `}</style>
+      ` }} />
     </div>
   )
 }

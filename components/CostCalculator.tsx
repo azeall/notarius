@@ -214,12 +214,12 @@ export default function CostCalculator() {
         </div>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .cc-range{-webkit-appearance:none;appearance:none;height:6px;background:rgb(var(--rule-rgb));outline:none;}
         .cc-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;background:rgb(var(--violet-rgb));border:none;cursor:pointer;transition:transform .15s;}
         .cc-range::-webkit-slider-thumb:active{transform:scale(1.15);}
         .cc-range::-moz-range-thumb{width:22px;height:22px;background:rgb(var(--violet-rgb));border:none;cursor:pointer;}
-      `}</style>
+      ` }} />
     </section>
   )
 }

@@ -81,6 +81,26 @@ function nextSlots(msk: Date, count: number): NearSlot[] {
   return results
 }
 
+const LS_CSS = `
+.ls{display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;min-height:26px;
+            font-size:13px;color:rgb(var(--muted-rgb));}
+          .ls-date{font-family:var(--font-mono),monospace;letter-spacing:.02em;}
+          .ls-sep{width:1px;height:13px;background:rgb(var(--rule-rgb));flex:none;}
+          .ls-state{display:inline-flex;align-items:center;gap:8px;color:rgb(var(--text-rgb));font-weight:500;}
+          .ls-dot{width:6px;height:6px;border-radius:50%;background:rgb(var(--muted-rgb));flex:none;}
+          .ls-state.is-open .ls-dot{background:rgb(var(--ok-rgb));animation:lsPulse 2.4s ease-in-out infinite;}
+          @keyframes lsPulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+          .ls-tail{color:rgb(var(--muted-rgb));font-weight:400;}
+          .ls-lbl{font-size:11px;letter-spacing:.18em;text-transform:uppercase;}
+          .ls-slots{display:inline-flex;flex-wrap:wrap;gap:6px;}
+          .ls-slot{font-family:var(--font-mono),monospace;font-size:12px;padding:5px 10px;
+            border:1px solid rgb(var(--rule-rgb));background:transparent;color:rgb(var(--text-rgb));
+            cursor:pointer;transition:background-color .25s ease,border-color .25s ease,color .25s ease;}
+          .ls-slot:hover{background:rgb(var(--text-rgb));border-color:rgb(var(--text-rgb));color:rgb(var(--bg-rgb));}
+          @media (prefers-reduced-motion:reduce){.ls-state.is-open .ls-dot{animation:none;}}
+          @media (max-width:640px){.ls-sep{display:none;}.ls-lbl{display:none;}}
+`
+
 const MONTHS = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
   'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
 
@@ -95,7 +115,8 @@ const MONTHS = ['января', 'февраля', 'марта', 'апреля', 
  *
  * Считается на клиенте после монтирования: время у посетителя своё, и
  * отрисовать это на сервере значит разойтись с разметкой при гидратации.
- * До первого расчёта места не занимает.
+ * До первого расчёта полоса уже занимает свою высоту, иначе первый экран
+ * подпрыгивает.
  */
 export default function LiveStatus() {
   const [status, setStatus] = useState<StatusInfo | null>(null)
@@ -115,7 +136,13 @@ export default function LiveStatus() {
     return () => clearInterval(t)
   }, [])
 
-  if (!status) return <div className="ls" aria-hidden />
+  // Пока состояние не посчитано, полоса уже занимает своё место: иначе
+  // первый экран дёргается, когда строка появляется.
+  if (!status) return (
+    <div className="ls" aria-hidden>
+      <style dangerouslySetInnerHTML={{ __html: LS_CSS }} />
+    </div>
+  )
 
   const initialDate = modal
     ? { year: modal.date.getFullYear(), month: modal.date.getMonth(), day: modal.date.getDate() }
@@ -124,6 +151,7 @@ export default function LiveStatus() {
   return (
     <>
       <div className="ls">
+        <style dangerouslySetInnerHTML={{ __html: LS_CSS }} />
         <span className="ls-date">{today}</span>
         <span className="ls-sep" aria-hidden />
         <span className={`ls-state ${status.isOpen ? 'is-open' : ''}`}>
@@ -147,25 +175,6 @@ export default function LiveStatus() {
           </>
         )}
 
-        <style>{`
-          .ls{display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;min-height:26px;
-            font-size:13px;color:rgb(var(--muted-rgb));}
-          .ls-date{font-family:var(--font-mono),monospace;letter-spacing:.02em;}
-          .ls-sep{width:1px;height:13px;background:rgb(var(--rule-rgb));flex:none;}
-          .ls-state{display:inline-flex;align-items:center;gap:8px;color:rgb(var(--text-rgb));font-weight:500;}
-          .ls-dot{width:6px;height:6px;border-radius:50%;background:rgb(var(--muted-rgb));flex:none;}
-          .ls-state.is-open .ls-dot{background:rgb(var(--ok-rgb));animation:lsPulse 2.4s ease-in-out infinite;}
-          @keyframes lsPulse{0%,100%{opacity:1;}50%{opacity:.35;}}
-          .ls-tail{color:rgb(var(--muted-rgb));font-weight:400;}
-          .ls-lbl{font-size:11px;letter-spacing:.18em;text-transform:uppercase;}
-          .ls-slots{display:inline-flex;flex-wrap:wrap;gap:6px;}
-          .ls-slot{font-family:var(--font-mono),monospace;font-size:12px;padding:5px 10px;
-            border:1px solid rgb(var(--rule-rgb));background:transparent;color:rgb(var(--text-rgb));
-            cursor:pointer;transition:background-color .25s ease,border-color .25s ease,color .25s ease;}
-          .ls-slot:hover{background:rgb(var(--text-rgb));border-color:rgb(var(--text-rgb));color:rgb(var(--bg-rgb));}
-          @media (prefers-reduced-motion:reduce){.ls-state.is-open .ls-dot{animation:none;}}
-          @media (max-width:640px){.ls-sep{display:none;}.ls-lbl{display:none;}}
-        `}</style>
       </div>
       {modal && (
         <BookingModal onClose={() => setModal(null)} initialDate={initialDate} initialTime={modal.time} />

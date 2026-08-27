@@ -45,16 +45,25 @@ export default function Header() {
         borderBottom: '1px solid rgb(var(--rule-rgb))',
       }}
     >
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
+        /* CSS отдаётся через dangerouslySetInnerHTML, и это не украшение.
+           React экранирует кавычки и угловые скобки в тексте <style>, а
+           <style> — raw-text элемент: браузер сущности внутри него не
+           раскрывает. Сервер писал content:&#x27;&#x27;, клиент — content:'',
+           тексты расходились, гидратация падала, React выбрасывал серверную
+           разметку и перерисовывал страницу целиком. Побочно переставал
+           запускаться весь клиентский код — прокрутка, анимации, живой
+           статус. dangerouslySetInnerHTML пишет одно и то же с обеих сторон.
+           CSS здесь наш собственный, из данных не собирается. */
         .hd-link{color:rgb(var(--muted-rgb));}
-        .hd-link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+        .hd-link::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;
           background:rgb(var(--violet-rgb));transform:scaleX(0);transform-origin:right;
           transition:transform .3s cubic-bezier(.6,0,.3,1);}
         .hd-link:hover{color:rgb(var(--text-rgb));}
         .hd-link:hover::after{transform:scaleX(1);transform-origin:left;}
         .hd-link[data-current]{color:rgb(var(--violet-rgb));font-weight:500;}
         .hd-link[data-current]::after{transform:scaleX(1);}
-      `}</style>
+      ` }} />
 
       <div
         className="mx-auto flex items-center justify-between gap-3 sm:gap-6 px-5 sm:px-8 md:px-10 py-4 md:py-[18px]"

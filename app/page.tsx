@@ -101,7 +101,7 @@ export default function HomePage() {
                   прокрутки — порядок действий читается как порядок, а не как
                   три равноправные колонки. Где animation-timeline не
                   поддерживается, это остаётся обычным списком карточек. */}
-              <div className="scene">
+              <div className="scene" data-scene>
                 <div className="scene-inner">
                   {STEPS.map((s, i) => (
                     <article key={s.t} className="scene-step stack-card">

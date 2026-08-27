@@ -7,7 +7,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <div className="page-tx">
       {children}
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         /* Переход между страницами: содержимое поднимается из-под тонкой
            маски, а не просто выцветает. Сдвиг маленький и быстрый — переход
            должен ощущаться, а не отнимать время у того, кто просто хочет
@@ -19,7 +19,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
           from{opacity:0;transform:translateY(18px);clip-path:inset(6% 0 0 0);}
           to{opacity:1;transform:none;clip-path:inset(0 0 0 0);}
         }
-      `}</style>
+      ` }} />
     </div>
   )
 }

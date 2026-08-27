@@ -20,9 +20,10 @@ export default function ScrollCount({
   suffix?: string
 }) {
   return (
-    <span className="cnt nums" style={{ ['--target' as string]: value }}>
+    <span className="cnt nums" data-target={value}>
       <span className="cnt-real">{value.toLocaleString('ru-RU')}{suffix}</span>
-      <span className="cnt-anim" aria-hidden>{suffix}</span>
+      <span className="cnt-anim" aria-hidden />
+      <span className="cnt-suffix" aria-hidden>{suffix}</span>
     </span>
   )
 }

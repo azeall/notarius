@@ -13,7 +13,7 @@ export default function SectionMark({ n, children }: { n: string; children: Reac
       <span className="sm-n">{n}</span>
       <span className="sm-rule" aria-hidden />
       <span className="sm-t">{children}</span>
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .sm-mark{display:flex;align-items:center;gap:14px;margin-bottom:clamp(26px,3.4vw,40px);}
         .sm-n{font-family:var(--font-mono),monospace;font-size:12px;font-weight:500;
           color:rgb(var(--violet-rgb));letter-spacing:.06em;font-variant-numeric:tabular-nums;}
@@ -23,7 +23,7 @@ export default function SectionMark({ n, children }: { n: string; children: Reac
         @media (min-width:1120px){
           .sm-mark{position:sticky;top:120px;}
         }
-      `}</style>
+      ` }} />
     </div>
   )
 }

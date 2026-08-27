@@ -18,7 +18,7 @@ export default function NotFound() {
         </div>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .nf{position:relative;min-height:72vh;display:flex;align-items:center;justify-content:center;
           padding:120px 22px 80px;background:rgb(var(--bg-rgb));overflow:hidden;text-align:center;}
         .nf-bg{position:absolute;inset:0;pointer-events:none;
@@ -48,7 +48,7 @@ export default function NotFound() {
           transition:transform .2s;}
         .nf-btn:hover{transform:translateY(-2px);}
         .nf-phone{color:rgb(var(--violet-rgb));font-weight:600;text-decoration:none;border-bottom:1px solid rgb(var(--violet-rgb) / .3);padding-bottom:2px;}
-      `}</style>
+      ` }} />
     </section>
   )
 }

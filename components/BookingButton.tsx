@@ -21,14 +21,14 @@ export default function BookingButton({
 
   return (
     <>
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         /* Основная кнопка: сплошной графит, без градиента и без блика.
            Градиент с пробегающим бликом — приём распродажи; здесь он обещал
            скидку там, где речь о нотариальном тарифе. */
         .lv-btn{position:relative;transition:background-color .3s ease,transform .15s ease;}
         .lv-btn:hover{background:rgb(var(--violet-rgb)) !important;}
         .lv-btn:active{transform:translateY(1px);}
-      `}</style>
+      ` }} />
       <button
         onClick={() => setOpen(true)}
         className={`lv-btn inline-flex items-center justify-center font-sans font-medium cursor-pointer whitespace-nowrap ${SIZE[size]} ${className}`}
