@@ -104,7 +104,7 @@ export default function Motion() {
           scene.style.setProperty('--p', String(p))
           // Отрицательная задержка у приостановленной анимации выбирает кадр:
           // длительность ровно 1s, значит -p секунд = доля p от анимации.
-          scene.querySelectorAll<HTMLElement>('.scene-step').forEach(st => {
+          scene.querySelectorAll<HTMLElement>('.scene-step, .scene-dots li').forEach(st => {
             st.style.animationDelay = `${-p}s`
           })
         })

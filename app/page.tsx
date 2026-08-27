@@ -81,43 +81,43 @@ export default function HomePage() {
 
       <div className="px-5 sm:px-10" style={{ background: 'rgb(var(--bg-rgb))' }}><ScrollRule /></div>
 
-      {/* ── Как проходит приём: шаги ложатся стопкой при прокрутке ── */}
+      {/* ── Как проходит приём: шаги проходят внутри закреплённого экрана ── */}
       <section className="py-20 sm:py-28" style={{ background: 'rgb(var(--bg-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
-          <div className="grid lg:grid-cols-[220px_1fr] gap-8 lg:gap-14 items-start">
-            <div className="reveal">
-              <SectionMark n="01">Как проходит приём</SectionMark>
-            </div>
+          {/* Заголовок и метка живут ВНУТРИ сцены и закрепляются вместе с
+              карточками. Снаружи они уезжали вверх, и на экране оставалась
+              одинокая карточка посреди пустой бумаги — без всякого указания,
+              что это вообще за раздел. */}
+          <div className="scene" data-scene>
+            <div className="scene-inner">
+              <div className="scene-head">
+                <SectionMark n="01">Как проходит приём</SectionMark>
+                <h2
+                  className="font-serif font-medium m-0"
+                  style={{ fontSize: 'clamp(28px, 3.4vw, 44px)', lineHeight: 1.08, letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}
+                >
+                  Три шага, и ни одного лишнего
+                </h2>
+                <ol className="scene-dots" aria-hidden>
+                  {STEPS.map((s, i) => <li key={s.t} data-i={i} />)}
+                </ol>
+              </div>
 
-            <div>
-              <h2
-                className="font-serif font-medium m-0 mb-10 reveal"
-                style={{ fontSize: 'clamp(28px, 3.4vw, 44px)', lineHeight: 1.08, letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}
-              >
-                Три шага, и ни одного лишнего
-              </h2>
-
-              {/* Раздел замирает, а шаги проходят внутри него по мере
-                  прокрутки — порядок действий читается как порядок, а не как
-                  три равноправные колонки. Где animation-timeline не
-                  поддерживается, это остаётся обычным списком карточек. */}
-              <div className="scene" data-scene>
-                <div className="scene-inner">
-                  {STEPS.map((s, i) => (
-                    <article key={s.t} className="scene-step stack-card">
-                      <span className="stack-n font-mono">0{i + 1}</span>
-                      <h3
-                        className="font-serif m-0 mb-3"
-                        style={{ fontSize: 'clamp(21px, 2.6vw, 30px)', color: 'rgb(var(--text-rgb))', letterSpacing: '-0.01em' }}
-                      >
-                        {s.t}
-                      </h3>
-                      <p className="m-0 text-[16px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))', maxWidth: '54ch' }}>
-                        {s.d}
-                      </p>
-                    </article>
-                  ))}
-                </div>
+              <div className="scene-stage">
+                {STEPS.map((s, i) => (
+                  <article key={s.t} className="scene-step stack-card">
+                    <span className="stack-n font-mono">0{i + 1}</span>
+                    <h3
+                      className="font-serif m-0 mb-3"
+                      style={{ fontSize: 'clamp(21px, 2.6vw, 30px)', color: 'rgb(var(--text-rgb))', letterSpacing: '-0.01em' }}
+                    >
+                      {s.t}
+                    </h3>
+                    <p className="m-0 text-[16px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))', maxWidth: '54ch' }}>
+                      {s.d}
+                    </p>
+                  </article>
+                ))}
               </div>
             </div>
           </div>

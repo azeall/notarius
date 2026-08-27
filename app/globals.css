@@ -151,8 +151,14 @@ html{ transition:background-color .35s ease; }
 
 @layer base {
   html { scroll-behavior: smooth; }
+  /* Именно clip, а не hidden.
+     overflow-x:hidden делает документ скролл-контейнером, и position:sticky
+     внутри перестаёт цепляться за экран — закреплённая сцена уезжала вверх
+     вместе со страницей, оставляя пустой экран. Замер: inner.top был -1685
+     при top:96px в стилях. overflow:clip обрезает так же, но контейнера не
+     создаёт и sticky не ломает. */
   html, body {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100%;
   }
   body { width: 100%; }
@@ -288,19 +294,33 @@ html{ transition:background-color .35s ease; }
 .sd-5 { --d: .28s; }
 
 /* ── Шаги приёма ──
-   Базово — обычная читаемая колонка с промежутками. Так это выглядит на
-   телефоне, при отключённом JS и при prefers-reduced-motion. */
-.scene-inner { display: flex; flex-direction: column; gap: 18px; }
+   Базово — заголовок и под ним обычная читаемая колонка карточек. Так это
+   выглядит на телефоне, при отключённом JS и при prefers-reduced-motion. */
+.scene-head { margin-bottom: clamp(24px, 3vw, 36px); }
+.scene-stage { display: flex; flex-direction: column; gap: 18px; }
+.scene-dots { display: none; }
 
 /* Режим закреплённой сцены включает JS, выставляя data-scene="on", и только
-   на широком экране. */
-.motion .scene[data-scene="on"] { height: 300vh; }
+   на широком экране.
+   220vh на три коротких шага, а не 300: при 300 карточка висела у верхнего
+   края, а под ней оставалось полэкрана пустой бумаги. */
+.motion .scene[data-scene="on"] { height: 220vh; }
 .motion .scene[data-scene="on"] .scene-inner {
   position: sticky;
-  top: 96px;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(24px, 3vw, 40px);
+}
+.motion .scene[data-scene="on"] .scene-head { margin-bottom: 0; }
+/* Карточки лежат в одной ячейке и сменяют друг друга. Высота задана снизу,
+   иначе заголовок раздела прыгал бы на каждой смене. */
+.motion .scene[data-scene="on"] .scene-stage {
   display: grid;
-  min-height: 340px;
-  gap: 0;
+  min-height: 250px;
+  align-content: start;
 }
 .motion .scene[data-scene="on"] .scene-step {
   grid-area: 1 / 1;
@@ -309,6 +329,42 @@ html{ transition:background-color .35s ease; }
   animation-fill-mode: both;
   animation-play-state: paused;
 }
+
+/* Указатель хода: три чёрточки, заполняются по мере прохождения сцены. */
+.motion .scene[data-scene="on"] .scene-dots {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+}
+.motion .scene[data-scene="on"] .scene-dots li {
+  width: 46px;
+  height: 2px;
+  background: rgb(var(--rule-rgb));
+  position: relative;
+  overflow: hidden;
+}
+.motion .scene[data-scene="on"] .scene-dots li::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgb(var(--violet-rgb));
+  transform-origin: left center;
+  /* Задержку JS ставит на сам li; псевдоэлемент забирает её наследованием —
+     записать инлайновый стиль прямо в ::after нельзя. */
+  animation-delay: inherit;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+.motion .scene[data-scene="on"] .scene-dots li:nth-child(1)::after { animation-name: dotA; }
+.motion .scene[data-scene="on"] .scene-dots li:nth-child(2)::after { animation-name: dotB; }
+.motion .scene[data-scene="on"] .scene-dots li:nth-child(3)::after { animation-name: dotC; }
+@keyframes dotA { 0% { transform: scaleX(0); } 30% { transform: scaleX(1); } 100% { transform: scaleX(1); } }
+@keyframes dotB { 0% { transform: scaleX(0); } 34% { transform: scaleX(0); } 64% { transform: scaleX(1); } 100% { transform: scaleX(1); } }
+@keyframes dotC { 0% { transform: scaleX(0); } 66% { transform: scaleX(0); } 84% { transform: scaleX(1); } 100% { transform: scaleX(1); } }
 .motion .scene[data-scene="on"] .scene-step:nth-child(1) { animation-name: stepA; }
 .motion .scene[data-scene="on"] .scene-step:nth-child(2) { animation-name: stepB; }
 .motion .scene[data-scene="on"] .scene-step:nth-child(3) { animation-name: stepC; }

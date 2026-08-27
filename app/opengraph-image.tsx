@@ -40,14 +40,14 @@ export default async function OpengraphImage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: 'linear-gradient(135deg, #f4f3fd 0%, #f4f3fd 55%, #eceafb 100%)',
+          background: 'linear-gradient(135deg, #F7F4EE 0%, #F2EFE8 55%, #E9E4DA 100%)',
           padding: '64px 72px',
           fontFamily: 'PT Serif',
           position: 'relative',
         }}
       >
         {/* Gold top hairline */}
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 6, background: 'linear-gradient(90deg, transparent, #534AB7, transparent)' }} />
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 6, background: 'linear-gradient(90deg, transparent, #4B3F72, transparent)' }} />
 
         {/* Top row: monogram + chamber */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -58,8 +58,8 @@ export default async function OpengraphImage() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: '2px solid #534AB7',
-              color: '#6f66d6',
+              border: '2px solid #191822',
+              color: '#4B3F72',
               fontSize: 52,
               fontWeight: 700,
             }}
@@ -89,7 +89,7 @@ export default async function OpengraphImage() {
           <div style={{ display: 'flex', color: 'rgb(var(--muted-rgb))', fontSize: 26 }}>
             Сделки · Наследство · Доверенности · Копии
           </div>
-          <div style={{ display: 'flex', color: '#6f66d6', fontSize: 34, fontWeight: 700 }}>
+          <div style={{ display: 'flex', color: '#4B3F72', fontSize: 34, fontWeight: 700 }}>
             {notary.phone}
           </div>
         </div>

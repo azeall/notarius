@@ -47,7 +47,7 @@ export default function CookieNotice() {
         <p className="text-[13px] text-slate leading-relaxed flex-1">
           Мы используем файлы cookie и Яндекс.Метрику для аналитики сайта. Продолжая пользоваться сайтом,
           вы соглашаетесь с{' '}
-          <Link href="/privacy" className="text-gold hover:text-gold-light underline underline-offset-2">
+          <Link href="/privacy" className="underline underline-offset-2" style={{ color: 'rgb(var(--violet-rgb))' }}>
             политикой обработки персональных данных
           </Link>
           .
@@ -55,14 +55,15 @@ export default function CookieNotice() {
         <div className="flex items-center gap-2 flex-shrink-0">
           <button
             onClick={decline}
-            className="px-4 py-2.5 rounded-lg text-xs font-semibold text-slate hover:text-cream transition-colors whitespace-nowrap"
-            style={{ border: '1px solid rgb(var(--violet-rgb) / 0.20)' }}
+            className="px-4 py-2.5 text-[13px] font-medium text-slate hover:text-cream transition-colors whitespace-nowrap"
+            style={{ border: '1px solid rgb(var(--rule-rgb))', borderRadius: 2 }}
           >
             Только необходимые
           </button>
           <button
             onClick={accept}
-            className="px-5 py-2.5 rounded-lg text-xs font-semibold text-white bg-gold hover:bg-gold-light transition-colors whitespace-nowrap"
+            className="px-5 py-2.5 text-[13px] font-medium transition-colors whitespace-nowrap"
+            style={{ background: 'rgb(var(--text-rgb))', color: 'rgb(var(--bg-rgb))', borderRadius: 2 }}
           >
             Принять
           </button>
