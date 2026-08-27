@@ -85,7 +85,7 @@ export default function CostCalculator() {
 
   return (
     <section className="relative py-20 sm:py-24" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
-      <div className="mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1180px' }}>
+      <div className="wrap">
         <div className="mb-9 reveal">
           <div className="inline-flex items-center gap-3.5 mb-4">
             <span className="block w-6 h-px" style={{ background: 'rgb(var(--violet-rgb))' }} />

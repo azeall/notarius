@@ -36,7 +36,7 @@ export default function CookieNotice() {
       <div
         className="mx-auto flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 rounded-2xl px-4 py-4 sm:px-6"
         style={{
-          maxWidth: '1100px',
+          maxWidth: '1080px',
           background: 'rgba(255,255,255,0.97)',
           border: '1px solid rgb(var(--violet-rgb) / 0.25)',
           backdropFilter: 'blur(8px)',

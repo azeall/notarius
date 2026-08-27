@@ -61,7 +61,7 @@ export default function Footer() {
         borderTop: '1px solid rgb(var(--violet-rgb) / 0.12)',
       }}
     >
-      <div className="mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1340px' }}>
+      <div className="wrap">
         {/* Top grid */}
         <div
           className="grid gap-8 sm:gap-10 md:gap-12 pb-10 sm:pb-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr]"

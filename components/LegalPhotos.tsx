@@ -19,7 +19,7 @@ export default function LegalPhotos() {
 
   return (
     <section className="bg-navy-card px-4 py-6">
-      <div className="max-w-6xl mx-auto">
+      <div className="wrap">
         <div
           className={
             rest.length > 0

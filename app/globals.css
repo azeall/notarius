@@ -244,11 +244,14 @@ html{ transition:background-color .35s ease; }
 .svc:hover .svc-t{color:rgb(var(--violet-rgb));}
 .svc:hover .svc-a{opacity:1;transform:translateX(0);}
 
-/* Карточка шага. */
-.stack-card{position:relative;background:rgb(var(--surface-rgb));
-  border:1px solid rgb(var(--rule-rgb));padding:clamp(24px,3vw,38px);}
-.stack-n{position:absolute;top:clamp(24px,3vw,38px);right:clamp(24px,3vw,38px);
-  font-size:12px;color:rgb(var(--violet-rgb));letter-spacing:.06em;}
+/* Шаг приёма.
+   Не плашка: рамка с внутренними отступами сдвигала текст на три десятка
+   пикселей правее заголовка раздела, и левый край страницы ломался. Теперь
+   линейка сверху и тот же левый край, что у заголовка. */
+.scene-step{position:relative;padding-top:20px;
+  border-top:1px solid rgb(var(--rule-rgb));}
+.step-n{display:block;font-size:12px;color:rgb(var(--violet-rgb));
+  letter-spacing:.06em;margin-bottom:12px;}
 @media (prefers-reduced-motion:reduce){
   .svc{transition:none;}
   .svc:hover{padding-left:0;}
@@ -293,6 +296,37 @@ html{ transition:background-color .35s ease; }
 .sd-4 { --d: .21s; }
 .sd-5 { --d: .28s; }
 
+/* Единый контейнер страницы.
+   До этого их было три: 1080 в большинстве секций, 1180 в калькуляторе и
+   форме записи, 1152 в блоке фотографий. Левый край страницы прыгал на
+   полсотни пикселей от секции к секции — и именно это читалось как
+   «кривовато», а не сами блоки. Ширина задаётся здесь и больше нигде. */
+.wrap {
+  width: 100%;
+  /* 1200, а не 1080: в шапке семь пунктов меню, имя нотариуса и кнопка
+     записи, и на 1080 «О конторе» переносилось на вторую строку. */
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+@media (min-width: 640px) {
+  .wrap { padding-left: 40px; padding-right: 40px; }
+}
+
+/* Полоса счётчиков. Колонок ровно столько, сколько пунктов: пункты зависят
+   от заполненности lib/data.ts, а жёсткие четыре колонки оставляли пустую
+   четверть, когда пунктов оказывалось три. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px 32px;
+}
+@media (min-width: 768px) {
+  .stats { grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); }
+}
+
 /* ── Шаги приёма ──
    Базово — заголовок и под ним обычная читаемая колонка карточек. Так это
    выглядит на телефоне, при отключённом JS и при prefers-reduced-motion. */
@@ -319,7 +353,7 @@ html{ transition:background-color .35s ease; }
    иначе заголовок раздела прыгал бы на каждой смене. */
 .motion .scene[data-scene="on"] .scene-stage {
   display: grid;
-  min-height: 250px;
+  min-height: 220px;
   align-content: start;
 }
 .motion .scene[data-scene="on"] .scene-step {

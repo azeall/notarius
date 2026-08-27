@@ -31,27 +31,26 @@ const INDEX = [
 
 const CSS = `
 .hr{position:relative;background:rgb(var(--bg-rgb));
-  padding:clamp(104px,13vh,140px) clamp(22px,6vw,96px) clamp(56px,8vh,88px);}
-.hr-in{max-width:1240px;margin:0 auto;}
+  padding:clamp(104px,13vh,140px) 0 clamp(56px,8vh,88px);}
 
 /* Верхняя строка: состояние конторы прямо сейчас. */
 .hr-top{padding-bottom:18px;border-bottom:1px solid rgb(var(--rule-rgb));
   margin-bottom:clamp(30px,4.4vw,54px);}
 
-.hr-head{display:grid;grid-template-columns:1.35fr .65fr;gap:clamp(24px,4vw,64px);
+.hr-head{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(24px,4vw,64px);
   align-items:end;margin-bottom:clamp(40px,6vw,84px);}
 
 .hr-name{margin:0;font-family:var(--font-display),Georgia,serif;font-weight:600;
   color:rgb(var(--text-rgb));line-height:.9;letter-spacing:-.03em;}
 .hr-sur{display:block;font-size:clamp(54px,10.5vw,148px);}
 .hr-given{display:block;font-size:clamp(20px,2.8vw,36px);font-weight:400;
-  color:rgb(var(--muted-e-rgb));letter-spacing:-.01em;margin-top:.24em;}
+  color:rgb(var(--muted-e-rgb));letter-spacing:-.01em;margin-top:.34em;}
 
 .hr-aside{padding-bottom:.6em;}
 .hr-role{margin:0 0 14px;font-size:13px;font-weight:500;letter-spacing:.2em;
   text-transform:uppercase;color:rgb(var(--violet-rgb));}
 .hr-desc{margin:0;font-size:clamp(15px,1.15vw,17px);line-height:1.6;
-  color:rgb(var(--muted-e-rgb));max-width:34ch;}
+  color:rgb(var(--muted-e-rgb));max-width:38ch;}
 
 .hr-cta{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(14px,2vw,22px);
   margin-bottom:clamp(48px,7vw,96px);}
@@ -95,7 +94,7 @@ const CSS = `
   .hr-line{grid-template-columns:clamp(38px,7vw,56px) 1fr;}
 }
 @media (max-width:430px){
-  .hr{padding:92px 22px 48px;}
+  .hr{padding:92px 0 48px;}
   .hr-cta .lv-btn,.hr-cta .lv-btn2{width:100%;justify-content:center;}
 }
 @media (prefers-reduced-motion:reduce){
@@ -114,7 +113,7 @@ export default function Hero() {
     <section className="hr" data-hero>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
-      <div className="hr-in">
+      <div className="wrap">
         <div className="hr-top">
           <LiveStatus />
         </div>

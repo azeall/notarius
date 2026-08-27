@@ -65,10 +65,7 @@ export default function Header() {
         .hd-link[data-current]::after{transform:scaleX(1);}
       ` }} />
 
-      <div
-        className="mx-auto flex items-center justify-between gap-3 sm:gap-6 px-5 sm:px-8 md:px-10 py-4 md:py-[18px]"
-        style={{ maxWidth: '1340px' }}
-      >
+      <div className="wrap flex items-center justify-between gap-3 sm:gap-6 py-4 md:py-[18px]">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 no-underline group min-w-0">
           <div
@@ -128,7 +125,7 @@ export default function Header() {
       {/* Mobile menu */}
       {menuOpen && (
         <nav
-          className="md:hidden px-5 pb-5 flex flex-col gap-0"
+          className="md:hidden wrap pb-5 flex flex-col gap-0"
           style={{ borderTop: '1px solid rgb(var(--violet-rgb) / 0.10)', background: 'var(--header-scrolled)' }}
         >
           {navLinks.map(link => {

@@ -41,6 +41,18 @@ const STEPS = [
 
 const HOURS_LINES = 'Пн–Пт 10:00–19:00\nСб, Вс — выходной'
 
+const STATS = [
+  // Стаж считается от года начала практики, а не вписан рукой: число в
+  // разметке через год устаревает, а править его никто не придёт.
+  ...(notary.practiceSince
+    ? [{ v: new Date().getFullYear() - Number(notary.practiceSince), s: ' лет', l: 'нотариальной практики' }]
+    : []),
+  ...(documentsDone > 0
+    ? [{ v: documentsDone, s: '+', l: 'оформленных документов' }]
+    : []),
+  { v: 100, s: '%', l: 'юридическая сила' },
+]
+
 export default function HomePage() {
   return (
     <>
@@ -48,19 +60,14 @@ export default function HomePage() {
 
       {/* ── Полоса счётчиков: графитовая плашка, единственная тёмная на странице ── */}
       <section className="py-16 sm:py-20" style={{ background: 'rgb(var(--text-rgb))' }}>
-        <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 sm:gap-6">
-            {[
-              // Стаж считается от года начала практики, а не вписан рукой:
-              // число в разметке через год устаревает, а править его никто не придёт.
-              ...(notary.practiceSince
-                ? [{ v: new Date().getFullYear() - Number(notary.practiceSince), s: ' лет', l: 'нотариальной практики' }]
-                : []),
-              ...(documentsDone > 0
-                ? [{ v: documentsDone, s: '+', l: 'оформленных документов' }]
-                : []),
-              { v: 100, s: '%', l: 'юридическая сила' },
-            ].map((st, i) => (
+        <div className="wrap">
+          {/* Колонок ровно столько, сколько пунктов. Раньше сетка была жёстко
+              четырёхколоночной, а пунктов осталось три — правая четверть
+              пустовала, и полоса выглядела съехавшей влево. Пункты
+              появляются и пропадают в зависимости от lib/data.ts, так что
+              число колонок обязано считаться, а не задаваться рукой. */}
+          <div className="stats" style={{ ['--cols' as string]: STATS.length }}>
+            {STATS.map((st, i) => (
               <div key={st.l} className={`sd sd-${i + 1}`}>
                 <div
                   className="font-serif font-medium leading-none mb-3 nums"
@@ -83,7 +90,7 @@ export default function HomePage() {
 
       {/* ── Как проходит приём: шаги проходят внутри закреплённого экрана ── */}
       <section className="py-20 sm:py-28" style={{ background: 'rgb(var(--bg-rgb))' }}>
-        <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
+        <div className="wrap">
           {/* Заголовок и метка живут ВНУТРИ сцены и закрепляются вместе с
               карточками. Снаружи они уезжали вверх, и на экране оставалась
               одинокая карточка посреди пустой бумаги — без всякого указания,
@@ -105,8 +112,8 @@ export default function HomePage() {
 
               <div className="scene-stage">
                 {STEPS.map((s, i) => (
-                  <article key={s.t} className="scene-step stack-card">
-                    <span className="stack-n font-mono">0{i + 1}</span>
+                  <article key={s.t} className="scene-step">
+                    <span className="step-n font-mono">0{i + 1}</span>
                     <h3
                       className="font-serif m-0 mb-3"
                       style={{ fontSize: 'clamp(21px, 2.6vw, 30px)', color: 'rgb(var(--text-rgb))', letterSpacing: '-0.01em' }}
@@ -133,7 +140,7 @@ export default function HomePage() {
       {/* ── Отзывы ── */}
       {reviews.length > 0 && (
         <section className="py-20 sm:py-28" style={{ background: 'rgb(var(--bg-rgb))' }}>
-          <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
+          <div className="wrap">
             <div className="grid lg:grid-cols-[220px_1fr] gap-8 lg:gap-14 items-start">
               <div className="reveal">
                 <SectionMark n="02">Отзывы</SectionMark>
@@ -175,7 +182,7 @@ export default function HomePage() {
 
       {/* ── Карта и контакты ── */}
       <section className="py-20 sm:py-24" style={{ background: 'rgb(var(--surface-rgb))' }}>
-        <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
+        <div className="wrap">
           <div className="reveal"><SectionMark n="03">Как нас найти</SectionMark></div>
           <div className="grid md:grid-cols-[0.42fr_0.58fr] gap-8 items-stretch">
             <div className="reveal">

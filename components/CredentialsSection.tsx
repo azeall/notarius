@@ -66,8 +66,7 @@ export default function CredentialsSection() {
       aria-labelledby="creds-title"
     >
       <div
-        className="mx-auto px-5 sm:px-10 grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-start"
-        style={{ maxWidth: '1080px' }}
+        className="wrap grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-start"
       >
         <div className="reveal lg:sticky lg:top-28">
           <div className="inline-flex items-center gap-3.5 mb-4">
