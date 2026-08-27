@@ -14,7 +14,7 @@ import { SERVICES, maxDurationForService, defaultDurationForService } from '@/li
 const MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
 const DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс']
 
-const INPUT_STYLE: React.CSSProperties = { background: 'rgb(var(--bg-rgb))', border: '1px solid rgba(192,92,46,0.20)' }
+const INPUT_STYLE: React.CSSProperties = { background: 'rgb(var(--bg-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.20)' }
 
 function toYMD(d: Date) {
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
@@ -107,11 +107,11 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
     const isStart = t === selectedTime
     const isInSelection = selectionSlots.has(t)
     const conflict = isInSelection && isBooked && !isStart
-    let cls = 'text-cream/80 border border-[rgba(192,92,46,0.15)] hover:bg-gold/15'
+    let cls = 'text-cream/80 border border-[rgb(var(--violet-rgb) / 0.15)] hover:bg-gold/15'
     let style: React.CSSProperties = { background: 'rgba(0,0,0,0.03)' }
     if (isBooked && !isStart) { cls = 'text-cream/20 line-through cursor-not-allowed border border-black/5'; style = { background: 'rgba(0,0,0,0.02)' } }
     if (isStart) { cls = 'text-white font-bold border border-gold'; style = { background: 'rgb(var(--violet-rgb))' } }
-    else if (isInSelection && !conflict) { cls = 'text-cream border border-gold/50'; style = { background: 'rgba(192,92,46,0.28)' } }
+    else if (isInSelection && !conflict) { cls = 'text-cream border border-gold/50'; style = { background: 'rgb(var(--violet-rgb) / 0.28)' } }
     else if (isInSelection && conflict) { cls = 'text-red-300 border border-red-500/40'; style = { background: 'rgba(239,68,68,0.15)' } }
     return (
       <button key={t} type="button" disabled={isBooked} onClick={() => setSelectedTime(t)}
@@ -122,7 +122,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-2xl p-4 sm:p-6 mb-8 sm:mb-10" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.15)' }}>
+    <form onSubmit={handleSubmit} className="rounded-2xl p-4 sm:p-6 mb-8 sm:mb-10" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-5 sm:mb-6">
         <h2 className="font-serif text-cream text-lg sm:text-xl font-bold">Добавить запись вручную</h2>
         <span className="text-xs text-cream/50">Приём: {WORKING_HOURS_LABEL}</span>
@@ -159,7 +159,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
               {filteredDurations.map(d => (
                 <button key={d} type="button" onClick={() => setDuration(d)}
                   className={`py-2 rounded-lg text-xs font-medium transition-colors ${duration === d ? 'text-white border border-gold' : 'text-cream/80 border'}`}
-                  style={duration === d ? { background: 'rgb(var(--violet-rgb))' } : { background: 'rgba(0,0,0,0.03)', borderColor: 'rgba(192,92,46,0.15)' }}>
+                  style={duration === d ? { background: 'rgb(var(--violet-rgb))' } : { background: 'rgba(0,0,0,0.03)', borderColor: 'rgb(var(--violet-rgb) / 0.15)' }}>
                   {d < 60 ? `${d} мин` : d % 60 === 0 ? `${d/60} ч` : `${Math.floor(d/60)}ч ${d%60}м`}
                 </button>
               ))}
@@ -172,7 +172,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
               style={
                 !selectionFits || selectionConflicts
                   ? { background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.3)', color: '#fca5a5' }
-                  : { background: 'rgba(192,92,46,0.10)', border: '1px solid rgba(192,92,46,0.25)', color: 'rgb(var(--text-rgb))' }
+                  : { background: 'rgb(var(--violet-rgb) / 0.10)', border: '1px solid rgb(var(--violet-rgb) / 0.25)', color: 'rgb(var(--text-rgb))' }
               }
             >
               <p className="font-semibold mb-0.5">Итог записи:</p>
@@ -186,7 +186,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
           )}
 
           {error && <p className="text-red-400 text-sm">{error}</p>}
-          {success && <p className="text-sm font-medium" style={{ color: '#6fbf99' }}>✓ Запись успешно добавлена!</p>}
+          {success && <p className="text-sm font-medium" style={{ color: 'rgb(var(--ok-2-rgb))' }}>✓ Запись успешно добавлена!</p>}
 
           <button
             type="submit"

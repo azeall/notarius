@@ -4,19 +4,76 @@
 
 /* ── Тёмная тема (тёплая палитра). Светлые значения = текущие цвета. Документ-иллюстрация в hero не трогается. ── */
 :root{
-  --bg-rgb:245 237 224; --surface-rgb:253 248 239; --surface-2-rgb:239 228 209; --surface-3-rgb:249 242 228; --surface-4-rgb:251 246 234; --surface-5-rgb:233 220 198;
-  --text-rgb:61 32 16; --text-b-rgb:93 74 56; --text-c-rgb:61 32 16; --text-d-rgb:93 74 56; --text-e-rgb:93 74 56;
-  --muted-rgb:125 106 85; --muted-b-rgb:148 129 107; --muted-c-rgb:179 155 130; --muted-d-rgb:185 177 164; --muted-e-rgb:217 201 180; --muted-f-rgb:148 129 107;
-  --hair-rgb:218 201 180; --violet-rgb:192 92 46;
-  --header:rgba(245,237,224,0.82); --header-scrolled:rgba(253,248,239,0.92);
-}
-html.dark{
-  --bg-rgb:26 18 12; --surface-rgb:40 28 19; --surface-2-rgb:33 24 16; --surface-3-rgb:46 33 22; --surface-4-rgb:44 31 21; --surface-5-rgb:52 38 26;
-  --text-rgb:243 231 214; --text-b-rgb:226 211 190; --text-c-rgb:243 231 214; --text-d-rgb:226 211 190; --text-e-rgb:226 211 190;
-  --muted-rgb:190 172 150; --muted-b-rgb:172 154 132; --muted-c-rgb:152 134 114; --muted-d-rgb:142 130 114; --muted-e-rgb:124 108 90; --muted-f-rgb:172 154 132;
-  --hair-rgb:90 78 64; --violet-rgb:214 116 70;
-  --header:rgba(26,18,12,0.82); --header-scrolled:rgba(36,26,18,0.92);
+  /* ── Палитра ───────────────────────────────────────────────────────────
+     Вариант warm намеренно тёмный. У lavender светлая бумага, и если warm
+     сделать тоже светлым, оба сайта в списке различались бы только оттенком
+     кнопки — а заказчик смотрит их подряд.
+
+     Здесь обожжённая глина: тёплый почти-чёрный фон, кремовый текст и один
+     акцент — терракота #C05C2E, он и был опознавательным цветом ветки.
+     Два цвета и ничего больше: так устроены все работы, которые на awwwards
+     берут Site of the Month.
+
+     Имена переменных общие для всех вариантов, менять их нельзя — на них
+     завязаны сотни мест в вёрстке.
+     ─────────────────────────────────────────────────────────────────── */
+
+  --bg-rgb:26 20 17;            /* #1A1411 обожжённая глина */
+  --surface-rgb:36 28 24;       /* #241C18 приподнятая плоскость */
+  --surface-2-rgb:20 15 13;     /* #140F0D утопленная полоса */
+  --surface-3-rgb:33 25 21;
+  --surface-4-rgb:48 38 32;
+  --surface-5-rgb:20 15 13;
+
+  --text-rgb:242 233 221;       /* #F2E9DD кремовый */
+  --text-b-rgb:242 233 221;
+  --text-c-rgb:224 138 96;      /* акцентный текст на тёмном */
+  --text-d-rgb:222 210 196;
+  --text-e-rgb:206 192 176;
+
+  /* Приглушённый — один уровень, 5.6:1 на фоне. Шесть оттенков серого
+     различались только в макете, а в вёрстке давали шесть шансов
+     промахнуться мимо контраста. */
+  --muted-rgb:166 150 135; --muted-b-rgb:166 150 135; --muted-c-rgb:166 150 135;
+  --muted-d-rgb:166 150 135; --muted-e-rgb:186 171 156; --muted-f-rgb:166 150 135;
+
+  --hair-rgb:122 103 88;        /* крупные декоративные цифры */
+  --rule-rgb:60 47 40;          /* волосяная линейка на тёмном */
+  --violet-rgb:224 138 96;      /* #E08A60 терракота, осветлённая до читаемой */
+  --accent-2-rgb:236 174 140;
+  --ok-rgb:138 166 122;
+  --ok-2-rgb:164 190 148;
+
+  --header:rgba(26,20,17,0.78); --header-scrolled:rgba(26,20,17,0.94);
   color-scheme:dark;
+}
+/* Светлая тема для тех, кому тёмная тяжела: та же глина, вывернутая. */
+html.dark{
+  --bg-rgb:245 240 233;
+  --surface-rgb:253 250 245;
+  --surface-2-rgb:236 228 216;
+  --surface-3-rgb:250 246 240;
+  --surface-4-rgb:228 218 204;
+  --surface-5-rgb:239 232 222;
+
+  --text-rgb:38 26 20;
+  --text-b-rgb:38 26 20;
+  --text-c-rgb:160 66 26;
+  --text-d-rgb:60 44 35;
+  --text-e-rgb:82 64 52;
+
+  --muted-rgb:113 96 84; --muted-b-rgb:113 96 84; --muted-c-rgb:113 96 84;
+  --muted-d-rgb:113 96 84; --muted-e-rgb:104 88 76; --muted-f-rgb:113 96 84;
+
+  --hair-rgb:146 124 106;
+  --rule-rgb:214 203 189;
+  --violet-rgb:160 66 26;       /* #A0421A терракота на светлом */
+  --accent-2-rgb:186 92 48;
+  --ok-rgb:74 106 82;
+  --ok-2-rgb:106 141 114;
+
+  --header:rgba(245,240,233,0.78); --header-scrolled:rgba(245,240,233,0.94);
+  color-scheme:light;
 }
 html.dark body{ background:rgb(var(--bg-rgb)) !important; }
 html{ transition:background-color .35s ease; }
@@ -56,41 +113,69 @@ html{ transition:background-color .35s ease; }
   .animate-scroll-line {
     animation: scroll-line 2.6s ease-in-out infinite;
   }
-  /* OUT-состояние (скрытие при уходе) — медленнее */
+  /* Появление при входе в кадр. Одностороннее: раньше блок прятался обратно,
+     стоило увести его за нижний край, и при возврате вверх страница гасла
+     кусками — на сайте, куда приходят перечитать список документов, это
+     читается как поломка, а не как приём. */
   .reveal {
     opacity: 0;
-    transform: translateY(44px);
-    transition: opacity 1.25s ease, transform 1.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(28px);
     will-change: opacity, transform;
   }
-  /* IN-состояние (проявление при входе) — заметнее, но плавно */
   .reveal.in {
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .booking-cta {
     position: relative;
   }
+  /* Тень кнопки записи — фиолетовая. Золотая подсветка под фиолетовой
+     кнопкой была вторым акцентом и грязнила цвет на hover. */
   .booking-cta:hover {
-    box-shadow: 0 18px 50px -10px rgba(200,160,60,0.75) !important;
-    filter: brightness(1.08) saturate(1.05);
+    box-shadow: 0 18px 50px -10px rgba(83,74,183,0.55) !important;
+    filter: brightness(1.06);
   }
   .booking-cta:active {
     filter: brightness(0.96);
+    transform: translateY(1px);
   }
+
+  /* Цифры в ценах, счётчиках и калькуляторе — моноширинные по ширине знака,
+     иначе колонки сумм пляшут при пересчёте. */
+  .nums { font-variant-numeric: tabular-nums; }
 }
 
 @layer base {
   html { scroll-behavior: smooth; }
+  /* Именно clip, а не hidden.
+     overflow-x:hidden делает документ скролл-контейнером, и position:sticky
+     внутри перестаёт цепляться за экран — закреплённая сцена уезжала вверх
+     вместе со страницей, оставляя пустой экран. Замер: inner.top был -1685
+     при top:96px в стилях. overflow:clip обрезает так же, но контейнера не
+     создаёт и sticky не ломает. */
   html, body {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100%;
   }
   body { width: 100%; }
 
   img, iframe, svg, video { max-width: 100%; }
+
+  /* Видимый фокус для клавиатуры. Формы в админке гасили outline у себя,
+     а на публичных страницах его не было вовсе — пройти сайт с клавиатуры
+     было нельзя. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--violet-rgb));
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  /* Заголовки не оставляют одинокое слово на последней строке,
+     абзацы не оставляют висячую строку. */
+  h1, h2, h3, h4 { text-wrap: balance; }
+  p, li, blockquote { text-wrap: pretty; }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -98,6 +183,270 @@ html{ transition:background-color .35s ease; }
     .animate-fade-in { animation: none; opacity: 1; transform: none; }
     .reveal { opacity: 1; transform: none; transition: none; }
     .animate-pulse-dot { animation: none; }
+  }
+}
+
+/* Ссылка в обход шапки: не видна мышью, всплывает по Tab первой на странице. */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -120%);
+  z-index: 300;
+  padding: 12px 22px;
+  border-radius: 0 0 10px 10px;
+  background: rgb(var(--violet-rgb));
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+.skip-link:focus-visible {
+  transform: translate(-50%, 0);
+  outline-offset: -4px;
+}
+
+/* ── Повторяющиеся элементы нового оформления ─────────────────────────
+   Живут здесь, а не в компонентах: их используют и главная, и внутренние
+   страницы, а тег <style> внутри компонента доезжает только туда, где сам
+   компонент отрисован. ─────────────────────────────────────────────── */
+
+/* Вторичная кнопка: контур, на наведении заливается графитом.
+   Заливка вместо подсветки — потому что рядом стоит основная кнопка,
+   и две светящиеся кнопки не отличить одну от другой. */
+.lv-btn2{display:inline-flex;align-items:center;gap:10px;padding:16px 24px;border-radius:2px;
+  border:1px solid rgb(var(--text-rgb) / .28);color:rgb(var(--text-rgb));background:transparent;
+  font-size:15px;font-weight:500;letter-spacing:.01em;text-decoration:none;white-space:nowrap;
+  transition:background-color .3s ease,border-color .3s ease,color .3s ease,transform .15s ease;}
+.lv-btn2:hover{background:rgb(var(--text-rgb));border-color:rgb(var(--text-rgb));color:rgb(var(--bg-rgb));}
+.lv-btn2:active{transform:translateY(1px);}
+.lv-btn2 svg{width:15px;height:15px;flex:none;transition:transform .3s ease;}
+.lv-btn2:hover svg{transform:translateX(3px);}
+
+/* Ссылка «дальше»: подчёркивание уезжает вправо и возвращается слева. */
+.ln-more{position:relative;padding-bottom:3px;}
+.ln-more::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:currentColor;transform:scaleX(1);transform-origin:right;
+  transition:transform .3s cubic-bezier(.6,0,.3,1);}
+.ln-more:hover::after{transform:scaleX(0);}
+.ln-more svg{transition:transform .3s ease;}
+.ln-more:hover svg{transform:translateX(4px);}
+
+/* Строка услуги: на наведении уезжает вправо, стрелка проявляется. */
+.svc{transition:padding-left .35s cubic-bezier(.2,.7,.2,1);}
+.svc .svc-t{transition:color .25s ease;}
+.svc .svc-a{opacity:0;transform:translateX(-6px);
+  transition:opacity .3s ease,transform .3s cubic-bezier(.2,.7,.2,1);}
+.svc:hover{padding-left:12px;}
+.svc:hover .svc-t{color:rgb(var(--violet-rgb));}
+.svc:hover .svc-a{opacity:1;transform:translateX(0);}
+
+/* Шаг приёма.
+   Не плашка: рамка с внутренними отступами сдвигала текст на три десятка
+   пикселей правее заголовка раздела, и левый край страницы ломался. Теперь
+   линейка сверху и тот же левый край, что у заголовка. */
+.scene-step{position:relative;padding-top:20px;
+  border-top:1px solid rgb(var(--rule-rgb));}
+.step-n{display:block;font-size:12px;color:rgb(var(--violet-rgb));
+  letter-spacing:.06em;margin-bottom:12px;}
+@media (prefers-reduced-motion:reduce){
+  .svc{transition:none;}
+  .svc:hover{padding-left:0;}
+  .svc .svc-a{opacity:1;transform:none;}
+}
+
+/* ══ Движение, привязанное к прокрутке ══════════════════════════════════
+   Ведёт его components/Motion.tsx, а не CSS animation-timeline.
+
+   Почему не CSS: animation-timeline умеют Chrome, Edge и Safari 26, а
+   Firefox держит за флагом. «Работает у меня» — не тот критерий, по
+   которому выбирают, увидит ли посетитель движение.
+
+   Главное правило этого файла: НИЧТО не прячется без класса .motion на
+   <html>. Класс ставит JS после запуска. Не запустился, отключён,
+   упал — страница остаётся статичной и полностью читаемой. Прошлая
+   версия ставила три карточки в одну ячейку сетки безусловно, и когда
+   анимация не шла, три абзаца печатались один поверх другого.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Проявление блоков ──
+   Намеренно переход, а не ключевые кадры. У анимации с fill-mode:both
+   конечное состояние существует, только пока она проигрывается: не
+   проигралась — блок так и остался с opacity:0. У перехода конечное
+   состояние задано правилом, и оно верное даже если анимировать нечего.
+   Для страницы, где написан номер лицензии, это единственный правильный
+   выбор. */
+.motion .sd {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+  transition-delay: var(--d, 0s);
+  will-change: opacity, transform;
+}
+.motion .sd.in {
+  opacity: 1;
+  transform: none;
+}
+.sd-1 { --d: 0s; }
+.sd-2 { --d: .07s; }
+.sd-3 { --d: .14s; }
+.sd-4 { --d: .21s; }
+.sd-5 { --d: .28s; }
+
+/* Единый контейнер страницы.
+   До этого их было три: 1080 в большинстве секций, 1180 в калькуляторе и
+   форме записи, 1152 в блоке фотографий. Левый край страницы прыгал на
+   полсотни пикселей от секции к секции — и именно это читалось как
+   «кривовато», а не сами блоки. Ширина задаётся здесь и больше нигде. */
+.wrap {
+  width: 100%;
+  /* 1200, а не 1080: в шапке семь пунктов меню, имя нотариуса и кнопка
+     записи, и на 1080 «О конторе» переносилось на вторую строку. */
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+@media (min-width: 640px) {
+  .wrap { padding-left: 40px; padding-right: 40px; }
+}
+
+/* Полоса счётчиков. Колонок ровно столько, сколько пунктов: пункты зависят
+   от заполненности lib/data.ts, а жёсткие четыре колонки оставляли пустую
+   четверть, когда пунктов оказывалось три. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px 32px;
+}
+@media (min-width: 768px) {
+  .stats { grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); }
+}
+
+/* ── Шаги приёма ──
+   Базово — заголовок и под ним обычная читаемая колонка карточек. Так это
+   выглядит на телефоне, при отключённом JS и при prefers-reduced-motion. */
+.scene-head { margin-bottom: clamp(24px, 3vw, 36px); }
+.scene-stage { display: flex; flex-direction: column; gap: 18px; }
+.scene-dots { display: none; }
+
+/* Режим закреплённой сцены включает JS, выставляя data-scene="on", и только
+   на широком экране.
+   220vh на три коротких шага, а не 300: при 300 карточка висела у верхнего
+   края, а под ней оставалось полэкрана пустой бумаги. */
+.motion .scene[data-scene="on"] { height: 220vh; }
+.motion .scene[data-scene="on"] .scene-inner {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(24px, 3vw, 40px);
+}
+.motion .scene[data-scene="on"] .scene-head { margin-bottom: 0; }
+/* Карточки лежат в одной ячейке и сменяют друг друга. Высота задана снизу,
+   иначе заголовок раздела прыгал бы на каждой смене. */
+.motion .scene[data-scene="on"] .scene-stage {
+  display: grid;
+  min-height: 220px;
+  align-content: start;
+}
+.motion .scene[data-scene="on"] .scene-step {
+  grid-area: 1 / 1;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+
+/* Указатель хода: три чёрточки, заполняются по мере прохождения сцены. */
+.motion .scene[data-scene="on"] .scene-dots {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+}
+.motion .scene[data-scene="on"] .scene-dots li {
+  width: 46px;
+  height: 2px;
+  background: rgb(var(--rule-rgb));
+  position: relative;
+  overflow: hidden;
+}
+.motion .scene[data-scene="on"] .scene-dots li::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgb(var(--violet-rgb));
+  transform-origin: left center;
+  /* Задержку JS ставит на сам li; псевдоэлемент забирает её наследованием —
+     записать инлайновый стиль прямо в ::after нельзя. */
+  animation-delay: inherit;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+.motion .scene[data-scene="on"] .scene-dots li:nth-child(1)::after { animation-name: dotA; }
+.motion .scene[data-scene="on"] .scene-dots li:nth-child(2)::after { animation-name: dotB; }
+.motion .scene[data-scene="on"] .scene-dots li:nth-child(3)::after { animation-name: dotC; }
+@keyframes dotA { 0% { transform: scaleX(0); } 30% { transform: scaleX(1); } 100% { transform: scaleX(1); } }
+@keyframes dotB { 0% { transform: scaleX(0); } 34% { transform: scaleX(0); } 64% { transform: scaleX(1); } 100% { transform: scaleX(1); } }
+@keyframes dotC { 0% { transform: scaleX(0); } 66% { transform: scaleX(0); } 84% { transform: scaleX(1); } 100% { transform: scaleX(1); } }
+.motion .scene[data-scene="on"] .scene-step:nth-child(1) { animation-name: stepA; }
+.motion .scene[data-scene="on"] .scene-step:nth-child(2) { animation-name: stepB; }
+.motion .scene[data-scene="on"] .scene-step:nth-child(3) { animation-name: stepC; }
+
+/* Кадры расписаны на весь ход сцены (0..1), поэтому всем трём хватает
+   одной общей задержки, которую ставит JS. */
+@keyframes stepA {
+  0%   { opacity: 1; transform: none; }
+  30%  { opacity: 1; transform: none; }
+  42%  { opacity: 0; transform: translateY(-26px); }
+  100% { opacity: 0; transform: translateY(-26px); }
+}
+@keyframes stepB {
+  0%   { opacity: 0; transform: translateY(30px); }
+  32%  { opacity: 0; transform: translateY(30px); }
+  44%  { opacity: 1; transform: none; }
+  64%  { opacity: 1; transform: none; }
+  76%  { opacity: 0; transform: translateY(-26px); }
+  100% { opacity: 0; transform: translateY(-26px); }
+}
+@keyframes stepC {
+  0%   { opacity: 0; transform: translateY(30px); }
+  66%  { opacity: 0; transform: translateY(30px); }
+  78%  { opacity: 1; transform: none; }
+  100% { opacity: 1; transform: none; }
+}
+
+/* ── Счётчики ──
+   Настоящее число всегда в разметке: его видят поисковик и скринридер.
+   Двойник появляется только когда есть кому его вести. */
+.cnt { position: relative; display: inline-block; }
+.cnt-anim, .cnt-suffix { display: none; }
+.motion .cnt-anim, .motion .cnt-suffix { display: inline; }
+.motion .cnt-real {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  clip-path: inset(50%);
+  overflow: hidden; white-space: nowrap;
+}
+
+/* ── Параллакс первого экрана ──
+   Единственное место, где CSS-таймлайн уместен: это украшение, и если его
+   нет — не теряется ничего. Поэтому здесь @supports остаётся. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 900px) {
+    .hr-head { animation: heroName linear both; animation-timeline: scroll(); animation-range: 0 90vh; }
+    @keyframes heroName { to { transform: translateY(-40px); } }
+    .hr-idx { animation: heroIdx linear both; animation-timeline: scroll(); animation-range: 0 90vh; }
+    @keyframes heroIdx { to { transform: translateY(-12px); } }
   }
 }
 

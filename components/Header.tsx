@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
@@ -15,9 +16,24 @@ const navLinks = [
   { href: '/contacts', label: 'Контакты' },
 ]
 
+/** Фамилия и инициалы: полное имя в шапке обрезалось многоточием. */
+function shortName(full: string): string {
+  const p = full.trim().split(/\s+/)
+  if (p.length < 2) return full
+  return p[0] + ' ' + p.slice(1).map(w => w[0].toUpperCase() + '.').join(' ')
+}
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  // usePathname вне роутера отдаёт null — ронять шапку из-за подсветки
+  // пункта меню незачем.
+  const pathname = usePathname() ?? '/'
+
+  // Текущий раздел подсвечивается: на семи одинаковых пунктах человек иначе
+  // не понимает, где находится.
+  const isCurrent = (href: string) =>
+    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href + '/')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -32,46 +48,54 @@ export default function Header() {
         backdropFilter: 'blur(14px)',
         WebkitBackdropFilter: 'blur(14px)',
         background: scrolled ? 'var(--header-scrolled)' : 'var(--header)',
-        borderBottom: '1px solid rgba(192,92,46,0.18)',
+        borderBottom: '1px solid rgb(var(--violet-rgb) / 0.18)',
       }}
     >
+      <style dangerouslySetInnerHTML={{ __html: `
+        .hd-link{color:rgb(var(--muted-rgb));white-space:nowrap;}
+        .hd-link::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;
+          background:rgb(var(--violet-rgb));transform:scaleX(0);transform-origin:right;
+          transition:transform .3s cubic-bezier(.6,0,.3,1);}
+        .hd-link:hover{color:rgb(var(--text-rgb));}
+        .hd-link:hover::after{transform:scaleX(1);transform-origin:left;}
+        .hd-link[data-current]{color:rgb(var(--violet-rgb));font-weight:500;}
+        .hd-link[data-current]::after{transform:scaleX(1);}
+      ` }} />
+
       {/* Gold hairline */}
       <div
         className="absolute left-0 right-0 bottom-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(192,92,46,0.55), transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, rgb(var(--violet-rgb) / 0.55), transparent)' }}
         aria-hidden
       />
 
-      <div
-        className="mx-auto flex items-center justify-between gap-3 sm:gap-6 px-5 sm:px-8 md:px-10 py-4 md:py-[18px]"
-        style={{ maxWidth: '1340px' }}
-      >
+      <div className="wrap flex items-center justify-between gap-3 sm:gap-6 py-4 md:py-[18px]">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 no-underline group min-w-0">
           <div
             className="relative w-10 h-10 grid place-items-center flex-shrink-0 text-gold font-serif text-xl"
-            style={{ border: '1px solid #c05c2e' }}
+            style={{ border: '1px solid rgb(var(--violet-rgb))' }}
           >
             {/* Corner decorations */}
             <span
               className="absolute top-0 left-0 w-1.5 h-1.5"
-              style={{ borderTop: '1px solid #c05c2e', borderLeft: '1px solid #c05c2e' }}
+              style={{ borderTop: '1px solid rgb(var(--violet-rgb))', borderLeft: '1px solid rgb(var(--violet-rgb))' }}
               aria-hidden
             />
             <span
               className="absolute bottom-0 right-0 w-1.5 h-1.5"
-              style={{ borderBottom: '1px solid #c05c2e', borderRight: '1px solid #c05c2e' }}
+              style={{ borderBottom: '1px solid rgb(var(--violet-rgb))', borderRight: '1px solid rgb(var(--violet-rgb))' }}
               aria-hidden
             />
             {notary.name.trim().charAt(0)}
           </div>
           <div className="flex flex-col min-w-0">
             <span className="font-serif text-sm sm:text-base text-cream group-hover:text-gold transition-colors truncate">
-              {notary.name}
+              {shortName(notary.name)}
             </span>
             <span
-              className="font-sans text-[9px] tracking-[0.22em] sm:tracking-[0.28em] uppercase mt-0.5 truncate"
-              style={{ color: 'rgba(192,92,46,0.70)' }}
+              className="font-sans text-[10px] tracking-[0.20em] uppercase mt-1 truncate"
+              style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}
             >
               Нотариус · Москва
             </span>
@@ -84,7 +108,9 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="relative py-1.5 text-[11px] tracking-[0.20em] uppercase text-slate hover:text-cream transition-colors duration-200 no-underline group"
+              aria-current={isCurrent(link.href) ? 'page' : undefined}
+              data-current={isCurrent(link.href) ? '' : undefined}
+              className="hd-link relative py-1.5 text-[14px] transition-colors duration-200 no-underline"
             >
               {link.label}
               <span
@@ -115,15 +141,16 @@ export default function Header() {
       {/* Mobile menu */}
       {menuOpen && (
         <nav
-          className="md:hidden px-5 pb-5 flex flex-col gap-0"
-          style={{ borderTop: '1px solid rgba(192,92,46,0.10)', background: 'var(--header-scrolled)' }}
+          className="md:hidden wrap pb-5 flex flex-col gap-0"
+          style={{ borderTop: '1px solid rgb(var(--violet-rgb) / 0.10)', background: 'var(--header-scrolled)' }}
         >
           {navLinks.map(link => (
             <Link
               key={link.href}
               href={link.href}
-              className="py-3.5 text-[11px] tracking-[0.20em] uppercase text-slate hover:text-gold transition-colors no-underline border-b"
-              style={{ borderColor: 'rgba(192,92,46,0.08)' }}
+              aria-current={isCurrent(link.href) ? 'page' : undefined}
+              className="py-4 text-[15px] transition-colors no-underline border-b"
+              style={{ borderColor: 'rgb(var(--violet-rgb) / 0.08)' }}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}

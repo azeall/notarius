@@ -122,7 +122,7 @@ export default function PrivacyPage() {
             ))}
 
             {/* Контакты оператора */}
-            <div className="rounded-2xl p-6 mt-4" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.15)' }}>
+            <div className="rounded-2xl p-6 mt-4" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
               <h2 className="font-serif text-xl font-bold text-cream mb-3">10. Контакты Оператора</h2>
               <dl className="space-y-2 text-sm">
                 <div className="flex gap-3"><dt className="text-slate/70 min-w-[90px]">Оператор</dt><dd className="text-cream">{notary.name}</dd></div>

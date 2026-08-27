@@ -28,11 +28,11 @@ export default function FAQSearch() {
 
   return (
     <section className="py-20 sm:py-24" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
-      <div className="mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1180px' }}>
+      <div className="wrap">
         <div className="mb-8 reveal">
           <div className="inline-flex items-center gap-3.5 mb-4">
             <span className="block w-6 h-px" style={{ background: 'rgb(var(--violet-rgb))' }} />
-            <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(192,92,46,0.75)' }}>
+            <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-rgb) / 0.75)' }}>
               Вопросы и ответы
             </span>
           </div>
@@ -45,7 +45,7 @@ export default function FAQSearch() {
         <div className="relative max-w-[560px] mb-8 reveal">
           <svg
             className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4"
-            style={{ color: 'rgba(61,32,16,0.35)' }}
+            style={{ color: 'rgb(var(--text-rgb) / 0.35)' }}
             fill="none" stroke="currentColor" viewBox="0 0 24 24"
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
@@ -56,7 +56,7 @@ export default function FAQSearch() {
             onChange={e => setQuery(e.target.value)}
             placeholder="Поиск по вопросам…"
             className="w-full rounded-xl pl-11 pr-4 py-3.5 text-sm focus:outline-none"
-            style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.25)', color: 'rgb(var(--text-rgb))' }}
+            style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.25)', color: 'rgb(var(--text-rgb))' }}
           />
           {query && (
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs" style={{ color: 'rgb(var(--muted-rgb))' }}>
@@ -79,8 +79,8 @@ export default function FAQSearch() {
                 <div
                   key={faq.q}
                   style={{
-                    borderTop: '1px solid rgba(192,92,46,0.15)',
-                    ...(i === filtered.length - 1 ? { borderBottom: '1px solid rgba(192,92,46,0.15)' } : {}),
+                    borderTop: '1px solid rgb(var(--violet-rgb) / 0.15)',
+                    ...(i === filtered.length - 1 ? { borderBottom: '1px solid rgb(var(--violet-rgb) / 0.15)' } : {}),
                   }}
                 >
                   <button
@@ -95,10 +95,10 @@ export default function FAQSearch() {
                     <span
                       className="w-8 h-8 grid place-items-center flex-shrink-0 rounded-full transition-transform duration-300"
                       style={{
-                        border: '1px solid rgba(192,92,46,0.35)',
+                        border: '1px solid rgb(var(--violet-rgb) / 0.35)',
                         color: 'rgb(var(--violet-rgb))',
                         transform: isOpen ? 'rotate(180deg)' : 'none',
-                        background: isOpen ? 'rgba(192,92,46,0.08)' : 'transparent',
+                        background: isOpen ? 'rgb(var(--violet-rgb) / 0.08)' : 'transparent',
                       }}
                     >
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

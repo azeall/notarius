@@ -168,7 +168,7 @@ export default async function ArticlePage({
           {article.content.map(renderBlock)}
 
           {/* Disclaimer */}
-          <div className="mt-10 pt-6 border-t" style={{ borderColor: 'rgba(192,92,46,0.12)' }}>
+          <div className="mt-10 pt-6 border-t" style={{ borderColor: 'rgb(var(--violet-rgb) / 0.12)' }}>
             <p className="text-xs text-slate/70 leading-relaxed">
               Материал носит справочный характер и не заменяет консультацию. Точный перечень документов и стоимость
               зависят от конкретной ситуации — уточняйте при записи на приём.
@@ -178,7 +178,7 @@ export default async function ArticlePage({
       </article>
 
       {/* CTA */}
-      <section className="bg-navy-dark border-t" style={{ borderColor: 'rgba(192,92,46,0.12)' }}>
+      <section className="bg-navy-dark border-t" style={{ borderColor: 'rgb(var(--violet-rgb) / 0.12)' }}>
         <div className="max-w-3xl mx-auto px-4 py-12 text-center">
           <h2 className="font-serif text-2xl font-bold text-cream mb-3">Нужна консультация по вашему вопросу?</h2>
           <p className="text-slate mb-6 text-sm">Запишитесь на приём — подскажем точный список документов и порядок действий</p>
@@ -187,7 +187,7 @@ export default async function ArticlePage({
             <a
               href={notary.phoneHref}
               className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
-              style={{ borderColor: 'rgba(192,92,46,0.35)' }}
+              style={{ borderColor: 'rgb(var(--violet-rgb) / 0.35)' }}
             >
               {notary.phone}
             </a>
@@ -196,7 +196,7 @@ export default async function ArticlePage({
       </section>
 
       {/* Related */}
-      <section className="bg-navy border-t" style={{ borderColor: 'rgba(192,92,46,0.12)' }}>
+      <section className="bg-navy border-t" style={{ borderColor: 'rgb(var(--violet-rgb) / 0.12)' }}>
         <div className="max-w-6xl mx-auto px-4 py-14">
           <h2 className="font-serif text-xl font-bold text-cream mb-6">Читайте также</h2>
           <div className="grid md:grid-cols-2 gap-6">
@@ -205,10 +205,10 @@ export default async function ArticlePage({
                 key={a.slug}
                 href={`/blog/${a.slug}`}
                 className="group flex flex-col rounded-2xl p-6 transition-all hover:-translate-y-0.5"
-                style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.15)' }}
+                style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}
               >
                 <div className="flex items-center gap-3 mb-2 text-xs">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgba(192,92,46,0.12)' }}>
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-gold font-semibold uppercase tracking-wide" style={{ background: 'rgb(var(--violet-rgb) / 0.12)' }}>
                     {a.category}
                   </span>
                   <span className="text-slate">{a.readingTime} мин</span>

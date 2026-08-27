@@ -2,14 +2,16 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import Hero from '@/components/Hero'
-import Marquee from '@/components/Marquee'
 import FAQSearch from '@/components/FAQSearch'
 import BringChecklist from '@/components/BringChecklist'
 import DealTimeline from '@/components/DealTimeline'
 import BookingInline from '@/components/BookingInline'
 import BookingButton from '@/components/BookingButton'
-import CountUp from '@/components/CountUp'
+import SectionMark from '@/components/SectionMark'
+import ScrollRule from '@/components/ScrollRule'
+import ScrollCount from '@/components/ScrollCount'
 import LegalPhotos from '@/components/LegalPhotos'
+import CredentialsSection from '@/components/CredentialsSection'
 import { notary, site, photos, documentsDone } from '@/lib/data'
 import { reviews } from '@/lib/reviews'
 
@@ -45,7 +47,7 @@ export default function HomePage() {
         <svg className="block w-full" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden style={{ marginTop: '-1px' }}>
           <path d="M0,38 C240,6 480,6 720,28 C960,50 1200,50 1440,22 L1440,0 L0,0 Z" style={{ fill: 'rgb(var(--bg-rgb))' }} />
         </svg>
-        <div className="mx-auto px-5 sm:px-10 pt-2 pb-4" style={{ maxWidth: '1080px' }}>
+        <div className="wrap pt-2 pb-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-6">
             {[
               // Стаж считается от года начала практики, а не вписан рукой:
@@ -61,7 +63,7 @@ export default function HomePage() {
             ].map((st, i) => (
               <div key={st.l} className="text-center reveal" data-reveal-delay={i * 90}>
                 <div className="font-serif font-medium leading-none mb-2" style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', color: 'rgb(var(--surface-4-rgb))' }}>
-                  <CountUp value={st.v} suffix={st.s} />
+                  <ScrollCount value={st.v} suffix={st.s} />
                 </div>
                 <div className="text-[11px] sm:text-xs tracking-[0.14em] uppercase" style={{ color: 'rgba(251,246,234,0.7)' }}>
                   {st.l}
@@ -81,7 +83,7 @@ export default function HomePage() {
           <div className="text-center mb-14 reveal">
             <div className="inline-flex items-center gap-3.5 mb-4">
               <span className="block w-6 h-px" style={{ background: 'rgb(var(--violet-rgb))' }} />
-              <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(192,92,46,0.75)' }}>Услуги</span>
+              <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-rgb) / 0.75)' }}>Услуги</span>
               <span className="block w-6 h-px" style={{ background: 'rgb(var(--violet-rgb))' }} />
             </div>
             <h2 className="font-serif font-medium m-0" style={{ fontSize: 'clamp(32px, 4vw, 50px)', color: 'rgb(var(--text-rgb))' }}>
@@ -93,7 +95,7 @@ export default function HomePage() {
             {/* пунктирная нить по центру */}
             <span
               className="hidden sm:block absolute left-1/2 top-4 bottom-4 w-px -translate-x-1/2"
-              style={{ borderLeft: '2px dashed rgba(192,92,46,0.25)' }}
+              style={{ borderLeft: '2px dashed rgb(var(--violet-rgb) / 0.25)' }}
               aria-hidden
             />
             <div className="space-y-10 sm:space-y-4">
@@ -105,7 +107,7 @@ export default function HomePage() {
                       <Link
                         href="/services"
                         className="group relative block rounded-2xl p-6 no-underline transition-all hover:-translate-y-1"
-                        style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgba(192,92,46,0.15)' }}
+                        style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}
                       >
                         {/* узел нити */}
                         <span
@@ -114,10 +116,10 @@ export default function HomePage() {
                           aria-hidden
                         />
                         <div className="flex items-center gap-4 mb-3">
-                          <span className="w-11 h-11 rounded-full grid place-items-center flex-shrink-0" style={{ background: 'rgba(192,92,46,0.10)', color: 'rgb(var(--violet-rgb))' }}>
+                          <span className="w-11 h-11 rounded-full grid place-items-center flex-shrink-0" style={{ background: 'rgb(var(--violet-rgb) / 0.10)', color: 'rgb(var(--violet-rgb))' }}>
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">{s.icon}</svg>
                           </span>
-                          <h3 className="font-serif m-0 transition-colors group-hover:text-[#c05c2e]" style={{ fontSize: '21px', color: 'rgb(var(--text-rgb))' }}>{s.t}</h3>
+                          <h3 className="font-serif m-0 transition-colors group-hover:text-[rgb(var(--violet-rgb))]" style={{ fontSize: '21px', color: 'rgb(var(--text-rgb))' }}>{s.t}</h3>
                         </div>
                         <p className="text-[14px] leading-relaxed m-0" style={{ color: 'rgb(var(--muted-rgb))' }}>{s.d}</p>
                       </Link>
@@ -133,45 +135,51 @@ export default function HomePage() {
       {/* ── Что взять с собой: интерактивный чек-лист (уникальная фича) ── */}
       <BringChecklist />
 
-      {/* ── О нотариусе: фото + текст ── */}
-      <section className="py-20" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
-        <div className="mx-auto px-5 sm:px-10 grid md:grid-cols-[0.4fr_0.6fr] gap-10 items-center" style={{ maxWidth: '1080px' }}>
-          <div
-            className="relative rounded-2xl mx-auto flex items-center justify-center overflow-hidden reveal"
-            style={{ width: 'min(280px, 70vw)', aspectRatio: '3/4', background: 'rgb(var(--muted-d-rgb))', border: '1px solid rgba(61,32,16,0.15)' }}
-          >
-            {photos.portrait ? (
-              <Image
-                src={photos.portrait}
-                alt={`${notary.name} — ${notary.title}`}
-                fill
-                sizes="(max-width: 768px) 70vw, 280px"
-                className="object-cover"
-              />
-            ) : (
-              <p className="font-mono text-[10px] tracking-[0.16em] uppercase" style={{ color: 'rgba(61,32,16,0.45)' }}>[ фото ]</p>
+      {/* ── О нотариусе ──
+          Портрет показывается, только если он есть. Раньше на его месте
+          рисовался серый прямоугольник с надписью «[ фото ]» — заглушка,
+          которая на готовом сайте выглядит как незагрузившаяся картинка, а
+          у большинства контор фото так и не появляется. Нет снимка —
+          раздел просто становится текстовым во всю ширину. */}
+      <section className="py-20 sm:py-28" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
+        <div className="wrap">
+          <div className="sd"><SectionMark n="02">О нотариусе</SectionMark></div>
+          <div className={photos.portrait ? 'grid md:grid-cols-[0.34fr_0.66fr] gap-10 lg:gap-16 items-start' : ''}>
+            {photos.portrait && (
+              <div
+                className="relative overflow-hidden sd"
+                style={{ aspectRatio: '3/4', border: '1px solid rgb(var(--rule-rgb))' }}
+              >
+                <Image
+                  src={photos.portrait}
+                  alt={`${notary.name} — ${notary.title}`}
+                  fill
+                  sizes="(max-width: 768px) 90vw, 340px"
+                  className="object-cover"
+                />
+              </div>
             )}
-          </div>
-          <div className="reveal">
-            <h2 className="font-serif font-medium mb-5" style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', color: 'rgb(var(--text-rgb))' }}>
-              {notary.name}
-            </h2>
-            <p className="leading-relaxed mb-4" style={{ color: 'rgb(var(--muted-rgb))', fontSize: '16px', lineHeight: '1.75' }}>
-              Нотариус города Москвы, член Московской городской нотариальной палаты.
-              Практика с {notary.practiceSince} года, лицензия {notary.license}.
-            </p>
-            <p className="leading-relaxed mb-7" style={{ color: 'rgb(var(--muted-rgb))', fontSize: '16px', lineHeight: '1.75' }}>
-              Мы верим, что визит к нотариусу не должен быть стрессом: объясняем простыми
-              словами, готовим документы заранее и бережно относимся к вашему времени.
-            </p>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-2.5 text-[12px] tracking-[0.22em] uppercase no-underline pb-1 transition-opacity hover:opacity-70"
-              style={{ color: 'rgb(var(--violet-rgb))', borderBottom: '1px solid rgba(192,92,46,0.30)' }}
-            >
-              Подробнее о нотариусе
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-            </Link>
+
+            <div className="sd">
+              <h2
+                className="font-serif font-medium m-0 mb-6"
+                style={{ fontSize: 'clamp(28px, 3.6vw, 46px)', lineHeight: 1.08, letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}
+              >
+                {notary.name}
+              </h2>
+              <p className="m-0 mb-4 leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))', fontSize: '17px', lineHeight: 1.7, maxWidth: '58ch' }}>
+                {notary.title}, член организации «{notary.chamber}».
+                Практика с {notary.practiceSince} года, лицензия {notary.license}.
+              </p>
+              <p className="m-0 mb-8 leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))', fontSize: '17px', lineHeight: 1.7, maxWidth: '58ch' }}>
+                Визит к нотариусу не должен быть испытанием: объясняем простыми словами,
+                называем перечень документов заранее и не тянем время на приёме.
+              </p>
+              <Link href="/about" className="ln-more inline-flex items-center gap-2.5 text-[15px] no-underline" style={{ color: 'rgb(var(--text-rgb))' }}>
+                Подробнее о нотариусе
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -181,14 +189,16 @@ export default function HomePage() {
       {/* ── Как проходит сделка: интерактивный таймлайн ── */}
       <DealTimeline />
 
+      <CredentialsSection />
+
       {/* ── Отзывы: полароиды ── */}
       {reviews.length > 0 && (
       <section className="py-20 sm:py-24 overflow-hidden" style={{ background: 'rgb(var(--bg-rgb))' }}>
-        <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1080px' }}>
+        <div className="wrap">
           <div className="text-center mb-14 reveal">
             <div className="inline-flex items-center gap-3.5 mb-4">
               <span className="block w-6 h-px" style={{ background: 'rgb(var(--violet-rgb))' }} />
-              <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(192,92,46,0.75)' }}>Отзывы</span>
+              <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-rgb) / 0.75)' }}>Отзывы</span>
               <span className="block w-6 h-px" style={{ background: 'rgb(var(--violet-rgb))' }} />
             </div>
             <h2 className="font-serif font-medium m-0" style={{ fontSize: 'clamp(32px, 4vw, 50px)', color: 'rgb(var(--text-rgb))' }}>
@@ -200,10 +210,10 @@ export default function HomePage() {
               <figure
                 key={r.name}
                 className="m-0 p-5 pb-7 bg-navy-card reveal transition-transform hover:scale-[1.03] hover:rotate-0"
-                style={{ transform: `rotate(${['-3deg', '2deg', '-1.5deg'][i % 3]})`, boxShadow: '0 16px 40px rgba(61,32,16,0.16)', borderRadius: '6px', transitionDuration: '300ms' }}
+                style={{ transform: `rotate(${['-3deg', '2deg', '-1.5deg'][i % 3]})`, boxShadow: '0 16px 40px rgb(var(--text-rgb) / 0.16)', borderRadius: '6px', transitionDuration: '300ms' }}
                 data-reveal-delay={i * 100}
               >
-                <div className="h-2 w-16 mx-auto -mt-8 mb-5 rounded-sm" style={{ background: 'rgba(232,201,160,0.9)', boxShadow: '0 2px 6px rgba(61,32,16,0.15)' }} aria-hidden />
+                <div className="h-2 w-16 mx-auto -mt-8 mb-5 rounded-sm" style={{ background: 'rgb(var(--muted-rgb) / 0.9)', boxShadow: '0 2px 6px rgb(var(--text-rgb) / 0.15)' }} aria-hidden />
                 <blockquote className="m-0 mb-4 text-[14px] leading-relaxed" style={{ color: 'rgb(var(--text-b-rgb))' }}>{r.text}</blockquote>
                 <figcaption className="font-serif italic text-[15px]" style={{ color: 'rgb(var(--violet-rgb))' }}>
                   — {r.name}
@@ -216,16 +226,13 @@ export default function HomePage() {
       </section>
       )}
 
-      {/* ── Бегущая строка услуг (кинетический акцент) ── */}
-      <Marquee />
-
       {/* ── FAQ с live-поиском (уникальная фича) ── */}
       <FAQSearch />
 
       {/* ── Карта + часы работы ── */}
       <section className="py-20" style={{ background: 'rgb(var(--surface-rgb))' }}>
-        <div className="mx-auto px-5 sm:px-10 grid md:grid-cols-[0.6fr_0.4fr] gap-8 items-stretch" style={{ maxWidth: '1080px' }}>
-          <div className="rounded-2xl overflow-hidden reveal" style={{ border: '1px solid rgba(192,92,46,0.20)', minHeight: '380px' }}>
+        <div className="wrap grid md:grid-cols-[0.6fr_0.4fr] gap-8 items-stretch">
+          <div className="rounded-2xl overflow-hidden reveal" style={{ border: '1px solid rgb(var(--violet-rgb) / 0.20)', minHeight: '380px' }}>
             <iframe
               src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(notary.address)}&z=16`}
               width="100%" height="100%" frameBorder="0" allowFullScreen
@@ -233,14 +240,14 @@ export default function HomePage() {
               title="Карта"
             />
           </div>
-          <div className="rounded-2xl p-7 reveal" style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgba(192,92,46,0.18)' }}>
+          <div className="rounded-2xl p-7 reveal" style={{ background: 'rgb(var(--bg-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.18)' }}>
             <h2 className="font-serif font-medium mb-5" style={{ fontSize: '24px', color: 'rgb(var(--text-rgb))' }}>Ждём вас</h2>
             <p className="text-[14px] m-0 mb-1" style={{ color: 'rgb(var(--muted-rgb))' }}>{notary.address}</p>
             <a href={notary.phoneHref} className="font-semibold text-[16px] no-underline" style={{ color: 'rgb(var(--violet-rgb))' }}>{notary.phone}</a>
-            <div className="mt-6 pt-5" style={{ borderTop: '1px dashed rgba(192,92,46,0.3)' }}>
+            <div className="mt-6 pt-5" style={{ borderTop: '1px dashed rgb(var(--violet-rgb) / 0.3)' }}>
               <p className="text-[10px] tracking-[0.22em] uppercase m-0 mb-3" style={{ color: 'rgb(var(--violet-rgb))' }}>Часы работы</p>
               {notary.workingHours.slice(0, 7).map(w => (
-                <div key={w.day} className="flex justify-between text-[13px] py-1.5" style={{ borderBottom: '1px solid rgba(192,92,46,0.08)' }}>
+                <div key={w.day} className="flex justify-between text-[13px] py-1.5" style={{ borderBottom: '1px solid rgb(var(--violet-rgb) / 0.08)' }}>
                   <span style={{ color: 'rgb(var(--text-b-rgb))' }}>{w.day}</span>
                   <span style={{ color: w.hours === 'Выходной' ? 'rgb(var(--muted-b-rgb))' : 'rgb(var(--text-rgb))', fontWeight: w.hours === 'Выходной' ? 400 : 600 }}>{w.hours}</span>
                 </div>
@@ -254,7 +261,7 @@ export default function HomePage() {
       <BookingInline />
 
       {/* ── CTA ── */}
-      <section className="py-16 text-center" style={{ background: 'rgb(var(--surface-2-rgb))', borderTop: '1px solid rgba(192,92,46,0.12)' }}>
+      <section className="py-16 text-center" style={{ background: 'rgb(var(--surface-2-rgb))', borderTop: '1px solid rgb(var(--violet-rgb) / 0.12)' }}>
         <div className="mx-auto px-5" style={{ maxWidth: '640px' }}>
           <h2 className="font-serif font-medium mb-3" style={{ fontSize: 'clamp(26px, 3vw, 38px)', color: 'rgb(var(--text-rgb))' }}>
             Приходите — <em className="italic font-normal" style={{ color: 'rgb(var(--violet-rgb))' }}>поможем</em>
@@ -266,8 +273,8 @@ export default function HomePage() {
             <BookingButton />
             <Link
               href="/contacts"
-              className="inline-flex items-center px-8 py-3 rounded-lg font-semibold text-sm no-underline transition-colors hover:text-white hover:bg-[#c05c2e]"
-              style={{ border: '1px solid rgba(192,92,46,0.35)', color: 'rgb(var(--violet-rgb))' }}
+              className="inline-flex items-center px-8 py-3 rounded-lg font-semibold text-sm no-underline transition-colors hover:text-white hover:bg-[rgb(var(--violet-rgb))]"
+              style={{ border: '1px solid rgb(var(--violet-rgb) / 0.35)', color: 'rgb(var(--violet-rgb))' }}
             >
               Как добраться →
             </Link>

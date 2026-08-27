@@ -1,16 +1,33 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import Hero from '@/components/Hero'
+import { notary, motto } from '@/lib/data'
 
 describe('Hero', () => {
-  it('displays notary name as heading', () => {
+  // У варианта warm первый экран занимает фраза конторы, а не имя: имя
+  // стоит вторым планом. Проверяем именно этот порядок — он и есть замысел.
+  it('gives the heading to the office motto', () => {
     render(<Hero />)
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Иванов Иван Иванович')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(motto)
   })
 
-  it('has a CTA link to contacts', () => {
+  it('shows the notary name below the claim', () => {
     render(<Hero />)
-    const cta = screen.getByRole('link', { name: /записаться/i })
-    expect(cta).toHaveAttribute('href', '/contacts')
+    expect(screen.getByText(notary.name)).toBeInTheDocument()
+  })
+
+  it('opens booking from the hero', () => {
+    render(<Hero />)
+    expect(screen.getByRole('button', { name: /записаться/i })).toBeInTheDocument()
+  })
+
+  it('links to the document checklist', () => {
+    render(<Hero />)
+    expect(screen.getByRole('link', { name: /какие нужны документы/i })).toHaveAttribute('href', '/visit')
+  })
+
+  it('shows the office phone', () => {
+    render(<Hero />)
+    expect(screen.getByText(notary.phone).closest('a')).toHaveAttribute('href', notary.phoneHref)
   })
 })

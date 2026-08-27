@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from 'next'
-import { Manrope, Playfair_Display, JetBrains_Mono } from 'next/font/google'
+import { Spectral, Commissioner, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import RevealObserver from '@/components/RevealObserver'
+import Motion from '@/components/Motion'
 import { Suspense } from 'react'
 import YandexMetrika from '@/components/YandexMetrika'
 import CookieNotice from '@/components/CookieNotice'
@@ -11,24 +12,39 @@ import DemoRibbon from '@/components/DemoRibbon'
 import ScrollProgress from '@/components/ScrollProgress'
 import SmoothScroll from '@/components/SmoothScroll'
 import ContactFab from '@/components/ContactFab'
-import Preloader from '@/components/Preloader'
 import { notary, site } from '@/lib/data'
 
-const manrope = Manrope({
+/* Шрифты варианта warm.
+ *
+ * Spectral в заголовках — антиква, нарисованная для чтения с экрана:
+ * крупные засечки, открытые формы, тёплый рисунок. У lavender стоит Lora,
+ * и это слышно: Lora спокойнее и суше, Spectral говорит громче.
+ *
+ * Commissioner в интерфейсе — гуманистический гротеск с низким контрастом
+ * штриха, без геометрической стерильности Manrope, которая была здесь
+ * раньше и делала контору похожей на стартап.
+ *
+ * JetBrains Mono остаётся: в lavender мономер из семейства Plex, здесь —
+ * другой, и варианты не сливаются даже в подписях.
+ */
+const commissioner = Commissioner({
   subsets: ['latin', 'cyrillic'],
-  variable: '--font-manrope',
+  weight: ['400', '500', '600'],
+  variable: '--font-sans',
   display: 'swap',
 })
 
-const playfair = Playfair_Display({
+const spectral = Spectral({
   subsets: ['latin', 'cyrillic'],
-  variable: '--font-playfair',
+  weight: ['400', '500', '600'],
+  variable: '--font-display',
   display: 'swap',
 })
 
 const jetbrains = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-jetbrains',
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500'],
+  variable: '--font-mono',
   display: 'swap',
 })
 
@@ -201,17 +217,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body
-        className={`${manrope.variable} ${playfair.variable} ${jetbrains.variable} font-sans bg-navy text-cream flex flex-col min-h-screen`}
+        className={`${commissioner.variable} ${spectral.variable} ${jetbrains.variable} font-sans bg-navy text-cream flex flex-col min-h-screen`}
       >
+        {/* Прелоадер убран: он держал экран заглушкой почти секунду до первой
+            отрисовки. Красиво ровно один раз, мешает каждый следующий. */}
+        <a className="skip-link" href="#main">Перейти к содержимому</a>
         <DemoRibbon />
-        <Preloader />
         <ScrollProgress />
         <SmoothScroll />
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="main" className="flex-1">{children}</main>
         <Footer />
         <ContactFab />
         <RevealObserver />
+        <Motion />
         <CookieNotice />
         <Suspense><YandexMetrika /></Suspense>
       </body>

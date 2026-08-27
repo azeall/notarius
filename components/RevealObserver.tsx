@@ -3,9 +3,16 @@ import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 
 /**
- * Двусторонний reveal: элемент проявляется при входе в зону видимости
- * (со стаггером data-reveal-delay) и снова скрывается при уходе —
- * скорость задаётся в CSS (.reveal — медленное скрытие, .reveal.in — проявление).
+ * Одностороннее проявление: элемент показывается при входе в зону видимости
+ * (со стаггером data-reveal-delay) и дальше остаётся показанным.
+ *
+ * Раньше reveal был двусторонним — блок гасился, стоило увести его за край
+ * экрана. На витрине это выглядит эффектно, а здесь человек прокручивает
+ * назад, чтобы перечитать перечень документов, и видит пустоту.
+ *
+ * Страховка на случай, если IntersectionObserver не сработает: элементы,
+ * попавшие в кадр к моменту запуска, показываются сразу — иначе .reveal
+ * с opacity:0 оставил бы страницу пустой.
  */
 export default function RevealObserver() {
   const pathname = usePathname()
@@ -22,15 +29,12 @@ export default function RevealObserver() {
     const io = new IntersectionObserver(
       entries => {
         entries.forEach(e => {
+          if (!e.isIntersecting) return
           const el = e.target as HTMLElement
-          if (e.isIntersecting) {
-            const raw = el.dataset.revealDelay
-            el.style.transitionDelay = raw ? `${parseFloat(raw) || 0}ms` : ''
-            el.classList.add('in')
-          } else {
-            el.style.transitionDelay = '0ms'
-            el.classList.remove('in')
-          }
+          const raw = el.dataset.revealDelay
+          el.style.transitionDelay = raw ? `${parseFloat(raw) || 0}ms` : ''
+          el.classList.add('in')
+          io.unobserve(el)
         })
       },
       { threshold: 0.14, rootMargin: '0px 0px -12% 0px' },
@@ -40,7 +44,7 @@ export default function RevealObserver() {
 
     return () => {
       io.disconnect()
-      els.forEach(el => { el.classList.remove('in'); el.style.transitionDelay = '' })
+      els.forEach(el => { el.style.transitionDelay = '' })
     }
   }, [pathname])
 

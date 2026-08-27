@@ -51,13 +51,13 @@ export default function ContactFab() {
         </svg>
       </button>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .cf-wrap{position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(16px,3vw,28px);z-index:60;
           display:flex;flex-direction:column;align-items:center;gap:14px;}
         .cf-items{display:flex;flex-direction:column;align-items:center;gap:14px;}
         .cf-item{opacity:0;visibility:hidden;transform:translateY(12px) scale(.6);
           width:50px;height:50px;border-radius:50%;display:grid;place-items:center;color:#fff;
-          box-shadow:0 8px 20px rgba(61,32,16,.30);text-decoration:none;position:relative;
+          box-shadow:0 8px 20px rgb(var(--text-rgb) / .30);text-decoration:none;position:relative;
           transition:transform .28s cubic-bezier(.2,.7,.2,1),opacity .28s,visibility .28s,filter .2s;
           transition-delay:var(--d);}
         .cf-item:hover{filter:brightness(1.08);}
@@ -65,21 +65,21 @@ export default function ContactFab() {
         .cf-ico{width:24px;height:24px;display:block;}
         .cf-main .cf-ico{width:26px;height:26px;}
         .cf-tip{position:absolute;right:62px;top:50%;transform:translateY(-50%);
-          background:#3d2010;color:#fff;font-size:12px;font-weight:600;white-space:nowrap;
+          background:rgb(var(--text-rgb));color:#fff;font-size:12px;font-weight:600;white-space:nowrap;
           padding:6px 11px;border-radius:8px;opacity:0;transition:opacity .2s;pointer-events:none;}
         .cf-item:hover .cf-tip{opacity:1;}
         .cf-main{position:relative;width:60px;height:60px;border-radius:50%;border:none;cursor:pointer;color:#fff;
-          background:linear-gradient(135deg,#d2703f,#c05c2e);
-          box-shadow:0 12px 30px rgba(192,92,46,.45);display:grid;place-items:center;
+          background:linear-gradient(135deg,#d2703f,rgb(var(--violet-rgb)));
+          box-shadow:0 12px 30px rgb(var(--violet-rgb) / .45);display:grid;place-items:center;
           transition:transform .25s cubic-bezier(.2,.7,.2,1);}
         .cf-main::after{content:"";position:absolute;inset:0;border-radius:50%;
-          border:2px solid rgba(232,201,160,.7);animation:cfpulse 2.4s ease-out infinite;}
+          border:2px solid rgb(var(--muted-rgb) / .7);animation:cfpulse 2.4s ease-out infinite;}
         .cf-main:hover{transform:scale(1.06);}
         .cf-active{transform:rotate(90deg);}
         .cf-active::after{display:none;}
         @keyframes cfpulse{0%{transform:scale(1);opacity:.7}70%{transform:scale(1.45);opacity:0}100%{opacity:0}}
         @media (prefers-reduced-motion:reduce){.cf-main::after{animation:none;}}
-      `}</style>
+      ` }} />
     </div>
   )
 }

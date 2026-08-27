@@ -60,7 +60,7 @@ export default function BookingInline() {
 
   return (
     <section id="booking" className="relative py-20 sm:py-24 bg-navy-dark">
-      <div className="mx-auto px-5 sm:px-8 md:px-10" style={{ maxWidth: '1180px' }}>
+      <div className="wrap">
         <div className="mb-10 reveal">
           <div className="inline-flex items-center gap-3.5 mb-4">
             <span className="block w-6 h-px bg-gold" />

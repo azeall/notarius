@@ -20,8 +20,8 @@ export default function DemoRibbon() {
       style={{
         position: 'relative',
         zIndex: 60,
-        background: '#b89a5a',
-        color: '#0a1628',
+        background: 'rgb(var(--violet-rgb))',
+        color: 'rgb(var(--bg-rgb))',
         textAlign: 'center',
         padding: '9px 16px',
         fontSize: '13px',

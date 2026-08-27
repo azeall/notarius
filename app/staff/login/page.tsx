@@ -33,7 +33,7 @@ export default function StaffLogin() {
         {/* Avatar icon */}
         <div className="flex justify-center mb-5">
           <div className="w-12 h-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c05c2e" strokeWidth="1.6">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgb(var(--violet-rgb))" strokeWidth="1.6">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>

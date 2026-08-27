@@ -164,7 +164,7 @@ export default async function AdminPage({
           <div
             key={s.label}
             className="rounded-2xl px-4 py-4 sm:px-5 sm:py-5"
-            style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(192,92,46,0.15)' }}
+            style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}
           >
             <div className="font-serif text-gold font-bold leading-none" style={{ fontSize: 'clamp(20px, 4vw, 30px)' }}>
               {s.value}

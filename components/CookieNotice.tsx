@@ -36,9 +36,9 @@ export default function CookieNotice() {
       <div
         className="mx-auto flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 rounded-2xl px-4 py-4 sm:px-6"
         style={{
-          maxWidth: '1100px',
+          maxWidth: '1200px',
           background: 'rgba(253,248,239,0.97)',
-          border: '1px solid rgba(192,92,46,0.25)',
+          border: '1px solid rgb(var(--violet-rgb) / 0.25)',
           backdropFilter: 'blur(8px)',
           boxShadow: '0 16px 50px rgba(0,0,0,0.45)',
           pointerEvents: 'auto',
@@ -56,7 +56,7 @@ export default function CookieNotice() {
           <button
             onClick={decline}
             className="px-4 py-2.5 rounded-lg text-xs font-semibold text-slate hover:text-cream transition-colors whitespace-nowrap"
-            style={{ border: '1px solid rgba(192,92,46,0.20)' }}
+            style={{ border: '1px solid rgb(var(--violet-rgb) / 0.20)' }}
           >
             Только необходимые
           </button>

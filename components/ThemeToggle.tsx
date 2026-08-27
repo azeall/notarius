@@ -23,13 +23,13 @@ export default function ThemeToggle({ className = '' }: { className?: string }) 
           ? <><circle cx="12" cy="12" r="4.2" /><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" /></>
           : <path d="M20 14.5A8 8 0 1 1 9.5 4 6.3 6.3 0 0 0 20 14.5Z" />}
       </svg>
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .tt{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
           color:rgb(var(--violet-rgb));background:transparent;border:1px solid rgb(var(--violet-rgb) / 0.28);
           transition:background .2s,transform .2s,color .2s;}
         .tt:hover{background:rgb(var(--violet-rgb) / 0.10);transform:translateY(-1px);}
         .tt-ico{width:19px;height:19px;}
-      `}</style>
+      ` }} />
     </button>
   )
 }
