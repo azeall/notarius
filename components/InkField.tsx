@@ -81,7 +81,7 @@ void main(){
   uv = drift(uv, u_time);
 
   float v = 1.0 - texture2D(u_tex, clamp(uv, 0.0, 1.0)).r;   // краска = тёмное
-  v = clamp((v - 0.18) * 1.45, 0.0, 1.0);
+  v = clamp((v - 0.30) * 1.15, 0.0, 1.0);
 
   float dens = v;
   float hot  = pow(clamp((v - 0.72) * 3.0, 0.0, 1.0), 1.4);
@@ -99,10 +99,15 @@ void main(){
   float tone = 1.0 - smoothstep(dens * 1.30 - 0.10, dens * 1.30 + 0.10, dotR);
 
   // К краям кадр гаснет, чтобы не спорить с текстом.
-  float vig = 1.0 - smoothstep(0.35, 1.05, length(sc - vec2(0.5)) * 1.5);
+  /* Виньетка жёстче и смещена вправо: слева стоит текст, и краска не
+     имеет права с ним спорить. Раньше пятно накрывало весь экран и
+     перечень услуг читался сквозь него. */
+  vec2 off = sc - vec2(0.72, 0.46);
+  off.x *= 0.9;
+  float vig = 1.0 - smoothstep(0.10, 0.62, length(off));
 
-  vec3 col = mix(u_bg, u_ink, tone * 0.95 * vig);
-  col = mix(col, u_hot, hot * tone * 0.55 * vig);
+  vec3 col = mix(u_bg, u_ink, tone * 0.42 * vig);
+  col = mix(col, u_hot, hot * tone * 0.20 * vig);
   col += (hash(frag + u_time) - 0.5) * 0.014;
 
   gl_FragColor = vec4(col, 1.0);
