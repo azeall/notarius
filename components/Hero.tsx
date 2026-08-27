@@ -40,8 +40,8 @@ const CSS = `
    тонкие линии спорят с текстом за внимание. */
 .wh-veil{position:absolute;inset:0;pointer-events:none;
   background:
-    radial-gradient(52% 42% at 24% 46%, rgb(var(--bg-rgb) / .72) 0%, rgb(var(--bg-rgb) / 0) 100%),
-    linear-gradient(180deg, rgb(var(--bg-rgb) / .34) 0%, rgb(var(--bg-rgb) / .12) 44%, rgb(var(--bg-rgb) / .72) 100%);}
+    radial-gradient(62% 50% at 20% 40%, rgb(var(--bg-rgb) / .90) 0%, rgb(var(--bg-rgb) / .30) 62%, rgb(var(--bg-rgb) / 0) 100%),
+    linear-gradient(180deg, rgb(var(--bg-rgb) / .34) 0%, rgb(var(--bg-rgb) / .12) 46%, rgb(var(--bg-rgb) / .80) 100%);}
 .wh-in{position:relative;z-index:1;}
 
 /* Высказывание. Ради него всё и затевалось, поэтому кегль без оглядки. */

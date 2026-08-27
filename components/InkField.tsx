@@ -2,31 +2,24 @@
 import { useEffect, useRef } from 'react'
 
 /**
- * Чернильное поле: клубящаяся краска, прогнанная через полутоновый растр.
+ * Чернильное поле: снимок краски в воде, прогнанный через полутоновый растр.
  *
- * Третий подход к этому экрану, и первые два были мимо по одной причине:
- * я ни разу не посмотрел образцы в движении, только застывший первый экран.
- * Когда посмотрел — стало видно, что у Lama Lama фон это не узор, а видео,
- * пропущенное через точечный растр, и что заголовок стоит на месте три
- * экрана прокрутки, пока за ним сменяются кадры.
+ * Как сюда пришли. Первые три подхода рисовали фон формулой — интерференция
+ * синусоид, гильош-розетки, домен-варп шума. Все три забракованы, и по одной
+ * причине: у образца (Lama Lama, Site of the Month) фон это не узор, а
+ * снятый материал, пропущенный через точечный растр. Математикой можно
+ * подделать фактуру, но не повадку настоящего кадра.
  *
- * Что было и почему не годилось:
- *  1) интерференция синусоид — рассыпалась в царапины;
- *  2) гильош-розетки — вышла паучья сетка. Геометрическая решётка читается
- *     обоями: она статична по характеру, сколько её ни двигай.
+ * Теперь материал настоящий: макроснимок чернил, расходящихся в воде,
+ * сгенерированный через Higgsfield и лежащий в public/. Растр остался тем
+ * же — он и даёт «отпечатанный» вид. Для нотариуса приём вдвойне уместен:
+ * чернила и печать растром — это язык самого документа.
  *
- * Здесь вместо решётки — органика. Домен-варп фрактального шума даёт
- * клубящуюся массу, похожую на краску в воде: она не повторяется, всё время
- * перетекает и имеет светящееся ядро. Видео заменить нечем, а вот его
- * повадку воспроизвести можно.
+ * Снимок неподвижен, поэтому кадр дышит за счёт мелкого искажения координат
+ * по времени, отъезжает при прокрутке и изгибается линзой под курсором.
  *
- * Растр (halftone) — главное. Именно точечная сетка, а не сам кадр, даёт тот
- * «отпечатанный» вид. Для нотариуса это ещё и уместно вдвойне: так печатают
- * растром на бумаге.
- *
- * Три состояния: поле перестраивается по мере прокрутки закреплённого
- * экрана — плотность, центр и характер клубов меняются, как сменяются кадры
- * у образца.
+ * Вес: 172 КБ вместо 7.7 МБ исходника — кадр обрезан от киноперфорации и
+ * пережат. Грузится только там, где рисуется.
  *
  * На телефонах и при prefers-reduced-motion не запускается вовсе.
  */
@@ -39,13 +32,15 @@ void main(){ gl_Position = vec4(a, 0.0, 1.0); }
 const FRAG = `
 precision highp float;
 
-uniform vec2  u_res;
-uniform float u_time;
-uniform vec2  u_mouse;
-uniform float u_scroll;   // 0..1 по закреплённому экрану
-uniform vec3  u_bg;
-uniform vec3  u_ink;
-uniform vec3  u_hot;      // светящееся ядро
+uniform vec2      u_res;
+uniform float     u_time;
+uniform vec2      u_mouse;
+uniform float     u_scroll;   // 0..1 по закреплённому экрану
+uniform vec3      u_bg;
+uniform vec3      u_ink;
+uniform vec3      u_hot;
+uniform sampler2D u_tex;      // снимок чернил в воде
+uniform vec2      u_texRes;
 
 float hash(vec2 p){
   p = fract(p * vec2(123.34, 456.21));
@@ -53,87 +48,62 @@ float hash(vec2 p){
   return fract(p.x * p.y);
 }
 
-float noise(vec2 p){
-  vec2 i = floor(p), f = fract(p);
-  vec2 u = f * f * (3.0 - 2.0 * f);
-  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
-             mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
-}
-
-float fbm(vec2 p){
-  float v = 0.0, a = 0.5;
-  for (int i = 0; i < 5; i++){
-    v += a * noise(p);
-    p *= 2.02;
-    a *= 0.5;
-  }
-  return v;
-}
-
-/* Домен-варп: шум, аргумент которого сам сдвинут другим шумом. Отсюда
-   клубы и завихрения вместо равномерной крупы — так ведёт себя краска,
-   растекающаяся в воде. */
-float ink(vec2 p, float t, out float flow){
-  vec2 q = vec2(fbm(p + vec2(0.0, t * 0.16)), fbm(p + vec2(5.2, 1.3 - t * 0.11)));
-  vec2 r = vec2(fbm(p + 3.4 * q + vec2(1.7, 9.2) + t * 0.09),
-                fbm(p + 3.4 * q + vec2(8.3, 2.8) - t * 0.07));
-  flow = length(r);
-  return fbm(p + 3.2 * r);
+/* Лёгкое искажение координат по времени: снимок неподвижен, но кадр
+   должен дышать. Смещение мелкое — крупное превратило бы фотографию в
+   желе, а нужно ощущение медленно расходящейся краски. */
+vec2 drift(vec2 uv, float t){
+  float a = sin(uv.y * 3.1 + t * 0.30) * 0.006;
+  float b = cos(uv.x * 2.7 - t * 0.24) * 0.006;
+  return uv + vec2(a, b);
 }
 
 void main(){
   vec2 frag = gl_FragCoord.xy;
-  vec2 uv = (frag - 0.5 * u_res) / min(u_res.x, u_res.y);
+  vec2 sc = frag / u_res;
 
-  // Ядро уходит вверх и уплотняется по мере прокрутки — как смена кадра.
-  /* Ядро стоит справа: заголовок занимает левую половину, и масса,
-     положенная по центру, спорила бы с ним. У образца ровно так же —
-     взрыв справа от центра, надпись слева внизу. */
-  vec2 core = vec2(0.34 + 0.18 * sin(u_scroll * 3.1), 0.06 - u_scroll * 0.62);
+  // Кадрирование «cover»: снимок закрывает экран без растяжения.
+  float sa = u_res.x / u_res.y;
+  float ta = u_texRes.x / u_texRes.y;
+  vec2 uv = sc;
+  if (sa > ta) uv.y = (uv.y - 0.5) * (ta / sa) + 0.5;
+  else         uv.x = (uv.x - 0.5) * (sa / ta) + 0.5;
 
-  // Курсор тянет массу к себе: краска реагирует, а не просто лежит.
-  float asp = u_res.x / min(u_res.x, u_res.y);
-  vec2 m = (u_mouse - 0.5) * vec2(asp, u_res.y / min(u_res.x, u_res.y));
-  float md = length(uv - m);
-  uv += (m - uv) * exp(-md * md * 3.0) * 0.16;
+  // Прокрутка отъезжает и уводит кадр вверх — как смена плана.
+  uv = (uv - 0.5) * (1.0 - u_scroll * 0.16) + 0.5;
+  uv.y += u_scroll * 0.10;
 
-  float scale = 1.9 + u_scroll * 1.5;
-  float flow = 0.0;
-  float v = ink(uv * scale + core * scale, u_time * 0.42 + u_scroll * 2.0, flow);
+  // Линза под курсором.
+  vec2 m = u_mouse;
+  float d = length((uv - m) * vec2(sa / max(sa, 1.0), 1.0));
+  float lens = exp(-d * d * 5.0);
+  uv += (uv - m) * lens * 0.16;
 
-  // Форма: масса собирается вокруг ядра и растворяется к краям.
-  // Порог высокий намеренно: при низком краска заливала весь экран и
-  // читалась цветным фоном, а не пятном на глине.
-  float dist = length(uv - core);
-  // Порог выставлен по фактическому разбросу fbm: пять октав с затуханием
-  // вдвое дают значения примерно в 0.30..0.66 со средним около 0.48.
-  // При 0.55 краски почти не оставалось, при 0.34 заливало всё.
-  float body = smoothstep(1.10, 0.10, dist);
-  float dens = clamp((v - 0.38) * 3.4, 0.0, 1.0) * body;
+  uv = drift(uv, u_time);
 
-  // Ядро — то, что светится изнутри.
-  float hot = pow(clamp((v - 0.60) * 3.2, 0.0, 1.0), 1.5) * smoothstep(0.72, 0.0, dist);
+  float v = 1.0 - texture2D(u_tex, clamp(uv, 0.0, 1.0)).r;   // краска = тёмное
+  v = clamp((v - 0.18) * 1.45, 0.0, 1.0);
 
-  /* Полутоновый растр. Регулярная точечная сетка, диаметр точки — от
-     плотности. Это и есть тот «отпечатанный» вид, который на образце
-     принимают за фактуру видео. Сетка чуть повёрнута: строго по осям она
-     сразу читается пикселями. */
-  float ang = 0.3927;                        // 22.5°, как в типографской печати
+  float dens = v;
+  float hot  = pow(clamp((v - 0.72) * 3.0, 0.0, 1.0), 1.4);
+
+  /* Полутоновый растр. Диаметр точки — от плотности краски. Именно эта
+     точечная сетка, а не сам кадр, даёт «отпечатанный» вид, ради которого
+     всё и затевалось: у образца ровно так обработано видео. Сетка
+     повёрнута на 22.5°, как в типографской печати. */
+  float ang = 0.3927;
   vec2 rot = vec2(frag.x * cos(ang) - frag.y * sin(ang),
                   frag.x * sin(ang) + frag.y * cos(ang));
-  float cell = 6.0;
+  float cell = 5.0;
   vec2 g = fract(rot / cell) - 0.5;
   float dotR = length(g) * 2.0;
-  /* Точка тем крупнее, чем плотнее краска. Раньше здесь сравнение шло в
-     обратную сторону, и точка включалась целиком при любой ненулевой
-     плотности — весь экран заливало ровным цветом. */
-  float tone = 1.0 - smoothstep(dens * 1.25 - 0.10, dens * 1.25 + 0.10, dotR);
+  float tone = 1.0 - smoothstep(dens * 1.30 - 0.10, dens * 1.30 + 0.10, dotR);
 
-  vec3 col = mix(u_bg, u_ink, tone * 0.95);
-  col = mix(col, u_hot, hot * tone * 0.80);
+  // К краям кадр гаснет, чтобы не спорить с текстом.
+  float vig = 1.0 - smoothstep(0.35, 1.05, length(sc - vec2(0.5)) * 1.5);
 
-  // Тонкая крупа поверх: убирает полосатость градиента и добавляет зерно.
-  col += (hash(frag + u_time) - 0.5) * 0.016;
+  vec3 col = mix(u_bg, u_ink, tone * 0.95 * vig);
+  col = mix(col, u_hot, hot * tone * 0.55 * vig);
+  col += (hash(frag + u_time) - 0.5) * 0.014;
 
   gl_FragColor = vec4(col, 1.0);
 }
@@ -197,6 +167,8 @@ export default function InkField() {
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0)
 
     const U = {
+      tex: gl.getUniformLocation(prog, 'u_tex'),
+      texRes: gl.getUniformLocation(prog, 'u_texRes'),
       res: gl.getUniformLocation(prog, 'u_res'),
       time: gl.getUniformLocation(prog, 'u_time'),
       mouse: gl.getUniformLocation(prog, 'u_mouse'),
@@ -204,6 +176,30 @@ export default function InkField() {
       bg: gl.getUniformLocation(prog, 'u_bg'),
       ink: gl.getUniformLocation(prog, 'u_ink'),
       hot: gl.getUniformLocation(prog, 'u_hot'),
+    }
+
+    // Текстура. Пока не загрузилась — рисуем ровный фон, а не мусор.
+    const tex = gl.createTexture()
+    gl.bindTexture(gl.TEXTURE_2D, tex)
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
+      new Uint8Array([255, 255, 255, 255]))
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+    let texW = 1, texH = 1
+    let disposed = false
+
+    const img = new Image()
+    img.decoding = 'async'
+    img.src = '/ink-paper.jpg'
+    img.onload = () => {
+      if (disposed) return
+      gl.bindTexture(gl.TEXTURE_2D, tex)
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1)
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img)
+      texW = img.naturalWidth
+      texH = img.naturalHeight
     }
 
     let bg = token('--bg-rgb', [0.1, 0.08, 0.07])
@@ -254,6 +250,10 @@ export default function InkField() {
       const scroll = attr !== null && attr !== undefined
         ? Number(attr)
         : Math.min(1, window.scrollY / Math.max(1, window.innerHeight))
+      gl.activeTexture(gl.TEXTURE0)
+      gl.bindTexture(gl.TEXTURE_2D, tex)
+      gl.uniform1i(U.tex, 0)
+      gl.uniform2f(U.texRes, texW, texH)
       gl.uniform2f(U.res, canvas.width, canvas.height)
       gl.uniform1f(U.time, (performance.now() - start) / 1000)
       gl.uniform2f(U.mouse, smooth.x, smooth.y)
@@ -266,6 +266,7 @@ export default function InkField() {
     raf = requestAnimationFrame(frame)
 
     return () => {
+      disposed = true
       cancelAnimationFrame(raf)
       io.disconnect()
       themeWatch.disconnect()
