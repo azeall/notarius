@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 import LiveStatus from '@/components/LiveStatus'
-import InkField from '@/components/InkField'
+import HeroPhoto from '@/components/HeroPhoto'
 import HeroTicker from '@/components/HeroTicker'
 
 /**
@@ -41,6 +41,12 @@ const CSS = `
     radial-gradient(62% 50% at 20% 40%, rgb(var(--bg-rgb) / .90) 0%, rgb(var(--bg-rgb) / .30) 62%, rgb(var(--bg-rgb) / 0) 100%),
     linear-gradient(180deg, rgb(var(--bg-rgb) / .34) 0%, rgb(var(--bg-rgb) / .12) 46%, rgb(var(--bg-rgb) / .80) 100%);}
 .lv-in{position:relative;z-index:1;}
+/* Запасной фон: та же фотография без растра, для телефонов и для случая,
+   когда WebGL не поднялся. Холст ставит data-gl и закрывает её собой. */
+.lv-photo{position:absolute;inset:0;background:url(/ph-sign.jpg) center/cover no-repeat;
+  opacity:.13;filter:grayscale(1) contrast(1.1);}
+.lv[data-gl="on"] .lv-photo{opacity:0;}
+@media (max-width:899px){ .lv-photo{opacity:.08;} }
 
 .lv-tag{margin:0 0 clamp(16px,2.2vw,24px);font-family:var(--font-mono),monospace;
   font-size:12px;letter-spacing:.16em;text-transform:uppercase;
@@ -125,7 +131,9 @@ export default function Hero() {
   return (
     <section className="lv" data-hero>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
-      <InkField />
+      {/* Снимок под холстом: на телефонах и без WebGL он и остаётся фоном. */}
+      <div className="lv-photo" aria-hidden />
+      <HeroPhoto />
       <div className="lv-veil" aria-hidden />
 
       <div className="wrap lv-in">

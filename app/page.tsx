@@ -6,6 +6,7 @@ import BookingButton from '@/components/BookingButton'
 import ScrollCount from '@/components/ScrollCount'
 import LegalPhotos from '@/components/LegalPhotos'
 import CredentialsSection from '@/components/CredentialsSection'
+import PhotoPlate from '@/components/PhotoPlate'
 import SectionMark from '@/components/SectionMark'
 import ScrollRule from '@/components/ScrollRule'
 import { notary, site, documentsDone } from '@/lib/data'
@@ -127,6 +128,34 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Снимок дел: до этого между шагами приёма и полномочиями шёл голый
+          текст без единого изображения. */}
+      <section className="py-16 sm:py-20" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
+        <div className="wrap grid md:grid-cols-[0.46fr_0.54fr] gap-10 lg:gap-16 items-center">
+          <div className="sd">
+            <PhotoPlate
+              src="/ph-docs.jpg"
+              alt="Папки с делами и документы на рабочем столе нотариуса"
+              caption="Дела конторы"
+              ratio="3 / 2"
+            />
+          </div>
+          <div className="sd">
+            <h2
+              className="font-serif font-medium m-0 mb-5"
+              style={{ fontSize: 'clamp(26px, 3.2vw, 40px)', lineHeight: 1.1, letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}
+            >
+              Каждое дело остаётся в реестре
+            </h2>
+            <p className="m-0 text-[17px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))', maxWidth: '52ch' }}>
+              Сведения о каждом удостоверенном документе уходят в единую
+              информационную систему нотариата. Ваш экземпляр можно восстановить,
+              даже если он потерян, а подлинность — проверить по реестру.
+            </p>
           </div>
         </div>
       </section>

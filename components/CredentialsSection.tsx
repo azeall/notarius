@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import PhotoPlate from '@/components/PhotoPlate'
 import { notary, demoMode } from '@/lib/data'
 
 /**
@@ -108,6 +109,18 @@ export default function CredentialsSection() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M14 5h5v5M19 5l-8 8M18 14v5H5V6h5" />
             </svg>
           </a>
+
+          {/* Под текстом оставалось пустое место почти в экран высотой. Снимок
+              конторы закрывает его и заодно отвечает на невысказанный вопрос
+              «куда я вообще приду». */}
+          <div className="mt-10 sd">
+            <PhotoPlate
+              src="/ph-room.jpg"
+              alt="Кабинет нотариальной конторы: стол, кресла для посетителей, шкафы с делами"
+              caption="Кабинет конторы"
+              ratio="4 / 3"
+            />
+          </div>
         </div>
 
         <dl className="m-0">
