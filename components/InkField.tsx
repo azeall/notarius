@@ -34,80 +34,112 @@ precision highp float;
 
 uniform vec2      u_res;
 uniform float     u_time;
-uniform vec2      u_mouse;
-uniform float     u_scroll;   // 0..1 по закреплённому экрану
+uniform float     u_scroll;
 uniform vec3      u_bg;
 uniform vec3      u_ink;
 uniform vec3      u_hot;
-uniform sampler2D u_tex;      // снимок чернил в воде
+uniform sampler2D u_tex;
 uniform vec2      u_texRes;
+uniform vec3      u_trail[10];   // x, y, свежесть 0..1
+uniform float     u_stir;        // общая энергия размешивания 0..1
 
 float hash(vec2 p){
   p = fract(p * vec2(123.34, 456.21));
   p += dot(p, p + 45.32);
   return fract(p.x * p.y);
 }
+float noise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i + vec2(1,0)), u.x),
+             mix(hash(i + vec2(0,1)), hash(i + vec2(1,1)), u.x), u.y);
+}
+float fbm(vec2 p){
+  float v = 0.0, a = 0.5;
+  for (int i = 0; i < 4; i++){ v += a * noise(p); p *= 2.03; a *= 0.5; }
+  return v;
+}
 
-/* Лёгкое искажение координат по времени: снимок неподвижен, но кадр
-   должен дышать. Смещение мелкое — крупное превратило бы фотографию в
-   желе, а нужно ощущение медленно расходящейся краски. */
-vec2 drift(vec2 uv, float t){
-  float a = sin(uv.y * 3.1 + t * 0.30) * 0.006;
-  float b = cos(uv.x * 2.7 - t * 0.24) * 0.006;
-  return uv + vec2(a, b);
+/* Завихрение поля: градиент шума, повёрнутый на 90°. Это curl-noise —
+   стандартный способ получить течение без дивергенции, то есть без
+   источников и стоков. Краска в таком поле не расползается кляксой, а
+   закручивается жгутами, как настоящая в воде. */
+vec2 curl(vec2 p, float t){
+  float e = 0.06;
+  float n1 = fbm(p + vec2(0.0, e) + t);
+  float n2 = fbm(p - vec2(0.0, e) + t);
+  float n3 = fbm(p + vec2(e, 0.0) - t);
+  float n4 = fbm(p - vec2(e, 0.0) - t);
+  return vec2(n1 - n2, n4 - n3) / (2.0 * e);
 }
 
 void main(){
   vec2 frag = gl_FragCoord.xy;
   vec2 sc = frag / u_res;
-
-  // Кадрирование «cover»: снимок закрывает экран без растяжения.
   float sa = u_res.x / u_res.y;
+
+  // Кадрирование «cover».
   float ta = u_texRes.x / u_texRes.y;
   vec2 uv = sc;
   if (sa > ta) uv.y = (uv.y - 0.5) * (ta / sa) + 0.5;
   else         uv.x = (uv.x - 0.5) * (sa / ta) + 0.5;
 
-  // Прокрутка отъезжает и уводит кадр вверх — как смена плана.
-  uv = (uv - 0.5) * (1.0 - u_scroll * 0.16) + 0.5;
-  uv.y += u_scroll * 0.10;
+  uv = (uv - 0.5) * (1.0 - u_scroll * 0.14) + 0.5;
+  uv.y += u_scroll * 0.08;
 
-  // Линза под курсором.
-  vec2 m = u_mouse;
-  float d = length((uv - m) * vec2(sa / max(sa, 1.0), 1.0));
-  float lens = exp(-d * d * 5.0);
-  uv += (uv - m) * lens * 0.16;
+  /* Течение. Амплитуда крупная намеренно: прежние 0.006 были ниже порога
+     заметности, и кадр выглядел приклеенным. Здесь жгуты действительно
+     ползут и закручиваются. */
+  vec2 fl = curl(uv * 2.6, u_time * 0.05) * 0.030;
+  fl += curl(uv * 5.3 + 11.0, -u_time * 0.08) * 0.014;
+  uv += fl;
 
-  uv = drift(uv, u_time);
+  /* След курсора. Десять последних положений указателя, каждое толкает
+     краску от себя и подкручивает её по касательной — как палочкой в воде.
+     Свежие точки давят сильнее, старые растворяются. Раньше здесь была одна
+     точка и почти нулевое смещение, поэтому за курсором не следовало
+     ничего. */
+  vec2 push = vec2(0.0);
+  float near = 0.0;
+  for (int i = 0; i < 10; i++){
+    vec2 tp = u_trail[i].xy;
+    float life = u_trail[i].z;
+    if (life <= 0.001) continue;
+    vec2 dv = (uv - tp) * vec2(sa, 1.0);
+    float dist = length(dv);
+    float infl = exp(-dist * dist * 26.0) * life;
+    vec2 dir = dist > 0.0001 ? dv / dist : vec2(0.0);
+    vec2 tang = vec2(-dir.y, dir.x);            // касательная — закрутка
+    push += (dir * 0.055 + tang * 0.045) * infl;
+    near = max(near, infl);
+  }
+  uv += push;
 
-  float v = 1.0 - texture2D(u_tex, clamp(uv, 0.0, 1.0)).r;   // краска = тёмное
+  float v = 1.0 - texture2D(u_tex, clamp(uv, 0.0, 1.0)).r;
   v = clamp((v - 0.30) * 1.15, 0.0, 1.0);
 
-  float dens = v;
-  float hot  = pow(clamp((v - 0.72) * 3.0, 0.0, 1.0), 1.4);
+  // Под курсором краска проступает гуще — след видно даже там, где её мало.
+  float dens = clamp(v + near * 0.30, 0.0, 1.0);
+  float hot  = pow(clamp((v - 0.70) * 3.0, 0.0, 1.0), 1.4);
 
-  /* Полутоновый растр. Диаметр точки — от плотности краски. Именно эта
-     точечная сетка, а не сам кадр, даёт «отпечатанный» вид, ради которого
-     всё и затевалось: у образца ровно так обработано видео. Сетка
-     повёрнута на 22.5°, как в типографской печати. */
+  /* Полутоновый растр. Диаметр точки — от плотности. Ячейка чуть дышит от
+     размешивания: при резком движении мышью растр становится крупнее, и
+     движение читается даже на неподвижном участке. */
   float ang = 0.3927;
   vec2 rot = vec2(frag.x * cos(ang) - frag.y * sin(ang),
                   frag.x * sin(ang) + frag.y * cos(ang));
-  float cell = 5.0;
+  float cell = 5.0 + u_stir * 1.6;
   vec2 g = fract(rot / cell) - 0.5;
   float dotR = length(g) * 2.0;
   float tone = 1.0 - smoothstep(dens * 1.30 - 0.10, dens * 1.30 + 0.10, dotR);
 
-  // К краям кадр гаснет, чтобы не спорить с текстом.
-  /* Виньетка жёстче и смещена вправо: слева стоит текст, и краска не
-     имеет права с ним спорить. Раньше пятно накрывало весь экран и
-     перечень услуг читался сквозь него. */
   vec2 off = sc - vec2(0.72, 0.46);
   off.x *= 0.9;
   float vig = 1.0 - smoothstep(0.10, 0.62, length(off));
+  vig = clamp(vig + near * 0.5, 0.0, 1.0);   // след виден и вне пятна
 
-  vec3 col = mix(u_bg, u_ink, tone * 0.42 * vig);
-  col = mix(col, u_hot, hot * tone * 0.20 * vig);
+  vec3 col = mix(u_bg, u_ink, tone * 0.46 * vig);
+  col = mix(col, u_hot, hot * tone * 0.22 * vig);
   col += (hash(frag + u_time) - 0.5) * 0.014;
 
   gl_FragColor = vec4(col, 1.0);
@@ -176,8 +208,9 @@ export default function InkField() {
       texRes: gl.getUniformLocation(prog, 'u_texRes'),
       res: gl.getUniformLocation(prog, 'u_res'),
       time: gl.getUniformLocation(prog, 'u_time'),
-      mouse: gl.getUniformLocation(prog, 'u_mouse'),
       scroll: gl.getUniformLocation(prog, 'u_scroll'),
+      trail: gl.getUniformLocation(prog, 'u_trail'),
+      stir: gl.getUniformLocation(prog, 'u_stir'),
       bg: gl.getUniformLocation(prog, 'u_bg'),
       ink: gl.getUniformLocation(prog, 'u_ink'),
       hot: gl.getUniformLocation(prog, 'u_hot'),
@@ -228,12 +261,44 @@ export default function InkField() {
       }
     }
 
-    const mouse = { x: 0.5, y: 0.55 }
-    const smooth = { x: 0.5, y: 0.55 }
+    /* След указателя.
+     *
+     * Десять последних положений с затухающей свежестью. Раньше здесь была
+     * одна точка и смещение в 0.16 от неё — за курсором не следовало
+     * ничего. Теперь мышь оставляет за собой полосу размешанной краски,
+     * которая гаснет за пару секунд.
+     *
+     * Точка ставится не на каждое движение, а не чаще чем раз в 40 мс и
+     * только если указатель заметно сместился: иначе при медленном ведении
+     * все десять слотов забиваются почти одинаковыми координатами и след
+     * вырождается в пятно. */
+    const TRAIL = 10
+    const trail = new Float32Array(TRAIL * 3)
+    let lastPush = 0
+    let lastX = 0.5, lastY = 0.55
+    let stir = 0
+
     const onMove = (e: PointerEvent) => {
       const r = canvas.getBoundingClientRect()
-      mouse.x = (e.clientX - r.left) / r.width
-      mouse.y = 1 - (e.clientY - r.top) / r.height
+      const x = (e.clientX - r.left) / r.width
+      const y = 1 - (e.clientY - r.top) / r.height
+      if (x < -0.1 || x > 1.1 || y < -0.1 || y > 1.1) return
+
+      const dx = x - lastX, dy = y - lastY
+      const moved = Math.hypot(dx, dy)
+      // Энергия размешивания: копится от скорости, гаснет сама.
+      stir = Math.min(1, stir + moved * 3.4)
+
+      const now = performance.now()
+      if (now - lastPush < 40 || moved < 0.004) return
+      lastPush = now
+      lastX = x
+      lastY = y
+      // Сдвигаем слоты и кладём новую точку первой.
+      trail.copyWithin(3, 0, (TRAIL - 1) * 3)
+      trail[0] = x
+      trail[1] = y
+      trail[2] = 1
     }
     window.addEventListener('pointermove', onMove, { passive: true })
 
@@ -247,22 +312,31 @@ export default function InkField() {
       raf = requestAnimationFrame(frame)
       if (!visible) return
       resize()
-      smooth.x += (mouse.x - smooth.x) * 0.05
-      smooth.y += (mouse.y - smooth.y) * 0.05
-      // Прогресс берём с закреплённой сцены, если её ведёт GSAP; иначе —
-      // от положения страницы.
+
+      // Свежесть каждой точки падает со временем, энергия размешивания — тоже.
+      for (let i = 0; i < TRAIL; i++) {
+        const k = i * 3 + 2
+        if (trail[k] > 0) trail[k] = Math.max(0, trail[k] - 0.016)
+      }
+      stir *= 0.94
+
+      // Прогресс берём с героя, если его ведёт GSAP; иначе от положения
+      // страницы.
       const attr = canvas.closest('[data-hero]')?.getAttribute('data-progress')
-      const scroll = attr !== null && attr !== undefined
+      const p = attr !== null && attr !== undefined
         ? Number(attr)
         : Math.min(1, window.scrollY / Math.max(1, window.innerHeight))
+      const scrollP = Number.isFinite(p) ? p : 0
+
       gl.activeTexture(gl.TEXTURE0)
       gl.bindTexture(gl.TEXTURE_2D, tex)
       gl.uniform1i(U.tex, 0)
       gl.uniform2f(U.texRes, texW, texH)
       gl.uniform2f(U.res, canvas.width, canvas.height)
       gl.uniform1f(U.time, (performance.now() - start) / 1000)
-      gl.uniform2f(U.mouse, smooth.x, smooth.y)
-      gl.uniform1f(U.scroll, Number.isFinite(scroll) ? scroll : 0)
+      gl.uniform3fv(U.trail, trail)
+      gl.uniform1f(U.stir, stir)
+      gl.uniform1f(U.scroll, scrollP)
       gl.uniform3f(U.bg, bg[0], bg[1], bg[2])
       gl.uniform3f(U.ink, ink[0], ink[1], ink[2])
       gl.uniform3f(U.hot, hot[0], hot[1], hot[2])
