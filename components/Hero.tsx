@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { notary, motto } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 import LiveStatus from '@/components/LiveStatus'
-import InkField from '@/components/InkField'
+import HeroPhoto from '@/components/HeroPhoto'
 import HeroTicker from '@/components/HeroTicker'
 
 /**
@@ -43,6 +43,12 @@ const CSS = `
     radial-gradient(62% 50% at 20% 40%, rgb(var(--bg-rgb) / .88) 0%, rgb(var(--bg-rgb) / .28) 62%, rgb(var(--bg-rgb) / 0) 100%),
     linear-gradient(180deg, rgb(var(--bg-rgb) / .34) 0%, rgb(var(--bg-rgb) / .12) 46%, rgb(var(--bg-rgb) / .80) 100%);}
 .wh-in{position:relative;z-index:1;}
+/* Запасной фон: та же фотография без растра. Виден на телефонах и там, где
+   WebGL не поднялся; холст ставит data-gl и закрывает его собой. */
+.wh-photo{position:absolute;inset:0;background:url(/ph-sign.jpg) center/cover no-repeat;
+  opacity:.16;filter:grayscale(1) contrast(1.15);}
+.wh[data-gl="on"] .wh-photo{opacity:0;}
+@media (max-width:899px){ .wh-photo{opacity:.10;} }
 
 /* Высказывание. Ради него всё и затевалось, поэтому кегль без оглядки. */
 .wh-tag{margin:0 0 clamp(18px,2.4vw,28px);font-family:var(--font-mono),monospace;
@@ -117,7 +123,10 @@ export default function Hero() {
   return (
     <section className="wh" data-hero>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
-      <InkField />
+      {/* Снимок под холстом: на телефонах и без WebGL он и остаётся фоном,
+          обычной картинкой. Холст перекрывает его, когда отрисовался. */}
+      <div className="wh-photo" aria-hidden />
+      <HeroPhoto />
       <div className="wh-veil" aria-hidden />
 
       <div className="wrap wh-in">

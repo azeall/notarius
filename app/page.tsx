@@ -7,6 +7,7 @@ import BringChecklist from '@/components/BringChecklist'
 import DealTimeline from '@/components/DealTimeline'
 import BookingInline from '@/components/BookingInline'
 import BookingButton from '@/components/BookingButton'
+import PhotoPlate from '@/components/PhotoPlate'
 import SectionMark from '@/components/SectionMark'
 import ScrollRule from '@/components/ScrollRule'
 import ScrollCount from '@/components/ScrollCount'
@@ -144,7 +145,17 @@ export default function HomePage() {
       <section className="py-20 sm:py-28" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
         <div className="wrap">
           <div className="sd"><SectionMark n="02">О нотариусе</SectionMark></div>
-          <div className={photos.portrait ? 'grid md:grid-cols-[0.34fr_0.66fr] gap-10 lg:gap-16 items-start' : ''}>
+          <div className="grid md:grid-cols-[0.42fr_0.58fr] gap-10 lg:gap-16 items-start">
+            {!photos.portrait && (
+              <div className="sd">
+                <PhotoPlate
+                  src="/ph-docs.jpg"
+                  alt="Папки с делами и документы на рабочем столе нотариуса"
+                  caption="Дела конторы"
+                  ratio="3 / 2"
+                />
+              </div>
+            )}
             {photos.portrait && (
               <div
                 className="relative overflow-hidden sd"
