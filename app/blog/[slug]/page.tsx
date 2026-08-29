@@ -83,7 +83,7 @@ function renderBlock(block: Block, i: number) {
       return (
         <div
           key={i}
-          className="my-7 rounded-xl border-l-2 border-gold p-5 sm:p-6"
+          className="my-7 rounded-none border-l-2 border-gold p-5 sm:p-6"
           style={{ background: 'rgb(var(--surface-rgb))' }}
         >
           <p className="font-serif font-bold text-cream text-base mb-1.5 flex items-center gap-2">
@@ -186,7 +186,7 @@ export default async function ArticlePage({
             <BookingButton />
             <a
               href={notary.phoneHref}
-              className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
+              className="border text-cream font-semibold px-8 py-3 rounded-none hover:border-gold hover:text-gold transition-all text-sm"
               style={{ borderColor: 'rgb(var(--violet-rgb) / 0.35)' }}
             >
               {notary.phone}
@@ -197,14 +197,14 @@ export default async function ArticlePage({
 
       {/* Related */}
       <section className="bg-navy border-t" style={{ borderColor: 'rgb(var(--violet-rgb) / 0.12)' }}>
-        <div className="max-w-6xl mx-auto px-4 py-14">
+        <div className="wrap py-14">
           <h2 className="font-serif text-xl font-bold text-cream mb-6">Читайте также</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {related.map(a => (
               <Link
                 key={a.slug}
                 href={`/blog/${a.slug}`}
-                className="group flex flex-col rounded-2xl p-6 transition-all hover:-translate-y-0.5"
+                className="group flex flex-col rounded-none p-6 transition-all hover:-translate-y-0.5"
                 style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}
               >
                 <div className="flex items-center gap-3 mb-2 text-xs">

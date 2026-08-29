@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import PageHero from '@/components/PageHero'
 import BookingButton from '@/components/BookingButton'
 import Link from 'next/link'
 
@@ -289,38 +290,25 @@ export default function ServicesPage() {
   return (
     <>
       {/* Page header */}
-      <section className="relative bg-navy text-cream overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
-        <div className="absolute inset-0 opacity-[0.04]" aria-hidden>
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="1"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
-        <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
-          <p className="text-gold uppercase tracking-widest text-xs font-semibold mb-3">Нотариальная контора</p>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Услуги</h1>
-          <p className="text-slate max-w-xl">
-            Полный спектр нотариальных действий для физических и юридических лиц в соответствии с законодательством РФ
-          </p>
-        </div>
-      </section>
+      <PageHero
+        tag="Направления работы"
+        title="Услуги"
+        lead={`Полный спектр нотариальных действий для физических и юридических лиц в соответствии с законодательством РФ`}
+        photo="/ph-sign.jpg"
+        photoAlt="Рука с перьевой ручкой над документом"
+      />
 
       {/* Services list */}
       <section className="bg-navy-dark">
-        <div className="max-w-6xl mx-auto px-4 py-16">
+        <div className="wrap py-16">
 
           {/* Prep banner */}
           <Link
             href="/visit"
-            className="group flex items-center gap-4 sm:gap-5 mb-8 rounded-2xl p-5 sm:p-6 transition-all overflow-hidden relative hover:-translate-y-0.5"
+            className="group flex items-center gap-4 sm:gap-5 mb-8 rounded-none p-5 sm:p-6 transition-all overflow-hidden relative hover:-translate-y-0.5"
             style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.25)' }}
           >
-            <span className="w-12 h-12 rounded-xl bg-gold/15 grid place-items-center flex-shrink-0 text-gold">
+            <span className="w-12 h-12 rounded-none bg-gold/15 grid place-items-center flex-shrink-0 text-gold">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.6} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
               </svg>
@@ -341,11 +329,11 @@ export default function ServicesPage() {
             {SERVICES.map(s => (
               <div
                 key={s.title}
-                className="rounded-2xl p-6 transition-all group flex flex-col hover:-translate-y-0.5"
+                className="rounded-none p-6 transition-all group flex flex-col hover:-translate-y-0.5"
                 style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}
               >
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0 transition-colors text-gold" style={{ background: 'rgb(var(--violet-rgb) / 0.10)' }}>
+                  <div className="w-10 h-10 rounded-none grid place-items-center flex-shrink-0 transition-colors text-gold" style={{ background: 'rgb(var(--violet-rgb) / 0.10)' }}>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       {s.icon}
                     </svg>
@@ -419,10 +407,10 @@ export default function ServicesPage() {
           <p className="text-slate mb-6 text-sm">Свяжитесь с нами — мы проконсультируем и поможем с любым нотариальным вопросом</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <BookingButton />
-            <Link href="/visit" className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm" style={{ borderColor: 'rgb(var(--violet-rgb) / 0.35)' }}>
+            <Link href="/visit" className="border text-cream font-semibold px-8 py-3 rounded-none hover:border-gold hover:text-gold transition-all text-sm" style={{ borderColor: 'rgb(var(--violet-rgb) / 0.35)' }}>
               Подготовка к визиту →
             </Link>
-            <Link href="/prices" className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm" style={{ borderColor: 'rgb(var(--violet-rgb) / 0.35)' }}>
+            <Link href="/prices" className="border text-cream font-semibold px-8 py-3 rounded-none hover:border-gold hover:text-gold transition-all text-sm" style={{ borderColor: 'rgb(var(--violet-rgb) / 0.35)' }}>
               Тарифы и цены →
             </Link>
           </div>
