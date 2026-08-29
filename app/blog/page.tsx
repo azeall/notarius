@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import PageHero from '@/components/PageHero'
 import Link from 'next/link'
 import { articles } from '@/lib/articles'
 import { site } from '@/lib/data'
@@ -51,35 +52,20 @@ export default function BlogPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogLd) }} />
 
       {/* Page header */}
-      <section className="relative bg-navy text-cream overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
-        <div className="absolute inset-0 opacity-[0.04]" aria-hidden>
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid-blog" width="60" height="60" patternUnits="userSpaceOnUse">
-                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="1" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid-blog)" />
-          </svg>
-        </div>
-        <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
-          <p className="text-gold uppercase tracking-widest text-xs font-semibold mb-3">Полезные материалы</p>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Блог нотариуса</h1>
-          <p className="text-slate max-w-xl">
-            Понятные разборы нотариальных вопросов: наследство, сделки, доверенности и документы для заграницы
-          </p>
-        </div>
-      </section>
+      <PageHero
+        tag="Разбираем по делу"
+        title="Блог"
+        lead={`Понятные разборы нотариальных вопросов: наследство, сделки, доверенности и документы для заграницы`}
+      />
 
       {/* Articles */}
       <section className="bg-navy-dark">
-        <div className="max-w-6xl mx-auto px-4 py-16">
+        <div className="wrap py-16">
 
           {/* Featured */}
           <Link
             href={`/blog/${featured.slug}`}
-            className="group block mb-8 rounded-2xl overflow-hidden transition-all hover:-translate-y-0.5"
+            className="group block mb-8 rounded-none overflow-hidden transition-all hover:-translate-y-0.5"
             style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.18)' }}
           >
             <div className="grid md:grid-cols-[1.1fr_1fr]">
@@ -126,7 +112,7 @@ export default function BlogPage() {
               <Link
                 key={a.slug}
                 href={`/blog/${a.slug}`}
-                className="group flex flex-col rounded-2xl p-6 transition-all hover:-translate-y-0.5"
+                className="group flex flex-col rounded-none p-6 transition-all hover:-translate-y-0.5"
                 style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}
               >
                 <div className="flex items-center gap-3 mb-3 text-xs">

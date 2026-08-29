@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import PageHero from '@/components/PageHero'
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 import Portrait from '@/components/Portrait'
@@ -37,30 +38,17 @@ export default function AboutPage() {
   return (
     <>
       {/* Page header */}
-      <section className="relative bg-navy text-cream overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent opacity-60" />
-        <div className="absolute inset-0 opacity-[0.04]" aria-hidden>
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="1"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
-        <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
-          <p className="text-gold uppercase tracking-[0.18em] text-xs font-semibold mb-3">О нас</p>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Нотариальная контора</h1>
-          <p className="text-slate max-w-xl leading-relaxed">
-            {notary.name} — нотариус города Москвы с многолетним опытом защиты прав граждан и организаций
-          </p>
-        </div>
-      </section>
+      <PageHero
+        tag="О конторе"
+        title="Нотариальная контора"
+        lead={`{notary.name} — нотариус города Москвы с многолетним опытом защиты прав граждан и организаций`}
+        photo="/ph-room.jpg"
+        photoAlt="Кабинет нотариальной конторы"
+      />
 
       {/* Main content */}
       <section className="bg-navy">
-        <div className="max-w-6xl mx-auto px-4 py-16">
+        <div className="wrap py-16">
           <div className="grid md:grid-cols-3 gap-12">
 
             {/* Text */}
@@ -108,7 +96,7 @@ export default function AboutPage() {
 
             {/* Sidebar */}
             <div className="space-y-5">
-              <div className="bg-navy-card text-cream rounded-2xl p-6" style={{ border: '1px solid rgb(var(--violet-rgb) / 0.18)' }}>
+              <div className="bg-navy-card text-cream rounded-none p-6" style={{ border: '1px solid rgb(var(--violet-rgb) / 0.18)' }}>
                 <Portrait size={80} fallbackClass="bg-black/10" />
                 <div className="text-center mb-5">
                   <p className="font-serif font-bold text-lg">{notary.name}</p>
@@ -131,7 +119,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl p-5 space-y-3" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
+              <div className="rounded-none p-5 space-y-3" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
                 <p className="text-xs uppercase tracking-widest text-gold/70 font-semibold">Членство</p>
                 <div className="flex items-start gap-2 text-sm text-slate">
                   <span className="w-1.5 h-1.5 rounded-full bg-gold mt-2 flex-shrink-0" />
@@ -144,7 +132,7 @@ export default function AboutPage() {
               </div>
 
               {/* Реквизиты и проверка */}
-              <div className="rounded-2xl p-5 space-y-3" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
+              <div className="rounded-none p-5 space-y-3" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
                 <p className="text-xs uppercase tracking-widest text-gold/70 font-semibold">Реквизиты и проверка</p>
                 <dl className="space-y-2.5 text-sm">
                   {notary.registryNumber && (
@@ -195,15 +183,15 @@ export default function AboutPage() {
 
       {/* Values */}
       <section className="bg-navy-dark border-t" style={{ borderColor: 'rgb(var(--violet-rgb) / 0.12)' }}>
-        <div className="max-w-6xl mx-auto px-4 py-16">
+        <div className="wrap py-16">
           <div className="mb-10">
             <p className="text-gold uppercase tracking-[0.18em] text-xs font-semibold mb-2">Наши принципы</p>
             <h2 className="font-serif text-3xl font-bold text-cream">На чём строится наша работа</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {VALUES.map(v => (
-              <div key={v.title} className="rounded-2xl p-6 transition-all hover:-translate-y-0.5" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
-                <div className="w-10 h-10 rounded-lg grid place-items-center mb-4 text-gold" style={{ background: 'rgb(var(--violet-rgb) / 0.10)' }}>
+              <div key={v.title} className="rounded-none p-6 transition-all hover:-translate-y-0.5" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
+                <div className="w-10 h-10 rounded-none grid place-items-center mb-4 text-gold" style={{ background: 'rgb(var(--violet-rgb) / 0.10)' }}>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     {v.icon}
                   </svg>

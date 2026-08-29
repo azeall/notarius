@@ -1,4 +1,5 @@
 import BookingButton from '@/components/BookingButton'
+import PageHero from '@/components/PageHero'
 import { notary } from '@/lib/data'
 import { priceSections } from '@/lib/prices'
 
@@ -7,30 +8,17 @@ export default function PricesPage() {
   return (
     <>
       {/* Page header */}
-      <section className="relative bg-navy text-cream overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
-        <div className="absolute inset-0 opacity-[0.04]" aria-hidden>
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="1"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
-        <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
-          <p className="text-gold uppercase tracking-widest text-xs font-semibold mb-3">Нотариальная контора</p>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Тарифы и цены</h1>
-          <p className="text-slate max-w-xl text-sm leading-relaxed">
-            Стоимость нотариальных действий складывается из государственной пошлины (нотариального тарифа) и платы за услуги правового и технического характера (УПТХ). Указанные цены ориентировочные — точную стоимость уточняйте при записи.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        tag="Тарифы"
+        title="Цены и тарифы"
+        lead={`Стоимость нотариальных действий складывается из государственной пошлины (нотариального тарифа) и платы за услуги правового и технического характера (УПТХ). Указанные цены ориентировочные — точную стоимость уточняйте при записи.`}
+        photo="/ph-docs.jpg"
+        photoAlt="Папки с делами на рабочем столе"
+      />
 
       {/* Disclaimer — text-cream/80 for visibility on dark background */}
       <div className="bg-gold/10 border-b border-gold/20">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-start gap-3">
+        <div className="wrap py-4 flex items-start gap-3">
           <svg className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -42,9 +30,9 @@ export default function PricesPage() {
 
       {/* Price tables */}
       <section className="bg-navy-dark">
-        <div className="max-w-6xl mx-auto px-4 py-16 space-y-10">
+        <div className="wrap py-16 space-y-10">
           {priceSections.map(section => (
-            <div key={section.title} className="rounded-2xl overflow-hidden" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
+            <div key={section.title} className="rounded-none overflow-hidden" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgb(var(--violet-rgb) / 0.15)' }}>
               <div className="px-6 py-4" style={{ borderBottom: '1px solid rgb(var(--violet-rgb) / 0.12)', background: 'rgb(var(--violet-rgb) / 0.05)' }}>
                 <h2 className="font-serif font-bold text-cream text-lg">{section.title}</h2>
                 {section.note && <p className="text-slate/70 text-xs mt-1">{section.note}</p>}
@@ -84,10 +72,10 @@ export default function PricesPage() {
             Позвоните нам или запишитесь на консультацию — мы рассчитаем стоимость конкретно для вашей ситуации
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <BookingButton className="bg-gold text-white font-semibold px-8 py-3 rounded-lg hover:brightness-110 transition-all" />
+            <BookingButton className="bg-gold text-white font-semibold px-8 py-3 rounded-none hover:brightness-110 transition-all" />
             <a
               href={notary.phoneHref}
-              className="flex items-center gap-2 border border-black/20 text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
+              className="flex items-center gap-2 border border-black/20 text-cream font-semibold px-8 py-3 rounded-none hover:border-gold hover:text-gold transition-all text-sm"
             >
               {notary.phone}
             </a>
