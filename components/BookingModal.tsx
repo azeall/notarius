@@ -31,11 +31,31 @@ interface BookingModalProps {
 
 export default function BookingModal({ onClose, initialDate, initialTime }: BookingModalProps) {
   const today = new Date()
+
+  /* Календарь открывается на месяце, где есть из чего выбрать, а не на текущем.
+
+     В конце месяца текущий состоит почти целиком из погашенных чисел: 30 августа
+     в августе кликабельно одно число из тридцати одного. Человек нажимает
+     «Записаться на приём» и видит серую сетку — притом что свободные дни есть,
+     в следующем месяце их двадцать два. Это первый экран после главной кнопки,
+     и он не должен выглядеть как «мест нет».
+
+     Порог в два дня — решение на глаз: с двумя вариантами календарь перестаёт
+     быть выбором. Если понадобится, меняется здесь одним числом. */
+  const startMonth = (() => {
+    const y = today.getFullYear()
+    const m = today.getMonth()
+    const last = new Date(y, m + 1, 0).getDate()
+    let free = 0
+    for (let d = today.getDate(); d <= last; d++) if (isWeekday(y, m, d)) free++
+    if (free > 2) return { y, m }
+    return m === 11 ? { y: y + 1, m: 0 } : { y, m: m + 1 }
+  })()
   const [step, setStep] = useState<1|2|3>(1)
   const [service, setService] = useState('')
   const [duration, setDuration] = useState<number>(30)
-  const [year, setYear] = useState(initialDate?.year ?? today.getFullYear())
-  const [month, setMonth] = useState(initialDate?.month ?? today.getMonth())
+  const [year, setYear] = useState(initialDate?.year ?? startMonth.y)
+  const [month, setMonth] = useState(initialDate?.month ?? startMonth.m)
   const [day, setDay] = useState<number|null>(initialDate?.day ?? null)
   const [time, setTime] = useState(initialTime ?? '')
   const [booked, setBooked] = useState<string[]>([])
