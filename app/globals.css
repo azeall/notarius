@@ -323,8 +323,17 @@ html{ transition:background-color .35s ease; }
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 40px 32px;
 }
+/* Пункты растянуты между краями контейнера, а не выстроены по равным
+   колонкам. При равных колонках последний пункт оказывался узким («100%»
+   вдвое короче «5 000+»), и справа оставалось больше двухсот пустых
+   пикселей — строка выглядела оборванной. Теперь первый пункт держит левый
+   край, последний правый, а промежутки распределяются сами. */
 @media (min-width: 768px) {
-  .stats { grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); }
+  .stats {
+    grid-template-columns: repeat(var(--cols, 3), max-content);
+    justify-content: space-between;
+    gap: 40px clamp(28px, 4vw, 64px);
+  }
 }
 
 /* ── Шаги приёма ──
@@ -431,6 +440,8 @@ html{ transition:background-color .35s ease; }
    Двойник появляется только когда есть кому его вести. */
 .cnt { position: relative; display: inline-block; }
 .cnt-anim, .cnt-suffix { display: none; }
+/* Словесный суффикс отбивается полем, а не пробелом в строке. */
+.cnt-suffix-word { margin-left: .14em; }
 .motion .cnt-anim, .motion .cnt-suffix { display: inline; }
 .motion .cnt-real {
   position: absolute;
