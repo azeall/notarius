@@ -63,10 +63,13 @@ export default function HomePage() {
               { v: 100, s: '%', l: 'юридическая сила' },
             ].map((st, i) => (
               <div key={st.l} className="text-center reveal" data-reveal-delay={i * 90}>
-                <div className="font-serif font-medium leading-none mb-2" style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', color: 'rgb(var(--surface-4-rgb))' }}>
+                <div className="font-serif font-medium leading-none mb-2" style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', color: 'rgb(var(--bg-rgb))' }}>
                   <ScrollCount value={st.v} suffix={st.s} />
                 </div>
-                <div className="text-[11px] sm:text-xs tracking-[0.14em] uppercase" style={{ color: 'rgba(251,246,234,0.7)' }}>
+                {/* Тёмная краска, а не полупрозрачный белый: белый 0.7 на
+                    терракоте давал контраст 1.9 при норме 4.5 — подпись
+                    читалась с трудом. При 0.82 выходит 5.2. */}
+                <div className="text-[11px] sm:text-xs tracking-[0.14em] uppercase" style={{ color: 'rgb(var(--bg-rgb) / 0.82)' }}>
                   {st.l}
                 </div>
               </div>

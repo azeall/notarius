@@ -19,11 +19,23 @@ export default function ScrollCount({
   value: number
   suffix?: string
 }) {
+  /* Словесный суффикс отделяется полем, а не пробелом в строке.
+   *
+   * Было «лет» с ведущим пробелом внутри текста, и рядом с ним JSX добавлял
+   * свой пробел между соседними элементами — на экране получалось «15  лет»
+   * с провалом в два пробела, из-за чего первый счётчик читался как два
+   * отдельных слова. Знаки «%» и «+» приклеены к числу вплотную, как и
+   * положено. */
+  const word = suffix.startsWith(' ')
+  const tail = suffix.trim()
+
   return (
     <span className="cnt nums" data-target={value}>
       <span className="cnt-real">{value.toLocaleString('ru-RU')}{suffix}</span>
       <span className="cnt-anim" aria-hidden />
-      <span className="cnt-suffix" aria-hidden>{suffix}</span>
+      {tail && (
+        <span className={word ? 'cnt-suffix cnt-suffix-word' : 'cnt-suffix'} aria-hidden>{tail}</span>
+      )}
     </span>
   )
 }
