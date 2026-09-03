@@ -11,6 +11,8 @@
 //  Цены согласованы с lib/prices.ts, документы — с lib/checklists.ts.
 // ─────────────────────────────────────────────
 
+import { priceRowById } from './prices'
+
 export interface CaseDoc {
   id: string
   label: string
@@ -33,15 +35,15 @@ export interface NotaryCase {
   bookingService: string
 }
 
-export const CASES: NotaryCase[] = [
+type CaseSeed = Omit<NotaryCase, 'priceFrom' | 'priceParts'>
+
+const SEED: CaseSeed[] = [
   {
     id: 'will',
     label: 'Завещание',
     title: 'Завещание',
     duration: '30 минут',
     who: 'только завещатель',
-    priceFrom: 'от 2 500 ₽',
-    priceParts: 'тариф 100 ₽ + УПТХ от 2 400 ₽',
     bring: [
       { id: 'pass', label: 'Паспорт', note: 'личная явка обязательна, представитель не допускается' },
       { id: 'list', label: 'Перечень имущества', note: 'по желанию — поможем составить на месте' },
@@ -60,8 +62,6 @@ export const CASES: NotaryCase[] = [
     title: 'Доверенность',
     duration: '15–20 минут',
     who: 'только доверитель',
-    priceFrom: 'от 2 000 ₽',
-    priceParts: 'тариф 500 ₽ + УПТХ от 1 500 ₽',
     bring: [
       { id: 'pass', label: 'Паспорт доверителя', note: 'приходит только тот, кто выдаёт доверенность' },
       { id: 'rep', label: 'Данные представителя', note: 'ФИО, дата рождения, адрес регистрации' },
@@ -80,8 +80,6 @@ export const CASES: NotaryCase[] = [
     title: 'Сделка с недвижимостью',
     duration: '60–90 минут',
     who: 'все стороны сделки',
-    priceFrom: 'от 8 000 ₽ + 0,5%',
-    priceParts: 'тариф 0,5% от суммы + УПТХ от 8 000 ₽',
     bring: [
       { id: 'pass', label: 'Паспорта сторон' },
       { id: 'title', label: 'Правоустанавливающие документы', note: 'на объект недвижимости' },
@@ -101,8 +99,6 @@ export const CASES: NotaryCase[] = [
     title: 'Согласие супруга на сделку',
     duration: '15 минут',
     who: 'один супруг',
-    priceFrom: 'от 2 000 ₽',
-    priceParts: 'тариф 500 ₽ + УПТХ от 1 500 ₽',
     bring: [
       { id: 'pass', label: 'Паспорт' },
       { id: 'marr', label: 'Свидетельство о браке' },
@@ -121,8 +117,6 @@ export const CASES: NotaryCase[] = [
     title: 'Копии и подписи',
     duration: '10–15 минут',
     who: 'заявитель',
-    priceFrom: 'от 90 ₽ за страницу',
-    priceParts: 'тариф 10 ₽ + УПТХ от 80 ₽ за страницу',
     bring: [
       { id: 'orig', label: 'Оригиналы документов', note: 'без исправлений и подчисток' },
       { id: 'pass', label: 'Паспорт заявителя' },
@@ -140,8 +134,6 @@ export const CASES: NotaryCase[] = [
     title: 'Нотариальный перевод',
     duration: '20 минут',
     who: 'заявитель',
-    priceFrom: 'от 900 ₽ за страницу',
-    priceParts: 'тариф 100 ₽ + УПТХ от 800 ₽ за страницу',
     bring: [
       { id: 'orig', label: 'Оригинал или нотариальная копия' },
       { id: 'names', label: 'Написание имён', note: 'как в загранпаспорте — для единообразия' },
@@ -158,3 +150,28 @@ export const CASES: NotaryCase[] = [
 export function caseById(id: string): NotaryCase {
   return CASES.find(c => c.id === id) ?? CASES[0]
 }
+
+/** Цена берётся из строки прайса, а не пишется здесь второй раз.
+ *
+ *  Правило технических рамок конституции: «второго списка на те же услуги
+ *  быть не должно». Литералы это правило нарушали и уже разъехались —
+ *  доверенность показывалась как «от 2 000 ₽» при «от 2 500 ₽» в прайсе.
+ *
+ *  Приведение вида: в прайсе «руб.» и «/стр.», на карточках «₽» и
+ *  «за страницу». Сделки, у которых итог «индивидуально», показывают
+ *  УПТХ и процент — на карточке выбора это полезнее слова «индивидуально». */
+const toRub = (v: string) => v.replace(/руб\./g, '₽').replace(/\/стр\./g, ' за страницу')
+
+function priceOf(id: string): { priceFrom: string; priceParts: string } {
+  const row = priceRowById(id)
+  if (!row) return { priceFrom: 'уточняется', priceParts: '' }
+  const parts = `тариф ${toRub(row.tariff)} + УПТХ ${toRub(row.uptx)}`
+  const individual = /индивидуально/i.test(row.total)
+  const from = individual
+    ? `${toRub(row.uptx)} + ${row.tariff.replace(/ от (суммы|стоимости)/, '')}`
+    : toRub(row.total)
+  return { priceFrom: from, priceParts: parts }
+}
+
+export const CASES: NotaryCase[] = SEED.map((c) => ({ ...c, ...priceOf(c.id) }))
+

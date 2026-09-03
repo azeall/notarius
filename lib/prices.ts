@@ -131,3 +131,13 @@ export const calcServices: CalcSpec[] = priceSections
   .flatMap((section) => section.rows)
   .map((row) => row.calc)
   .filter((calc): calc is CalcSpec => calc !== undefined)
+
+/** Строка прайса по идентификатору дела.
+ *
+ *  Нужна, чтобы главная не заводила собственных цен. До этого lib/cases.ts
+ *  держал их литералами «согласованными руками», и они уже разошлись:
+ *  доверенность стоила «от 2 500 ₽» на странице цен и «от 2 000 ₽» на главной.
+ *  Расходятся такие списки молча и обнаруживаются покупателем. */
+export function priceRowById(id: string): PriceRow | undefined {
+  return priceSections.flatMap((section) => section.rows).find((row) => row.calc?.id === id)
+}
