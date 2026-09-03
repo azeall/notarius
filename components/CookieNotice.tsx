@@ -28,13 +28,13 @@ export default function CookieNotice() {
 
   if (!show) return null
 
-  // Полоса во всю ширину снизу перекрывала содержание на каждом экране и
-  // дралась за место с папкой визита. Теперь это карточка в углу: она
-  // отодвинута вверх ровно на высоту папки и никуда не лезет.
+  // Полоса во всю ширину снизу перекрывала содержание на каждом экране.
+  // Теперь это карточка в углу. Папка визита переехала к левому краю, так
+  // что отодвигать карточку вверх больше не от чего.
   return (
     <div
       className="no-print fixed z-50 left-3 right-3 sm:left-auto sm:right-5"
-      style={{ pointerEvents: 'none', bottom: 'calc(env(safe-area-inset-bottom, 0px) + 84px)' }}
+      style={{ pointerEvents: 'none', bottom: 'calc(env(safe-area-inset-bottom, 0px) + 16px)' }}
     >
       <div
         className="ml-auto flex flex-col gap-3 rounded-xl px-4 py-4"

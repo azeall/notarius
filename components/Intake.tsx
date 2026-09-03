@@ -21,7 +21,7 @@ export default function Intake() {
   const [caseId, setCaseId] = useState<string>(CASES[0].id)
   const [checked, setChecked] = useState<Record<string, boolean>>({})
   const [slot, setSlot] = useState<Slot>({ service: '', date: '', time: '', done: false })
-  const [folderOpen, setFolderOpen] = useState(true)
+  const [folderOpen, setFolderOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => setMounted(true), [])
@@ -224,82 +224,49 @@ export default function Intake() {
         </div>
       </section>
 
-      {/* ── Папка: закреплённая полоса внизу ───────────────────────── */}
-      <div className="folder-bar no-print fixed left-0 right-0 bottom-0 z-40 px-3 pb-3 sm:px-5 sm:pb-5 pointer-events-none">
-        <div
-          className="mx-auto rounded-xl sm:rounded-2xl pointer-events-auto shadow-2xl"
-          style={{ maxWidth: '980px', background: 'rgb(var(--surface-4-rgb))', border: `1px solid ${rule}` }}
+      {/* ── Папка: закладка у левого края ──
+          Была полоса во всю ширину внизу. Она висела на каждом экране,
+          отъедала полосу под содержанием и на телефоне закрывала половину
+          того, ради чего человек пришёл. Закладка занимает сорок пикселей у
+          края и раскрывается только по нажатию — как язычок папки, за
+          который её и вытягивают. */}
+      <div className="folder no-print" data-open={folderOpen ? 'true' : 'false'}>
+        <button
+          type="button"
+          className="folder__tab"
+          onClick={() => setFolderOpen(o => !o)}
+          aria-expanded={folderOpen}
+          aria-controls="folder-panel"
+          title="Папка визита"
         >
-          <div className="flex items-center gap-3 sm:gap-5 px-4 sm:px-5 py-3">
-            <button
-              type="button"
-              onClick={() => setFolderOpen(o => !o)}
-              className="flex items-center gap-2.5 text-left flex-shrink-0"
-              aria-expanded={folderOpen}
-            >
-              <span className="w-8 h-8 rounded-lg grid place-items-center flex-shrink-0" style={{ background: 'rgb(var(--violet-rgb) / 0.16)' }} aria-hidden>
-                <svg className="w-4 h-4" fill="none" stroke={accent} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.7} d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />
-                </svg>
-              </span>
-              <span className="hidden sm:block">
-                <span className="block text-[10px] tracking-[0.2em] uppercase" style={{ color: 'rgb(var(--muted-rgb))' }}>Ваша папка</span>
-                <span className="block font-serif text-[15px] leading-tight" style={{ color: 'rgb(var(--text-rgb))' }}>{c.label}</span>
-              </span>
-            </button>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.7}
+              d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />
+          </svg>
+          <span className="folder__count num">{doneCount}/{c.bring.length}</span>
+          <span className="folder__word">Папка</span>
+        </button>
 
-            <span className="hidden md:block w-px self-stretch" style={{ background: rule }} aria-hidden />
+        <div className="folder__panel" id="folder-panel" hidden={!folderOpen}>
+          <p className="folder__k">Ваша папка</p>
+          <p className="folder__case">{c.label}</p>
 
-            <span className="text-[12.5px] tabular-nums flex-1 min-w-0 truncate" style={{ color: 'rgb(var(--muted-rgb))' }}>
-              <span className="sm:hidden font-serif" style={{ color: 'rgb(var(--text-rgb))' }}>{c.label} · </span>
-              документы {doneCount}/{c.bring.length}
-              {slot.date && slot.time ? ` · ${slot.date} в ${slot.time}` : ' · время не выбрано'}
-            </span>
+          <ul className="folder__docs">
+            {c.bring.map(d => (
+              <li key={d.id} data-done={checked[key(d.id)] ? 'true' : 'false'}>{d.label}</li>
+            ))}
+          </ul>
 
-            <button
-              type="button"
-              onClick={() => window.print()}
-              className="hidden sm:inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-[12.5px] font-semibold flex-shrink-0 transition-colors"
-              style={{ border: `1px solid ${rule}`, color: 'rgb(var(--text-rgb))' }}
-            >
-              Памятка
-            </button>
-            <button
-              type="button"
-              onClick={() => goto('kogda')}
-              className="inline-flex items-center rounded-lg px-3.5 py-2 text-[12.5px] font-semibold flex-shrink-0"
-              style={{ background: accent, color: 'rgb(var(--bg-rgb))' }}
-            >
+          <p className="folder__when">
+            {slot.date && slot.time ? `${slot.date} в ${slot.time}` : 'Время не выбрано'}
+          </p>
+
+          <div className="folder__act">
+            <button type="button" onClick={() => window.print()} className="folder__btn">Памятка</button>
+            <button type="button" onClick={() => { setFolderOpen(false); goto('kogda') }} className="folder__btn folder__btn--fill">
               Записаться
             </button>
           </div>
-
-          {folderOpen && (
-            <div className="px-4 sm:px-5 pb-4 pt-1" style={{ borderTop: `1px solid ${rule}` }}>
-              <div className="flex flex-wrap gap-x-5 gap-y-1.5 pt-3">
-                {c.bring.map(d => (
-                  <span
-                    key={d.id}
-                    className="text-[12px]"
-                    style={{
-                      color: checked[key(d.id)] ? 'rgb(var(--muted-rgb) / 0.6)' : 'rgb(var(--text-b-rgb))',
-                      textDecoration: checked[key(d.id)] ? 'line-through' : 'none',
-                    }}
-                  >
-                    {d.label}
-                  </span>
-                ))}
-                <button
-                  type="button"
-                  onClick={() => window.print()}
-                  className="sm:hidden text-[12px] underline underline-offset-4"
-                  style={{ color: accent }}
-                >
-                  Распечатать памятку
-                </button>
-              </div>
-            </div>
-          )}
         </div>
       </div>
 

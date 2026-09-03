@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { notary, motto } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 import LiveStatus from '@/components/LiveStatus'
-import HeroPhoto from '@/components/HeroPhoto'
 import HeroTicker from '@/components/HeroTicker'
 
 /**
@@ -43,12 +42,27 @@ const CSS = `
     radial-gradient(62% 50% at 20% 40%, rgb(var(--bg-rgb) / .88) 0%, rgb(var(--bg-rgb) / .28) 62%, rgb(var(--bg-rgb) / 0) 100%),
     linear-gradient(180deg, rgb(var(--bg-rgb) / .34) 0%, rgb(var(--bg-rgb) / .12) 46%, rgb(var(--bg-rgb) / .80) 100%);}
 .wh-in{position:relative;z-index:1;}
-/* Запасной фон: та же фотография без растра. Виден на телефонах и там, где
-   WebGL не поднялся; холст ставит data-gl и закрывает его собой. */
-.wh-photo{position:absolute;inset:0;background:url(/ph-sign.jpg) center/cover no-repeat;
-  opacity:.16;filter:grayscale(1) contrast(1.15);}
-.wh[data-gl="on"] .wh-photo{opacity:0;}
-@media (max-width:899px){ .wh-photo{opacity:.10;} }
+/* Тиснение вместо снимка.
+
+   Раньше здесь лежала фотография руки с пером, прогнанная через точечный
+   растр, и поверх неё считал холст WebGL. Крупный высококонтрастный растр
+   по диагонали читался шумом: он спорил с текстом и резал глаза. Ушли и
+   снимок, и холст — первый экран заодно перестал тащить шейдер.
+
+   Взамен слепое тиснение по обожжённой глине: монограмма выдавлена
+   хайрлайном и лёгким бликом, контраст почти нулевой. Ничего не мигает и
+   не двигается. */
+.wh-emboss{position:absolute;right:4%;top:46%;transform:translateY(-50%);
+  font-family:var(--font-display),Georgia,serif;font-weight:600;line-height:.78;
+  font-size:clamp(200px,25vw,420px);color:transparent;pointer-events:none;
+  -webkit-text-stroke:1px rgb(var(--text-rgb) / .16);
+  text-shadow:0 2px 0 rgb(var(--bg-rgb)),0 -1px 0 rgb(var(--text-rgb) / .07);
+  opacity:.8;}
+.wh-rules{position:absolute;inset:0;pointer-events:none;opacity:.7;
+  background-image:repeating-linear-gradient(180deg,rgb(var(--text-rgb) / .05) 0 1px,transparent 1px 38px);
+  -webkit-mask-image:radial-gradient(78% 68% at 46% 46%,#000 18%,transparent 84%);
+  mask-image:radial-gradient(78% 68% at 46% 46%,#000 18%,transparent 84%);}
+@media (max-width:899px){ .wh-emboss{opacity:.5;right:-8%;top:32%;} .wh-rules{opacity:.45;} }
 
 /* Высказывание. Ради него всё и затевалось, поэтому кегль без оглядки. */
 .wh-tag{margin:0 0 clamp(18px,2.4vw,28px);font-family:var(--font-mono),monospace;
@@ -123,10 +137,9 @@ export default function Hero() {
   return (
     <section className="wh" data-hero>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
-      {/* Снимок под холстом: на телефонах и без WebGL он и остаётся фоном,
-          обычной картинкой. Холст перекрывает его, когда отрисовался. */}
-      <div className="wh-photo" aria-hidden />
-      <HeroPhoto />
+      {/* Слепое тиснение по глине вместо снимка: буква фамилии и разлиновка. */}
+      <span className="wh-emboss" aria-hidden>{notary.name.charAt(0)}</span>
+      <span className="wh-rules" aria-hidden />
       <div className="wh-veil" aria-hidden />
 
       <div className="wrap wh-in">

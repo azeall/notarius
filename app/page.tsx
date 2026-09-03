@@ -164,8 +164,6 @@ export default function HomePage() {
 
       <FAQSearch />
 
-      {/* Место под закреплённой папкой, чтобы она не накрывала подвал */}
-      <div aria-hidden className="h-20 sm:h-24 no-print" style={{ background: "rgb(var(--bg-rgb))" }} />
     </>
   )
 }

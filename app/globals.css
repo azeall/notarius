@@ -521,3 +521,77 @@ html{ transition:background-color .35s ease; }
   .print-sheet li { padding: 2.5pt 0; border-bottom: 1px dotted #bbb; }
   .print-sheet .ps-note { margin-top: 16pt; font-size: 9pt; color: #666; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   Папка визита — закладка у левого края
+
+   Была полоса во всю ширину внизу: висела на каждом экране, отъедала
+   полосу под содержанием и на телефоне закрывала половину страницы.
+   Теперь это язычок в сорок пикселей и панель, которая выезжает только
+   по нажатию.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.folder { position: fixed; left: 0; top: 50%; transform: translateY(-50%); z-index: 40; display: flex; align-items: stretch; }
+
+.folder__tab {
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+  width: 44px; padding: 14px 0 16px; cursor: pointer;
+  background: rgb(var(--surface-4-rgb)); color: rgb(var(--text-rgb));
+  border: 1px solid rgb(var(--violet-rgb) / 0.28); border-left: 0;
+  border-radius: 0 12px 12px 0; box-shadow: 0 10px 30px -12px rgba(0,0,0,.55);
+  transition: background .2s, color .2s;
+}
+.folder__tab:hover { background: rgb(var(--violet-rgb)); color: rgb(var(--bg-rgb)); }
+.folder__tab svg { width: 18px; height: 18px; }
+.folder__count { font-size: 11px; letter-spacing: .04em; color: rgb(var(--violet-rgb)); }
+.folder__tab:hover .folder__count { color: rgb(var(--bg-rgb)); }
+.folder__word {
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  writing-mode: vertical-rl; transform: rotate(180deg); color: rgb(var(--muted-rgb));
+}
+.folder__tab:hover .folder__word { color: rgb(var(--bg-rgb)); }
+.folder[data-open="true"] .folder__tab { background: rgb(var(--violet-rgb)); color: rgb(var(--bg-rgb)); }
+.folder[data-open="true"] .folder__count,
+.folder[data-open="true"] .folder__word { color: rgb(var(--bg-rgb)); }
+
+.folder__panel {
+  width: min(300px, calc(100vw - 76px)); padding: 18px 20px 20px;
+  background: rgb(var(--surface-4-rgb)); border: 1px solid rgb(var(--violet-rgb) / 0.28); border-left: 0;
+  box-shadow: 0 20px 50px -16px rgba(0,0,0,.6);
+  animation: folderIn .28s cubic-bezier(.2,.8,.25,1) backwards;
+}
+@keyframes folderIn { from { opacity: 0; transform: translateX(-10px); } }
+
+.folder__k { margin: 0 0 4px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgb(var(--muted-rgb)); }
+.folder__case { margin: 0 0 14px; font-size: 18px; color: rgb(var(--text-rgb)); }
+
+.folder__docs { margin: 0 0 14px; padding: 0; list-style: none; }
+.folder__docs li {
+  padding: 6px 0; font-size: 13px; color: rgb(var(--text-b-rgb));
+  border-bottom: 1px solid rgb(var(--violet-rgb) / 0.10);
+}
+.folder__docs li:last-child { border-bottom: 0; }
+.folder__docs li[data-done="true"] { color: rgb(var(--muted-rgb) / .65); text-decoration: line-through; }
+
+.folder__when { margin: 0 0 14px; font-size: 12.5px; color: rgb(var(--muted-rgb)); }
+
+.folder__act { display: flex; gap: 8px; }
+.folder__btn {
+  flex: 1; padding: 9px 10px; cursor: pointer; font-size: 12px; font-weight: 600;
+  color: rgb(var(--text-rgb)); background: none;
+  border: 1px solid rgb(var(--violet-rgb) / 0.3); border-radius: 8px;
+  transition: background .2s, color .2s;
+}
+.folder__btn:hover { border-color: rgb(var(--violet-rgb)); color: rgb(var(--violet-rgb)); }
+.folder__btn--fill { background: rgb(var(--violet-rgb)); border-color: rgb(var(--violet-rgb)); color: rgb(var(--bg-rgb)); }
+.folder__btn--fill:hover { color: rgb(var(--bg-rgb)); filter: brightness(1.08); }
+
+/* На узком экране закладка садится ниже середины, чтобы не спорить с
+   шапкой, а панель занимает почти всю ширину. */
+@media (max-width: 640px) {
+  .folder { top: auto; bottom: 84px; transform: none; }
+  .folder__tab { width: 40px; padding: 11px 0 13px; }
+  .folder__panel { padding: 15px 16px 17px; }
+}
+
+@media print { .folder { display: none !important; } }
