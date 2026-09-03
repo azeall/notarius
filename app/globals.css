@@ -483,7 +483,10 @@ html{ transition:background-color .35s ease; }
    ни одного кадра вручную и не зависит от частоты обновления экрана.
    ═══════════════════════════════════════════════════════════════════ */
 
-.desk-track { position: relative; min-height: 460vh; background: rgb(var(--bg-rgb)); }
+/* Трек короче прежнего: колесо переводит сцену по кадрам, а длинный трек
+   оставался бы наказанием там, где перехват выключен — на телефоне и при
+   prefers-reduced-motion. */
+.desk-track { position: relative; min-height: 300vh; background: rgb(var(--bg-rgb)); }
 .desk-stick { position: sticky; top: 0; min-height: 100vh; display: grid; align-items: center; padding-block: clamp(32px, 6vh, 72px); }
 .desk-grid { display: grid; gap: clamp(24px, 4vw, 56px); align-items: center; }
 
@@ -606,7 +609,7 @@ html{ transition:background-color .35s ease; }
 .desk-stage[data-frame="4"] .obj-n { opacity: 1; }
 
 @media (max-width: 899px) {
-  .desk-track { min-height: 340vh; }
+  .desk-track { min-height: 240vh; }
   .desk-grid { grid-template-columns: minmax(0, 1fr); }
   .desk-stage { order: -1; aspect-ratio: 1 / 1; }
   .desk-caption { min-height: 150px; }

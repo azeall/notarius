@@ -8,7 +8,7 @@ export default function SmoothScroll() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     if (window.matchMedia('(pointer: coarse)').matches) return // не трогаем тач-устройства
 
-    let lenis: { raf: (t: number) => void; destroy: () => void } | null = null
+    let lenis: { raf: (t: number) => void; destroy: () => void; scrollTo?: (t: number, o?: object) => void } | null = null
     let frame = 0
     let cancelled = false
 
@@ -20,6 +20,9 @@ export default function SmoothScroll() {
       const loop = (t: number) => { lenis?.raf(t); frame = requestAnimationFrame(loop) }
       frame = requestAnimationFrame(loop)
       ;(lenis as unknown as { _prevSB?: string })._prevSB = prev
+      // Сцена приёма шагает по главам и должна прокручивать через Lenis:
+      // собственный window.scrollTo дерётся с его инерцией и дёргает кадр.
+      ;(window as unknown as { __lenis?: unknown }).__lenis = lenis
     })
 
     return () => {
@@ -27,6 +30,7 @@ export default function SmoothScroll() {
       if (frame) cancelAnimationFrame(frame)
       document.documentElement.style.scrollBehavior = ''
       lenis?.destroy()
+      delete (window as unknown as { __lenis?: unknown }).__lenis
     }
   }, [])
   return null

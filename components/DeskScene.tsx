@@ -69,9 +69,73 @@ export default function DeskScene() {
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onScroll)
     draw()
+
+    /* ── Шаг за одно движение колеса ──
+       Пять кадров на пяти экранах — это полсотни щелчков колеса, чтобы
+       пройти сцену. Пока кадр закреплён, одно движение колеса переводит
+       сцену на один кадр.
+
+       Слушатель на фазе перехвата и с остановкой распространения: иначе
+       следом отработает Lenis, у которого свой обработчик колеса, и кадр
+       дёрнется дважды. Прокручиваем тоже через Lenis, если он есть, —
+       собственный window.scrollTo дерётся с его инерцией.
+
+       Выходы наружу оставлены: на первом кадре колесо вверх отдаёт прокрутку
+       странице, на последнем — вниз. Палец не перехватываем: на телефоне это
+       ломает привычную прокрутку, а трек там и без того короткий. */
+    const ANCHORS = [0.08, 0.30, 0.50, 0.70, 0.94]
+    let lock = false
+
+    const geom = () => {
+      const t = trackRef.current
+      if (!t) return null
+      const r = t.getBoundingClientRect()
+      return { top: r.top + window.scrollY, total: t.offsetHeight - window.innerHeight }
+    }
+    const nearest = (p: number) => {
+      let best = 0, dist = 9
+      ANCHORS.forEach((a, i) => { const d = Math.abs(a - p); if (d < dist) { dist = d; best = i } })
+      return best
+    }
+
+    const step = (dir: number, e?: Event) => {
+      const g = geom()
+      if (!g || g.total <= 0) return
+      const y = window.scrollY
+      if (y < g.top - 2 || y > g.top + g.total + 2) return
+      if (lock) { e?.preventDefault(); return }
+      const next = nearest((y - g.top) / g.total) + dir
+      if (next < 0 || next >= ANCHORS.length) return
+      e?.preventDefault()
+      e?.stopPropagation()
+      lock = true
+      const target = Math.round(g.top + ANCHORS[next] * g.total)
+      const lenis = (window as unknown as { __lenis?: { scrollTo?: (t: number, o?: object) => void } }).__lenis
+      if (lenis?.scrollTo) lenis.scrollTo(target, { duration: 0.7 })
+      else window.scrollTo({ top: target, behavior: 'smooth' })
+      window.setTimeout(() => { lock = false }, 780)
+    }
+
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) < 4) return
+      step(e.deltaY > 0 ? 1 : -1, e)
+    }
+    const onKey = (e: KeyboardEvent) => {
+      const down = e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' '
+      const up = e.key === 'ArrowUp' || e.key === 'PageUp'
+      if (!down && !up) return
+      const t = e.target as HTMLElement | null
+      if (t && /^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName)) return
+      step(down ? 1 : -1, e)
+    }
+    window.addEventListener('wheel', onWheel, { passive: false, capture: true })
+    window.addEventListener('keydown', onKey)
+
     return () => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
+      window.removeEventListener('wheel', onWheel, { capture: true } as EventListenerOptions)
+      window.removeEventListener('keydown', onKey)
       if (raf) cancelAnimationFrame(raf)
     }
   }, [])
