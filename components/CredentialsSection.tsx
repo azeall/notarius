@@ -62,7 +62,7 @@ export default function CredentialsSection() {
 
   return (
     <section
-      className="py-20 sm:py-28"
+      className="py-12 sm:py-16"
       style={{ background: 'rgb(var(--surface-2-rgb))' }}
       aria-labelledby="creds-title"
     >

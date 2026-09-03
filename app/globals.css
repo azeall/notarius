@@ -19,10 +19,12 @@
      ─────────────────────────────────────────────────────────────────── */
 
   --bg-rgb:26 20 17;            /* #1A1411 обожжённая глина */
-  --surface-rgb:36 28 24;       /* #241C18 приподнятая плоскость */
+  --surface-rgb:45 35 29;       /* #2D231D приподнятая плоскость.
+                                   Было 36 28 24 — карточка отличалась от фона
+                                   на два процента светлоты, то есть ничем. */
   --surface-2-rgb:20 15 13;     /* #140F0D утопленная полоса */
   --surface-3-rgb:33 25 21;
-  --surface-4-rgb:48 38 32;
+  --surface-4-rgb:59 47 39;     /* #3B2F27 — папка внизу, выше карточек */
   --surface-5-rgb:20 15 13;
 
   --text-rgb:242 233 221;       /* #F2E9DD кремовый */
@@ -483,4 +485,39 @@ html{ transition:background-color .35s ease; }
   }
   html, body { background: #ffffff !important; }
   @page { margin: 16mm; }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   Памятка к визиту
+   На экране её нет; при печати остаётся только она — белый лист с
+   чёрным текстом. Через visibility, а не display: так сохраняется
+   разметка и не приходится дублировать содержимое отдельной страницей.
+   ───────────────────────────────────────────────────────────────── */
+.print-sheet { display: none; }
+
+@media print {
+  @page { margin: 16mm; }
+
+  body > *:not(.print-sheet) { display: none !important; }
+  .no-print { display: none !important; }
+
+  .print-sheet {
+    display: block !important;
+    background: #fff; color: #111;
+    font-family: Georgia, 'Times New Roman', serif; font-size: 11.5pt; line-height: 1.5;
+  }
+  .print-sheet h1 { font-size: 20pt; margin: 0 0 4pt; }
+  .print-sheet h2 { font-size: 12pt; margin: 14pt 0 5pt; text-transform: uppercase; letter-spacing: .08em; }
+  .print-sheet .ps-lead { margin: 0 0 12pt; font-style: italic; }
+  .print-sheet .ps-facts { border-collapse: collapse; width: 100%; margin-bottom: 4pt; }
+  .print-sheet .ps-facts th {
+    text-align: left; width: 26%; padding: 3pt 0; font-weight: normal;
+    font-size: 9.5pt; letter-spacing: .06em; text-transform: uppercase; color: #555;
+    vertical-align: top;
+  }
+  .print-sheet .ps-facts td { padding: 3pt 0; }
+  .print-sheet ul { margin: 0; padding-left: 0; list-style: none; }
+  .print-sheet li { padding: 2.5pt 0; border-bottom: 1px dotted #bbb; }
+  .print-sheet .ps-note { margin-top: 16pt; font-size: 9pt; color: #666; }
 }

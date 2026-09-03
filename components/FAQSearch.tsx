@@ -27,7 +27,7 @@ export default function FAQSearch() {
   }, [query])
 
   return (
-    <section className="py-20 sm:py-24" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
+    <section className="py-12 sm:py-16" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
       <div className="wrap">
         <div className="mb-8 reveal">
           <div className="inline-flex items-center gap-3.5 mb-4">

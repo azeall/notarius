@@ -28,23 +28,25 @@ export default function CookieNotice() {
 
   if (!show) return null
 
+  // Полоса во всю ширину снизу перекрывала содержание на каждом экране и
+  // дралась за место с папкой визита. Теперь это карточка в углу: она
+  // отодвинута вверх ровно на высоту папки и никуда не лезет.
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-50 p-3 sm:p-4"
-      style={{ pointerEvents: 'none' }}
+      className="no-print fixed z-50 left-3 right-3 sm:left-auto sm:right-5"
+      style={{ pointerEvents: 'none', bottom: 'calc(env(safe-area-inset-bottom, 0px) + 84px)' }}
     >
       <div
-        className="mx-auto flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 rounded-2xl px-4 py-4 sm:px-6"
+        className="ml-auto flex flex-col gap-3 rounded-xl px-4 py-4"
         style={{
-          maxWidth: '1200px',
-          background: 'rgba(253,248,239,0.97)',
-          border: '1px solid rgb(var(--violet-rgb) / 0.25)',
-          backdropFilter: 'blur(8px)',
-          boxShadow: '0 16px 50px rgba(0,0,0,0.45)',
+          maxWidth: '340px',
+          background: 'rgb(var(--surface-4-rgb))',
+          border: '1px solid rgb(var(--violet-rgb) / 0.28)',
+          boxShadow: '0 16px 44px rgba(0,0,0,0.5)',
           pointerEvents: 'auto',
         }}
       >
-        <p className="text-[13px] text-slate leading-relaxed flex-1">
+        <p className="text-[12.5px] leading-relaxed flex-1" style={{ color: 'rgb(var(--muted-rgb))' }}>
           Мы используем файлы cookie и Яндекс.Метрику для аналитики сайта. Продолжая пользоваться сайтом,
           вы соглашаетесь с{' '}
           <Link href="/privacy" className="text-gold hover:text-gold-light underline underline-offset-2">
@@ -55,14 +57,15 @@ export default function CookieNotice() {
         <div className="flex items-center gap-2 flex-shrink-0">
           <button
             onClick={decline}
-            className="px-4 py-2.5 rounded-lg text-xs font-semibold text-slate hover:text-cream transition-colors whitespace-nowrap"
-            style={{ border: '1px solid rgb(var(--violet-rgb) / 0.20)' }}
+            className="px-3 py-2 rounded-lg text-[11.5px] font-semibold transition-colors whitespace-nowrap"
+            style={{ border: '1px solid rgb(var(--violet-rgb) / 0.22)', color: 'rgb(var(--muted-rgb))' }}
           >
             Только необходимые
           </button>
           <button
             onClick={accept}
-            className="px-5 py-2.5 rounded-lg text-xs font-semibold text-white bg-gold hover:bg-gold-light transition-colors whitespace-nowrap"
+            className="px-4 py-2 rounded-lg text-[11.5px] font-semibold transition-colors whitespace-nowrap"
+            style={{ background: 'rgb(var(--violet-rgb))', color: 'rgb(var(--bg-rgb))' }}
           >
             Принять
           </button>

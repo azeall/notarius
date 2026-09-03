@@ -14,11 +14,20 @@ function isWeekendYMD(ymd: string): boolean {
   return dow === 0 || dow === 6
 }
 
+interface Props {
+  /** Услуга, выбранная снаружи (в приёме). Меняется — подставляется в форму. */
+  initialService?: string
+  /** Сообщает наружу, что выбрано: папка показывает это человеку. */
+  onPick?: (v: { service: string; date: string; time: string; done: boolean }) => void
+  /** Без своей шапки и фона: форма встраивается шагом в приём. */
+  embedded?: boolean
+}
+
 /** Нативная форма записи: имя, телефон, дата, услуга, время → БД, подтверждение без перезагрузки. */
-export default function BookingInline() {
+export default function BookingInline({ initialService, onPick, embedded = false }: Props = {}) {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
-  const [service, setService] = useState<string>(SERVICES[0])
+  const [service, setService] = useState<string>(initialService ?? SERVICES[0])
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
   const [booked, setBooked] = useState<string[]>([])
@@ -26,6 +35,20 @@ export default function BookingInline() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [done, setDone] = useState(false)
+
+  // Услуга, выбранная в приёме, подставляется в форму: человек уже назвал
+  // своё дело выше, спрашивать второй раз незачем.
+  useEffect(() => {
+    if (initialService) setService(initialService)
+  }, [initialService])
+
+  // Наружу отдаём выбранное, чтобы папка внизу показывала дату и время.
+  useEffect(() => {
+    onPick?.({ service, date, time, done })
+    // onPick намеренно не в зависимостях: родитель пересоздаёт функцию
+    // на каждый рендер, и с ней эффект зациклится.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [service, date, time, done])
 
   useEffect(() => {
     if (!date) { setBooked([]); setTime(''); return }
@@ -58,21 +81,7 @@ export default function BookingInline() {
     setLoading(false)
   }
 
-  return (
-    <section id="booking" className="relative py-20 sm:py-24 bg-navy-dark">
-      <div className="wrap">
-        <div className="mb-10 reveal">
-          <div className="inline-flex items-center gap-3.5 mb-4">
-            <span className="block w-6 h-px bg-gold" />
-            <span className="text-[11px] tracking-[0.32em] uppercase text-gold/75">Онлайн-запись</span>
-          </div>
-          <h2 className="font-serif font-medium text-cream m-0" style={{ fontSize: 'clamp(32px, 4vw, 48px)' }}>
-            Запишитесь <em className="italic font-normal text-gold">на приём</em>
-          </h2>
-        </div>
-
-        <div className="rounded-2xl p-6 sm:p-8 bg-navy-card reveal" style={{ border: '1px solid rgba(0,0,0,0.06)' }}>
-          {done ? (
+  const card = done ? (
             <div className="text-center py-10">
               <div className="w-16 h-16 rounded-full grid place-items-center mx-auto mb-5 bg-gold/10 border border-gold/40">
                 <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,7 +175,24 @@ export default function BookingInline() {
                 {loading ? 'Отправка…' : !date ? 'Выберите дату' : !time ? 'Выберите время' : 'Записаться на приём'}
               </button>
             </form>
-          )}
+          )
+
+  if (embedded) return card
+
+  return (
+    <section id="booking" className="relative py-20 sm:py-24 bg-navy-dark">
+      <div className="wrap">
+        <div className="mb-10 reveal">
+          <div className="inline-flex items-center gap-3.5 mb-4">
+            <span className="block w-6 h-px bg-gold" />
+            <span className="text-[11px] tracking-[0.32em] uppercase text-gold/75">Онлайн-запись</span>
+          </div>
+          <h2 className="font-serif font-medium text-cream m-0" style={{ fontSize: 'clamp(32px, 4vw, 48px)' }}>
+            Запишитесь <em className="italic font-normal text-gold">на приём</em>
+          </h2>
+        </div>
+        <div className="rounded-2xl p-6 sm:p-8 bg-navy-card reveal" style={{ border: '1px solid rgba(0,0,0,0.06)' }}>
+          {card}
         </div>
       </div>
     </section>
