@@ -71,7 +71,7 @@ function renderBlock(block: Block, i: number) {
         <ol key={i} className="space-y-3 mb-6 counter-reset-list">
           {block.items.map((item, idx) => (
             <li key={item} className="flex items-start gap-3.5 text-slate leading-relaxed">
-              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gold text-white text-xs font-semibold grid place-items-center mt-0.5">
+              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gold text-navy text-xs font-semibold grid place-items-center mt-0.5">
                 {idx + 1}
               </span>
               <span className="pt-0.5">{item}</span>

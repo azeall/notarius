@@ -54,7 +54,7 @@ export default function AdminSearch({ initial, staff }: { initial: string; staff
       )}
       <button
         type="submit"
-        className="px-5 rounded-xl text-sm font-semibold text-white bg-gold hover:bg-gold-light transition-colors"
+        className="px-5 rounded-xl text-sm font-semibold text-navy bg-gold hover:bg-gold-light transition-colors"
       >
         Найти
       </button>

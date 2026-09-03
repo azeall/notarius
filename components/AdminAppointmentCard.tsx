@@ -214,7 +214,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
             </div>
           </div>
           <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
-            <span className="inline-block bg-gold text-white font-bold text-xs sm:text-base px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg whitespace-nowrap">
+            <span className="inline-block bg-gold text-navy font-bold text-xs sm:text-base px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg whitespace-nowrap">
               {a.time}–{endTime(a.time, a.duration)}
             </span>
             <span className="text-[10px] sm:text-xs text-cream/40">{fmtDurLabel(a.duration)}</span>
@@ -315,7 +315,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
               ))}
             </select>
             <button onClick={reassign} disabled={busy}
-              className="text-xs bg-gold text-white font-semibold px-3 py-1.5 rounded-md hover:brightness-110 disabled:opacity-50 whitespace-nowrap">
+              className="text-xs bg-gold text-navy font-semibold px-3 py-1.5 rounded-md hover:brightness-110 disabled:opacity-50 whitespace-nowrap">
               {busy ? '…' : 'ОК'}
             </button>
             <button onClick={() => setReassigning(false)} className="text-sm text-cream/40 hover:text-cream px-1">×</button>
@@ -422,7 +422,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
 
       <div className="flex gap-2">
         <button onClick={save} disabled={busy || !changed || !selectionFits || selectionConflicts}
-          className="flex-1 bg-gold text-white font-semibold text-sm py-2.5 rounded-md hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+          className="flex-1 bg-gold text-navy font-semibold text-sm py-2.5 rounded-md hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
           {busy ? 'Сохранение…' : changed ? 'Сохранить' : 'Нет изменений'}
         </button>
         <button onClick={cancelEdit}

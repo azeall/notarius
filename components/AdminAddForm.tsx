@@ -191,7 +191,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
           <button
             type="submit"
             disabled={loading || !selectedDate || !selectedTime || !selectionFits || selectionConflicts}
-            className="w-full bg-gold text-white font-bold py-3 rounded-xl hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed text-sm"
+            className="w-full bg-gold text-navy font-bold py-3 rounded-xl hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed text-sm"
           >
             {loading ? 'Сохранение...'
               : !selectedDate ? 'Выберите дату ниже'
@@ -223,7 +223,7 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
                   <button key={i} type="button" disabled={disabled}
                     onClick={() => { setSelectedDate(ymd); setSelectedTime('') }}
                     className={`aspect-square flex items-center justify-center rounded-lg text-sm font-medium transition-colors
-                      ${disabled ? 'text-cream/20 cursor-not-allowed' : selected ? 'bg-gold text-white' : 'hover:bg-gold/10 text-cream/80'}`}>
+                      ${disabled ? 'text-cream/20 cursor-not-allowed' : selected ? 'bg-gold text-navy' : 'hover:bg-gold/10 text-cream/80'}`}>
                     {day}
                   </button>
                 )

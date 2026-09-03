@@ -19,7 +19,7 @@ export default function StaffTabs({ active }: { active: string }) {
           onClick={() => router.push(`/admin?staff=${tab.id}`)}
           className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors whitespace-nowrap ${
             active === tab.id
-              ? 'bg-gold text-white shadow-sm'
+              ? 'bg-gold text-navy shadow-sm'
               : 'bg-black/5 text-cream/70 border border-black/10 hover:border-gold/40 hover:text-cream'
           }`}
         >

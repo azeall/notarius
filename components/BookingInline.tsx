@@ -141,7 +141,7 @@ export default function BookingInline({ initialService, onPick, embedded = false
                         <button
                           key={s} type="button" onClick={() => setTime(s)}
                           className={`py-2 rounded-lg text-xs font-medium transition-colors border ${
-                            time === s ? 'bg-gold text-white border-gold font-bold' : 'text-slate border-gold/15 hover:border-gold/50 hover:text-cream'
+                            time === s ? 'bg-gold text-navy border-gold font-bold' : 'text-slate border-gold/15 hover:border-gold/50 hover:text-cream'
                           }`}
                         >
                           {s}
@@ -170,7 +170,7 @@ export default function BookingInline({ initialService, onPick, embedded = false
               <button
                 type="submit"
                 disabled={loading || !consent || !time}
-                className="md:col-span-2 w-full bg-gold text-white font-bold py-3.5 rounded-xl hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed text-sm"
+                className="md:col-span-2 w-full bg-gold text-navy font-bold py-3.5 rounded-xl hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed text-sm"
               >
                 {loading ? 'Отправка…' : !date ? 'Выберите дату' : !time ? 'Выберите время' : 'Записаться на приём'}
               </button>

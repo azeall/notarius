@@ -72,7 +72,7 @@ export default function PricesPage() {
             Позвоните нам или запишитесь на консультацию — мы рассчитаем стоимость конкретно для вашей ситуации
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <BookingButton className="bg-gold text-white font-semibold px-8 py-3 rounded-none hover:brightness-110 transition-all" />
+            <BookingButton className="bg-gold text-navy font-semibold px-8 py-3 rounded-none hover:brightness-110 transition-all" />
             <a
               href={notary.phoneHref}
               className="flex items-center gap-2 border border-black/20 text-cream font-semibold px-8 py-3 rounded-none hover:border-gold hover:text-gold transition-all text-sm"

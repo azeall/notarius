@@ -82,7 +82,7 @@ export default function AdminLogin() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gold text-white font-semibold py-2.5 rounded-xl hover:brightness-110 transition-all text-sm disabled:opacity-60"
+          className="w-full bg-gold text-navy font-semibold py-2.5 rounded-xl hover:brightness-110 transition-all text-sm disabled:opacity-60"
         >
           Войти
         </button>

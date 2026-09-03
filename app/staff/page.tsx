@@ -115,7 +115,7 @@ export default async function StaffPage({
                         </div>
                       </div>
                       <div className="text-right flex-shrink-0 ml-4">
-                        <span className="inline-block bg-gold text-white font-bold text-xl px-5 py-2 rounded-xl">
+                        <span className="inline-block bg-gold text-navy font-bold text-xl px-5 py-2 rounded-xl">
                           {a.time}–{endTime(a.time, a.duration)}
                         </span>
                       </div>

@@ -132,7 +132,7 @@ export default function StaffAddForm({ staffName, onAdded }: { staffName: string
           <button
             type="submit"
             disabled={loading || !selectedDate || !selectedTime}
-            className="w-full bg-gold text-white font-semibold py-3 rounded-xl hover:brightness-110 transition-all disabled:opacity-40 text-sm"
+            className="w-full bg-gold text-navy font-semibold py-3 rounded-xl hover:brightness-110 transition-all disabled:opacity-40 text-sm"
           >
             {loading ? 'Сохранение...' : 'Добавить запись'}
           </button>
@@ -162,7 +162,7 @@ export default function StaffAddForm({ staffName, onAdded }: { staffName: string
                     key={i} type="button" disabled={disabled}
                     onClick={() => { setSelectedDate(ymd); setSelectedTime('') }}
                     className={`aspect-square flex items-center justify-center rounded-lg text-sm font-medium transition-colors
-                      ${disabled ? 'text-slate cursor-not-allowed' : selected ? 'bg-gold text-white' : 'hover:bg-gold/10 text-cream/80'}`}
+                      ${disabled ? 'text-slate cursor-not-allowed' : selected ? 'bg-gold text-navy' : 'hover:bg-gold/10 text-cream/80'}`}
                   >
                     {day}
                   </button>
@@ -181,7 +181,7 @@ export default function StaffAddForm({ staffName, onAdded }: { staffName: string
                   return (
                     <button key={t} type="button" disabled={booked} onClick={() => setSelectedTime(t)}
                       className={`py-1.5 rounded-lg text-xs font-medium transition-colors
-                        ${booked ? 'bg-gray-100 text-slate line-through cursor-not-allowed' : sel ? 'bg-gold text-white' : 'bg-gray-50 text-cream/80 hover:bg-gold/10 border border-gray-200'}`}
+                        ${booked ? 'bg-gray-100 text-slate line-through cursor-not-allowed' : sel ? 'bg-gold text-navy' : 'bg-gray-50 text-cream/80 hover:bg-gold/10 border border-gray-200'}`}
                     >{t}</button>
                   )
                 })}
@@ -194,7 +194,7 @@ export default function StaffAddForm({ staffName, onAdded }: { staffName: string
                   return (
                     <button key={t} type="button" disabled={booked} onClick={() => setSelectedTime(t)}
                       className={`py-1.5 rounded-lg text-xs font-medium transition-colors
-                        ${booked ? 'bg-gray-100 text-slate line-through cursor-not-allowed' : sel ? 'bg-gold text-white' : 'bg-gray-50 text-cream/80 hover:bg-gold/10 border border-gray-200'}`}
+                        ${booked ? 'bg-gray-100 text-slate line-through cursor-not-allowed' : sel ? 'bg-gold text-navy' : 'bg-gray-50 text-cream/80 hover:bg-gold/10 border border-gray-200'}`}
                     >{t}</button>
                   )
                 })}

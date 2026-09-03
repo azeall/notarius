@@ -105,7 +105,7 @@ export default function StaffLogin() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gold text-white font-semibold py-2.5 rounded-xl hover:brightness-110 transition-all disabled:opacity-50 text-sm"
+          className="w-full bg-gold text-navy font-semibold py-2.5 rounded-xl hover:brightness-110 transition-all disabled:opacity-50 text-sm"
         >
           {loading ? 'Вход...' : 'Войти'}
         </button>
