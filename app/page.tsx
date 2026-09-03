@@ -9,6 +9,7 @@ import CredentialsSection from '@/components/CredentialsSection'
 import PhotoPlate from '@/components/PhotoPlate'
 import SectionMark from '@/components/SectionMark'
 import ScrollRule from '@/components/ScrollRule'
+import DeskScene from '@/components/DeskScene'
 import { notary, site, documentsDone } from '@/lib/data'
 import { reviews } from '@/lib/reviews'
 
@@ -25,20 +26,6 @@ export const metadata: Metadata = {
   },
 }
 
-const STEPS = [
-  {
-    t: 'Запишитесь',
-    d: 'Онлайн на сайте или по телефону. Выберите дату и время — контора работает по записи, чтобы никто не сидел в очереди.',
-  },
-  {
-    t: 'Подготовьте документы',
-    d: 'При записи мы называем точный перечень для вашего случая. Он у каждого свой: доверенность на автомобиль и вступление в наследство требуют разного.',
-  },
-  {
-    t: 'Приходите на приём',
-    d: 'Нотариус проверяет документы, разъясняет последствия сделки и удостоверяет её. Экземпляр остаётся у вас, сведения уходят в реестр.',
-  },
-]
 
 const HOURS_LINES = 'Пн–Пт 10:00–19:00\nСб, Вс — выходной'
 
@@ -89,48 +76,11 @@ export default function HomePage() {
 
       <div className="px-5 sm:px-10" style={{ background: 'rgb(var(--bg-rgb))' }}><ScrollRule /></div>
 
-      {/* ── Как проходит приём: шаги проходят внутри закреплённого экрана ── */}
-      <section className="py-20 sm:py-28" style={{ background: 'rgb(var(--bg-rgb))' }}>
-        <div className="wrap">
-          {/* Заголовок и метка живут ВНУТРИ сцены и закрепляются вместе с
-              карточками. Снаружи они уезжали вверх, и на экране оставалась
-              одинокая карточка посреди пустой бумаги — без всякого указания,
-              что это вообще за раздел. */}
-          <div className="scene" data-scene>
-            <div className="scene-inner">
-              <div className="scene-head">
-                <SectionMark n="01">Как проходит приём</SectionMark>
-                <h2
-                  className="font-serif font-medium m-0"
-                  style={{ fontSize: 'clamp(28px, 3.4vw, 44px)', lineHeight: 1.08, letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}
-                >
-                  Три шага, и ни одного лишнего
-                </h2>
-                <ol className="scene-dots" aria-hidden>
-                  {STEPS.map((s, i) => <li key={s.t} data-i={i} />)}
-                </ol>
-              </div>
-
-              <div className="scene-stage">
-                {STEPS.map((s, i) => (
-                  <article key={s.t} className="scene-step">
-                    <span className="step-n font-mono">0{i + 1}</span>
-                    <h3
-                      className="font-serif m-0 mb-3"
-                      style={{ fontSize: 'clamp(21px, 2.6vw, 30px)', color: 'rgb(var(--text-rgb))', letterSpacing: '-0.01em' }}
-                    >
-                      {s.t}
-                    </h3>
-                    <p className="m-0 text-[16px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))', maxWidth: '54ch' }}>
-                      {s.d}
-                    </p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ── Как проходит приём ──
+          Было: закреплённый экран, внутри которого сменялись три карточки
+          текста. Три экрана прокрутки ради трёх предложений — показать было
+          нечего. Стало: стол нотариуса сверху, на котором это происходит. */}
+      <DeskScene />
 
       {/* Снимок дел: до этого между шагами приёма и полномочиями шёл голый
           текст без единого изображения. */}

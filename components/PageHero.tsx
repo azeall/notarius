@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import ReadingRail from './ReadingRail'
 
 /**
  * Шапка внутренней страницы.
@@ -29,7 +30,9 @@ export default function PageHero({
   photoAlt?: string
 }) {
   return (
-    <section className="pghero">
+    <>
+      <ReadingRail />
+      <section className="pghero">
       <div className={`wrap pghero-in${photo ? ' has-photo' : ''}`}>
         <div>
           <p className="pghero-tag">[ {tag} ]</p>
@@ -54,9 +57,23 @@ export default function PageHero({
       </div>
 
       <style dangerouslySetInnerHTML={{ __html: `
-        .pghero{background:rgb(var(--bg-rgb));
+        .pghero{position:relative;background:rgb(var(--bg-rgb));
           padding:clamp(92px,10vh,120px) 0 clamp(40px,5vh,60px);
           border-bottom:1px solid rgb(var(--rule-rgb));}
+        /* Линейка дорисовывается — то же движение, что у меток разделов на
+           главной: внутренние страницы не должны выглядеть другим сайтом.
+
+           Конечное состояние задано в самом правиле (scaleX(1)), а анимация
+           идёт из нуля с fill-mode backwards. forwards здесь тоже сработал бы,
+           но оставил бы transform применённым навсегда — а именно этим на
+           этой ветке уже ломало position:fixed (коммит f839f5c). */
+        .pghero::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;
+          width:min(260px,34%);background:rgb(var(--violet-rgb));
+          transform:scaleX(1);transform-origin:left;}
+        @media (prefers-reduced-motion: no-preference){
+          .pghero::after{animation:pgRule .9s cubic-bezier(.22,.8,.24,1) .12s backwards;}
+        }
+        @keyframes pgRule{from{transform:scaleX(0);}}
         /* По центру, а не по нижнему краю: при выравнивании по низу над
            заголовком зияла пустота почти в треть экрана. */
         .pghero-in{display:grid;gap:clamp(24px,4vw,56px);align-items:center;}
@@ -87,6 +104,7 @@ export default function PageHero({
           .pghero-photo{aspect-ratio:16/9;}
         }
       ` }} />
-    </section>
+      </section>
+    </>
   )
 }
