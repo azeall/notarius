@@ -1,21 +1,22 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import Footer from '@/components/Footer'
+import { notary } from '@/lib/data'
 
 describe('Footer', () => {
   it('displays the notary name', () => {
     render(<Footer />)
-    expect(screen.getByText('Иванов Иван Иванович')).toBeInTheDocument()
+    expect(screen.getAllByText(notary.name)[0]).toBeInTheDocument()
   })
 
   it('displays the phone number', () => {
     render(<Footer />)
-    expect(screen.getByText('+7 (499) 647-88-77')).toBeInTheDocument()
+    expect(screen.getAllByText(notary.phone)[0]).toBeInTheDocument()
   })
 
   it('phone links to tel:', () => {
     render(<Footer />)
-    const link = screen.getByRole('link', { name: '+7 (499) 647-88-77' })
-    expect(link).toHaveAttribute('href', 'tel:+74996478877')
+    const link = screen.getAllByRole('link', { name: notary.phone })[0]
+    expect(link).toHaveAttribute('href', notary.phoneHref)
   })
 })
