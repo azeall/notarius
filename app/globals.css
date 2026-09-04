@@ -35,10 +35,13 @@
 
   /* Приглушённый — один уровень. Шесть оттенков серого различались на
      глаз только в макете, а в вёрстке давали шесть шансов промахнуться
-     мимо контраста. Значение выбрано по самой тёмной светлой плоскости
-     (#E9E4DA), а не по бумаге: на ней 4.75:1, на бумаге 5.24:1. */
-  --muted-rgb:101 97 112; --muted-b-rgb:101 97 112; --muted-c-rgb:101 97 112;
-  --muted-d-rgb:101 97 112; --muted-e-rgb:94 90 105; --muted-f-rgb:101 97 112;
+     мимо контраста.
+     Значение выбрано по самой тёмной светлой плоскости. Сначала ею считали
+     #E9E4DA, но подписи на столе лежат на папке #DFD8CB, и там прежние
+     101 97 112 давали 4.24 — ниже порога. Теперь 4.60 на папке, 5.14
+     на полосе и 5.93 на бумаге. */
+  --muted-rgb:95 92 106; --muted-b-rgb:95 92 106; --muted-c-rgb:95 92 106;
+  --muted-d-rgb:95 92 106; --muted-e-rgb:94 90 105; --muted-f-rgb:95 92 106;
 
   --hair-rgb:139 130 113;       /* крупные декоративные цифры, 3.3:1 */
   --rule-rgb:214 207 194;       /* тёплая волосяная линейка */
@@ -497,7 +500,10 @@ html{ transition:background-color .35s ease; }
 .desk-h2 em { font-style: italic; font-weight: 400; color: rgb(var(--violet-rgb)); }
 
 .desk-chapters { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0 0 clamp(20px, 2.6vw, 30px); padding: 0; list-style: none; }
-.desk-chapters li { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: rgb(var(--muted-rgb) / .75); transition: color .3s; }
+/* Без прозрачности: 75% приглушённого давали 3.33 в светлой теме и 4.00
+   в тёмной при кегле 12.5px. Это перечень глав — по нему видно, где человек
+   сейчас находится, а не украшение. */
+.desk-chapters li { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: rgb(var(--muted-rgb)); transition: color .3s; }
 .desk-chapters li i { width: 16px; height: 1px; background: rgb(var(--rule-rgb)); transition: background .3s, width .3s; }
 .desk-chapters li[data-on] { color: rgb(var(--text-rgb)); }
 .desk-chapters li[data-on] i { background: rgb(var(--violet-rgb)); width: 28px; }
@@ -538,7 +544,9 @@ html{ transition:background-color .35s ease; }
   border: 1px solid rgb(var(--rule-rgb)); box-shadow: 0 10px 26px -14px rgb(var(--text-rgb) / .45);
   opacity: 0; transition: transform .8s cubic-bezier(.22,.8,.24,1), opacity .5s ease;
 }
-.obj-l { position: absolute; left: 8px; bottom: 6px; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgb(var(--muted-rgb) / .8); }
+/* Без прозрачности: 80% приглушённого поверх папки давали 3.01 при кегле
+   9.5px. Подпись предмета на столе — то, по чему человек понимает сцену. */
+.obj-l { position: absolute; left: 8px; bottom: 6px; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgb(var(--muted-rgb)); }
 .obj-n { position: absolute; right: 8px; bottom: 6px; font-size: 9.5px; color: rgb(var(--violet-rgb)); opacity: 0; transition: opacity .5s ease .3s; }
 
 .obj--folder { right: 4%; top: 12%; width: 30%; aspect-ratio: 1 / 1.3; opacity: 1;
@@ -549,7 +557,7 @@ html{ transition:background-color .35s ease; }
 .obj--copy { left: 33%; top: 10%; width: 34%; aspect-ratio: 1 / 1.414; transform: translateY(130%) rotate(-2deg); }
 
 .form-hd { position: absolute; left: 9%; top: 7%; right: 9%; font-size: 7px; letter-spacing: .16em;
-  text-transform: uppercase; color: rgb(var(--muted-rgb) / .8); padding-bottom: 5%; border-bottom: 1px solid rgb(var(--rule-rgb)); }
+  text-transform: uppercase; color: rgb(var(--muted-rgb)); padding-bottom: 5%; border-bottom: 1px solid rgb(var(--rule-rgb)); }
 .form-lines { position: absolute; left: 9%; right: 9%; top: 22%; display: flex; flex-direction: column; gap: 7px; }
 .form-lines i { display: block; height: 2.5px; background: rgb(var(--text-rgb) / .62); transform: scaleX(0); transform-origin: left;
   transition: transform .45s cubic-bezier(.22,.85,.25,1); }
