@@ -155,6 +155,12 @@ export default function HomePage() {
           <h2 className="font-sans font-extrabold mb-10 reveal" style={{ fontSize: 'clamp(28px, 3.6vw, 44px)', letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}>
             Что говорят <span style={{ color: 'rgb(var(--violet-rgb))' }}>клиенты</span>
           </h2>
+          {/* Пометка обязательна: отзывы сочинены, как и остальные данные образца.
+              Выдавать придуманные слова за отзывы живых людей нельзя — пять звёзд
+              рядом с ними делают это особенно недвусмысленным. */}
+          <p className="mb-8 text-[13px] leading-relaxed reveal" style={{ color: 'rgb(var(--muted-rgb))' }}>
+            Образцы формулировок: отзывы вымышлены, как и остальные данные демонстрации.
+          </p>
           <div className="grid md:grid-cols-3 gap-5">
             {reviews.slice(0, 3).map((r, i) => (
               <figure key={r.name} className="m-0 rounded-3xl p-7 bg-navy-card reveal" style={{ border: '1px solid rgba(29,158,117,0.12)' }} data-reveal-delay={i * 90}>
