@@ -95,7 +95,7 @@ export default function Header() {
             </span>
             <span
               className="font-sans text-[10px] tracking-[0.20em] uppercase mt-1 truncate"
-              style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}
+              style={{ color: 'rgb(var(--violet-rgb) / 0.88)' }}
             >
               Нотариус · Москва
             </span>

@@ -82,7 +82,7 @@ export default function Footer() {
                 <span className="font-serif text-cream text-base">{notary.name}</span>
                 <span
                   className="font-sans text-[9px] tracking-[0.28em] uppercase mt-0.5"
-                  style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}
+                  style={{ color: 'rgb(var(--violet-rgb) / 0.88)' }}
                 >
                   Нотариус · Москва
                 </span>

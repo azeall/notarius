@@ -44,7 +44,7 @@ export default function DealSteps() {
               style={{ background: 'rgb(var(--surface-rgb))' }}
             >
               <div className="flex items-baseline gap-2.5 mb-3">
-                <span className="font-serif text-[26px] leading-none tabular-nums" style={{ color: 'rgb(var(--violet-rgb) / 0.55)' }}>
+                <span className="font-serif text-[26px] leading-none tabular-nums" style={{ color: 'rgb(var(--violet-rgb) / 0.80)' }}>
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <span className="text-[10px] tracking-[0.16em] uppercase" style={{ color: 'rgb(var(--muted-rgb))' }}>

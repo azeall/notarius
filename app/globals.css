@@ -198,7 +198,10 @@ html{ transition:background-color .35s ease; }
   padding: 12px 22px;
   border-radius: 0 0 10px 10px;
   background: rgb(var(--violet-rgb));
-  color: #fff;
+  /* Тёмный текст, а не белый: белый на терракоте давал 2.63 — вдвое ниже
+     порога. Ссылкой в обход шапки пользуются с клавиатуры и через экранный
+     диктор, ей читаемость нужна больше, чем любому другому месту. */
+  color: #1A1411;
   font-size: 15px;
   font-weight: 600;
   text-decoration: none;
