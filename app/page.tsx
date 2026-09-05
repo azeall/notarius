@@ -10,6 +10,7 @@ import PhotoPlate from '@/components/PhotoPlate'
 import CredentialsSection from '@/components/CredentialsSection'
 import { notary, site, photos } from '@/lib/data'
 import { reviews } from '@/lib/reviews'
+import YandexMap from '@/components/YandexMap'
 
 export const metadata: Metadata = {
   title: 'Нотариус в Москве · Тёплый приём, надёжный результат',
@@ -45,10 +46,9 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-[0.58fr_0.42fr] gap-4 items-stretch">
             <div className="rounded-2xl overflow-hidden reveal" style={{ border: '1px solid rgb(var(--violet-rgb) / 0.20)', minHeight: '330px' }}>
-              <iframe
-                src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(notary.address)}&z=16`}
-                width="100%" height="100%" frameBorder="0" allowFullScreen
-                className="w-full h-full" style={{ border: 'none', display: 'block', minHeight: '330px' }}
+              <YandexMap
+                className="w-full h-full"
+                style={{border: 'none', display: 'block', minHeight: '330px'}}
                 title="Карта"
               />
             </div>
