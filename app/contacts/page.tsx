@@ -3,6 +3,7 @@ import PageHero from '@/components/PageHero'
 import ContactCard from '@/components/ContactCard'
 import WorkingHours from '@/components/WorkingHours'
 import BookingButton from '@/components/BookingButton'
+import YandexMap from '@/components/YandexMap'
 import { notary } from '@/lib/data'
 
 // notary is typed as const — cast to access optional social fields
@@ -100,15 +101,7 @@ export default function ContactsPage() {
 
               {/* Map */}
               <div className="rounded-none overflow-hidden h-72" style={{ border: '1px solid rgb(var(--violet-rgb) / 0.20)' }}>
-                <iframe
-                  src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(notary.address)}&z=16`}
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                  title="Карта проезда"
-                  allowFullScreen
-                  className="w-full h-full"
-                />
+                <YandexMap className="w-full h-full" title="Карта проезда" />
               </div>
             </div>
 

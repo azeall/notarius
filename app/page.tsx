@@ -10,6 +10,7 @@ import PhotoPlate from '@/components/PhotoPlate'
 import SectionMark from '@/components/SectionMark'
 import ScrollRule from '@/components/ScrollRule'
 import DeskScene from '@/components/DeskScene'
+import YandexMap from '@/components/YandexMap'
 import { notary, site, documentsDone } from '@/lib/data'
 import { reviews } from '@/lib/reviews'
 
@@ -180,10 +181,9 @@ export default function HomePage() {
               ))}
             </div>
             <div className="reveal" style={{ border: '1px solid rgb(var(--rule-rgb))', minHeight: '400px' }}>
-              <iframe
-                src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(notary.address)}&z=16`}
-                width="100%" height="100%" frameBorder="0" allowFullScreen
-                className="w-full h-full" style={{ border: 'none', display: 'block', minHeight: '400px', filter: 'saturate(0.75)' }}
+              <YandexMap
+                className="w-full h-full"
+                style={{ border: 'none', display: 'block', minHeight: '400px', filter: 'saturate(0.75)' }}
                 title="Карта"
               />
             </div>
