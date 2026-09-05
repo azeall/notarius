@@ -8,7 +8,7 @@ const BASE_CLASS =
   'cursor-pointer overflow-hidden whitespace-nowrap ' +
   'transition-[transform,filter,box-shadow] duration-200 ' +
   'hover:-translate-y-0.5 hover:brightness-110 active:scale-[0.98] ' +
-  'bg-gold text-white'
+  'bg-gold-ink text-white'   // белым по светлой мяте выходило 3.39
 
 const SIZE: Record<'sm' | 'md', string> = {
   sm: 'text-[11px] tracking-[0.20em] px-6 py-3',

@@ -66,7 +66,7 @@ export default async function OpengraphImage() {
           >
             {initial}
           </div>
-          <div style={{ display: 'flex', color: 'rgba(29,158,117,0.75)', fontSize: 22, letterSpacing: 4, textTransform: 'uppercase' }}>
+          <div style={{ display: 'flex', color: '#167859', fontSize: 22, letterSpacing: 4, textTransform: 'uppercase' }}>
             Нотариальная контора
           </div>
         </div>

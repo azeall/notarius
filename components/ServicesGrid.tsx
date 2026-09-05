@@ -67,7 +67,7 @@ export default function ServicesGrid() {
           <div>
             <div className="inline-flex items-center gap-3.5 mb-5">
               <span className="block w-6 h-px bg-gold flex-shrink-0" />
-              <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(29,158,117,0.70)' }}>
+              <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>
                 Что мы предоставляем
               </span>
             </div>
@@ -75,12 +75,12 @@ export default function ServicesGrid() {
               className="font-serif font-medium text-cream"
               style={{ fontSize: 'clamp(36px, 4vw, 54px)', lineHeight: '1.08', letterSpacing: '-0.01em', margin: 0 }}
             >
-              Нотариальные <em className="italic font-normal text-gold">услуги</em>
+              Нотариальные <em className="italic font-normal text-gold-ink">услуги</em>
             </h2>
           </div>
           <Link
             href="/services"
-            className="inline-flex items-center gap-2.5 text-[12px] tracking-[0.22em] uppercase text-gold no-underline pb-1 transition-colors hover:text-gold-light"
+            className="inline-flex items-center gap-2.5 text-[12px] tracking-[0.22em] uppercase text-gold-ink no-underline pb-1 transition-colors hover:text-gold-light"
             style={{ borderBottom: '1px solid rgba(29,158,117,0.30)' }}
           >
             Все услуги
@@ -116,7 +116,7 @@ export default function ServicesGrid() {
               }}
             >
               <div
-                className="w-12 h-12 flex-shrink-0 grid place-items-center rounded-[10px] text-gold"
+                className="w-12 h-12 flex-shrink-0 grid place-items-center rounded-[10px] text-gold-ink"
                 style={{ background: 'rgba(29,158,117,0.08)' }}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -134,7 +134,7 @@ export default function ServicesGrid() {
         </div>
 
         <div className="mt-6 md:hidden text-center">
-          <Link href="/services" className="text-gold text-sm tracking-[0.12em] uppercase no-underline hover:text-gold-light">
+          <Link href="/services" className="text-gold-ink text-sm tracking-[0.12em] uppercase no-underline hover:text-gold-light">
             Все услуги &rarr;
           </Link>
         </div>

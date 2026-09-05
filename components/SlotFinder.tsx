@@ -76,13 +76,13 @@ export default function SlotFinder() {
       <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1180px' }} suppressHydrationWarning>
         <div className="flex items-center gap-3 mb-5 reveal">
           <span className="block w-10 h-[2px]" style={{ background: 'rgb(var(--violet-rgb))' }} />
-          <span className="font-semibold text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-rgb))' }}>Свободное время</span>
+          <span className="font-semibold text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>Свободное время</span>
         </div>
         <div className="flex items-end justify-between flex-wrap gap-6 mb-10 reveal">
           <h2 className="font-sans font-extrabold m-0" style={{ fontSize: 'clamp(28px, 3.6vw, 44px)', letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}>
-            Ближайшие окна <span style={{ color: 'rgb(var(--violet-rgb))' }}>для записи</span>
+            Ближайшие окна <span style={{ color: 'rgb(var(--violet-ink-rgb))' }}>для записи</span>
           </h2>
-          <span className="flex items-center gap-2 text-sm font-medium" style={{ color: 'rgb(var(--violet-rgb))' }}>
+          <span className="flex items-center gap-2 text-sm font-medium" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>
             <span className="relative flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: 'rgb(var(--violet-rgb))', animation: 'sfPing 1.6s cubic-bezier(0,0,0.2,1) infinite' }} />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5" style={{ background: 'rgb(var(--violet-rgb))' }} />
@@ -94,9 +94,11 @@ export default function SlotFinder() {
         {nearest ? (
           <>
             {/* Ближайшее окно — крупно */}
-            <div className="rounded-3xl p-6 sm:p-8 mb-5 flex flex-wrap items-center justify-between gap-5" style={{ background: 'rgb(var(--violet-rgb))' }}>
+            {/* Заливка тёмной мятой, а не акцентной: белым по #1D9E75 выходит
+                3.39, и подпись «Самое раннее окно» на 75% давала 2.56. */}
+            <div className="rounded-3xl p-6 sm:p-8 mb-5 flex flex-wrap items-center justify-between gap-5" style={{ background: 'rgb(var(--violet-ink-rgb))' }}>
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] m-0 mb-2" style={{ color: 'rgba(255,255,255,0.75)' }}>Самое раннее окно</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] m-0 mb-2" style={{ color: 'rgba(255,255,255,0.92)' }}>Самое раннее окно</p>
                 <p className="font-sans font-extrabold text-white m-0" style={{ fontSize: 'clamp(26px,4vw,38px)', letterSpacing: '-0.01em' }} suppressHydrationWarning>
                   {label(nearest.date)} · {nearest.free[0]}
                 </p>
@@ -104,7 +106,7 @@ export default function SlotFinder() {
               <button
                 onClick={() => setPick({ date: nearest.date, time: nearest.free[0] })}
                 className="rounded-xl px-7 py-3.5 text-sm font-bold transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
-                style={{ background: '#fff', color: 'rgb(var(--violet-rgb))' }}
+                style={{ background: '#fff', color: 'rgb(var(--violet-ink-rgb))' }}
               >
                 Записаться на это время
               </button>
@@ -116,7 +118,7 @@ export default function SlotFinder() {
                 <div key={d.key} className="rounded-3xl p-6 bg-navy-card" style={{ border: '1px solid rgba(29,158,117,0.12)' }} suppressHydrationWarning>
                   <div className="flex items-baseline justify-between mb-4">
                     <p className="font-bold m-0" style={{ fontSize: '15px', color: 'rgb(var(--text-rgb))' }}>{label(d.date)}</p>
-                    <span className="text-[11px] font-mono" style={{ color: 'rgb(var(--violet-rgb))' }}>{d.free.length} окон</span>
+                    <span className="text-[11px] font-mono" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>{d.free.length} окон</span>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {d.free.slice(0, 6).map(t => (
@@ -124,7 +126,7 @@ export default function SlotFinder() {
                         key={t}
                         onClick={() => setPick({ date: d.date, time: t })}
                         className="rounded-lg px-3 py-2 text-[13px] font-semibold font-mono transition-colors"
-                        style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-rgb))' }}
+                        style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-ink-rgb))' }}
                         onMouseEnter={e => { e.currentTarget.style.background = 'rgb(var(--violet-rgb))'; e.currentTarget.style.color = '#fff' }}
                         onMouseLeave={e => { e.currentTarget.style.background = 'rgb(var(--surface-2-rgb))'; e.currentTarget.style.color = 'rgb(var(--violet-rgb))' }}
                       >

@@ -64,10 +64,10 @@ export default function BookingInline() {
         <div className="mb-10 reveal">
           <div className="inline-flex items-center gap-3.5 mb-4">
             <span className="block w-6 h-px bg-gold" />
-            <span className="text-[11px] tracking-[0.32em] uppercase text-gold/75">Онлайн-запись</span>
+            <span className="text-[11px] tracking-[0.32em] uppercase text-gold-ink/75">Онлайн-запись</span>
           </div>
           <h2 className="font-serif font-medium text-cream m-0" style={{ fontSize: 'clamp(32px, 4vw, 48px)' }}>
-            Запишитесь <em className="italic font-normal text-gold">на приём</em>
+            Запишитесь <em className="italic font-normal text-gold-ink">на приём</em>
           </h2>
         </div>
 
@@ -75,14 +75,14 @@ export default function BookingInline() {
           {done ? (
             <div className="text-center py-10">
               <div className="w-16 h-16 rounded-full grid place-items-center mx-auto mb-5 bg-gold/10 border border-gold/40">
-                <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-8 h-8 text-gold-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
               <h3 className="font-serif text-2xl font-bold text-cream mb-2">Запись подтверждена!</h3>
               <p className="text-slate text-sm">
                 Ждём вас <span className="text-cream font-medium">{date}</span> в{' '}
-                <span className="text-gold font-semibold">{time}</span>. При необходимости мы свяжемся для подтверждения.
+                <span className="text-gold-ink font-semibold">{time}</span>. При необходимости мы свяжемся для подтверждения.
               </p>
             </div>
           ) : (
@@ -150,7 +150,7 @@ export default function BookingInline() {
                 />
                 <span className="text-[12px] text-slate leading-snug">
                   Я согласен(а) на обработку персональных данных и принимаю{' '}
-                  <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-gold underline underline-offset-2">
+                  <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-gold-ink underline underline-offset-2">
                     политику конфиденциальности
                   </a>
                 </span>

@@ -16,6 +16,9 @@ const config: Config = {
         'navy-card': 'rgb(var(--surface-rgb) / <alpha-value>)',
         'navy-card-2': 'rgb(var(--surface-3-rgb) / <alpha-value>)',
         gold: 'rgb(var(--violet-rgb) / <alpha-value>)',
+        // Мята буквами: тот же акцент, но достаточно тёмный, чтобы читаться
+        // по светлому. `text-gold` давал 2.86–3.39 при пороге 4.5.
+        'gold-ink': 'rgb(var(--violet-ink-rgb) / <alpha-value>)',
         'gold-light': '#27b585',
         cream: 'rgb(var(--text-rgb) / <alpha-value>)',
         slate: 'rgb(var(--muted-rgb) / <alpha-value>)',

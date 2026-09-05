@@ -8,6 +8,7 @@ import BookingButton from '@/components/BookingButton'
 import LegalPhotos from '@/components/LegalPhotos'
 import { notary, site } from '@/lib/data'
 import { reviews } from '@/lib/reviews'
+import YandexMap from '@/components/YandexMap'
 
 export const metadata: Metadata = {
   title: 'Нотариус в Москве · Онлайн-запись за 30 секунд',
@@ -44,9 +45,9 @@ export default function HomePage() {
         <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1180px' }}>
           <div className="flex items-end justify-between flex-wrap gap-6 mb-12 reveal">
             <h2 className="font-sans font-extrabold m-0" style={{ fontSize: 'clamp(30px, 4vw, 48px)', letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}>
-              Услуги <span style={{ color: 'rgb(var(--violet-rgb))' }}>конторы</span>
+              Услуги <span style={{ color: 'rgb(var(--violet-ink-rgb))' }}>конторы</span>
             </h2>
-            <Link href="/services" className="inline-flex items-center gap-2 font-semibold text-sm no-underline transition-opacity hover:opacity-70" style={{ color: 'rgb(var(--violet-rgb))' }}>
+            <Link href="/services" className="inline-flex items-center gap-2 font-semibold text-sm no-underline transition-opacity hover:opacity-70" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>
               Все услуги
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
             </Link>
@@ -57,14 +58,14 @@ export default function HomePage() {
             <Link
               href="/services"
               className="sm:col-span-2 lg:row-span-2 group rounded-3xl p-8 flex flex-col justify-between no-underline transition-transform hover:-translate-y-1 reveal"
-              style={{ background: 'rgb(var(--violet-rgb))', minHeight: '280px' }}
+              style={{ background: 'rgb(var(--violet-ink-rgb))', minHeight: '280px' }}
             >
               <div className="w-12 h-12 rounded-xl grid place-items-center" style={{ background: 'rgba(255,255,255,0.16)' }}>
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">{ICON.sale}</svg>
               </div>
               <div>
                 <h3 className="font-sans font-extrabold text-white mb-2" style={{ fontSize: '26px', letterSpacing: '-0.01em' }}>Купля-продажа недвижимости</h3>
-                <p className="text-sm leading-relaxed m-0 mb-4" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                <p className="text-sm leading-relaxed m-0 mb-4" style={{ color: 'rgba(255,255,255,0.92)' }}>
                   Полное сопровождение: проверка документов, удостоверение договора, электронная регистрация в Росреестре за 1 день.
                 </p>
                 <span className="inline-flex items-center gap-2 text-white text-sm font-semibold">
@@ -88,7 +89,7 @@ export default function HomePage() {
                 style={{ border: '1px solid rgba(29,158,117,0.12)' }}
                 data-reveal-delay={i * 60}
               >
-                <div className="w-11 h-11 rounded-xl grid place-items-center mb-5" style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-rgb))' }}>
+                <div className="w-11 h-11 rounded-xl grid place-items-center mb-5" style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-ink-rgb))' }}>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">{s.icon}</svg>
                 </div>
                 <h3 className="font-sans font-bold mb-1" style={{ fontSize: '17px', color: 'rgb(var(--text-rgb))' }}>{s.t}</h3>
@@ -114,10 +115,10 @@ export default function HomePage() {
           <div className="reveal">
             <div className="flex items-center gap-3 mb-5">
               <span className="block w-10 h-[2px]" style={{ background: 'rgb(var(--violet-rgb))' }} />
-              <span className="font-semibold text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-rgb))' }}>Контроль качества</span>
+              <span className="font-semibold text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>Контроль качества</span>
             </div>
             <h2 className="font-sans font-extrabold mb-6" style={{ fontSize: 'clamp(28px, 3.6vw, 44px)', letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}>
-              Каждый документ<br />проходит <span style={{ color: 'rgb(var(--violet-rgb))' }}>проверку</span>
+              Каждый документ<br />проходит <span style={{ color: 'rgb(var(--violet-ink-rgb))' }}>проверку</span>
             </h2>
             <div className="space-y-5">
               {[
@@ -126,7 +127,7 @@ export default function HomePage() {
                 { t: 'Юридическая чистота текста', d: 'Каждая формулировка — по закону, без двусмысленностей' },
               ].map((p, i) => (
                 <div key={p.t} className="flex gap-4 reveal" data-reveal-delay={i * 90}>
-                  <span className="w-8 h-8 rounded-lg grid place-items-center flex-shrink-0 mt-0.5" style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-rgb))' }}>
+                  <span className="w-8 h-8 rounded-lg grid place-items-center flex-shrink-0 mt-0.5" style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-ink-rgb))' }}>
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                   </span>
                   <div>
@@ -153,7 +154,7 @@ export default function HomePage() {
       <section className="py-20" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1180px' }}>
           <h2 className="font-sans font-extrabold mb-10 reveal" style={{ fontSize: 'clamp(28px, 3.6vw, 44px)', letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}>
-            Что говорят <span style={{ color: 'rgb(var(--violet-rgb))' }}>клиенты</span>
+            Что говорят <span style={{ color: 'rgb(var(--violet-ink-rgb))' }}>клиенты</span>
           </h2>
           {/* Пометка обязательна: отзывы сочинены, как и остальные данные образца.
               Выдавать придуманные слова за отзывы живых людей нельзя — пять звёзд
@@ -188,10 +189,9 @@ export default function HomePage() {
       <section className="py-20" style={{ background: 'rgb(var(--surface-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1180px' }}>
           <div className="relative rounded-3xl overflow-hidden reveal" style={{ border: '1px solid rgba(29,158,117,0.15)', height: '440px' }}>
-            <iframe
-              src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(notary.address)}&z=16`}
-              width="100%" height="100%" frameBorder="0" allowFullScreen
-              className="absolute inset-0 w-full h-full" style={{ border: 'none' }}
+            <YandexMap
+              className="absolute inset-0 w-full h-full"
+              style={{border: 'none'}}
               title="Карта"
             />
             <div
@@ -201,7 +201,7 @@ export default function HomePage() {
               <h2 className="font-sans font-extrabold m-0 mb-3" style={{ fontSize: '19px', color: 'rgb(var(--text-rgb))' }}>Наш офис</h2>
               <p className="text-sm m-0 mb-2" style={{ color: 'rgb(var(--muted-rgb))' }}>{notary.address}</p>
               <p className="text-sm m-0 mb-3" style={{ color: 'rgb(var(--muted-rgb))' }}>Пн–Пт 10:00–19:00</p>
-              <a href={notary.phoneHref} className="font-bold text-[15px] no-underline" style={{ color: 'rgb(var(--violet-rgb))' }}>{notary.phone}</a>
+              <a href={notary.phoneHref} className="font-bold text-[15px] no-underline" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>{notary.phone}</a>
             </div>
           </div>
         </div>
@@ -217,7 +217,7 @@ export default function HomePage() {
             { t: 'Электронная регистрация', d: 'Подача в Росреестр за 1 рабочий день' },
           ].map((g, i) => (
             <div key={g.t} className="flex gap-4 reveal" data-reveal-delay={i * 80}>
-              <span className="w-9 h-9 rounded-full grid place-items-center flex-shrink-0" style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-rgb))' }}>
+              <span className="w-9 h-9 rounded-full grid place-items-center flex-shrink-0" style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-ink-rgb))' }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               </span>
               <div>
@@ -233,7 +233,7 @@ export default function HomePage() {
       <section className="py-20 text-center" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
         <div className="mx-auto px-5" style={{ maxWidth: '640px' }}>
           <h2 className="font-sans font-extrabold mb-3" style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}>
-            Запись займёт <span style={{ color: 'rgb(var(--violet-rgb))' }}>30 секунд</span>
+            Запись займёт <span style={{ color: 'rgb(var(--violet-ink-rgb))' }}>30 секунд</span>
           </h2>
           <p className="mb-8 text-[15px]" style={{ color: 'rgb(var(--muted-rgb))' }}>
             Выберите услугу, дату и время — остальное мы возьмём на себя

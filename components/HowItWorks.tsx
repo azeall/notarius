@@ -26,7 +26,7 @@ export default function HowItWorks() {
         <div className="mb-10 sm:mb-16 reveal">
           <div className="inline-flex items-center gap-3.5 mb-5">
             <span className="block w-6 h-px bg-gold flex-shrink-0" />
-            <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(29,158,117,0.70)' }}>
+            <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>
               Шаги к успеху
             </span>
           </div>
@@ -34,7 +34,7 @@ export default function HowItWorks() {
             className="font-serif font-medium text-cream"
             style={{ fontSize: 'clamp(36px, 4vw, 54px)', lineHeight: '1.08', letterSpacing: '-0.01em', margin: 0 }}
           >
-            Как проходит <em className="italic font-normal text-gold">приём</em>
+            Как проходит <em className="italic font-normal text-gold-ink">приём</em>
           </h2>
         </div>
 
@@ -64,7 +64,7 @@ export default function HowItWorks() {
                   className="w-14 h-14 grid place-items-center flex-shrink-0"
                   style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(29,158,117,0.18)', borderRadius: '12px' }}
                 >
-                  <span className="font-serif text-gold text-lg font-bold">{step.n}</span>
+                  <span className="font-serif text-gold-ink text-lg font-bold">{step.n}</span>
                 </div>
               </div>
 

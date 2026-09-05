@@ -58,7 +58,7 @@ export default function AdminLogin() {
               type="button"
               onClick={() => setShowPassword(v => !v)}
               tabIndex={-1}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate/80 hover:text-gold transition-colors p-0.5"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate/80 hover:text-gold-ink transition-colors p-0.5"
               aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
             >
               {showPassword ? (
@@ -88,7 +88,7 @@ export default function AdminLogin() {
         </button>
 
         <p className="text-center mt-4">
-          <a href="/staff/login" className="text-xs text-slate/80 hover:text-gold transition-colors">
+          <a href="/staff/login" className="text-xs text-slate/80 hover:text-gold-ink transition-colors">
             Войти как сотрудник
           </a>
         </p>

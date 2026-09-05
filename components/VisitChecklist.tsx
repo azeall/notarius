@@ -60,7 +60,7 @@ export default function VisitChecklist() {
     <div className="grid lg:grid-cols-[280px_1fr] gap-6 lg:gap-8">
       {/* Service selector */}
       <aside className="lg:sticky lg:top-24 lg:self-start">
-        <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-3 print:hidden">Выберите услугу</p>
+        <p className="text-xs font-semibold text-gold-ink uppercase tracking-wider mb-3 print:hidden">Выберите услугу</p>
         <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 print:hidden">
           {checklists.map(c => {
             const isActive = c.id === activeId
@@ -192,7 +192,7 @@ export default function VisitChecklist() {
           уточнит нотариус при записи на приём.
         </p>
         <p className="text-xs text-slate/70 mt-2 leading-relaxed print:hidden">
-          <span className="text-gold">«Распечатать памятку»</span> — соберёт чистый лист со списком документов
+          <span className="text-gold-ink">«Распечатать памятку»</span> — соберёт чистый лист со списком документов
           и контактами нотариуса. Его удобно распечатать или сохранить в PDF и взять с собой.
         </p>
       </div>
@@ -245,7 +245,7 @@ export default function VisitChecklist() {
                       <span>
                         <span style={{ fontSize: 14 }}>
                           {item.label}
-                          {item.optional && <span style={{ color: '#888', fontStyle: 'italic' }}> — при необходимости</span>}
+                          {item.optional && <span style={{ color: 'rgb(var(--muted-rgb))', fontStyle: 'italic' }}> — при необходимости</span>}
                         </span>
                         {item.note && <span style={{ display: 'block', fontSize: 12, color: '#666' }}>{item.note}</span>}
                       </span>

@@ -42,7 +42,7 @@ export default function AdminHistoryPicker({
         </div>
         <button
           type="submit"
-          className="px-6 py-2.5 bg-gold/20 border border-gold/40 text-gold font-semibold text-sm rounded-xl hover:bg-gold/30 transition-colors whitespace-nowrap"
+          className="px-6 py-2.5 bg-gold/20 border border-gold/40 text-gold-ink font-semibold text-sm rounded-xl hover:bg-gold/30 transition-colors whitespace-nowrap"
         >
           Показать
         </button>

@@ -25,7 +25,7 @@ export default function Portrait({
   if (!photos.portrait) {
     return (
       <div className={`${fallbackClass} ${common}`} style={{ width: size, height: size }}>
-        <span className="font-serif text-2xl font-bold text-gold">
+        <span className="font-serif text-2xl font-bold text-gold-ink">
           {notary.name.charAt(0)}
         </span>
       </div>

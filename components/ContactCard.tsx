@@ -29,7 +29,7 @@ export default function ContactCard() {
           </p>
           <a
             href={notary.phoneHref}
-            className="font-serif text-[18px] text-gold hover:text-gold-light transition-colors no-underline"
+            className="font-serif text-[18px] text-gold-ink hover:text-gold-light transition-colors no-underline"
           >
             {notary.phone}
           </a>

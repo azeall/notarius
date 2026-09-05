@@ -3,6 +3,7 @@ import ContactCard from '@/components/ContactCard'
 import WorkingHours from '@/components/WorkingHours'
 import BookingButton from '@/components/BookingButton'
 import { notary } from '@/lib/data'
+import YandexMap from '@/components/YandexMap'
 
 // notary is typed as const — cast to access optional social fields
 const n = notary as typeof notary & { telegramHref?: string; vk?: string }
@@ -30,7 +31,7 @@ export default function ContactsPage() {
           </svg>
         </div>
         <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
-          <p className="text-gold uppercase tracking-widest text-xs font-semibold mb-3">Нотариальная контора</p>
+          <p className="text-gold-ink uppercase tracking-widest text-xs font-semibold mb-3">Нотариальная контора</p>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Контакты</h1>
           <p className="text-slate max-w-xl">Запишитесь на приём онлайн или позвоните нам — мы ответим на все вопросы</p>
         </div>
@@ -49,7 +50,7 @@ export default function ContactsPage() {
                   className="flex items-center gap-4 rounded-2xl px-6 py-5 transition-all hover:-translate-y-0.5 group"
                   style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(29,158,117,0.20)' }}
                 >
-                  <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0 text-gold" style={{ background: 'rgba(29,158,117,0.12)' }}>
+                  <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0 text-gold-ink" style={{ background: 'rgba(29,158,117,0.12)' }}>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                     </svg>
@@ -95,7 +96,7 @@ export default function ContactsPage() {
                 </a>
 
                 <div className="flex items-center gap-4 rounded-2xl px-6 py-5" style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(29,158,117,0.15)' }}>
-                  <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0 text-gold" style={{ background: 'rgba(29,158,117,0.10)' }}>
+                  <div className="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0 text-gold-ink" style={{ background: 'rgba(29,158,117,0.10)' }}>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -110,14 +111,9 @@ export default function ContactsPage() {
 
               {/* Map */}
               <div className="rounded-2xl overflow-hidden h-72" style={{ border: '1px solid rgba(29,158,117,0.20)' }}>
-                <iframe
-                  src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(notary.address)}&z=16`}
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                  title="Карта проезда"
-                  allowFullScreen
+                <YandexMap
                   className="w-full h-full"
+                  title="Карта проезда"
                 />
               </div>
             </div>
@@ -154,7 +150,7 @@ export default function ContactsPage() {
 
                 <p
                   className="font-serif font-medium m-0 mb-1"
-                  style={{ fontSize: '17px', lineHeight: '1.2', color: 'rgb(var(--violet-rgb))' }}
+                  style={{ fontSize: '17px', lineHeight: '1.2', color: 'rgb(var(--violet-ink-rgb))' }}
                 >
                   {notary.name.split(' ')[0]}<br />
                   {notary.name.split(' ').slice(1).join(' ')}

@@ -80,7 +80,7 @@ export default function CredentialsSection() {
               <span className="block w-6 h-px bg-gold flex-shrink-0" />
               <span
                 className="text-[11px] tracking-[0.32em] uppercase"
-                style={{ color: 'rgba(29,158,117,0.70)' }}
+                style={{ color: 'rgb(var(--violet-ink-rgb))' }}
               >
                 Документы и членство
               </span>
@@ -90,14 +90,14 @@ export default function CredentialsSection() {
               style={{ fontSize: 'clamp(36px, 4vw, 54px)', lineHeight: '1.08', letterSpacing: '-0.01em' }}
             >
               Подтверждённые{' '}
-              <em className="italic font-normal text-gold">
+              <em className="italic font-normal text-gold-ink">
                 полномочия
               </em>
             </h2>
           </div>
           <Link
             href="/about"
-            className="inline-flex items-center gap-2.5 text-[12px] tracking-[0.22em] uppercase text-gold no-underline pb-1 transition-colors hover:text-gold-light flex-shrink-0"
+            className="inline-flex items-center gap-2.5 text-[12px] tracking-[0.22em] uppercase text-gold-ink no-underline pb-1 transition-colors hover:text-gold-light flex-shrink-0"
             style={{ borderBottom: '1px solid rgba(29,158,117,0.30)' }}
           >
             О нотариусе
@@ -120,14 +120,14 @@ export default function CredentialsSection() {
               data-reveal-delay={i * 100}
             >
               <div
-                className="w-10 h-10 grid place-items-center text-gold mb-3.5"
+                className="w-10 h-10 grid place-items-center text-gold-ink mb-3.5"
                 style={{ background: 'radial-gradient(circle, rgba(29,158,117,0.18), transparent 70%)' }}
               >
                 {c.icon}
               </div>
               <div
                 className="font-mono text-[10px] tracking-[0.18em] uppercase mb-1.5"
-                style={{ color: 'rgba(29,158,117,0.70)' }}
+                style={{ color: 'rgb(var(--violet-ink-rgb))' }}
               >
                 {c.code}
               </div>

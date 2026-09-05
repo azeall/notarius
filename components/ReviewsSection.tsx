@@ -76,7 +76,7 @@ export default function ReviewsSection() {
           <div>
             <div className="inline-flex items-center gap-3.5 mb-5">
               <span className="block w-6 h-px bg-gold flex-shrink-0" />
-              <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgba(29,158,117,0.70)' }}>
+              <span className="text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>
                 Отзывы клиентов
               </span>
             </div>
@@ -85,7 +85,7 @@ export default function ReviewsSection() {
               style={{ fontSize: 'clamp(36px, 4vw, 54px)', lineHeight: '1.08', letterSpacing: '-0.01em' }}
             >
               Что говорят{' '}
-              <em className="italic font-normal text-gold">клиенты</em>
+              <em className="italic font-normal text-gold-ink">клиенты</em>
             </h2>
           </div>
         </div>
@@ -130,7 +130,7 @@ export default function ReviewsSection() {
             {/* Label + arrows */}
             <div className="flex items-center justify-between gap-4">
               <div>
-                <div className="text-[11px] tracking-[0.26em] uppercase mb-2" style={{ color: 'rgba(29,158,117,0.60)' }}>
+                <div className="text-[11px] tracking-[0.26em] uppercase mb-2" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>
                   Отзывы клиентов
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
@@ -183,7 +183,7 @@ export default function ReviewsSection() {
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <div className="font-medium text-cream text-[14px]">{r.author}</div>
-                      <div className="text-[11px] mt-0.5" style={{ color: 'rgba(29,158,117,0.55)' }}>{r.date}</div>
+                      <div className="text-[11px] mt-0.5" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>{r.date}</div>
                     </div>
                     <span
                       className="text-[10px] tracking-[0.06em] px-2 py-0.5 rounded-full flex-shrink-0 font-medium"
@@ -202,7 +202,7 @@ export default function ReviewsSection() {
 
             {/* Aggregate rating */}
             <div className="flex items-center gap-3 pt-3" style={{ borderTop: '1px solid rgba(29,158,117,0.10)' }}>
-              <span className="font-serif text-gold text-2xl leading-none">5.0</span>
+              <span className="font-serif text-gold-ink text-2xl leading-none">5.0</span>
               <Stars n={5} />
               <span className="text-[12px]" style={{ color: 'rgb(var(--muted-b-rgb))' }}>средняя оценка · отзывы клиентов</span>
             </div>

@@ -78,7 +78,7 @@ export default function StaffLogin() {
                 type="button"
                 onClick={() => setShowPassword(v => !v)}
                 tabIndex={-1}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate/80 hover:text-gold transition-colors p-0.5"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate/80 hover:text-gold-ink transition-colors p-0.5"
                 aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
               >
                 {showPassword ? (
@@ -111,7 +111,7 @@ export default function StaffLogin() {
         </button>
 
         <p className="text-center mt-4">
-          <a href="/admin/login" className="text-xs text-slate/80 hover:text-gold transition-colors">
+          <a href="/admin/login" className="text-xs text-slate/80 hover:text-gold-ink transition-colors">
             Войти как нотариус
           </a>
         </p>

@@ -71,7 +71,7 @@ export default function VisitPage() {
           </svg>
         </div>
         <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
-          <p className="text-gold uppercase tracking-widest text-xs font-semibold mb-3">Перед приёмом</p>
+          <p className="text-gold-ink uppercase tracking-widest text-xs font-semibold mb-3">Перед приёмом</p>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Подготовка к визиту</h1>
           <p className="text-slate max-w-xl">
             Соберите документы заранее по интерактивному чек-листу — визит пройдёт быстро и без повторных посещений
@@ -100,7 +100,7 @@ export default function VisitPage() {
           <div className="mb-8">
             <div className="inline-flex items-center gap-3 mb-3">
               <span className="block w-6 h-px bg-gold" />
-              <span className="text-[11px] tracking-[0.28em] uppercase text-gold/80">Чек-лист документов</span>
+              <span className="text-[11px] tracking-[0.28em] uppercase text-gold-ink/80">Чек-лист документов</span>
             </div>
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-cream">Что взять с собой</h2>
           </div>
@@ -115,7 +115,7 @@ export default function VisitPage() {
           <div className="grid sm:grid-cols-2 gap-x-10 gap-y-8">
             {NOTES.map(n => (
               <div key={n.title} className="flex gap-4">
-                <span className="w-9 h-9 rounded-lg grid place-items-center flex-shrink-0 text-gold" style={{ background: 'rgba(29,158,117,0.10)' }}>
+                <span className="w-9 h-9 rounded-lg grid place-items-center flex-shrink-0 text-gold-ink" style={{ background: 'rgba(29,158,117,0.10)' }}>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.6} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -139,14 +139,14 @@ export default function VisitPage() {
             <BookingButton />
             <Link
               href="/blog"
-              className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
+              className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold-ink transition-all text-sm"
               style={{ borderColor: 'rgba(29,158,117,0.35)' }}
             >
               Полезные статьи →
             </Link>
             <a
               href={notary.phoneHref}
-              className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
+              className="border text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold-ink transition-all text-sm"
               style={{ borderColor: 'rgba(29,158,117,0.35)' }}
             >
               {notary.phone}

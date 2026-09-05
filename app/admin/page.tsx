@@ -152,7 +152,7 @@ export default async function AdminPage({
         <div>
           <h1 className="font-serif text-4xl font-bold text-cream">Записи на приём</h1>
           <p className="text-cream/40 text-sm mt-2">
-            Просмотр: <span className="text-gold">{currentTabLabel}</span>
+            Просмотр: <span className="text-gold-ink">{currentTabLabel}</span>
           </p>
         </div>
         <AdminLogoutButton />
@@ -166,7 +166,7 @@ export default async function AdminPage({
             className="rounded-2xl px-4 py-4 sm:px-5 sm:py-5"
             style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(29,158,117,0.15)' }}
           >
-            <div className="font-serif text-gold font-bold leading-none" style={{ fontSize: 'clamp(20px, 4vw, 30px)' }}>
+            <div className="font-serif text-gold-ink font-bold leading-none" style={{ fontSize: 'clamp(20px, 4vw, 30px)' }}>
               {s.value}
             </div>
             <div className="text-[10px] sm:text-xs uppercase tracking-wider text-cream/50 mt-2">{s.label}</div>
@@ -186,7 +186,7 @@ export default async function AdminPage({
         /* ── Результаты поиска ── */
         <div className="mt-8">
           <p className="text-cream/60 text-sm mb-4">
-            Поиск: <span className="text-gold font-semibold">«{query}»</span> — найдено {searchResults.length}
+            Поиск: <span className="text-gold-ink font-semibold">«{query}»</span> — найдено {searchResults.length}
           </p>
           {searchResults.length === 0 ? (
             <div className="text-center py-16 text-cream/40">Ничего не найдено</div>
@@ -196,7 +196,7 @@ export default async function AdminPage({
                 <div key={a.id}>
                   <p className="text-xs text-cream/40 mb-1 ml-1">
                     {formatDate(a.date)}
-                    {activeTab === 'all' && <span style={{ color: 'rgb(var(--violet-rgb))' }}> · {staffLabel(a.staffId ?? null)}</span>}
+                    {activeTab === 'all' && <span style={{ color: 'rgb(var(--violet-ink-rgb))' }}> · {staffLabel(a.staffId ?? null)}</span>}
                   </p>
                   <AdminAppointmentCard a={a} isAdmin />
                 </div>
@@ -218,7 +218,7 @@ export default async function AdminPage({
 
           {lookupDate && (
             <p className="text-cream/60 text-sm mb-6">
-              Записи за <span className="text-gold font-semibold">{formatDate(lookupDate)}</span>
+              Записи за <span className="text-gold-ink font-semibold">{formatDate(lookupDate)}</span>
             </p>
           )}
 
@@ -244,7 +244,7 @@ export default async function AdminPage({
                     <h2 className="font-serif text-2xl font-bold text-cream mb-4 flex items-center gap-3">
                       {formatDate(date)}
                       {isToday && (
-                        <span className="text-[11px] font-sans font-semibold tracking-widest uppercase bg-gold/20 text-gold px-3 py-1 rounded-full">
+                        <span className="text-[11px] font-sans font-semibold tracking-widest uppercase bg-gold/20 text-gold-ink px-3 py-1 rounded-full">
                           Сегодня
                         </span>
                       )}
@@ -253,7 +253,7 @@ export default async function AdminPage({
                       {items.map(a => (
                         <div key={a.id}>
                           {activeTab === 'all' && (
-                            <p className="text-xs font-semibold mb-1 ml-1" style={{ color: 'rgb(var(--violet-rgb))' }}>
+                            <p className="text-xs font-semibold mb-1 ml-1" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>
                               {staffLabel(a.staffId ?? null)}
                             </p>
                           )}

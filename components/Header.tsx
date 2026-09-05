@@ -49,7 +49,7 @@ export default function Header() {
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 no-underline group min-w-0">
           <div
-            className="relative w-10 h-10 grid place-items-center flex-shrink-0 text-gold font-serif text-xl"
+            className="relative w-10 h-10 grid place-items-center flex-shrink-0 text-gold-ink font-serif text-xl"
             style={{ border: '1px solid #1D9E75' }}
           >
             {/* Corner decorations */}
@@ -66,12 +66,12 @@ export default function Header() {
             {notary.name.trim().charAt(0)}
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="font-serif text-sm sm:text-base text-cream group-hover:text-gold transition-colors truncate">
+            <span className="font-serif text-sm sm:text-base text-cream group-hover:text-gold-ink transition-colors truncate">
               {notary.name}
             </span>
             <span
               className="font-sans text-[9px] tracking-[0.22em] sm:tracking-[0.28em] uppercase mt-0.5 truncate"
-              style={{ color: 'rgba(29,158,117,0.70)' }}
+              style={{ color: 'rgb(var(--violet-ink-rgb))' }}
             >
               Нотариус · Москва
             </span>
@@ -101,7 +101,7 @@ export default function Header() {
           <ThemeToggle />
           <BookingButton size="sm" className="hidden md:inline-flex" />
           <button
-            className="md:hidden flex flex-col gap-1.5 p-1.5 text-gold"
+            className="md:hidden flex flex-col gap-1.5 p-1.5 text-gold-ink"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Открыть меню"
           >
@@ -122,7 +122,7 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="py-3.5 text-[11px] tracking-[0.20em] uppercase text-slate hover:text-gold transition-colors no-underline border-b"
+              className="py-3.5 text-[11px] tracking-[0.20em] uppercase text-slate hover:text-gold-ink transition-colors no-underline border-b"
               style={{ borderColor: 'rgba(29,158,117,0.08)' }}
               onClick={() => setMenuOpen(false)}
             >

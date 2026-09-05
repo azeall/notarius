@@ -73,7 +73,7 @@ export default function Footer() {
           <div className="sm:col-span-2 md:col-span-1">
             <div className="flex items-center gap-3.5 mb-5">
               <div
-                className="relative w-10 h-10 grid place-items-center text-gold font-serif text-xl flex-shrink-0"
+                className="relative w-10 h-10 grid place-items-center text-gold-ink font-serif text-xl flex-shrink-0"
                 style={{ border: '1px solid #1D9E75' }}
               >
                 {notary.name.charAt(0)}
@@ -82,7 +82,7 @@ export default function Footer() {
                 <span className="font-serif text-cream text-base">{notary.name}</span>
                 <span
                   className="font-sans text-[9px] tracking-[0.28em] uppercase mt-0.5"
-                  style={{ color: 'rgba(29,158,117,0.70)' }}
+                  style={{ color: 'rgb(var(--violet-ink-rgb))' }}
                 >
                   Нотариус · Москва
                 </span>
@@ -105,7 +105,7 @@ export default function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h5 className="font-sans font-semibold text-[11px] tracking-[0.22em] uppercase text-gold mb-4 sm:mb-5">
+              <h5 className="font-sans font-semibold text-[11px] tracking-[0.22em] uppercase text-gold-ink mb-4 sm:mb-5">
                 {title}
               </h5>
               {links.map(link => (
@@ -136,7 +136,7 @@ export default function Footer() {
               style={{ opacity: 0.55 }}
             >
               <span
-                className="w-9 h-9 rounded-full flex-shrink-0 grid place-items-center text-gold flex-shrink-0"
+                className="w-9 h-9 rounded-full flex-shrink-0 grid place-items-center text-gold-ink flex-shrink-0"
                 style={{
                   border: '1px solid rgba(29,158,117,0.35)',
                   background: 'rgba(29,158,117,0.06)',

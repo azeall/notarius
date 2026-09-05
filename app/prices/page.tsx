@@ -20,7 +20,7 @@ export default function PricesPage() {
           </svg>
         </div>
         <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
-          <p className="text-gold uppercase tracking-widest text-xs font-semibold mb-3">Нотариальная контора</p>
+          <p className="text-gold-ink uppercase tracking-widest text-xs font-semibold mb-3">Нотариальная контора</p>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Тарифы и цены</h1>
           <p className="text-slate max-w-xl text-sm leading-relaxed">
             Стоимость нотариальных действий складывается из государственной пошлины (нотариального тарифа) и платы за услуги правового и технического характера (УПТХ). Указанные цены ориентировочные — точную стоимость уточняйте при записи.
@@ -31,7 +31,7 @@ export default function PricesPage() {
       {/* Disclaimer — text-cream/80 for visibility on dark background */}
       <div className="bg-gold/10 border-b border-gold/20">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-start gap-3">
-          <svg className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-gold-ink flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <p className="text-sm text-cream/80">
@@ -53,10 +53,10 @@ export default function PricesPage() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr style={{ borderBottom: '1px solid rgba(29,158,117,0.12)' }}>
-                      <th className="text-left px-6 py-3 font-medium text-xs uppercase tracking-wider w-1/2" style={{ color: 'rgba(29,158,117,0.70)' }}>Действие</th>
-                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(29,158,117,0.70)' }}>Тариф</th>
-                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(29,158,117,0.70)' }}>УПТХ</th>
-                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgba(29,158,117,0.70)' }}>Итого</th>
+                      <th className="text-left px-6 py-3 font-medium text-xs uppercase tracking-wider w-1/2" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>Действие</th>
+                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>Тариф</th>
+                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>УПТХ</th>
+                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>Итого</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -65,7 +65,7 @@ export default function PricesPage() {
                         <td className="px-6 py-3.5 text-cream font-medium">{row.name}</td>
                         <td className="px-4 py-3.5 text-slate">{row.tariff}</td>
                         <td className="px-4 py-3.5 text-slate">{row.uptx}</td>
-                        <td className="px-4 py-3.5 font-semibold text-gold">{row.total}</td>
+                        <td className="px-4 py-3.5 font-semibold text-gold-ink">{row.total}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -87,7 +87,7 @@ export default function PricesPage() {
             <BookingButton className="bg-gold text-white font-semibold px-8 py-3 rounded-lg hover:brightness-110 transition-all" />
             <a
               href={notary.phoneHref}
-              className="flex items-center gap-2 border border-black/20 text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold transition-all text-sm"
+              className="flex items-center gap-2 border border-black/20 text-cream font-semibold px-8 py-3 rounded-lg hover:border-gold hover:text-gold-ink transition-all text-sm"
             >
               {notary.phone}
             </a>

@@ -84,7 +84,7 @@ export default function StaffDashboard() {
       <div className="flex items-start justify-between mb-10">
         <div>
           <h1 className="font-serif text-4xl font-bold text-cream">Мои записи</h1>
-          <p className="text-gold text-sm mt-1.5 font-medium">{staffName}</p>
+          <p className="text-gold-ink text-sm mt-1.5 font-medium">{staffName}</p>
         </div>
         <StaffLogoutButton />
       </div>
@@ -97,7 +97,7 @@ export default function StaffDashboard() {
 
       {lookupDate && (
         <p className="text-cream/60 text-sm mb-6">
-          Записи за <span className="text-gold font-semibold">{formatDate(lookupDate)}</span>
+          Записи за <span className="text-gold-ink font-semibold">{formatDate(lookupDate)}</span>
         </p>
       )}
 
@@ -123,7 +123,7 @@ export default function StaffDashboard() {
                 <h2 className="font-serif text-2xl font-bold text-cream mb-4 flex items-center gap-3">
                   {formatDate(date)}
                   {isToday && (
-                    <span className="text-[11px] font-sans font-semibold tracking-widest uppercase bg-gold/20 text-gold px-3 py-1 rounded-full">
+                    <span className="text-[11px] font-sans font-semibold tracking-widest uppercase bg-gold/20 text-gold-ink px-3 py-1 rounded-full">
                       Сегодня
                     </span>
                   )}
@@ -136,7 +136,7 @@ export default function StaffDashboard() {
                     >
                       <div className="flex items-center gap-5">
                         <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
-                          <span className="text-gold font-bold text-lg">{a.name.charAt(0)}</span>
+                          <span className="text-gold-ink font-bold text-lg">{a.name.charAt(0)}</span>
                         </div>
                         <div>
                           <p className="font-semibold text-cream text-lg leading-tight">{a.name}</p>
@@ -186,7 +186,7 @@ function HistoryPicker({ currentDate, today }: { currentDate: string | null; tod
       {currentDate && (
         <button
           onClick={() => { setValue(''); go('') }}
-          className="text-sm text-gold/70 hover:text-gold transition-colors"
+          className="text-sm text-gold-ink/70 hover:text-gold-ink transition-colors"
         >
           Показать предстоящие
         </button>

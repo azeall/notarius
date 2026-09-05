@@ -205,12 +205,12 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
             <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
-              <span className="text-gold font-bold text-sm sm:text-lg">{a.name.charAt(0)}</span>
+              <span className="text-gold-ink font-bold text-sm sm:text-lg">{a.name.charAt(0)}</span>
             </div>
             <div className="min-w-0 flex-1">
               <p className="font-semibold text-cream text-sm sm:text-lg leading-tight truncate">{a.name}</p>
               <p className="text-slate text-xs sm:text-sm mt-0.5 truncate">{a.phone}</p>
-              <p className="text-gold/80 text-xs sm:text-sm mt-1 font-medium truncate">{a.service}</p>
+              <p className="text-gold-ink/80 text-xs sm:text-sm mt-1 font-medium truncate">{a.service}</p>
             </div>
           </div>
           <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
@@ -234,7 +234,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
           {/* Contact */}
           <a
             href={`tel:+${phoneDigits}`}
-            className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-medium text-cream/80 rounded-md px-2.5 py-1.5 transition-colors hover:text-gold"
+            className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-medium text-cream/80 rounded-md px-2.5 py-1.5 transition-colors hover:text-gold-ink"
             style={{ border: '1px solid rgba(29,158,117,0.18)' }}
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -283,7 +283,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
 
           {/* Manage */}
           <button onClick={startEdit}
-            className="text-[11px] sm:text-xs text-cream/70 hover:text-gold rounded-md px-2.5 py-1.5 transition-colors"
+            className="text-[11px] sm:text-xs text-cream/70 hover:text-gold-ink rounded-md px-2.5 py-1.5 transition-colors"
             style={{ border: '1px solid rgba(29,158,117,0.18)' }}>
             Перенести
           </button>
@@ -333,13 +333,13 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
       {/* Header row */}
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
-          <span className="text-gold font-bold text-base">{a.name.charAt(0)}</span>
+          <span className="text-gold-ink font-bold text-base">{a.name.charAt(0)}</span>
         </div>
         <div className="min-w-0 flex-1">
           <p className="font-semibold text-cream text-sm sm:text-base truncate">{a.name}</p>
           <p className="text-slate text-xs truncate">{a.phone} · {a.service}</p>
         </div>
-        <span className="text-[10px] uppercase tracking-wide text-gold font-semibold bg-gold/10 border border-gold/30 px-2 py-1 rounded-md">
+        <span className="text-[10px] uppercase tracking-wide text-gold-ink font-semibold bg-gold/10 border border-gold/30 px-2 py-1 rounded-md">
           Перенос
         </span>
       </div>
@@ -349,7 +349,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
         <label className="block text-[10px] uppercase tracking-wide text-cream/50 mb-1.5">Дата</label>
         <div className="flex items-center gap-2">
           <button type="button" onClick={() => setDate(d => stepWeekday(d, -1))}
-            className="w-9 h-9 flex items-center justify-center rounded-md text-cream/70 hover:text-gold transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-md text-cream/70 hover:text-gold-ink transition-colors"
             style={{ border: '1px solid rgba(29,158,117,0.20)' }} title="Предыдущий рабочий день">‹</button>
           <input
             type="date"
@@ -359,7 +359,7 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
             style={{ background: 'rgb(var(--surface-rgb))', border: '1px solid rgba(29,158,117,0.20)', colorScheme: 'light' }}
           />
           <button type="button" onClick={() => setDate(d => stepWeekday(d, +1))}
-            className="w-9 h-9 flex items-center justify-center rounded-md text-cream/70 hover:text-gold transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-md text-cream/70 hover:text-gold-ink transition-colors"
             style={{ border: '1px solid rgba(29,158,117,0.20)' }} title="Следующий рабочий день">›</button>
           {date !== a.date && (
             <button type="button" onClick={() => setDate(a.date)}

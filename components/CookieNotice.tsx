@@ -47,7 +47,7 @@ export default function CookieNotice() {
         <p className="text-[13px] text-slate leading-relaxed flex-1">
           Мы используем файлы cookie и Яндекс.Метрику для аналитики сайта. Продолжая пользоваться сайтом,
           вы соглашаетесь с{' '}
-          <Link href="/privacy" className="text-gold hover:text-gold-light underline underline-offset-2">
+          <Link href="/privacy" className="text-gold-ink hover:text-gold-light underline underline-offset-2">
             политикой обработки персональных данных
           </Link>
           .
@@ -62,7 +62,7 @@ export default function CookieNotice() {
           </button>
           <button
             onClick={accept}
-            className="px-5 py-2.5 rounded-lg text-xs font-semibold text-white bg-gold hover:bg-gold-light transition-colors whitespace-nowrap"
+            className="px-5 py-2.5 rounded-lg text-xs font-semibold text-white bg-gold-ink hover:bg-gold transition-colors whitespace-nowrap"
           >
             Принять
           </button>

@@ -140,7 +140,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
         className={`text-xs py-2 rounded-lg border transition-all
           ${isBooked ? 'border-black/5 bg-black/3 text-slate cursor-not-allowed line-through' : ''}
           ${!isBooked && isStart ? 'bg-gold border-gold text-white font-bold' : ''}
-          ${!isBooked && !isStart && isInSelection && !conflict ? 'bg-gold/30 border-gold/60 text-gold' : ''}
+          ${!isBooked && !isStart && isInSelection && !conflict ? 'bg-gold/30 border-gold/60 text-gold-ink' : ''}
           ${!isBooked && !isStart && isInSelection && conflict ? 'bg-red-500/20 border-red-500/40 text-red-300' : ''}
           ${!isBooked && !isInSelection ? 'border-black/10 text-slate hover:border-gold/50 hover:text-cream' : ''}
         `}
@@ -277,7 +277,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                           ? 'bg-red-500/10 border border-red-500/30 text-red-300'
                           : selectionConflicts
                             ? 'bg-red-500/10 border border-red-500/30 text-red-300'
-                            : 'bg-gold/10 border border-gold/30 text-gold'
+                            : 'bg-gold/10 border border-gold/30 text-gold-ink'
                       }`}
                     >
                       {!selectionFits
@@ -311,7 +311,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                 <p className="text-slate">Услуга: <span className="text-cream">{service}</span></p>
                 <p className="text-slate">
                   Дата и время:{' '}
-                  <span className="text-gold font-medium">
+                  <span className="text-gold-ink font-medium">
                     {selDate} с {time} до {endTime(time, duration)}
                   </span>
                 </p>
@@ -346,7 +346,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                 />
                 <span className="text-[12px] text-slate leading-snug">
                   Я согласен(а) на обработку персональных данных и принимаю{' '}
-                  <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold-light underline underline-offset-2">
+                  <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-gold-ink hover:text-gold-light underline underline-offset-2">
                     политику конфиденциальности
                   </a>
                 </span>
@@ -380,13 +380,13 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                 className="w-16 h-16 rounded-full flex items-center justify-center mx-auto"
                 style={{ background: 'rgba(29,158,117,0.10)', border: '1px solid rgba(29,158,117,0.30)' }}
               >
-                <span className="text-gold text-2xl">✓</span>
+                <span className="text-gold-ink text-2xl">✓</span>
               </div>
               <h3 className="text-cream font-serif text-xl">Запись подтверждена!</h3>
               <p className="text-slate text-sm leading-relaxed">
                 Ждём вас <span className="text-cream">{selDate}</span> c{' '}
-                <span className="text-gold font-medium">{time}</span> до{' '}
-                <span className="text-gold font-medium">{time && endTime(time, duration)}</span>.<br />
+                <span className="text-gold-ink font-medium">{time}</span> до{' '}
+                <span className="text-gold-ink font-medium">{time && endTime(time, duration)}</span>.<br />
                 При необходимости мы свяжемся с вами для подтверждения.
               </p>
               <button

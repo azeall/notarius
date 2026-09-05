@@ -101,7 +101,7 @@ function HeroBookingCard() {
         <h2 className="font-sans font-extrabold m-0" style={{ fontSize: '20px', color: 'rgb(var(--text-rgb))', letterSpacing: '-0.01em' }}>
           Запись на приём
         </h2>
-        <span className="text-[10px] font-bold tracking-wide uppercase rounded-full px-2.5 py-1" style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-rgb))' }}>
+        <span className="text-[10px] font-bold tracking-wide uppercase rounded-full px-2.5 py-1" style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-ink-rgb))' }}>
           ~30 секунд
         </span>
       </div>
@@ -109,13 +109,13 @@ function HeroBookingCard() {
       {done ? (
         <div className="text-center py-8">
           <div className="w-14 h-14 rounded-full grid place-items-center mx-auto mb-4" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
-            <svg className="w-7 h-7" style={{ color: 'rgb(var(--violet-rgb))' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-7 h-7" style={{ color: 'rgb(var(--violet-ink-rgb))' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
           <h3 className="font-sans font-bold mb-1" style={{ fontSize: '18px', color: 'rgb(var(--text-rgb))' }}>Вы записаны!</h3>
           <p className="text-sm m-0" style={{ color: 'rgb(var(--muted-rgb))' }}>
-            {date} в <b style={{ color: 'rgb(var(--violet-rgb))' }}>{time}</b>. Мы свяжемся для подтверждения.
+            {date} в <b style={{ color: 'rgb(var(--violet-ink-rgb))' }}>{time}</b>. Мы свяжемся для подтверждения.
           </p>
         </div>
       ) : (
@@ -132,7 +132,7 @@ function HeroBookingCard() {
           </div>
           {date && isWeekendYMD(date) && <p className="text-xs m-0" style={{ color: '#c2410c' }}>Выходной — выберите будний день</p>}
           {date && !isWeekendYMD(date) && freeSlots.length > 0 && (
-            <p className="text-xs m-0 flex items-center gap-1.5" style={{ color: 'rgb(var(--violet-rgb))' }}>
+            <p className="text-xs m-0 flex items-center gap-1.5" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>
               <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ background: 'rgb(var(--violet-rgb))' }} />
               Свободно {freeSlots.length} {freeSlots.length === 1 ? 'окно' : freeSlots.length < 5 ? 'окна' : 'окон'} на эту дату
             </p>
@@ -146,7 +146,7 @@ function HeroBookingCard() {
           <label className="flex items-start gap-2 cursor-pointer select-none pt-1">
             <input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)} className="mt-0.5 w-4 h-4 cursor-pointer" style={{ accentColor: 'rgb(var(--violet-rgb))' }} />
             <span className="text-[11px] leading-snug" style={{ color: 'rgb(var(--muted-b-rgb))' }}>
-              Согласен(а) на обработку персональных данных (<a href="/privacy" target="_blank" className="underline" style={{ color: 'rgb(var(--violet-rgb))' }}>политика</a>)
+              Согласен(а) на обработку персональных данных (<a href="/privacy" target="_blank" className="underline" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>политика</a>)
             </span>
           </label>
 
@@ -187,7 +187,7 @@ export default function Hero() {
         <div>
           <div className="flex items-center gap-3 mb-8 animate-fade-in-up">
             <span className="block w-10 h-[2px]" style={{ background: 'rgb(var(--violet-rgb))' }} />
-            <span className="font-semibold text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-rgb))' }}>
+            <span className="font-semibold text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>
               Нотариус города Москвы
             </span>
           </div>
@@ -198,7 +198,7 @@ export default function Hero() {
           >
             {surname}
             <br />
-            <span style={{ color: 'rgb(var(--violet-rgb))' }}>{rest}</span>
+            <span style={{ color: 'rgb(var(--violet-ink-rgb))' }}>{rest}</span>
           </h1>
 
           <p className="leading-relaxed mb-10 max-w-[500px] animate-fade-in-up" style={{ fontSize: '18px', lineHeight: '1.7', color: 'rgb(var(--muted-rgb))', animationDelay: '160ms' }}>
@@ -221,7 +221,7 @@ export default function Hero() {
           <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-[600px] pt-8 animate-fade-in-up" style={{ borderTop: '2px solid #e8f5f0', animationDelay: '300ms' }}>
             {heroStats.map(s => (
               <div key={s.label}>
-                <div className="font-sans font-extrabold leading-none mb-2" style={{ fontSize: 'clamp(26px, 3.5vw, 42px)', color: 'rgb(var(--violet-rgb))', letterSpacing: '-0.02em' }}>
+                <div className="font-sans font-extrabold leading-none mb-2" style={{ fontSize: 'clamp(26px, 3.5vw, 42px)', color: 'rgb(var(--violet-ink-rgb))', letterSpacing: '-0.02em' }}>
                   <Counter value={s.value} suffix={s.suffix} />
                 </div>
                 <div className="text-[11px] sm:text-xs tracking-[0.16em] uppercase" style={{ color: 'rgb(var(--muted-b-rgb))' }}>{s.label}</div>
