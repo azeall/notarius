@@ -9,6 +9,7 @@ import BookingButton from '@/components/BookingButton'
 import { notary, site } from '@/lib/data'
 import ReviewsSection from '@/components/ReviewsSection'
 import LegalPhotos from '@/components/LegalPhotos'
+import YandexMap from '@/components/YandexMap'
 
 export const metadata: Metadata = {
   title: 'Нотариус в Москве · Запись на приём онлайн',
@@ -132,14 +133,9 @@ export default function HomePage() {
 
             {/* Map column */}
             <div className="relative" style={{ minHeight: '380px', background: '#0a1628' }}>
-              <iframe
-                src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(notary.address)}&z=16`}
-                width="100%"
-                height="100%"
-                frameBorder="0"
-                allowFullScreen
+              <YandexMap
                 className="absolute inset-0 w-full h-full"
-                style={{ filter: 'invert(0.85) hue-rotate(180deg)', border: 'none', display: 'block' }}
+                style={{filter: 'invert(0.85) hue-rotate(180deg)', border: 'none', display: 'block'}}
                 title="Карта"
               />
             </div>
