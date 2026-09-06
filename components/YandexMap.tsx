@@ -26,6 +26,11 @@ export default function YandexMap({
 }) {
   const [allowed, setAllowed] = useState(false)
 
+  // Стили карты приходят от места вызова, и среди них бывает filter: одна
+  // из веток перекрашивает карту под тёмное оформление. К заглушке этот
+  // фильтр применять нельзя — он выворачивает наизнанку её текст.
+  const { filter: _mapFilter, ...placeholderStyle } = style ?? {}
+
   useEffect(() => {
     try {
       if (localStorage.getItem('cookie-consent') === 'accepted') setAllowed(true)
@@ -50,7 +55,7 @@ export default function YandexMap({
           textAlign: 'center',
           padding: 24,
           background: 'rgba(127,127,127,0.08)',
-          ...style,
+          ...placeholderStyle,
         }}
       >
         <p style={{ margin: 0, fontSize: 15, lineHeight: 1.5 }}>{notary.address}</p>
