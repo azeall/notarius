@@ -1,4 +1,5 @@
 'use client'
+import { LIVE_BOOKING } from './BookingMode'
 import { useEffect, useState } from 'react'
 import BookingModal from './BookingModal'
 import { MORNING_SLOTS, AFTERNOON_SLOTS } from '@/lib/slots'
@@ -164,7 +165,7 @@ export default function LiveStatus() {
         {slots.length > 0 && (
           <>
             <span className="ls-sep" aria-hidden />
-            <span className="ls-lbl">Ближайшая запись</span>
+            <span className="ls-lbl">{LIVE_BOOKING ? 'Время приёма' : 'Пример расписания'}</span>
             <span className="ls-slots">
               {slots.map(s => (
                 <button key={s.label} className="ls-slot" onClick={() => setModal({ date: s.date, time: s.slot })}>

@@ -71,11 +71,11 @@ export default function AdminAppointmentCard({ a, isAdmin }: { a: Appointment; i
 
   useEffect(() => {
     if (!editing) return
-    fetch(`/api/appointments?date=${date}`)
+    fetch(`/api/admin/appointments?date=${date}${a.staffId ? `&staffId=${encodeURIComponent(a.staffId)}` : ''}`)
       .then(r => r.json())
       .then(d => setDayBooked(Array.isArray(d.booked) ? d.booked : []))
       .catch(() => setDayBooked([]))
-  }, [date, editing])
+  }, [date, editing, a.staffId])
 
   const ownOriginalSlots = useMemo(() => new Set(expandSlots(a.time, a.duration)), [a.time, a.duration])
 

@@ -5,6 +5,8 @@ export default function ThemeToggle({ className = '' }: { className?: string }) 
   const [dark, setDark] = useState(false)
 
   useEffect(() => {
+    // Read the theme applied by the pre-hydration script only after the document exists.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDark(document.documentElement.classList.contains('dark'))
   }, [])
 

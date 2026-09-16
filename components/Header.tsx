@@ -75,7 +75,7 @@ export default function Header() {
             {notary.name.trim().charAt(0)}
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="font-serif text-[15px] sm:text-[17px] text-cream transition-colors truncate" style={{ letterSpacing: '-0.01em' }}>
+            <span className="font-serif text-[15px] sm:text-[17px] text-cream transition-colors leading-tight whitespace-normal" style={{ letterSpacing: '-0.01em' }}>
               {notary.name}
             </span>
             <span
@@ -88,7 +88,7 @@ export default function Header() {
         </Link>
 
         {/* Nav links */}
-        <nav className="hidden md:flex items-center gap-5 lg:gap-[26px]" aria-label="Основная навигация">
+        <nav className="hidden xl:flex items-center gap-5 lg:gap-[26px]" aria-label="Основная навигация">
           {navLinks.map(link => {
             const current = isCurrent(link.href)
             return (
@@ -106,11 +106,11 @@ export default function Header() {
         </nav>
 
         {/* CTA + hamburger */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-shrink-0">
           <ThemeToggle />
-          <BookingButton size="sm" className="hidden md:inline-flex" />
+          <BookingButton size="sm" className="hidden xl:inline-flex" />
           <button
-            className="md:hidden flex flex-col gap-1.5 p-1.5 text-cream"
+            className="xl:hidden flex flex-col gap-1.5 p-1.5 text-cream"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
             aria-expanded={menuOpen}
@@ -125,7 +125,7 @@ export default function Header() {
       {/* Mobile menu */}
       {menuOpen && (
         <nav
-          className="md:hidden wrap pb-5 flex flex-col gap-0"
+          className="xl:hidden wrap pb-5 flex flex-col gap-0"
           style={{ borderTop: '1px solid rgb(var(--violet-rgb) / 0.10)', background: 'var(--header-scrolled)' }}
         >
           {navLinks.map(link => {

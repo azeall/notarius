@@ -33,6 +33,8 @@ export default function YandexMap({
 
   useEffect(() => {
     try {
+      // Restore explicit browser consent after hydration; server rendering must not enable third-party resources.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (localStorage.getItem('cookie-consent') === 'accepted') setAllowed(true)
     } catch {
       /* ignore */

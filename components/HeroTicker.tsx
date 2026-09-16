@@ -32,6 +32,8 @@ export default function HeroTicker() {
   const [clock, setClock] = useState('')
 
   useEffect(() => {
+    // Initialize the browser clock after hydration, then synchronize through its timer.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setClock(mskClock())
     const t = setInterval(() => setClock(mskClock()), 1000)
     return () => clearInterval(t)

@@ -19,7 +19,15 @@ model Appointment {
   ip        String   @default("")
   staffId   String?
   createdAt DateTime @default(now())
+  consentVersion String?
+  consentAt DateTime?
 
   @@index([date])
   @@index([staffId])
+}
+
+model LoginRateLimit {
+  key      String   @id
+  attempts Int
+  resetAt  DateTime
 }

@@ -44,6 +44,8 @@ export default function DeskScene() {
     if (mq('(prefers-reduced-motion: reduce)')?.matches) {
       // Конечный кадр и обычная прокрутка: сцена ничего не прячет, подписи
       // всех кадров в разметке и так видны.
+      // Initialize the static scene from the browser reduced-motion preference after hydration.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setStill(true)
       setFrame(FRAMES.length - 1)
       return

@@ -35,6 +35,8 @@ export default function ReadingRail() {
       document.documentElement.scrollHeight > window.innerHeight * 1.5
 
     if (heads.length < 2 || !long()) return
+    // The rail can only be enabled after measuring the hydrated document height.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setOn(true)
 
     let raf = 0

@@ -1,32 +1,20 @@
 import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
-import { findStaffById } from '@/lib/staff'
+import { authenticatedStaff } from '@/lib/auth'
+import { apiError, unauthorized } from '@/lib/auth-http'
+import { BookingError, moscowNow, validDate } from '@/lib/booking-validation'
 import { prisma } from '@/lib/prisma'
-
 export const dynamic = 'force-dynamic'
-
 export async function GET(req: Request) {
-  const staffId = cookies().get('staff_auth')?.value
-  if (!staffId || !findStaffById(staffId)) {
-    return NextResponse.json(null, { status: 401 })
-  }
-
-  const { searchParams } = new URL(req.url)
-  const date = searchParams.get('date')
-  const today = new Date().toISOString().split('T')[0]
-
-  let appointments
-  if (date) {
-    appointments = await prisma.appointment.findMany({
-      where: { date, staffId },
-      orderBy: [{ time: 'asc' }],
-    })
-  } else {
-    appointments = await prisma.appointment.findMany({
-      where: { status: 'active', staffId, date: { gte: today } },
+  const staff = await authenticatedStaff()
+  if (!staff) return unauthorized()
+  try {
+    const date = new URL(req.url).searchParams.get('date')
+    if (date !== null && !validDate(date)) throw new BookingError(400, 'Некорректная дата')
+    const today = moscowNow().date
+    const appointments = await prisma.appointment.findMany({
+      where: date ? { date, staffId: staff.id } : { status: 'active', staffId: staff.id, date: { gte: today } },
       orderBy: [{ date: 'asc' }, { time: 'asc' }],
     })
-  }
-
-  return NextResponse.json({ appointments, today })
+    return NextResponse.json({ appointments, today })
+  } catch (error) { return apiError(error) }
 }

@@ -15,9 +15,9 @@ interface Part { label: string; value: number; color: string }
 function useCountUp(value: number, active: boolean) {
   const [shown, setShown] = useState(value)
   const fromRef = useRef(value)
-  const rafRef = useRef<number>()
+  const rafRef = useRef<number | undefined>(undefined)
   useEffect(() => {
-    if (!active) { setShown(value); fromRef.current = value; return }
+    if (!active) { fromRef.current = value; return }
     const from = fromRef.current
     const to = value
     if (from === to) return
@@ -33,7 +33,7 @@ function useCountUp(value: number, active: boolean) {
     rafRef.current = requestAnimationFrame(tick)
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
   }, [value, active])
-  return shown
+  return active ? shown : value
 }
 
 /** Состав стоимости — анимированная полоса + легенда. */

@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 import LiveStatus from '@/components/LiveStatus'
-import HeroTicker from '@/components/HeroTicker'
 
 /**
  * Первый экран варианта lavender.
@@ -33,7 +32,7 @@ const INDEX = [
 
 const CSS = `
 .lv{position:relative;background:rgb(var(--bg-rgb));overflow:hidden;
-  padding:clamp(100px,12vh,140px) 0 clamp(40px,6vh,64px);}
+  padding:clamp(36px,5vh,64px) 0 36px;}
 /* Завеса: чернила видны, но текст всегда впереди. */
 .lv-veil{position:absolute;inset:0;pointer-events:none;
   background:
@@ -69,12 +68,12 @@ const CSS = `
 
 /* Главное — что здесь делают, а не чья фамилия. */
 .lv-lead{margin:0;font-family:var(--font-display),Georgia,serif;font-weight:600;
-  font-size:clamp(34px,5.4vw,76px);line-height:1.02;letter-spacing:-.028em;
-  color:rgb(var(--text-rgb));max-width:19ch;}
+  font-size:clamp(30px,4.2vw,58px);line-height:1.02;letter-spacing:-.028em;
+  color:rgb(var(--text-rgb));max-width:26ch;}
 .lv-lead .ac{color:rgb(var(--violet-rgb));}
 
 .lv-row{display:grid;grid-template-columns:1.5fr .5fr;gap:clamp(24px,4vw,56px);
-  align-items:end;margin-top:clamp(28px,4vw,48px);
+  align-items:end;margin-top:24px;
   padding-top:clamp(22px,3vw,32px);border-top:1px solid rgb(var(--rule-rgb));}
 
 .lv-who{margin:0;font-family:var(--font-display),Georgia,serif;font-weight:500;
@@ -97,7 +96,7 @@ const CSS = `
 .lv-phone:hover .num{color:rgb(var(--violet-rgb));}
 
 /* Перечень — он же навигация. Строка целиком ссылка. */
-.lv-idx{list-style:none;margin:clamp(30px,4vw,48px) 0 0;padding:0;
+.lv-idx{list-style:none;margin:28px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px;padding:0;
   border-top:1px solid rgb(var(--rule-rgb));}
 .lv-row-a{position:relative;display:block;text-decoration:none;overflow:hidden;
   border-bottom:1px solid rgb(var(--rule-rgb));}
@@ -112,9 +111,9 @@ const CSS = `
 .lv-row-a:hover .lv-line,.lv-row-a:focus-visible .lv-line{padding-left:clamp(12px,1.8vw,24px);}
 .lv-n{font-family:var(--font-mono),monospace;font-size:12px;color:rgb(var(--violet-rgb));transition:color .35s ease;}
 .lv-t{font-family:var(--font-display),Georgia,serif;font-weight:500;
-  font-size:clamp(20px,3vw,38px);line-height:1.05;letter-spacing:-.018em;
+  font-size:clamp(19px,2vw,26px);line-height:1.05;letter-spacing:-.018em;
   color:rgb(var(--text-rgb));transition:color .35s ease;}
-.lv-d{font-size:14px;color:rgb(var(--muted-rgb));text-align:right;white-space:nowrap;transition:color .35s ease;}
+.lv-d{display:none;font-size:14px;color:rgb(var(--muted-rgb));text-align:right;white-space:nowrap;transition:color .35s ease;}
 .lv-row-a:hover .lv-t,.lv-row-a:hover .lv-d,.lv-row-a:hover .lv-n,
 .lv-row-a:focus-visible .lv-t,.lv-row-a:focus-visible .lv-d,.lv-row-a:focus-visible .lv-n{color:rgb(var(--bg-rgb));}
 
@@ -125,7 +124,9 @@ const CSS = `
   .lv-line{grid-template-columns:clamp(34px,6vw,50px) 1fr;}
 }
 @media (max-width:430px){
-  .lv{padding:88px 0 40px;}
+  .lv{padding:32px 0;}
+  .lv-idx{grid-template-columns:1fr;}
+  .lv-line{padding:11px 0;}
   .lv-cta .lv-btn,.lv-cta .lv-btn2{width:100%;justify-content:center;}
 }
 @media (prefers-reduced-motion:reduce){
@@ -204,7 +205,7 @@ export default function Hero() {
           </ul>
         </nav>
 
-        <HeroTicker />
+
       </div>
     </section>
   )

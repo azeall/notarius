@@ -11,7 +11,7 @@ export default function PricesPage() {
       <PageHero
         tag="Тарифы"
         title="Цены и тарифы"
-        lead={`Стоимость нотариальных действий складывается из государственной пошлины (нотариального тарифа) и платы за услуги правового и технического характера (УПТХ). Указанные цены ориентировочные — точную стоимость уточняйте при записи.`}
+        lead={`Единый нотариальный тариф состоит из федерального и регионального тарифов. Здесь показаны демонстрационные суммы — действующие тарифы и льготы уточняйте у нотариуса.`}
         photo="/ph-docs.jpg"
         photoAlt="Папки с делами на рабочем столе"
       />
@@ -23,7 +23,7 @@ export default function PricesPage() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <p className="text-sm text-cream/80">
-            Тарифы установлены Налоговым кодексом РФ и едины для всех нотариусов. Размер УПТХ утверждается ежегодно Московской городской нотариальной палатой.
+            Федеральный тариф определяется Налоговым кодексом РФ и Основами законодательства РФ о нотариате. Региональный тариф устанавливается нотариальной палатой субъекта в пределах, определённых ФНП.
           </p>
         </div>
       </div>
@@ -42,8 +42,8 @@ export default function PricesPage() {
                   <thead>
                     <tr style={{ borderBottom: '1px solid rgb(var(--violet-rgb) / 0.12)' }}>
                       <th className="text-left px-6 py-3 font-medium text-xs uppercase tracking-wider w-1/2" style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}>Действие</th>
-                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}>Тариф</th>
-                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}>УПТХ</th>
+                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}>Федеральный тариф</th>
+                      <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}>Региональный тариф</th>
                       <th className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wider" style={{ color: 'rgb(var(--violet-rgb) / 0.70)' }}>Итого</th>
                     </tr>
                   </thead>
