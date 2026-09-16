@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
-import LiveStatus from '@/components/LiveStatus'
 import HeroTicker from '@/components/HeroTicker'
 
 /**
@@ -34,7 +33,7 @@ const AREAS = ['Недвижимость', 'Наследство', 'Довере
 const CSS = `
 .wh{position:relative;background:rgb(var(--bg-rgb));overflow:hidden;
   display:flex;flex-direction:column;justify-content:center;
-  padding:clamp(40px,6vh,76px) 0 36px;}
+  padding:clamp(28px,3vw,40px) 0 20px;}
 /* Завеса поверх гравюры: к низу и к правому краю рисунок гаснет, иначе
    тонкие линии спорят с текстом за внимание. */
 .wh-veil{position:absolute;inset:0;pointer-events:none;
@@ -42,6 +41,11 @@ const CSS = `
     radial-gradient(62% 50% at 20% 40%, rgb(var(--bg-rgb) / .88) 0%, rgb(var(--bg-rgb) / .28) 62%, rgb(var(--bg-rgb) / 0) 100%),
     linear-gradient(180deg, rgb(var(--bg-rgb) / .34) 0%, rgb(var(--bg-rgb) / .12) 46%, rgb(var(--bg-rgb) / .80) 100%);}
 .wh-in{position:relative;z-index:1;}
+@media (min-width:981px){
+  .wh-in{display:grid;grid-template-columns:1fr 1fr;column-gap:40px;align-items:start;}
+  .wh-tag,.wh-in>.hticker,.wh-in>nav{grid-column:1 / -1;}
+  .wh-in>.wh-grid{margin-top:0;padding-top:0;border-top:0;}
+}
 /* Тиснение вместо снимка.
 
    Раньше здесь лежала фотография руки с пером, прогнанная через точечный
@@ -64,18 +68,17 @@ const CSS = `
   mask-image:radial-gradient(78% 68% at 46% 46%,#000 18%,transparent 84%);}
 @media (max-width:899px){ .wh-emboss{opacity:.5;right:-8%;top:32%;} .wh-rules{opacity:.45;} }
 
-/* Высказывание. Ради него всё и затевалось, поэтому кегль без оглядки. */
+/* Компактное высказывание оставляет место выбору дела ниже. */
 .wh-tag{margin:0 0 clamp(18px,2.4vw,28px);font-family:var(--font-mono),monospace;
   font-size:12px;letter-spacing:.16em;text-transform:uppercase;
   color:rgb(var(--violet-rgb));}
 .wh-claim{margin:0;font-family:var(--font-display),Georgia,serif;font-weight:600;
-  font-size:clamp(40px,7.4vw,108px);line-height:.98;letter-spacing:-.035em;
-  color:rgb(var(--text-rgb));max-width:14ch;}
+  font-size:clamp(36px,4.8vw,64px);line-height:1.04;letter-spacing:-.035em;
+  color:rgb(var(--text-rgb));max-width:20ch;}
 .wh-claim .last{color:rgb(var(--violet-rgb));}
 
-.wh-grid{display:grid;grid-template-columns:1.55fr .45fr;gap:clamp(28px,4vw,64px);
-  align-items:end;margin-top:clamp(34px,5vw,64px);
-  padding-top:clamp(26px,3.4vw,40px);border-top:1px solid rgb(var(--rule-rgb));}
+.wh-grid{margin-top:24px;
+  padding-top:20px;border-top:1px solid rgb(var(--rule-rgb));}
 
 /* Кто это говорит — вторым планом, но не мелочью. */
 .wh-who{margin:0;font-family:var(--font-display),Georgia,serif;font-weight:500;
@@ -86,14 +89,8 @@ const CSS = `
 .wh-addr{margin:14px 0 0;font-size:clamp(15px,1.1vw,17px);line-height:1.6;
   color:rgb(var(--muted-e-rgb));max-width:38ch;}
 
-/* Служебная карточка: единственная плоскость на всём экране. */
-.wh-card{border:1px solid rgb(var(--rule-rgb));background:rgb(var(--surface-rgb));
-  padding:clamp(18px,2vw,24px);}
-.wh-card-t{margin:0 0 14px;font-family:var(--font-mono),monospace;font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;color:rgb(var(--muted-rgb));}
-
 .wh-cta{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(14px,2vw,20px);
-  margin-top:clamp(32px,4.5vw,52px);}
+  margin-top:24px;}
 .wh-phone{display:flex;flex-direction:column;gap:4px;text-decoration:none;margin-left:auto;text-align:right;}
 .wh-phone .lbl{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgb(var(--muted-rgb));}
 .wh-phone .num{font-family:var(--font-display),Georgia,serif;font-size:clamp(19px,2vw,24px);
@@ -102,7 +99,7 @@ const CSS = `
 
 /* Направления работы — тонкой строкой понизу, а не крупным перечнем:
    крупный перечень уже занят вариантом lavender. */
-.wh-areas{display:flex;flex-wrap:wrap;gap:0;margin:clamp(34px,4.5vw,56px) 0 0;
+.wh-areas{display:flex;flex-wrap:wrap;gap:0;margin:20px 0 0;
   padding:0;list-style:none;border-top:1px solid rgb(var(--rule-rgb));}
 .wh-areas li{flex:1 1 auto;}
 .wh-areas a{display:block;padding:16px 0;text-decoration:none;position:relative;
@@ -115,7 +112,6 @@ const CSS = `
 .wh-areas a:hover::after,.wh-areas a:focus-visible::after{transform:scaleX(1);}
 
 @media (max-width:980px){
-  .wh-grid{grid-template-columns:1fr;align-items:start;gap:26px;}
   .wh-phone{margin-left:0;text-align:left;}
   .wh-areas{display:grid;grid-template-columns:1fr 1fr;}
 }
@@ -174,10 +170,6 @@ export default function Hero() {
             </div>
           </div>
 
-          <aside className="wh-card">
-            <p className="wh-card-t">Контора сейчас</p>
-            <LiveStatus />
-          </aside>
         </div>
 
         <HeroTicker />

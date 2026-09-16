@@ -56,7 +56,7 @@ export default function HeroTicker() {
 
       <style dangerouslySetInnerHTML={{ __html: `
         .hticker{display:flex;align-items:center;gap:clamp(14px,2.4vw,34px);flex-wrap:wrap;
-          padding-top:16px;margin-top:clamp(28px,4vw,48px);
+          padding-top:16px;margin-top:20px;
           border-top:1px solid rgb(var(--rule-rgb));
           font-family:var(--font-mono),monospace;font-size:11px;letter-spacing:.14em;
           text-transform:uppercase;color:rgb(var(--muted-rgb));}

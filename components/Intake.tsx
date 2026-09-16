@@ -63,7 +63,7 @@ export default function Intake() {
   return (
     <>
       {/* ── Первый экран: вопрос и шесть дел ───────────────────────── */}
-      <section id="priem" className="pt-9 pb-12 sm:pt-14 sm:pb-14" style={{ background: 'rgb(var(--bg-rgb))' }}>
+      <section id="priem" className="pt-6 pb-12 sm:pt-8 sm:pb-14" style={{ background: 'rgb(var(--bg-rgb))' }}>
         <div className="wrap">
           <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2 mb-8">
             <span className="text-[11px] tracking-[0.3em] uppercase" style={{ color: 'rgb(var(--muted-rgb))' }}>
@@ -72,12 +72,12 @@ export default function Intake() {
             <LiveStatus />
           </div>
 
-          <h1
+          <h2
             className="font-serif font-medium m-0 mb-4"
             style={{ fontSize: 'clamp(34px, 5.4vw, 68px)', lineHeight: 1.04, letterSpacing: '-0.02em', color: 'rgb(var(--text-rgb))' }}
           >
             С чем вы <em className="italic font-normal" style={{ color: accent }}>пришли?</em>
-          </h1>
+          </h2>
           <p className="m-0 mb-9 text-[16px] sm:text-[17px] leading-relaxed" style={{ color: 'rgb(var(--muted-rgb))', maxWidth: '52ch' }}>
             Выберите дело — соберём под него папку: что взять с собой, сколько это стоит,
             сколько займёт и когда есть свободное время. Ничего уточнять по телефону не придётся.
@@ -215,6 +215,47 @@ export default function Intake() {
               })}
             </ul>
           </div>
+          {/* На мобильном папка в потоке, на desktop — боковая закладка. */}
+          <div className="folder no-print" data-open={folderOpen ? 'true' : 'false'}>
+            <button
+              type="button"
+              className="folder__tab"
+              onClick={() => setFolderOpen(o => !o)}
+              aria-expanded={folderOpen}
+              aria-controls="folder-panel"
+              title="Папка визита"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.7}
+                  d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />
+              </svg>
+              <span className="folder__count num">{doneCount}/{c.bring.length}</span>
+              <span className="folder__word">Папка</span>
+            </button>
+
+            <div className="folder__panel" id="folder-panel" hidden={!folderOpen}>
+              <p className="folder__k">Ваша папка</p>
+              <p className="folder__case">{c.label}</p>
+
+              <ul className="folder__docs">
+                {c.bring.map(d => (
+                  <li key={d.id} data-done={checked[key(d.id)] ? 'true' : 'false'}>{d.label}</li>
+                ))}
+              </ul>
+
+              <p className="folder__when">
+                {slot.date && slot.time ? `${slot.date} в ${slot.time}` : 'Время не выбрано'}
+              </p>
+
+              <div className="folder__act">
+                <button type="button" onClick={() => window.print()} className="folder__btn">Памятка</button>
+                <button type="button" onClick={() => { setFolderOpen(false); goto('kogda') }} className="folder__btn folder__btn--fill">
+                  Записаться
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -227,52 +268,6 @@ export default function Intake() {
           </div>
         </div>
       </section>
-
-      {/* ── Папка: закладка у левого края ──
-          Была полоса во всю ширину внизу. Она висела на каждом экране,
-          отъедала полосу под содержанием и на телефоне закрывала половину
-          того, ради чего человек пришёл. Закладка занимает сорок пикселей у
-          края и раскрывается только по нажатию — как язычок папки, за
-          который её и вытягивают. */}
-      <div className="folder no-print" data-open={folderOpen ? 'true' : 'false'}>
-        <button
-          type="button"
-          className="folder__tab"
-          onClick={() => setFolderOpen(o => !o)}
-          aria-expanded={folderOpen}
-          aria-controls="folder-panel"
-          title="Папка визита"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.7}
-              d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />
-          </svg>
-          <span className="folder__count num">{doneCount}/{c.bring.length}</span>
-          <span className="folder__word">Папка</span>
-        </button>
-
-        <div className="folder__panel" id="folder-panel" hidden={!folderOpen}>
-          <p className="folder__k">Ваша папка</p>
-          <p className="folder__case">{c.label}</p>
-
-          <ul className="folder__docs">
-            {c.bring.map(d => (
-              <li key={d.id} data-done={checked[key(d.id)] ? 'true' : 'false'}>{d.label}</li>
-            ))}
-          </ul>
-
-          <p className="folder__when">
-            {slot.date && slot.time ? `${slot.date} в ${slot.time}` : 'Время не выбрано'}
-          </p>
-
-          <div className="folder__act">
-            <button type="button" onClick={() => window.print()} className="folder__btn">Памятка</button>
-            <button type="button" onClick={() => { setFolderOpen(false); goto('kogda') }} className="folder__btn folder__btn--fill">
-              Записаться
-            </button>
-          </div>
-        </div>
-      </div>
 
       {/* ── Памятка для печати ──
           Уезжает порталом прямо в body. Внутри разметки страницы лист при
