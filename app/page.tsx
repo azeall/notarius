@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Hero from '@/components/Hero'
-import Marquee from '@/components/Marquee'
 import DocVerify from '@/components/DocVerify'
 import SlotFinder from '@/components/SlotFinder'
 import BookingButton from '@/components/BookingButton'
@@ -37,9 +36,6 @@ export default function HomePage() {
     <>
       <Hero />
 
-      {/* ── Бегущая строка услуг (кинетический акцент) ── */}
-      <Marquee />
-
       {/* ── Услуги: bento-сетка ── */}
       <section className="py-20 sm:py-28" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1180px' }}>
@@ -57,7 +53,7 @@ export default function HomePage() {
             {/* Большая плитка */}
             <Link
               href="/services"
-              className="sm:col-span-2 lg:row-span-2 group rounded-3xl p-8 flex flex-col justify-between no-underline transition-transform hover:-translate-y-1 reveal"
+              className="sm:col-span-2 lg:row-span-2 group rounded-xl p-8 flex flex-col justify-between no-underline transition-transform hover:-translate-y-1 reveal"
               style={{ background: 'rgb(var(--violet-ink-rgb))', minHeight: '280px' }}
             >
               <div className="w-12 h-12 rounded-xl grid place-items-center" style={{ background: 'rgba(255,255,255,0.16)' }}>
@@ -85,7 +81,7 @@ export default function HomePage() {
               <Link
                 key={s.t}
                 href="/services"
-                className="group rounded-3xl p-6 bg-navy-card no-underline transition-all hover:-translate-y-1 reveal"
+                className="group rounded-xl p-6 bg-navy-card no-underline transition-all hover:-translate-y-1 reveal"
                 style={{ border: '1px solid rgba(29,158,117,0.12)' }}
                 data-reveal-delay={i * 60}
               >
@@ -98,7 +94,7 @@ export default function HomePage() {
             ))}
 
             {/* CTA-плитка */}
-            <div className="rounded-3xl p-6 flex flex-col justify-between reveal" style={{ background: '#2c2c2c', minHeight: '180px' }} data-reveal-delay={300}>
+            <div className="rounded-xl p-6 flex flex-col justify-between reveal" style={{ background: '#2c2c2c', minHeight: '180px' }} data-reveal-delay={300}>
               <p className="text-white font-bold m-0" style={{ fontSize: '17px' }}>Не нашли свою ситуацию?</p>
               <a href={notary.phoneHref} className="inline-flex items-center gap-2 font-semibold text-sm no-underline" style={{ color: '#27b585' }}>
                 Позвоните — подскажем
@@ -164,7 +160,7 @@ export default function HomePage() {
           </p>
           <div className="grid md:grid-cols-3 gap-5">
             {reviews.slice(0, 3).map((r, i) => (
-              <figure key={r.name} className="m-0 rounded-3xl p-7 bg-navy-card reveal" style={{ border: '1px solid rgba(29,158,117,0.12)' }} data-reveal-delay={i * 90}>
+              <figure key={r.name} className="m-0 rounded-xl p-7 bg-navy-card reveal" style={{ border: '1px solid rgba(29,158,117,0.12)' }} data-reveal-delay={i * 90}>
                 <div className="flex gap-1 mb-4" aria-label="5 из 5">
                   {[...Array(5)].map((_, j) => (
                     <svg key={j} width="16" height="16" viewBox="0 0 24 24" fill="#1D9E75"><path d="M12 2l2.9 6.26 6.6.56-5 4.46 1.5 6.5L12 16.3 5.99 19.8l1.5-6.5-5-4.47 6.61-.56L12 2z" /></svg>
@@ -188,7 +184,7 @@ export default function HomePage() {
       {/* ── Карта с плавающей карточкой ── */}
       <section className="py-20" style={{ background: 'rgb(var(--surface-rgb))' }}>
         <div className="mx-auto px-5 sm:px-10" style={{ maxWidth: '1180px' }}>
-          <div className="relative rounded-3xl overflow-hidden reveal" style={{ border: '1px solid rgba(29,158,117,0.15)', height: '440px' }}>
+          <div className="relative rounded-xl overflow-hidden reveal" style={{ border: '1px solid rgba(29,158,117,0.15)', height: '440px' }}>
             <YandexMap
               className="absolute inset-0 w-full h-full"
               style={{border: 'none'}}

@@ -43,7 +43,7 @@ function isWeekendYMD(ymd: string): boolean {
   return dow === 0 || dow === 6
 }
 
-const INPUT = 'w-full rounded-xl px-3.5 py-2.5 text-sm focus:outline-none transition-colors'
+const INPUT = 'w-full rounded-lg px-3.5 py-2.5 text-sm focus:outline-none transition-colors'
 const INPUT_STYLE: React.CSSProperties = { background: 'rgb(var(--surface-3-rgb))', border: '1px solid rgba(29,158,117,0.20)', color: 'rgb(var(--text-rgb))' }
 
 /** Компактная форма записи прямо в hero — фича сайта. */
@@ -94,14 +94,14 @@ function HeroBookingCard() {
 
   return (
     <div
-      className="relative rounded-3xl p-6 sm:p-7 bg-navy-card w-full max-w-[440px] mx-auto"
-      style={{ border: '1px solid rgba(29,158,117,0.18)', boxShadow: '0 30px 70px rgba(29,158,117,0.16)' }}
+      className="relative rounded-xl p-5 sm:p-6 bg-navy-card w-full max-w-[440px] mx-auto"
+      style={{ border: '1px solid rgba(29,158,117,0.18)', boxShadow: '0 12px 32px rgba(0,0,0,0.08)' }}
     >
       <div className="flex items-center justify-between mb-5">
         <h2 className="font-sans font-extrabold m-0" style={{ fontSize: '20px', color: 'rgb(var(--text-rgb))', letterSpacing: '-0.01em' }}>
           Запись на приём
         </h2>
-        <span className="text-[10px] font-bold tracking-wide uppercase rounded-full px-2.5 py-1" style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-ink-rgb))' }}>
+        <span className="text-[10px] font-bold tracking-wide uppercase rounded-md px-2.5 py-1" style={{ background: 'rgb(var(--surface-2-rgb))', color: 'rgb(var(--violet-ink-rgb))' }}>
           ~30 секунд
         </span>
       </div>
@@ -156,7 +156,7 @@ function HeroBookingCard() {
           <button
             type="submit"
             disabled={loading || !consent || !time}
-            className="w-full font-bold py-3 rounded-xl text-sm text-white transition-all hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-full font-bold py-3 rounded-lg text-sm text-white transition-all hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed"
             style={{ background: 'rgb(var(--violet-rgb))' }}
           >
             {loading ? 'Отправка…' : 'Записаться'}
@@ -173,7 +173,7 @@ export default function Hero() {
   const rest = nameParts.slice(1).join(' ')
 
   return (
-    <section data-hero className="relative overflow-hidden flex items-center" style={{ minHeight: '100dvh', background: 'rgb(var(--surface-rgb))' }}>
+    <section data-hero className="relative overflow-hidden flex items-center" style={{ background: 'rgb(var(--surface-rgb))' }}>
       <style>{`
         @keyframes mintPulse { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.06); } }
         @media (prefers-reduced-motion: reduce) { .mint-orb { animation: none !important; } }
@@ -181,12 +181,12 @@ export default function Hero() {
 
       {/* мятный клин + живые орбы */}
       <div className="absolute top-0 right-0 hidden lg:block" style={{ width: '46%', height: '100%', background: 'rgb(var(--surface-2-rgb))', clipPath: 'polygon(20% 0, 100% 0, 100% 100%, 0 100%)' }} aria-hidden />
-      <div className="mint-orb absolute rounded-full pointer-events-none" style={{ width: 300, height: 300, top: '8%', right: '4%', background: 'radial-gradient(circle, rgba(29,158,117,0.14), transparent 65%)', animation: 'mintPulse 9s ease-in-out infinite' }} aria-hidden />
-      <div className="mint-orb absolute rounded-full pointer-events-none" style={{ width: 220, height: 220, bottom: '6%', left: '2%', background: 'radial-gradient(circle, rgba(29,158,117,0.10), transparent 65%)', animation: 'mintPulse 12s ease-in-out infinite' }} aria-hidden />
+      <div className="mint-orb absolute rounded-full pointer-events-none" style={{ width: 300, height: 300, top: '8%', right: '4%', background: 'radial-gradient(circle, rgba(29,158,117,0.05), transparent 65%)', animation: 'mintPulse 9s ease-in-out infinite' }} aria-hidden />
+      <div className="mint-orb absolute rounded-full pointer-events-none" style={{ width: 220, height: 220, bottom: '6%', left: '2%', background: 'radial-gradient(circle, rgba(29,158,117,0.04), transparent 65%)', animation: 'mintPulse 12s ease-in-out infinite' }} aria-hidden />
 
-      <div className="relative w-full mx-auto px-5 sm:px-10 lg:px-16 py-16 lg:py-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center" style={{ maxWidth: '1320px' }}>
+      <div className="relative w-full mx-auto px-5 sm:px-10 lg:px-16 py-8 lg:py-10 grid lg:grid-cols-[1.05fr_0.95fr] gap-8 lg:gap-10 items-center" style={{ maxWidth: '1320px' }}>
         <div>
-          <div className="flex items-center gap-3 mb-8 animate-fade-in-up">
+          <div className="flex items-center gap-3 mb-4 animate-fade-in-up">
             <span className="block w-10 h-[2px]" style={{ background: 'rgb(var(--violet-rgb))' }} />
             <span className="font-semibold text-[11px] tracking-[0.32em] uppercase" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>
               Нотариус города Москвы
@@ -194,20 +194,20 @@ export default function Hero() {
           </div>
 
           <h1
-            className="font-sans font-extrabold leading-[1.02] mb-7 animate-fade-in-up"
-            style={{ fontSize: 'clamp(40px, 6vw, 88px)', letterSpacing: '-0.03em', color: 'rgb(var(--text-rgb))', animationDelay: '80ms' }}
+            className="font-sans font-extrabold leading-[1.08] mb-4 animate-fade-in-up"
+            style={{ fontSize: 'clamp(30px, 4vw, 54px)', letterSpacing: '-0.03em', color: 'rgb(var(--text-rgb))', animationDelay: '80ms' }}
           >
             {surname}
             <br />
             <span style={{ color: 'rgb(var(--violet-ink-rgb))' }}>{rest}</span>
           </h1>
 
-          <p className="leading-relaxed mb-10 max-w-[500px] animate-fade-in-up" style={{ fontSize: '18px', lineHeight: '1.7', color: 'rgb(var(--muted-rgb))', animationDelay: '160ms' }}>
+          <p className="leading-relaxed mb-5 max-w-[500px] animate-fade-in-up" style={{ fontSize: '16px', lineHeight: '1.6', color: 'rgb(var(--muted-rgb))', animationDelay: '160ms' }}>
             Современная нотариальная контора: онлайн-запись за 30 секунд,
             прозрачные тарифы и проверка каждого документа.
           </p>
 
-          <div className="flex flex-wrap items-center gap-6 mb-14 animate-fade-in-up" style={{ animationDelay: '220ms' }}>
+          <div className="flex flex-wrap items-center gap-4 mb-6 animate-fade-in-up" style={{ animationDelay: '220ms' }}>
             <a href={notary.phoneHref} className="inline-flex items-center gap-3 font-semibold text-[16px] no-underline transition-opacity hover:opacity-75" style={{ color: 'rgb(var(--text-rgb))' }}>
               <span className="w-11 h-11 rounded-full grid place-items-center" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" strokeWidth="1.8">
@@ -219,10 +219,10 @@ export default function Hero() {
             <span className="text-sm" style={{ color: 'rgb(var(--muted-b-rgb))' }}>{notary.address}</span>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-[600px] pt-8 animate-fade-in-up" style={{ borderTop: '2px solid #e8f5f0', animationDelay: '300ms' }}>
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-[600px] pt-5 animate-fade-in-up" style={{ borderTop: '2px solid #e8f5f0', animationDelay: '300ms' }}>
             {heroStats.map(s => (
               <div key={s.label}>
-                <div className="font-sans font-extrabold leading-none mb-2" style={{ fontSize: 'clamp(26px, 3.5vw, 42px)', color: 'rgb(var(--violet-ink-rgb))', letterSpacing: '-0.02em' }}>
+                <div className="font-sans font-extrabold leading-none mb-2" style={{ fontSize: 'clamp(24px, 2.6vw, 34px)', color: 'rgb(var(--violet-ink-rgb))', letterSpacing: '-0.02em' }}>
                   <Counter value={s.value} suffix={s.suffix} />
                 </div>
                 <div className="text-[11px] sm:text-xs tracking-[0.16em] uppercase" style={{ color: 'rgb(var(--muted-b-rgb))' }}>{s.label}</div>
@@ -232,7 +232,7 @@ export default function Hero() {
         </div>
 
         {/* Фича сайта — форма записи прямо в hero */}
-        <div className="animate-fade-in" style={{ animationDelay: '260ms' }}>
+        <div>
           <HeroBookingCard />
         </div>
       </div>
