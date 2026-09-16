@@ -1,4 +1,5 @@
 'use client'
+import BookingMode, { LIVE_BOOKING, CONSENT_VERSION } from './BookingMode'
 import { createPortal } from 'react-dom'
 import { useState, useEffect, useMemo } from 'react'
 import {
@@ -58,7 +59,7 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
   const [month, setMonth] = useState(initialDate?.month ?? startMonth.m)
   const [day, setDay] = useState<number|null>(initialDate?.day ?? null)
   const [time, setTime] = useState(initialTime ?? '')
-  const [booked, setBooked] = useState<string[]>([])
+  const [availability, setAvailability] = useState<{ date: string; booked: string[] } | null>(null)
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [loading, setLoading] = useState(false)
@@ -73,14 +74,16 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
   const selDate = day ? fmtDate(year, month, day) : null
 
   useEffect(() => {
-    if (!selDate) { setBooked([]); return }
+    if (!selDate || !LIVE_BOOKING) return
     fetch(`/api/appointments?date=${selDate}`)
       .then(r => r.json())
-      .then(d => setBooked(Array.isArray(d.booked) ? d.booked : []))
+      .then(d => setAvailability({ date: selDate, booked: Array.isArray(d.booked) ? d.booked : [] }))
       .catch(() => {})
   }, [selDate])
 
-  const bookedSet = useMemo(() => new Set(booked), [booked])
+  const bookedSet = useMemo(() => new Set(LIVE_BOOKING
+    ? (availability?.date === selDate ? availability.booked : [])
+    : ['12:00', '12:30']), [availability, selDate])
 
   // Слоты, которые займёт текущая (start, duration) — для подсветки
   const selectionSlots = useMemo(() => {
@@ -113,12 +116,13 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
   const submit = async () => {
     if (!name.trim() || !phone.trim()) { setError('Заполните все поля'); return }
     if (!consent) { setError('Подтвердите согласие на обработку персональных данных'); return }
+    if (!LIVE_BOOKING) { setError(''); setStep(3); return }
     setLoading(true); setError('')
     try {
       const res = await fetch('/api/appointments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, service, date: selDate, time, duration }),
+        body: JSON.stringify({ name, phone, service, date: selDate, time, duration, consent: true, consentVersion: CONSENT_VERSION }),
       })
       if (res.ok) { setStep(3) }
       else { const d = await res.json().catch(() => ({})); setError(d.error ?? 'Ошибка') }
@@ -180,6 +184,8 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
         </div>
 
         <div className="p-5 sm:p-6">
+          <BookingMode />
+
           {/* Step 1 */}
           {step === 1 && (
             <div className="space-y-5">
@@ -345,10 +351,10 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
                   className="mt-0.5 w-4 h-4 flex-shrink-0 accent-[#1D9E75] cursor-pointer"
                 />
                 <span className="text-[12px] text-slate leading-snug">
-                  Я согласен(а) на обработку персональных данных и принимаю{' '}
-                  <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-gold-ink hover:text-gold-light underline underline-offset-2">
-                    политику конфиденциальности
-                  </a>
+                  {LIVE_BOOKING ? 'Я даю согласие на обработку персональных данных:' : 'Использую вымышленные данные и понимаю, что это демонстрация. Документ:'}{' '}
+                  <a href="/consent" target="_blank" rel="noopener noreferrer" className="text-gold-ink hover:text-gold-light underline underline-offset-2">
+                    текст согласия
+                  </a>; <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline">политика конфиденциальности</a>
                 </span>
               </label>
 
@@ -382,12 +388,12 @@ export default function BookingModal({ onClose, initialDate, initialTime }: Book
               >
                 <span className="text-gold-ink text-2xl">✓</span>
               </div>
-              <h3 className="text-cream font-serif text-xl">Запись подтверждена!</h3>
+              <h3 className="text-cream font-serif text-xl">{LIVE_BOOKING ? 'Заявка отправлена' : 'Демонстрация завершена'}</h3>
               <p className="text-slate text-sm leading-relaxed">
-                Ждём вас <span className="text-cream">{selDate}</span> c{' '}
+                {LIVE_BOOKING ? 'Вы выбрали ' : 'Пример: '}<span className="text-cream">{selDate}</span> c{' '}
                 <span className="text-gold-ink font-medium">{time}</span> до{' '}
                 <span className="text-gold-ink font-medium">{time && endTime(time, duration)}</span>.<br />
-                При необходимости мы свяжемся с вами для подтверждения.
+                {LIVE_BOOKING ? 'Ожидайте подтверждения конторы.' : 'Запись не отправлена. Данные остались только на этой странице.'}
               </p>
               <button
                 onClick={onClose}

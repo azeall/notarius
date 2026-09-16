@@ -1,4 +1,6 @@
 'use client'
+import useToday from './useToday'
+import BookingMode, { LIVE_BOOKING, CONSENT_VERSION } from './BookingMode'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { notary, heroStats } from '@/lib/data'
 import { ALL_SLOTS } from '@/lib/slots'
@@ -35,10 +37,6 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
   return <span ref={ref}>{count.toLocaleString('ru-RU')}{suffix}</span>
 }
 
-function todayYMD(): string {
-  const d = new Date()
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
-}
 function isWeekendYMD(ymd: string): boolean {
   const [y, m, d] = ymd.split('-').map(Number)
   const dow = new Date(y, m - 1, d).getDay()
@@ -50,41 +48,43 @@ const INPUT_STYLE: React.CSSProperties = { background: 'rgb(var(--surface-3-rgb)
 
 /** Компактная форма записи прямо в hero — фича сайта. */
 function HeroBookingCard() {
+  const today = useToday()
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [service, setService] = useState<string>(SERVICES[0])
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
-  const [booked, setBooked] = useState<string[]>([])
+  const [availability, setAvailability] = useState<{ date: string; booked: string[] } | null>(null)
   const [consent, setConsent] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [done, setDone] = useState(false)
 
   useEffect(() => {
-    if (!date) { setBooked([]); setTime(''); return }
+    if (!date || !LIVE_BOOKING) return
     fetch(`/api/appointments?date=${date}`)
       .then(r => r.json())
-      .then(d => setBooked(Array.isArray(d.booked) ? d.booked : []))
-      .catch(() => setBooked([]))
+      .then(d => setAvailability({ date, booked: Array.isArray(d.booked) ? d.booked : [] }))
+      .catch(() => setAvailability(null))
   }, [date])
 
   const freeSlots = useMemo(() => {
     if (!date || isWeekendYMD(date)) return []
-    const b = new Set(booked)
+    const b = new Set(LIVE_BOOKING ? (availability?.date === date ? availability.booked : []) : ['12:00', '12:30'])
     return ALL_SLOTS.filter(s => !b.has(s))
-  }, [date, booked])
+  }, [date, availability])
 
   async function submit(e: React.FormEvent) {
     e.preventDefault()
     if (!name.trim() || !phone.trim() || !date || !time) { setError('Заполните все поля'); return }
     if (!consent) { setError('Подтвердите согласие на обработку данных'); return }
+    if (!LIVE_BOOKING) { setError(''); setDone(true); return }
     setLoading(true); setError('')
     try {
       const res = await fetch('/api/appointments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, service, date, time, duration: 30 }),
+        body: JSON.stringify({ name, phone, service, date, time, duration: 30, consent: true, consentVersion: CONSENT_VERSION }),
       })
       if (res.ok) setDone(true)
       else { const d = await res.json().catch(() => ({})); setError(d.error ?? 'Ошибка') }
@@ -113,18 +113,19 @@ function HeroBookingCard() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h3 className="font-sans font-bold mb-1" style={{ fontSize: '18px', color: 'rgb(var(--text-rgb))' }}>Вы записаны!</h3>
+          <h3 className="font-sans font-bold mb-1" style={{ fontSize: '18px', color: 'rgb(var(--text-rgb))' }}>{LIVE_BOOKING ? 'Заявка отправлена' : 'Демонстрация завершена'}</h3>
           <p className="text-sm m-0" style={{ color: 'rgb(var(--muted-rgb))' }}>
-            {date} в <b style={{ color: 'rgb(var(--violet-ink-rgb))' }}>{time}</b>. Мы свяжемся для подтверждения.
+            {date} в <b style={{ color: 'rgb(var(--violet-ink-rgb))' }}>{time}</b>. {LIVE_BOOKING ? 'Ожидайте подтверждения конторы.' : 'Запись не отправлена. Данные остались только на этой странице.'}
           </p>
         </div>
       ) : (
         <form onSubmit={submit} className="space-y-3">
+              <div className="md:col-span-2"><BookingMode /></div>
           <select value={service} onChange={e => setService(e.target.value)} className={INPUT} style={INPUT_STYLE}>
             {SERVICES.map(s => <option key={s}>{s}</option>)}
           </select>
           <div className="grid grid-cols-2 gap-3">
-            <input type="date" required min={todayYMD()} value={date} onChange={e => setDate(e.target.value)} className={INPUT} style={{ ...INPUT_STYLE, colorScheme: 'light' }} />
+            <input type="date" required min={today || undefined} value={date} onChange={e => { setDate(e.target.value); setTime('') }} className={INPUT} style={{ ...INPUT_STYLE, colorScheme: 'light' }} />
             <select value={time} onChange={e => setTime(e.target.value)} disabled={!date || freeSlots.length === 0} className={INPUT} style={INPUT_STYLE}>
               <option value="">Время</option>
               {freeSlots.map(s => <option key={s}>{s}</option>)}
@@ -146,7 +147,7 @@ function HeroBookingCard() {
           <label className="flex items-start gap-2 cursor-pointer select-none pt-1">
             <input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)} className="mt-0.5 w-4 h-4 cursor-pointer" style={{ accentColor: 'rgb(var(--violet-rgb))' }} />
             <span className="text-[11px] leading-snug" style={{ color: 'rgb(var(--muted-b-rgb))' }}>
-              Согласен(а) на обработку персональных данных (<a href="/privacy" target="_blank" className="underline" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>политика</a>)
+              {LIVE_BOOKING ? 'Согласен(а) на обработку персональных данных' : 'Использую вымышленные данные; это демонстрация'} (<a href="/consent" target="_blank" className="underline" style={{ color: 'rgb(var(--violet-ink-rgb))' }}>текст согласия</a>; <a href="/privacy" target="_blank" className="underline">политика</a>)
             </span>
           </label>
 

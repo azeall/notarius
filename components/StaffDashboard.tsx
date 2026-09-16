@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { endTime } from '@/lib/slots'
 import StaffAddForm from '@/components/StaffAddForm'
 import StaffLogoutButton from '@/components/StaffLogoutButton'
@@ -22,6 +22,7 @@ function formatDate(date: string) {
 }
 
 export default function StaffDashboard() {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const lookupDate = searchParams.get('date')
 
@@ -31,11 +32,10 @@ export default function StaffDashboard() {
   const [loading, setLoading] = useState(true)
 
   const load = useCallback(async () => {
-    setLoading(true)
     // Check auth and get staff name
     const meRes = await fetch('/api/staff/me', { cache: 'no-store' })
     if (!meRes.ok) {
-      window.location.href = '/staff/login'
+      router.replace('/staff/login')
       return
     }
     const me = await meRes.json()
@@ -47,16 +47,18 @@ export default function StaffDashboard() {
       : '/api/staff/schedule'
     const schedRes = await fetch(url, { cache: 'no-store' })
     if (!schedRes.ok) {
-      window.location.href = '/staff/login'
+      router.replace('/staff/login')
       return
     }
     const data = await schedRes.json()
     setAppointments(data.appointments ?? [])
     setToday(data.today ?? '')
     setLoading(false)
-  }, [lookupDate])
+  }, [lookupDate, router])
 
   useEffect(() => {
+    // load updates state only after awaited network I/O; no synchronous state reset.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     load()
   }, [load])
 
@@ -162,13 +164,14 @@ export default function StaffDashboard() {
 }
 
 function HistoryPicker({ currentDate, today }: { currentDate: string | null; today: string }) {
+  const router = useRouter()
   const [value, setValue] = useState(currentDate ?? '')
 
   function go(date: string) {
     if (date) {
-      window.location.href = `/staff?date=${date}`
+      router.push(`/staff?date=${date}`)
     } else {
-      window.location.href = '/staff'
+      router.push('/staff')
     }
   }
 

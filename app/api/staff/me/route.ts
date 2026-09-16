@@ -1,15 +1,9 @@
 import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
-import { findStaffById } from '@/lib/staff'
-
+import { authenticatedStaff } from '@/lib/auth'
+import { unauthorized } from '@/lib/auth-http'
 export const dynamic = 'force-dynamic'
-
 export async function GET() {
-  const staffId = cookies().get('staff_auth')?.value
-  if (!staffId) return NextResponse.json(null, { status: 401 })
-
-  const staff = findStaffById(staffId)
-  if (!staff) return NextResponse.json(null, { status: 401 })
-
+  const staff = await authenticatedStaff()
+  if (!staff) return unauthorized()
   return NextResponse.json({ id: staff.id, name: staff.name })
 }

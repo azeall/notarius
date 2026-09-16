@@ -14,4 +14,4 @@ class IntersectionObserverStub {
 }
 
 global.IntersectionObserver = IntersectionObserverStub
-window.IntersectionObserver = IntersectionObserverStub
+if (typeof window !== 'undefined') window.IntersectionObserver = IntersectionObserverStub

@@ -3,7 +3,8 @@ export const dynamic = 'force-dynamic'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { endTime } from '@/lib/slots'
-import { findStaffById } from '@/lib/staff'
+import { authenticatedStaff } from '@/lib/auth'
+import { moscowNow, validDate } from '@/lib/booking-validation'
 import StaffAddForm from '@/components/StaffAddForm'
 import AdminHistoryPicker from '@/components/AdminHistoryPicker'
 import StaffLogoutButton from '@/components/StaffLogoutButton'
@@ -14,19 +15,16 @@ function formatDate(date: string) {
 }
 
 export default async function StaffPage({
-  searchParams,
+  searchParams: pendingSearchParams,
 }: {
-  searchParams: { date?: string; _sid?: string }
+  searchParams: Promise<{ date?: string }>
 }) {
-  // _sid is injected by middleware via URL rewrite — no cookies() needed
-  const staffId = searchParams._sid
-  if (!staffId) redirect('/staff/login')
-
-  const staff = findStaffById(staffId)
+  const staff = await authenticatedStaff()
   if (!staff) redirect('/staff/login')
-
-  const today = new Date().toISOString().split('T')[0]
-  const lookupDate = searchParams?.date ?? null
+  const staffId = staff.id
+  const searchParams = await pendingSearchParams
+  const today = moscowNow().date
+  const lookupDate = validDate(searchParams?.date) ? searchParams.date : null
 
   let appointments
   if (lookupDate) {

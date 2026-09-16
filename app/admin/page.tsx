@@ -1,6 +1,9 @@
 export const dynamic = 'force-dynamic'
 
 import { prisma } from '@/lib/prisma'
+import { redirect } from 'next/navigation'
+import { adminAuthenticated } from '@/lib/auth'
+import { moscowNow, validDate } from '@/lib/booking-validation'
 import { findStaffById } from '@/lib/staff'
 import { ALL_SLOTS, buildBookedSet, toMinutes } from '@/lib/slots'
 import AdminAddForm from '@/components/AdminAddForm'
@@ -54,14 +57,16 @@ function computeNextFree(
 }
 
 export default async function AdminPage({
-  searchParams,
+  searchParams: pendingSearchParams,
 }: {
-  searchParams: { date?: string; staff?: string; q?: string }
+  searchParams: Promise<{ date?: string; staff?: string; q?: string }>
 }) {
-  const today = new Date().toISOString().split('T')[0]
-  const lookupDate = searchParams?.date ?? null
-  const activeTab = searchParams?.staff ?? 'notary'
-  const query = (searchParams?.q ?? '').trim()
+  if (!await adminAuthenticated()) redirect('/admin/login')
+  const searchParams = await pendingSearchParams
+  const today = moscowNow().date
+  const lookupDate = validDate(searchParams?.date) ? searchParams.date : null
+  const activeTab = typeof searchParams?.staff === 'string' ? searchParams.staff : 'notary'
+  const query = typeof searchParams?.q === 'string' ? searchParams.q.trim().slice(0, 120) : ''
 
   // Build DB filter (по сотруднику)
   let staffFilter: { staffId?: string | null } = { staffId: null }

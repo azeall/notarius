@@ -15,6 +15,8 @@ export default function CountUp({ value, suffix = '', className, style }: {
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    // Honor the browser reduced-motion preference immediately after hydration.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setN(value); return }
     const io = new IntersectionObserver(([e]) => {
       if (e.isIntersecting && !done.current) {

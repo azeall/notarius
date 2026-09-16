@@ -1,4 +1,5 @@
 'use client'
+import { LIVE_BOOKING } from './BookingMode'
 import { useEffect, useState } from 'react'
 import BookingModal from './BookingModal'
 import { MORNING_SLOTS, AFTERNOON_SLOTS } from '@/lib/slots'
