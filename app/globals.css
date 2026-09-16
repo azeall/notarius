@@ -47,6 +47,7 @@
   --rule-rgb:214 207 194;       /* тёплая волосяная линейка */
   --violet-rgb:75 63 114;       /* #4B3F72 — единственный акцент */
   --accent-2-rgb:106 91 150;    /* его светлая ступень */
+  --lavender-wash-rgb:235 230 245;
   --ok-rgb:74 106 82;           /* «проверено» — мох, не неон */
   --ok-2-rgb:106 141 114;
 
@@ -73,6 +74,7 @@ html.dark{
   --rule-rgb:52 49 62;
   --violet-rgb:169 155 214;     /* акцент осветляется, иначе тонет в фоне */
   --accent-2-rgb:196 185 232;
+  --lavender-wash-rgb:42 36 57;
   --ok-rgb:122 163 130;
   --ok-2-rgb:150 186 158;
 
@@ -326,14 +328,16 @@ html{ transition:background-color .35s ease; }
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 40px 32px;
 }
-/* Пункты растянуты между краями контейнера, а не выстроены по равным
-   колонкам. При равных колонках последний пункт оказывался узким («100%»
-   вдвое короче «5 000+»), и справа оставалось больше двухсот пустых
-   пикселей — строка выглядела оборванной. Теперь первый пункт держит левый
-   край, последний правый, а промежутки распределяются сами. */
+.stats-practical {
+  min-width: 0; max-width: 34ch; color: rgb(var(--bg-rgb));
+  border-left: 2px solid #BCA9E3; padding-left: 22px;
+}
+.stats-practical > p:first-child { color: #CEC0EC; }
+html.dark .stats-practical > p:first-child { color: #4B3F72; }
+@media (max-width: 767px) { .stats-practical { grid-column: 1 / -1; } }
 @media (min-width: 768px) {
   .stats {
-    grid-template-columns: repeat(var(--cols, 3), max-content);
+    grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
     justify-content: space-between;
     gap: 40px clamp(28px, 4vw, 64px);
   }
@@ -513,6 +517,7 @@ html{ transition:background-color .35s ease; }
 .desk-no { display: block; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgb(var(--violet-rgb)); margin-bottom: 10px; }
 .desk-t { font-weight: 500; margin: 0 0 10px; font-size: clamp(21px, 2.5vw, 30px); letter-spacing: -.02em; color: rgb(var(--text-rgb)); }
 .desk-d { margin: 0; font-size: 16px; line-height: 1.6; color: rgb(var(--muted-rgb)); max-width: 46ch; }
+.desk-demo { max-width: 48ch; margin-top: 20px; padding-left: 14px; border-left: 2px solid rgb(var(--accent-2-rgb)); font-size: 12px; line-height: 1.6; color: rgb(var(--muted-rgb)); }
 
 /* Без JS и без движения — просто список кадров. */
 .desk-fallback { display: none; margin: 18px 0 0; padding: 0; list-style: none; }
@@ -522,7 +527,7 @@ html{ transition:background-color .35s ease; }
 /* ── стол ── */
 .desk-stage {
   position: relative; aspect-ratio: 4 / 3; overflow: hidden;
-  background: rgb(var(--surface-2-rgb)); border: 1px solid rgb(var(--hair-rgb) / .5);
+  background: rgb(var(--lavender-wash-rgb)); border: 1px solid rgb(var(--violet-rgb) / .25);
   box-shadow: inset 0 0 70px rgb(var(--text-rgb) / .07);
   --p: 0;
 }
@@ -554,26 +559,39 @@ html{ transition:background-color .35s ease; }
 .obj--passport { left: 5%; top: 20%; width: 22%; aspect-ratio: 1 / 1.4; transform: translateX(-140%) rotate(-12deg); }
 .obj--docs { left: 6%; top: 56%; width: 26%; aspect-ratio: 1.35 / 1; transform: translateX(-160%) rotate(6deg); }
 .obj--form { left: 33%; top: 10%; width: 34%; aspect-ratio: 1 / 1.414; transform: translateY(130%) rotate(-2deg); }
+.obj--form {
+  background: linear-gradient(110deg, rgb(var(--surface-rgb)), rgb(var(--bg-rgb)) 65%);
+  outline: 1px solid rgb(var(--rule-rgb) / .65); outline-offset: -6px;
+}
 .obj--copy { left: 33%; top: 10%; width: 34%; aspect-ratio: 1 / 1.414; transform: translateY(130%) rotate(-2deg); }
 
 .form-hd { position: absolute; left: 9%; top: 7%; right: 9%; font-size: 7px; letter-spacing: .16em;
   text-transform: uppercase; color: rgb(var(--muted-rgb)); padding-bottom: 5%; border-bottom: 1px solid rgb(var(--rule-rgb)); }
-.form-lines { position: absolute; left: 9%; right: 9%; top: 22%; display: flex; flex-direction: column; gap: 7px; }
-.form-lines i { display: block; height: 2.5px; background: rgb(var(--text-rgb) / .62); transform: scaleX(0); transform-origin: left;
+.form-title { position: absolute; left: 9%; right: 9%; top: 20%; font: 10px/1.3 var(--font-display), Georgia, serif; text-align: center; color: rgb(var(--text-rgb)); }
+.form-lines { position: absolute; left: 9%; right: 9%; top: 33%; height: 25%; display: flex; flex-direction: column; justify-content: space-between; }
+.form-lines i { display: block; height: 1px; background: rgb(var(--text-rgb) / .52); transform: scaleX(0); transform-origin: left;
   transition: transform .45s cubic-bezier(.22,.85,.25,1); }
 .copy-lines { position: absolute; left: 9%; right: 9%; top: 26%; display: flex; flex-direction: column; gap: 10px; }
 .copy-lines i { display: block; height: 2.5px; background: rgb(var(--text-rgb) / .45); }
 
-.form-sign { position: absolute; left: 10%; bottom: 16%; width: 42%; height: 14%; overflow: visible; }
+.form-sign { position: absolute; left: 9%; bottom: 19%; width: 51%; height: 14%; overflow: visible; }
 .form-sign path {
   fill: none; stroke: rgb(var(--violet-rgb)); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
-  vector-effect: non-scaling-stroke; stroke-dasharray: 260; stroke-dashoffset: 260;
-  transition: stroke-dashoffset 1s cubic-bezier(.3,.7,.3,1);
+  stroke-dasharray: 1; stroke-dashoffset: 1;
+  transition: stroke-dashoffset .45s cubic-bezier(.3,.7,.3,1);
 }
+.form-sign path.form-sign-pressure { stroke-width: 3.2; }
+.form-sign path.form-sign-fine { stroke-width: 1.2; }
+.form-sign path:nth-child(2) { transition-delay: .16s; }
+.form-sign path:nth-child(3) { transition-delay: .32s; }
+.form-sign path:nth-child(4) { transition-delay: .48s; }
+.form-sign path:nth-child(5) { transition-delay: .64s; }
+.form-sign-label { position: absolute; left: 9%; bottom: 14%; width: 51%; border-top: 1px solid rgb(var(--rule-rgb)); padding-top: 3px; font-size: 7px; color: rgb(var(--muted-rgb)); }
+.form-folio { position: absolute; left: 9%; right: 9%; bottom: 5%; padding-top: 3px; border-top: 1px solid rgb(var(--rule-rgb)); font-size: 6px; letter-spacing: .06em; color: rgb(var(--muted-rgb)); }
 .form-seal { position: absolute; right: 8%; bottom: 9%; width: 30%; aspect-ratio: 1; color: rgb(var(--violet-rgb));
   opacity: 0; transform: scale(2.2) rotate(-22deg); transition: transform .55s cubic-bezier(.2,1.5,.4,1), opacity .3s ease; }
 .form-seal svg { width: 100%; height: 100%; display: block; }
-.seal-m { font-size: 26px; fill: currentColor; }
+.seal-m { font-size: 14px; fill: currentColor; }
 
 .desk-marks { position: absolute; left: 5%; right: 5%; top: 5%; display: flex; flex-wrap: wrap; gap: 6px; }
 .desk-marks .mark {

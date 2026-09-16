@@ -177,6 +177,7 @@ export default function DeskScene() {
                 </li>
               ))}
             </ol>
+            <p className="desk-demo">Демонстрационная сцена: документ, подпись и печать условные, без подлинных реквизитов.</p>
           </div>
 
           <div className="desk-stage" data-frame={frame} ref={stageRef} aria-hidden>
@@ -184,28 +185,35 @@ export default function DeskScene() {
 
             <span className="obj obj--folder">
               <span className="obj-l">Дело</span>
-              <span className="obj-n font-mono">№ 77/1201</span>
+              <span className="obj-n font-mono">Демо</span>
             </span>
 
             <span className="obj obj--passport"><span className="obj-l">Паспорт</span></span>
             <span className="obj obj--docs"><span className="obj-l">Документы</span></span>
 
             <span className="obj obj--form">
-              <span className="form-hd font-mono">Нотариальное действие</span>
+              <span className="form-hd font-mono">Дело / образец</span>
+              <span className="form-title">Проект документа</span>
               <span className="form-lines">
                 {[94, 86, 90, 72, 88, 62].map((w, i) => (
                   <i key={i} style={{ width: `${w}%`, transitionDelay: `${i * 90}ms` }} />
                 ))}
               </span>
-              <svg className="form-sign" viewBox="0 0 120 34" preserveAspectRatio="none">
-                <path d="M4 26 C 14 4, 21 4, 24 18 C 27 32, 32 32, 36 17 C 40 2, 47 6, 46 20 C 45 31, 53 30, 60 18 C 67 6, 75 7, 76 19 C 77 30, 84 27, 92 15 C 98 6, 105 8, 108 18" />
+              <svg className="form-sign" viewBox="0 0 200 60">
+                <path pathLength="1" d="M12 43 C23 39 36 20 48 12 C60 3 64 10 57 23 C51 35 45 46 40 50" />
+                <path pathLength="1" className="form-sign-pressure" d="M57 15 C53 28 52 41 63 40 C71 40 78 31 85 27" />
+                <path pathLength="1" className="form-sign-fine" d="M26 36 C44 32 60 30 75 31 M83 39 C89 27 98 12 105 14 C112 17 98 41 94 43" />
+                <path pathLength="1" d="M103 19 C101 33 104 39 111 35 C118 30 119 25 121 27 C122 31 117 37 123 35 C130 33 132 26 134 28 C137 33 143 31 151 26" />
+                <path pathLength="1" className="form-sign-fine" d="M48 51 C77 47 117 43 154 43 C174 43 184 39 188 35" />
               </svg>
+              <span className="form-sign-label">А. Л. · образец</span>
+              <span className="form-folio font-mono">Демо · лист 01</span>
               <span className="form-seal">
                 <svg viewBox="0 0 100 100">
                   <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="2.4" />
                   <circle cx="50" cy="50" r="39" fill="none" stroke="currentColor" strokeWidth=".8" />
                   <circle cx="50" cy="50" r="27" fill="none" stroke="currentColor" strokeWidth="1.2" />
-                  <text x="50" y="57" textAnchor="middle" className="seal-m">С</text>
+                  <text x="50" y="55" textAnchor="middle" className="seal-m">ДЕМО</text>
                 </svg>
               </span>
             </span>

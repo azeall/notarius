@@ -39,7 +39,6 @@ const STATS = [
   ...(documentsDone > 0
     ? [{ v: documentsDone, s: '+', l: 'оформленных документов' }]
     : []),
-  { v: 100, s: '%', l: 'юридическая сила' },
 ]
 
 export default function HomePage() {
@@ -55,7 +54,7 @@ export default function HomePage() {
               пустовала, и полоса выглядела съехавшей влево. Пункты
               появляются и пропадают в зависимости от lib/data.ts, так что
               число колонок обязано считаться, а не задаваться рукой. */}
-          <div className="stats" style={{ ['--cols' as string]: STATS.length }}>
+          <div className="stats" style={{ ['--cols' as string]: STATS.length + 1 }}>
             {STATS.map((st, i) => (
               <div key={st.l} className={`sd sd-${i + 1}`}>
                 <div
@@ -69,6 +68,12 @@ export default function HomePage() {
                 </div>
               </div>
             ))}
+            <div className="stats-practical">
+              <p className="font-mono text-[12px] tracking-[0.12em] uppercase mb-3">Перед визитом · демо</p>
+              <p className="font-serif text-[28px] leading-tight mb-3">Соберите документы</p>
+              <p className="text-[15px] leading-relaxed mb-4">Выберите услугу и проверьте список того, что нужно взять с собой.</p>
+              <a href="/visit" className="underline underline-offset-4">Открыть список документов →</a>
+            </div>
           </div>
         </div>
       </section>
