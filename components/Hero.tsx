@@ -1,7 +1,7 @@
 import { notary } from '@/lib/data'
 import LiveStatus from '@/components/LiveStatus'
 import BookingButton from '@/components/BookingButton'
-import SealCanvas from '@/components/SealCanvas'
+import Image from 'next/image'
 
 export default function Hero() {
   const nameParts = notary.name.trim().split(/\s+/)
@@ -12,7 +12,7 @@ export default function Hero() {
     <section
       className="relative overflow-hidden flex flex-col"
       style={{
-        minHeight: '100dvh',
+        minHeight: 'min(820px, 90dvh)',
         background:
           'radial-gradient(ellipse 80% 60% at 85% 15%, rgba(184,154,90,0.09), transparent 60%),' +
           'radial-gradient(ellipse 70% 80% at 10% 90%, rgba(184,154,90,0.05), transparent 60%),' +
@@ -35,10 +35,10 @@ export default function Hero() {
 
       {/* Main grid */}
       <div
-        className="relative z-[5] flex-1 mx-auto w-full flex items-center px-5 sm:px-8 md:px-16 py-8 md:py-12"
+        className="relative z-[5] flex-1 mx-auto w-full flex items-center px-5 sm:px-8 md:px-16 py-10 md:py-14"
         style={{ maxWidth: '1480px' }}
       >
-        <div className="w-full grid items-center gap-10 md:gap-20 grid-cols-1 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.95fr)]">
+        <div className="w-full grid items-center gap-9 md:gap-12 grid-cols-1 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
 
           {/* ── LEFT COLUMN ── */}
           <div className="min-w-0 text-center md:text-left">
@@ -58,9 +58,9 @@ export default function Hero() {
             {/* H1 */}
             <h1
               className="font-serif font-medium leading-[1.04] tracking-tight mb-5 sm:mb-7 animate-fade-in-up text-cream break-words"
-              style={{ fontSize: 'clamp(34px, 5.4vw, 78px)', letterSpacing: '-0.01em', animationDelay: '80ms' }}
+              style={{ fontSize: 'clamp(34px, 4.6vw, 66px)', letterSpacing: '-0.01em', animationDelay: '80ms' }}
             >
-              <em className="italic font-normal" style={{ color: '#e0bd5f' }}>{surname}</em>
+              <span className="font-normal text-gold-light">{surname}</span>
               {rest && (
                 <>
                   <br />
@@ -82,7 +82,7 @@ export default function Hero() {
 
             {/* Role */}
             <p
-              className="font-serif italic text-slate mb-6 sm:mb-7 animate-fade-in-up"
+              className="font-serif text-slate mb-5 sm:mb-6 animate-fade-in-up"
               style={{ fontSize: '18px', animationDelay: '140ms' }}
             >
               — нотариус города Москвы
@@ -90,7 +90,7 @@ export default function Hero() {
 
             {/* Subtitle */}
             <p
-              className="text-slate leading-relaxed mb-10 sm:mb-12 max-w-[560px] mx-auto md:mx-0 animate-fade-in-up"
+              className="text-slate leading-relaxed mb-7 sm:mb-8 max-w-[500px] mx-auto md:mx-0 animate-fade-in-up"
               style={{ fontSize: '17px', lineHeight: '1.65', animationDelay: '200ms' }}
             >
               Выберите нотариальное действие, посмотрите стоимость и список документов. В демо можно пройти запись с вымышленными данными.
@@ -163,30 +163,23 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* ── RIGHT COLUMN — Notarial Seal Canvas ── */}
-          <div
-            className="hidden md:flex items-center justify-center animate-fade-in"
-            style={{
-              position: 'relative',
-              width: '100%',
-              minHeight: '420px',
-              height: '100%',
-              overflow: 'visible',
-              animationDelay: '200ms',
-            }}
-          >
-            <SealCanvas
-              style={{
-                width: '100%',
-                height: '100%',
-                maxWidth: '480px',
-                maxHeight: '480px',
-                display: 'block',
-                position: 'relative',
-                zIndex: 3,
-              }}
-            />
-          </div>
+          <figure className="relative w-full m-0 md:my-2">
+            <div className="relative overflow-hidden rounded-sm aspect-[4/3] md:aspect-[4/5] border border-gold/20">
+              <Image
+                src="/notary-office-demo.webp"
+                alt="Визуализация кабинета нотариуса: деревянный стол, кресла для посетителей и лампа в тёмно-синем интерьере"
+                fill
+                sizes="(max-width: 767px) 100vw, 46vw"
+                fetchPriority="high"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(90deg, rgba(10,22,40,.2), transparent 40%), linear-gradient(0deg, rgba(10,22,40,.45), transparent 35%)' }} aria-hidden />
+            </div>
+            <figcaption className="mt-3 flex justify-between gap-4 text-[11px] leading-relaxed text-slate">
+              <span>Пространство для спокойного разговора</span>
+              <span className="text-right">Визуализация кабинета</span>
+            </figcaption>
+          </figure>
         </div>
       </div>
 
@@ -208,7 +201,7 @@ export default function Hero() {
 
       {/* Scroll cue */}
       <div
-        className="absolute left-16 bottom-9 z-[6] hidden md:flex items-center gap-3.5"
+        className="absolute left-16 bottom-4 z-[6] hidden md:flex items-center gap-3.5"
         style={{ fontSize: '10px', letterSpacing: '0.32em', textTransform: 'uppercase', color: '#6b7895' }}
       >
         <span>Листайте ниже</span>

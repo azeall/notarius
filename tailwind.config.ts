@@ -17,7 +17,7 @@ const config: Config = {
         gold: '#b89a5a',
         'gold-light': '#d4b978',
         cream: '#f0ece4',
-        slate: '#8a9ab5',
+        slate: '#a9b5c8',
         offwhite: '#f5f5f5',
         // Функциональный акцент «проверено / успех» — приглушённый изумруд
         emerald: '#4f9d7a',
