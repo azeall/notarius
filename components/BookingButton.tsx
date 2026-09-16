@@ -1,5 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
+import BookingModal from './BookingModal'
+import { LIVE_BOOKING } from './BookingMode'
 import { notary } from '@/lib/data'
 import { onNotarybotUnavailable, openNotarybot } from '@/lib/notarybot'
 
@@ -33,6 +35,7 @@ export default function BookingButton({
   size?: 'sm' | 'md'
 }) {
   const [unavailable, setUnavailable] = useState(false)
+  const [demoOpen, setDemoOpen] = useState(false)
 
   // Второй способ узнать о недоступности виджета — сообщение от скрипта.
   // Проверки при нажатии мало: скрипт может загрузиться и открыть окно,
@@ -44,6 +47,7 @@ export default function BookingButton({
   // и принимает сканы. Если скрипт виджета не загрузился, честно говорим об этом
   // и даём телефон — тупиковой кнопки быть не должно.
   const handleClick = () => {
+    if (!LIVE_BOOKING) { setDemoOpen(true); return }
     if (openNotarybot()) {
       setUnavailable(false)
       return
@@ -61,6 +65,7 @@ export default function BookingButton({
         Записаться на приём
       </button>
 
+      {demoOpen && <BookingModal onClose={() => setDemoOpen(false)} />}
       {unavailable && (
         <p className="mt-3 text-[12px] leading-relaxed text-slate">
           Онлайн-запись сейчас недоступна. Позвоните нам:{' '}

@@ -23,7 +23,9 @@ export const notarybotUrl = (
 
 export const notarybotSlug = process.env.NEXT_PUBLIC_NOTARYBOT_SLUG || DEMO_FALLBACK_SLUG
 
-export const notarybotEnabled = Boolean(notarybotUrl && notarybotSlug)
+export const notarybotEnabled = Boolean(
+  process.env.NEXT_PUBLIC_NOTARYBOT_URL && process.env.NEXT_PUBLIC_NOTARYBOT_SLUG
+)
 
 /** Открыть виджет. Возвращает false, если скрипт ещё не загрузился. */
 export function openNotarybot(): boolean {

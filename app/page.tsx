@@ -33,9 +33,9 @@ export default function HomePage() {
     <>
       <Hero />
 
-      <CredentialsSection />
-
       <ServicesGrid />
+
+      <CredentialsSection />
 
       <HowItWorks />
 

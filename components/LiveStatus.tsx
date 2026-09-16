@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { openNotarybot } from '@/lib/notarybot'
+import BookingModal from './BookingModal'
+import { LIVE_BOOKING } from './BookingMode'
 import { MORNING_SLOTS, AFTERNOON_SLOTS } from '@/lib/slots'
 
 const MSK_OFFSET = 3
@@ -82,6 +83,7 @@ function nextSlots(msk: Date, count: number): NearSlot[] {
 }
 
 export default function LiveStatus() {
+  const [demoOpen, setDemoOpen] = useState(false)
   const [status, setStatus] = useState<StatusInfo | null>(null)
   const [slots, setSlots] = useState<NearSlot[]>([])
 
@@ -122,12 +124,12 @@ export default function LiveStatus() {
             )}
           </span>
         </div>
-        {slots.length > 0 && (
+        {!LIVE_BOOKING && slots.length > 0 && (
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
             {slots.map((s) => (
               <button
                 key={s.label}
-                onClick={() => openNotarybot()}
+                onClick={() => setDemoOpen(true)}
                 className="text-[11px] tracking-[0.06em] px-3 py-1.5 rounded transition-all"
                 style={{ border: '1px solid rgba(184,154,90,0.25)', color: '#c5a84a', background: 'rgba(184,154,90,0.06)' }}
                 onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = 'rgba(184,154,90,0.14)'; b.style.borderColor = 'rgba(184,154,90,0.5)' }}
@@ -138,7 +140,8 @@ export default function LiveStatus() {
             ))}
           </div>
         )}
-      </div>
+        {demoOpen && <BookingModal onClose={() => setDemoOpen(false)} />}
+    </div>
     </>
   )
 }

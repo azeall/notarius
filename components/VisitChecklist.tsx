@@ -12,12 +12,16 @@ export default function VisitChecklist() {
   const [hydrated, setHydrated] = useState(false)
   const [mounted, setMounted] = useState(false)
 
+  // The portal needs a client document; keeping SSR and the first client render identical is intentional.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), [])
 
   // Load persisted state
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY)
+      // Restore the browser-only checklist once after hydration; do not overwrite saved choices during SSR.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (raw) setChecked(JSON.parse(raw))
     } catch {
       /* ignore */

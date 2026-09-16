@@ -12,7 +12,7 @@ const CREDS = [
     code: 'Минюст РФ',
     title: 'Назначение нотариусом',
     meta: 'Приказ Министерства юстиции РФ',
-    badge: 'Действующее',
+    badge: 'Образец',
   },
   {
     icon: (
@@ -24,7 +24,7 @@ const CREDS = [
     code: 'МГНП',
     title: 'Член Московской палаты',
     meta: 'Московская городская нотариальная палата',
-    badge: 'Активное',
+    badge: 'Образец',
   },
   {
     icon: (
@@ -36,7 +36,7 @@ const CREDS = [
     code: 'Высшее юридическое',
     title: 'Диплом юридического факультета',
     meta: 'Квалификация: юрист',
-    badge: 'Верифицировано',
+    badge: 'Образец',
   },
   {
     icon: (
@@ -48,7 +48,7 @@ const CREDS = [
     code: 'Страховая сумма',
     title: 'Проф. ответственность',
     meta: '5\u00A0000\u00A0000 ₽ · ВСК',
-    badge: 'Полис действует',
+    badge: 'Образец',
   },
 ]
 
@@ -89,9 +89,9 @@ export default function CredentialsSection() {
               className="font-serif font-medium text-cream m-0"
               style={{ fontSize: 'clamp(36px, 4vw, 54px)', lineHeight: '1.08', letterSpacing: '-0.01em' }}
             >
-              Подтверждённые{' '}
+              Документы{' '}
               <em className="italic font-normal text-gold">
-                полномочия
+                нотариуса
               </em>
             </h2>
           </div>
@@ -106,6 +106,8 @@ export default function CredentialsSection() {
             </svg>
           </Link>
         </div>
+
+        <p className="text-sm text-slate mb-6">Демонстрационные реквизиты. Для действующей конторы здесь размещаются её документы и ссылка на реестр нотариусов.</p>
 
         {/* 4 credential cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[18px]">

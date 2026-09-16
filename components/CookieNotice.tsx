@@ -1,19 +1,21 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState, useSyncExternalStore } from 'react'
 import Link from 'next/link'
 
 const KEY = 'cookie-consent'
+function subscribe(onChange: () => void) {
+  window.addEventListener('storage', onChange)
+  return () => window.removeEventListener('storage', onChange)
+}
+function snapshot() {
+  try { return localStorage.getItem(KEY) } catch { return null }
+}
+const serverSnapshot = () => 'pending'
+
 
 export default function CookieNotice() {
-  const [show, setShow] = useState(false)
-
-  useEffect(() => {
-    try {
-      if (!localStorage.getItem(KEY)) setShow(true)
-    } catch {
-      /* ignore */
-    }
-  }, [])
+  const [show, setShow] = useState(true)
+  const choice = useSyncExternalStore(subscribe, snapshot, serverSnapshot)
 
   function accept() {
     try { localStorage.setItem(KEY, 'accepted') } catch { /* ignore */ }
@@ -26,7 +28,7 @@ export default function CookieNotice() {
     setShow(false)
   }
 
-  if (!show) return null
+  if (!show || choice) return null
 
   return (
     <div
@@ -45,14 +47,13 @@ export default function CookieNotice() {
         }}
       >
         <p className="text-[13px] text-slate leading-relaxed flex-1">
-          Мы используем файлы cookie и Яндекс.Метрику для аналитики сайта. Продолжая пользоваться сайтом,
-          вы соглашаетесь с{' '}
+          Аналитика Яндекс.Метрики включается только по вашему выбору. Можно оставить только необходимые cookie. Подробнее — в{' '}
           <Link href="/privacy" className="text-gold hover:text-gold-light underline underline-offset-2">
-            политикой обработки персональных данных
+            политике обработки персональных данных
           </Link>
           .
         </p>
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex flex-wrap items-center gap-2 flex-shrink-0">
           <button
             onClick={decline}
             className="px-4 py-2.5 rounded-lg text-xs font-semibold text-slate hover:text-cream transition-colors whitespace-nowrap"
@@ -64,7 +65,7 @@ export default function CookieNotice() {
             onClick={accept}
             className="px-5 py-2.5 rounded-lg text-xs font-semibold text-navy bg-gold hover:bg-gold-light transition-colors whitespace-nowrap"
           >
-            Принять
+            Разрешить аналитику
           </button>
         </div>
       </div>

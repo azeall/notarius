@@ -1,3 +1,5 @@
+// Canvas rendering is checked in the browser; jsdom has no drawing context.
+jest.mock('@/components/SealCanvas', () => ({ __esModule: true, default: () => null }))
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import Hero from '@/components/Hero'

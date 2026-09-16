@@ -11,7 +11,7 @@ import { notarybotEnabled, notarybotSlug, notarybotUrl } from '@/lib/notarybot'
  * приём», она и открывает его через window.notarybot.open().
  */
 export default function NotaryBotWidget() {
-  if (!notarybotEnabled) return null
+  if (process.env.NEXT_PUBLIC_BOOKING_MODE !== 'live' || !notarybotEnabled) return null
 
   return (
     <script

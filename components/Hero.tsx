@@ -93,7 +93,7 @@ export default function Hero() {
               className="text-slate leading-relaxed mb-10 sm:mb-12 max-w-[560px] mx-auto md:mx-0 animate-fade-in-up"
               style={{ fontSize: '17px', lineHeight: '1.65', animationDelay: '200ms' }}
             >
-              Защита ваших прав и юридическая безопасность каждой сделки. Полный спектр нотариальных действий с соблюдением конфиденциальности и профессиональной этики.
+              Выберите нотариальное действие, посмотрите стоимость и список документов. В демо можно пройти запись с вымышленными данными.
             </p>
 
             {/* Actions */}
@@ -141,9 +141,9 @@ export default function Hero() {
               }}
             >
               {[
-                { num: '15+', lbl: 'видов услуг' },
-                { num: '5K+', lbl: 'клиентов' },
-                { num: 'ФНП', lbl: 'в реестре' },
+                { num: 'Услуги', lbl: 'и документы' },
+                { num: 'Цены', lbl: 'по действиям' },
+                { num: 'Демо', lbl: 'онлайн-запись' },
               ].map((stat, i) => (
                 <div key={stat.lbl} className="flex items-center gap-3 sm:gap-7 min-w-0">
                   <div className="flex flex-col items-center md:items-start min-w-0 text-center md:text-left">
@@ -169,7 +169,7 @@ export default function Hero() {
             style={{
               position: 'relative',
               width: '100%',
-              minHeight: '720px',
+              minHeight: '420px',
               height: '100%',
               overflow: 'visible',
               animationDelay: '200ms',
@@ -177,10 +177,10 @@ export default function Hero() {
           >
             <SealCanvas
               style={{
-                width: '160%',
-                height: '160%',
-                maxWidth: '880px',
-                maxHeight: '880px',
+                width: '100%',
+                height: '100%',
+                maxWidth: '480px',
+                maxHeight: '480px',
                 display: 'block',
                 position: 'relative',
                 zIndex: 3,
