@@ -1,14 +1,12 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import Hero from '@/components/Hero'
-import { notary, motto } from '@/lib/data'
+import { notary } from '@/lib/data'
 
 describe('Hero', () => {
-  // У варианта warm первый экран занимает фраза конторы, а не имя: имя
-  // стоит вторым планом. Проверяем именно этот порядок — он и есть замысел.
-  it('gives the heading to the office motto', () => {
+  it('has one primary heading', () => {
     render(<Hero />)
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(motto)
+    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
   })
 
   it('shows the notary name below the claim', () => {

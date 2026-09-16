@@ -24,6 +24,8 @@ export default function Intake() {
   const [folderOpen, setFolderOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
 
+  // The portal needs a client document; keeping SSR and the first client render identical is intentional.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), [])
 
   const c = useMemo(() => caseById(caseId), [caseId])
@@ -36,6 +38,8 @@ export default function Intake() {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(LS_KEY)
+      // Restore the browser-only checklist once after hydration; do not overwrite saved choices during SSR.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (raw) setChecked(JSON.parse(raw))
     } catch { /* приватное окно — работаем без памяти */ }
   }, [])

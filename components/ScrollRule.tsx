@@ -17,6 +17,8 @@ export default function ScrollRule() {
   const [p, setP] = useState(0)
 
   useEffect(() => {
+    // Show the completed rule for reduced-motion users after reading the browser preference.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setP(1); return }
     let frame = 0
     const measure = () => {

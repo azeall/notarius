@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: { root: import.meta.dirname },
   experimental: {
     // Disable client-side router cache for dynamic pages so that navigating
     // back to /staff always makes a fresh server request (with cookie) instead

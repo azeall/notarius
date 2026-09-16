@@ -1,0 +1,38 @@
+name: Quality checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test-only
+          POSTGRES_DB: notarius_booking_test
+        ports: ['55432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://postgres:test-only@127.0.0.1:55432/notarius_booking_test
+      BOOKING_TEST_DATABASE_URL: postgresql://postgres:test-only@127.0.0.1:55432/notarius_booking_test
+      RUN_BOOKING_PG_TESTS: 'true'
+      BOOKING_ENABLED: 'false'
+      NEXT_PUBLIC_BOOKING_MODE: demo
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test -- --runInBand
+      - run: npm run build
+      - run: npm run typecheck

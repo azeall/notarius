@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { notary, motto } from '@/lib/data'
+import { notary } from '@/lib/data'
 import BookingButton from '@/components/BookingButton'
 import LiveStatus from '@/components/LiveStatus'
 import HeroTicker from '@/components/HeroTicker'
@@ -33,8 +33,8 @@ const AREAS = ['Недвижимость', 'Наследство', 'Довере
 
 const CSS = `
 .wh{position:relative;background:rgb(var(--bg-rgb));overflow:hidden;
-  min-height:100svh;display:flex;flex-direction:column;justify-content:center;
-  padding:clamp(104px,13vh,150px) 0 clamp(34px,5vh,52px);}
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(40px,6vh,76px) 0 36px;}
 /* Завеса поверх гравюры: к низу и к правому краю рисунок гаснет, иначе
    тонкие линии спорят с текстом за внимание. */
 .wh-veil{position:absolute;inset:0;pointer-events:none;
@@ -120,7 +120,7 @@ const CSS = `
   .wh-areas{display:grid;grid-template-columns:1fr 1fr;}
 }
 @media (max-width:430px){
-  .wh{padding:92px 0 44px;}
+  .wh{padding:36px 0;}
   .wh-cta .lv-btn,.wh-cta .lv-btn2{width:100%;justify-content:center;}
   .wh-areas{grid-template-columns:1fr;}
 }
@@ -130,7 +130,7 @@ const CSS = `
 `
 
 export default function Hero() {
-  const words = motto.trim().split(/\s+/)
+  const words = 'Документы к вашему делу'.split(/\s+/)
   const head = words.slice(0, -1).join(' ')
   const last = words[words.length - 1]
 

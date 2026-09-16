@@ -1,7 +1,12 @@
 import { NextResponse } from 'next/server'
-
-export async function POST() {
-  const res = NextResponse.json({ ok: true })
-  res.cookies.set('admin_auth', '', { httpOnly: true, secure: process.env.NODE_ENV === 'production', path: '/', maxAge: 0, sameSite: 'lax' })
-  return res
+import { adminAuthenticated, sessionCookieOptions } from '@/lib/auth'
+import { apiError, checkOrigin, unauthorized } from '@/lib/auth-http'
+export async function POST(req: Request) {
+  if (!await adminAuthenticated()) return unauthorized()
+  try {
+    checkOrigin(req)
+    const response = NextResponse.json({ ok: true })
+    response.cookies.set('admin_auth', '', { ...sessionCookieOptions, maxAge: 0 })
+    return response
+  } catch (error) { return apiError(error) }
 }

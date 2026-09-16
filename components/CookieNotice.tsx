@@ -1,19 +1,21 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState, useSyncExternalStore } from 'react'
 import Link from 'next/link'
 
 const KEY = 'cookie-consent'
+function subscribe(onChange: () => void) {
+  window.addEventListener('storage', onChange)
+  return () => window.removeEventListener('storage', onChange)
+}
+function snapshot() {
+  try { return localStorage.getItem(KEY) } catch { return null }
+}
+const serverSnapshot = () => 'pending'
+
 
 export default function CookieNotice() {
-  const [show, setShow] = useState(false)
-
-  useEffect(() => {
-    try {
-      if (!localStorage.getItem(KEY)) setShow(true)
-    } catch {
-      /* ignore */
-    }
-  }, [])
+  const [show, setShow] = useState(true)
+  const choice = useSyncExternalStore(subscribe, snapshot, serverSnapshot)
 
   function accept() {
     try { localStorage.setItem(KEY, 'accepted') } catch { /* ignore */ }
@@ -26,14 +28,14 @@ export default function CookieNotice() {
     setShow(false)
   }
 
-  if (!show) return null
+  if (!show || choice) return null
 
   // Полоса во всю ширину снизу перекрывала содержание на каждом экране.
   // Теперь это карточка в углу. Папка визита переехала к левому краю, так
   // что отодвигать карточку вверх больше не от чего.
   return (
     <div
-      className="no-print fixed z-50 left-3 right-3 sm:left-auto sm:right-5"
+      className="no-print fixed z-[70] left-3 right-3 sm:left-auto sm:right-5"
       style={{ pointerEvents: 'none', bottom: 'calc(env(safe-area-inset-bottom, 0px) + 16px)' }}
     >
       <div
@@ -47,14 +49,13 @@ export default function CookieNotice() {
         }}
       >
         <p className="text-[12.5px] leading-relaxed flex-1" style={{ color: 'rgb(var(--muted-rgb))' }}>
-          Мы используем файлы cookie и Яндекс.Метрику для аналитики сайта. Продолжая пользоваться сайтом,
-          вы соглашаетесь с{' '}
+          Аналитика Яндекс.Метрики включается только по вашему выбору. Можно оставить только необходимые cookie. Подробнее — в{' '}
           <Link href="/privacy" className="text-gold hover:text-gold-light underline underline-offset-2">
-            политикой обработки персональных данных
+            политике обработки персональных данных
           </Link>
           .
         </p>
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex flex-wrap items-center gap-2 flex-shrink-0">
           <button
             onClick={decline}
             className="px-3 py-2 rounded-lg text-[11.5px] font-semibold transition-colors whitespace-nowrap"
@@ -67,7 +68,7 @@ export default function CookieNotice() {
             className="px-4 py-2 rounded-lg text-[11.5px] font-semibold transition-colors whitespace-nowrap"
             style={{ background: 'rgb(var(--violet-rgb))', color: 'rgb(var(--bg-rgb))' }}
           >
-            Принять
+            Разрешить аналитику
           </button>
         </div>
       </div>

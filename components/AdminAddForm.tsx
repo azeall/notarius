@@ -38,14 +38,14 @@ export default function AdminAddForm({ defaultStaffId }: { defaultStaffId?: stri
   const [assigneeId] = useState<string | null>(defaultStaffId ?? null)
 
   useEffect(() => {
-    if (!selectedDate) { setBookedTimes([]); return }
-    fetch(`/api/appointments?date=${selectedDate}`)
+    if (!selectedDate) return
+    fetch(`/api/admin/appointments?date=${selectedDate}${assigneeId ? `&staffId=${encodeURIComponent(assigneeId)}` : ''}`)
       .then(r => r.json())
       .then(data => setBookedTimes(Array.isArray(data.booked) ? data.booked : []))
       .catch(() => {})
-  }, [selectedDate])
+  }, [selectedDate, assigneeId])
 
-  const bookedSet = useMemo(() => new Set(bookedTimes), [bookedTimes])
+  const bookedSet = useMemo(() => new Set(selectedDate ? bookedTimes : []), [bookedTimes, selectedDate])
   const selectionSlots = useMemo(() => {
     if (!selectedTime) return new Set<string>()
     return new Set(expandSlots(selectedTime, duration))

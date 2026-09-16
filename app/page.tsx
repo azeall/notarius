@@ -3,11 +3,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Hero from '@/components/Hero'
 import Intake from '@/components/Intake'
-import DealSteps from '@/components/DealSteps'
-import ServicesTiles from '@/components/ServicesTiles'
 import FAQSearch from '@/components/FAQSearch'
 import PhotoPlate from '@/components/PhotoPlate'
-import CredentialsSection from '@/components/CredentialsSection'
 import { notary, site, photos } from '@/lib/data'
 import { reviews } from '@/lib/reviews'
 import YandexMap from '@/components/YandexMap'
@@ -72,8 +69,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <DealSteps />
-      <ServicesTiles />
 
       {/* ── О нотариусе ── */}
       <section className="py-12 sm:py-14" style={{ background: 'rgb(var(--surface-2-rgb))' }}>
@@ -125,7 +120,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <CredentialsSection />
 
       {/* ── Отзывы ──
           Отзывы на образце сочинены, как имя и адрес. Выдавать их за слова
