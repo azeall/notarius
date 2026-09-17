@@ -1,7 +1,7 @@
 /**
  * Настройки сервиса приёма заявок (репозиторий notariusbot).
  *
- * Значение можно переопределить переменными окружения в Vercel:
+ * В live-режиме значения задаются переменными окружения при сборке:
  *   NEXT_PUBLIC_NOTARYBOT_URL  — адрес сервиса
  *   NEXT_PUBLIC_NOTARYBOT_SLUG — код нотариуса в сервисе
  *
@@ -17,19 +17,24 @@
 const DEMO_FALLBACK_URL = 'https://app.guidecode.ru'
 const DEMO_FALLBACK_SLUG = 'demo'
 
+// BLUE/template uses the server demo without enabling the site's own booking API.
+export const serverDemo = process.env.NEXT_PUBLIC_BOOKING_MODE !== 'live'
+
 export const notarybotUrl = (
-  process.env.NEXT_PUBLIC_NOTARYBOT_URL || DEMO_FALLBACK_URL
+  serverDemo ? DEMO_FALLBACK_URL : process.env.NEXT_PUBLIC_NOTARYBOT_URL || ''
 ).replace(/\/+$/, '')
 
-export const notarybotSlug = process.env.NEXT_PUBLIC_NOTARYBOT_SLUG || DEMO_FALLBACK_SLUG
+export const notarybotSlug = serverDemo ? DEMO_FALLBACK_SLUG : process.env.NEXT_PUBLIC_NOTARYBOT_SLUG || ''
 
 export const notarybotEnabled = Boolean(
   process.env.NEXT_PUBLIC_NOTARYBOT_URL && process.env.NEXT_PUBLIC_NOTARYBOT_SLUG
 )
 
+export const useServerWidget = serverDemo || notarybotEnabled
+
 /** Открыть виджет. Возвращает false, если скрипт ещё не загрузился. */
 export function openNotarybot(): boolean {
-  if (typeof window === 'undefined') return false
+  if (!useServerWidget || typeof window === 'undefined') return false
   const api = (window as unknown as { notarybot?: { open: () => void } }).notarybot
   if (!api) return false
   api.open()

@@ -1,4 +1,4 @@
-import { notarybotEnabled, notarybotSlug, notarybotUrl } from '@/lib/notarybot'
+import { useServerWidget, notarybotSlug, notarybotUrl } from '@/lib/notarybot'
 
 /**
  * Виджет приёма заявок: подбор услуги, перечень документов, загрузка сканов
@@ -11,7 +11,7 @@ import { notarybotEnabled, notarybotSlug, notarybotUrl } from '@/lib/notarybot'
  * приём», она и открывает его через window.notarybot.open().
  */
 export default function NotaryBotWidget() {
-  if (process.env.NEXT_PUBLIC_BOOKING_MODE !== 'live' || !notarybotEnabled) return null
+  if (!useServerWidget) return null
 
   return (
     <script

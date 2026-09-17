@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { notary } from '@/lib/data'
-import { notarybotSlug, notarybotUrl } from '@/lib/notarybot'
+import { useServerWidget, notarybotSlug, notarybotUrl } from '@/lib/notarybot'
 
 const footerLinks = {
   'Услуги': [
@@ -162,7 +162,7 @@ export default function Footer() {
             <Link href="/privacy" className="hover:text-slate transition-colors no-underline">Политика конфиденциальности</Link>
             {/* Ведёт в панель сервиса заявок, а не в старую админку сайта:
                 заявки, услуги и расписание живут там. */}
-            <a
+            {useServerWidget && <a
               href={`${notarybotUrl}/staff/${notarybotSlug}/login`}
               target="_blank"
               rel="noopener"
@@ -170,7 +170,7 @@ export default function Footer() {
               title="Панель сотрудников"
             >
               ⚙
-            </a>
+            </a>}
           </div>
         </div>
       </div>

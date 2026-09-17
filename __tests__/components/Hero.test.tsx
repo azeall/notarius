@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import Hero from '@/components/Hero'
 import { notary } from '@/lib/data'
 
@@ -21,8 +21,15 @@ describe('Hero', () => {
   })
 
   it('opens booking from the hero', () => {
+    const widgetWindow = window as unknown as { notarybot?: { open: () => void } }
+    const open = jest.fn()
+    widgetWindow.notarybot = { open }
     render(<Hero />)
-    expect(screen.getByRole('button', { name: /записаться/i })).toBeInTheDocument()
+    const buttons = screen.getAllByRole('button', { name: /записаться/i })
+    buttons.forEach(button => fireEvent.click(button))
+    expect(open).toHaveBeenCalledTimes(buttons.length)
+    expect(screen.queryByRole('combobox')).not.toBeInTheDocument()
+    delete widgetWindow.notarybot
   })
 
   it('shows the office phone', () => {

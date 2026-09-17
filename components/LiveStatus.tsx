@@ -1,8 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import BookingModal from './BookingModal'
-import { LIVE_BOOKING } from './BookingMode'
-import { MORNING_SLOTS, AFTERNOON_SLOTS } from '@/lib/slots'
+import BookingButton from './BookingButton'
 
 const MSK_OFFSET = 3
 
@@ -11,21 +9,9 @@ const SCHEDULE: Record<number, [number, number][]> = {
   5: [[10, 13], [14, 18]], 6: [],
 }
 
-const FRI_AFTERNOON = ['14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30']
-const DAY_SLOTS: Record<number, string[]> = {
-  0: [], 1: [...MORNING_SLOTS, ...AFTERNOON_SLOTS], 2: [...MORNING_SLOTS, ...AFTERNOON_SLOTS],
-  3: [...MORNING_SLOTS, ...AFTERNOON_SLOTS], 4: [...MORNING_SLOTS, ...AFTERNOON_SLOTS],
-  5: [...MORNING_SLOTS, ...FRI_AFTERNOON], 6: [],
-}
-
 function getMsk(): Date {
   const now = new Date()
   return new Date(now.getTime() + (now.getTimezoneOffset() + MSK_OFFSET * 60) * 60_000)
-}
-
-function slotToMinutes(slot: string): number {
-  const [h, m] = slot.split(':').map(Number)
-  return h * 60 + m
 }
 
 interface StatusInfo {
@@ -63,35 +49,13 @@ function computeStatus(msk: Date): StatusInfo {
   return { isOpen: false }
 }
 
-interface NearSlot { date: Date; slot: string; label: string }
-
-function nextSlots(msk: Date, count: number): NearSlot[] {
-  const results: NearSlot[] = []
-  const nowMin = msk.getHours() * 60 + msk.getMinutes()
-  for (let d = 0; d <= 6 && results.length < count; d++) {
-    const date = new Date(msk)
-    date.setDate(date.getDate() + d)
-    const dow = date.getDay()
-    for (const slot of DAY_SLOTS[dow] ?? []) {
-      if (results.length >= count) break
-      if (d === 0 && slotToMinutes(slot) < nowMin + 15) continue
-      const prefix = d === 0 ? 'сегодня' : d === 1 ? 'завтра' : DAY_NAMES[dow]
-      results.push({ date, slot, label: `${prefix} · ${slot}` })
-    }
-  }
-  return results
-}
-
 export default function LiveStatus() {
-  const [demoOpen, setDemoOpen] = useState(false)
   const [status, setStatus] = useState<StatusInfo | null>(null)
-  const [slots, setSlots] = useState<NearSlot[]>([])
 
   useEffect(() => {
     function refresh() {
       const msk = getMsk()
       setStatus(computeStatus(msk))
-      setSlots(nextSlots(msk, 4))
     }
     refresh()
     const t = setInterval(refresh, 60_000)
@@ -124,23 +88,8 @@ export default function LiveStatus() {
             )}
           </span>
         </div>
-        {!LIVE_BOOKING && slots.length > 0 && (
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-            {slots.map((s) => (
-              <button
-                key={s.label}
-                onClick={() => setDemoOpen(true)}
-                className="text-[11px] tracking-[0.06em] px-3 py-1.5 rounded transition-all"
-                style={{ border: '1px solid rgba(184,154,90,0.25)', color: '#c5a84a', background: 'rgba(184,154,90,0.06)' }}
-                onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = 'rgba(184,154,90,0.14)'; b.style.borderColor = 'rgba(184,154,90,0.5)' }}
-                onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = 'rgba(184,154,90,0.06)'; b.style.borderColor = 'rgba(184,154,90,0.25)' }}
-              >
-                {s.label}
-              </button>
-            ))}
-          </div>
-        )}
-        {demoOpen && <BookingModal onClose={() => setDemoOpen(false)} />}
+        <p className="text-[12px] text-slate">Выбор времени — в виджете записи.</p>
+        <BookingButton size="sm" />
     </div>
     </>
   )

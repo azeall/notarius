@@ -1,9 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
-import BookingModal from './BookingModal'
-import { LIVE_BOOKING } from './BookingMode'
 import { notary } from '@/lib/data'
-import { onNotarybotUnavailable, openNotarybot } from '@/lib/notarybot'
+import { onNotarybotUnavailable, openNotarybot, serverDemo, notarybotUrl, notarybotSlug } from '@/lib/notarybot'
 
 const BASE_CLASS =
   'booking-cta relative inline-flex items-center justify-center ' +
@@ -34,7 +32,6 @@ export default function BookingButton({
   size?: 'sm' | 'md'
 }) {
   const [unavailable, setUnavailable] = useState(false)
-  const [demoOpen, setDemoOpen] = useState(false)
 
   // Второй способ узнать о недоступности виджета — сообщение от скрипта.
   // Проверки при нажатии мало: скрипт может загрузиться и открыть окно,
@@ -44,9 +41,8 @@ export default function BookingButton({
 
   // Запись идёт только через сервис заявок: он показывает перечень документов
   // и принимает сканы. Если скрипт виджета не загрузился, честно говорим об этом
-  // и даём телефон — тупиковой кнопки быть не должно.
+  // и даём прямую ссылку на демо или телефон рабочей конторы.
   const handleClick = () => {
-    if (!LIVE_BOOKING) { setDemoOpen(true); return }
     if (openNotarybot()) {
       setUnavailable(false)
       return
@@ -64,13 +60,20 @@ export default function BookingButton({
         Записаться на приём
       </button>
 
-      {demoOpen && <BookingModal onClose={() => setDemoOpen(false)} />}
       {unavailable && (
         <p className="mt-3 text-[12px] leading-relaxed text-slate">
-          Онлайн-запись сейчас недоступна. Позвоните нам:{' '}
-          <a href={`tel:${notary.phoneE164}`} className="text-gold no-underline">
-            {notary.phone}
-          </a>
+          Онлайн-запись сейчас недоступна.{' '}
+          {serverDemo ? (
+            <a href={`${notarybotUrl}/widget/${notarybotSlug}`} target="_blank" rel="noopener noreferrer" className="text-gold underline">
+              Открыть серверное демо в отдельной вкладке
+            </a>
+          ) : (
+            <>Позвоните нам:{' '}
+              <a href={`tel:${notary.phoneE164}`} className="text-gold no-underline">
+                {notary.phone}
+              </a>
+            </>
+          )}
         </p>
       )}
     </>
