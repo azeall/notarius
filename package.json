@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "test": "jest",
     "test:watch": "jest --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:launch": "node scripts/check-launch.mjs",
+    "test:launch": "node --test scripts/check-launch.test.mjs"
   },
   "dependencies": {
     "next": "16.3.5",
