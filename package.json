@@ -10,7 +10,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "postinstall": "prisma generate",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:launch": "node scripts/check-launch.mjs",
+    "test:launch": "node --test scripts/check-launch.test.mjs"
   },
   "dependencies": {
     "@prisma/client": "^5",
