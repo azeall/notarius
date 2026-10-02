@@ -115,9 +115,9 @@ export default function CredentialsSection() {
               «куда я вообще приду». */}
           <div className="mt-10 sd">
             <PhotoPlate
-              src="/ph-room.jpg"
+              src="/images/office-generated.webp"
               alt="Кабинет нотариальной конторы: стол, кресла для посетителей, шкафы с делами"
-              caption="Кабинет конторы"
+              caption="Кабинет конторы · ИИ-визуализация"
               ratio="4 / 3"
             />
           </div>

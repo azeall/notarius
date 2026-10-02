@@ -3,18 +3,14 @@ import Image from 'next/image'
 /**
  * Фотография в оформлении сайта.
  *
- * Снимок не кладётся «как есть»: обесцвечивается, поджимается по контрасту и
- * получает поверх слой акцентного цвета в режиме наложения. Так фотография
- * перестаёт быть вставленной откуда-то картинкой и становится частью
- * палитры — приём, на котором держатся работы, где кадров много, а цветов
- * по-прежнему два.
+ * Сгенерированные снимки уже подобраны под палитру. Лёгкий слой акцентного
+ * цвета связывает их с оформлением, сохраняя детали и естественные оттенки.
  *
  * Растровая сетка добавляется поверх повторяющимся градиентом: тот же
  * «отпечатанный» вид, что на первом экране, но без WebGL, поэтому работает
  * и на телефонах.
  *
- * Подпись обязательна: снимок без подписи на сайте нотариуса выглядит
- * декорацией, а с подписью — свидетельством.
+ * Подпись отмечает ИИ-визуализацию, чтобы не выдавать её за реальную контору.
  */
 export default function PhotoPlate({
   src,
@@ -49,12 +45,12 @@ export default function PhotoPlate({
         .pplate{margin:0;}
         .pplate-frame{position:relative;aspect-ratio:var(--ratio);overflow:hidden;
           border:1px solid rgb(var(--rule-rgb));background:rgb(var(--surface-2-rgb));}
-        .pplate-img{object-fit:cover;filter:grayscale(1) contrast(1.18) brightness(.98);}
+        .pplate-img{object-fit:cover;}
         /* Слой акцента: снимок садится в палитру сайта, а не спорит с ней. */
         .pplate-tint{position:absolute;inset:0;pointer-events:none;
-          background:rgb(var(--violet-rgb));mix-blend-mode:color;opacity:.55;}
+          background:rgb(var(--violet-rgb));mix-blend-mode:color;opacity:.08;}
         /* Растровая сетка — тот же приём, что на первом экране. */
-        .pplate-screen{position:absolute;inset:0;pointer-events:none;opacity:.28;
+        .pplate-screen{position:absolute;inset:0;pointer-events:none;opacity:.04;
           background-image:radial-gradient(rgb(var(--bg-rgb)) 34%, transparent 36%);
           background-size:4px 4px;}
         .pplate-cap{margin:12px 0 0;font-family:var(--font-mono),monospace;

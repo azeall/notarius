@@ -94,9 +94,9 @@ export default function HomePage() {
         <div className="wrap grid md:grid-cols-[0.46fr_0.54fr] gap-10 lg:gap-16 items-center">
           <div className="sd">
             <PhotoPlate
-              src="/ph-docs.jpg"
+              src="/images/archive-generated.webp"
               alt="Папки с делами и документы на рабочем столе нотариуса"
-              caption="Дела конторы"
+              caption="Дела конторы · ИИ-визуализация"
               ratio="3 / 2"
             />
           </div>
