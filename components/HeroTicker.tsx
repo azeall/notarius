@@ -48,10 +48,10 @@ export default function HeroTicker() {
         [ <span className="hticker-dot" aria-hidden />{clock || '—— : —— : ——'} ]
       </span>
       <a href={notary.fnpVerifyUrl} target="_blank" rel="noopener noreferrer" className="hticker-link">
-        Реестр ФНП +
+        Реестр ФНП <span aria-hidden="true">↗</span>
       </a>
       <a href={notary.telegramHref} target="_blank" rel="noopener noreferrer" className="hticker-link">
-        Telegram +
+        Telegram <span aria-hidden="true">↗</span>
       </a>
 
       <style dangerouslySetInnerHTML={{ __html: `
@@ -66,8 +66,11 @@ export default function HeroTicker() {
         .hticker-dot{width:5px;height:5px;border-radius:50%;background:rgb(var(--violet-rgb));
           animation:htick 1s steps(2,end) infinite;}
         @keyframes htick{0%,49%{opacity:1}50%,100%{opacity:.15}}
-        .hticker-link{color:rgb(var(--muted-rgb));text-decoration:none;transition:color .25s ease;}
-        .hticker-link:hover{color:rgb(var(--violet-rgb));}
+        .hticker-link{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:10px 14px;
+          color:rgb(var(--text-rgb));border:1px solid rgb(var(--rule-rgb));
+          text-decoration:underline;text-underline-offset:4px;transition:background .2s ease,border-color .2s ease;}
+        .hticker-link:hover{background:rgb(var(--violet-rgb) / .12);border-color:rgb(var(--violet-rgb));}
+        .hticker-link:focus-visible{outline:2px solid rgb(var(--violet-rgb));outline-offset:3px;}
         @media (prefers-reduced-motion:reduce){.hticker-dot{animation:none;}}
         @media (max-width:980px){
           .hticker{font-size:10px;gap:12px;}

@@ -99,17 +99,16 @@ const CSS = `
 
 /* Направления работы — тонкой строкой понизу, а не крупным перечнем:
    крупный перечень уже занят вариантом lavender. */
-.wh-areas{display:flex;flex-wrap:wrap;gap:0;margin:20px 0 0;
-  padding:0;list-style:none;border-top:1px solid rgb(var(--rule-rgb));}
+.wh-areas{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0;
+  padding:0;list-style:none;}
 .wh-areas li{flex:1 1 auto;}
-.wh-areas a{display:block;padding:16px 0;text-decoration:none;position:relative;
+.wh-areas a{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  min-height:48px;padding:12px 14px;text-decoration:underline;text-underline-offset:4px;
+  border:1px solid rgb(var(--rule-rgb));background:rgb(var(--surface-2-rgb));
   font-family:var(--font-mono),monospace;font-size:12px;letter-spacing:.1em;
-  text-transform:uppercase;color:rgb(var(--muted-rgb));transition:color .3s ease;}
-.wh-areas a::after{content:'';position:absolute;left:0;right:12px;top:-1px;height:1px;
-  background:rgb(var(--violet-rgb));transform:scaleX(0);transform-origin:left center;
-  transition:transform .4s cubic-bezier(.22,.8,.24,1);}
-.wh-areas a:hover,.wh-areas a:focus-visible{color:rgb(var(--text-rgb));}
-.wh-areas a:hover::after,.wh-areas a:focus-visible::after{transform:scaleX(1);}
+  text-transform:uppercase;color:rgb(var(--text-rgb));transition:background .2s ease,border-color .2s ease;}
+.wh-areas a:hover{background:rgb(var(--violet-rgb) / .12);border-color:rgb(var(--violet-rgb));}
+.wh-areas a:focus-visible{outline:2px solid rgb(var(--violet-rgb));outline-offset:3px;}
 
 @media (max-width:980px){
   .wh-phone{margin-left:0;text-align:left;}
@@ -121,7 +120,7 @@ const CSS = `
   .wh-areas{grid-template-columns:1fr;}
 }
 @media (prefers-reduced-motion:reduce){
-  .wh-areas a::after{transition:none;}
+  .wh-areas a{transition:none;}
 }
 `
 
@@ -177,7 +176,7 @@ export default function Hero() {
         <nav aria-label="Направления работы конторы">
           <ul className="wh-areas">
             {AREAS.map(a => (
-              <li key={a}><Link href="/services">{a}</Link></li>
+              <li key={a}><Link href="/services">{a}<span aria-hidden="true">→</span></Link></li>
             ))}
           </ul>
         </nav>
